@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디자인 액자 내장형 스마트 QR 생성기</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; padding: 30px 15px; }
+        .container { max-width: 600px; margin: 0 auto; }
+        .title-area { text-align: center; margin-bottom: 25px; }
+        .title-area h2 { font-size: 26px; color: #1e3a8a; margin-bottom: 6px; }
+        .title-area p { font-size: 14px; color: #64748b; }
+        .main-card { background: #ffffff; border-radius: 16px; padding: 25px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03); border: 1px solid #e2e8f0; }
+        
+        .form-group { margin-bottom: 18px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 700; color: #475569; margin-bottom: 8px; }
+        
+        input, select { width: 100%; padding: 13px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; font-weight: 600; outline: none; background: white; }
+        input:focus, select:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+
+        .wifi-group { display: none; background: #f1f5f9; padding: 15px; border-radius: 10px; gap: 10px; margin-top: 8px; }
+        .design-line { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 18px; }
+        .color-picker-wrapper { display: flex; align-items: center; gap: 8px; border: 1px solid #cbd5e1; padding: 6px 10px; border-radius: 10px; background: #fafafa; }
+        .color-picker-wrapper input[type="color"] { border: none; width: 30px; height: 30px; cursor: pointer; }
+
+        .btn-generate { width: 100%; background: linear-gradient(135deg, #2563eb, #1d4ed8); color: white; border: none; padding: 14px; font-size: 16px; font-weight: 700; border-radius: 10px; cursor: pointer; box-shadow: 0 4px 6px rgba(37, 99, 235, 0.15); }
+        .btn-generate:hover { background: linear-gradient(135deg, #1d4ed8, #1e40af); }
+
+        /* 🎯 QR코드 결과 출력 구역 */
+        .qr-result-zone { display: none; margin-top: 25px; padding-top: 25px; border-top: 1px dashed #e2e8f0; text-align: center; }
+        
+        /* ==================== 💡 테두리/액자 디자인 프리셋 라이브러리 ==================== */
+        #qr-card-display { display: inline-block; padding: 25px; background: white; transition: all 0.3s; }
+        #qrcode-box canvas, #qrcode-box img { display: block; margin: 0 auto; }
+        #qr-text-label { margin-top: 16px; font-size: 16px; font-weight: 800; color: #1e293b; }
+
+        /* 1. 기본형 테두리 */
+        .frame-basic { border: 1px solid #e2e8f0; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+        
+        /* 2. 감성 카페 스티커형 테두리 */
+        .frame-sticker { border: 4px solid #1e293b; border-radius: 30px; box-shadow: 6px 6px 0px #cbd5e1; background: #ffffff; }
+        
+        /* 3. 모던 비즈니스 골드라인 액자형 */
+        .frame-luxury { border: 2px solid #d97706; padding: 30px !important; border-radius: 4px; box-shadow: 0 0 0 6px #ffffff, 0 0 0 8px #f59e0b; }
+        
+        /* 4. 네온 팝 스타일 액자 */
+        .frame-neon { border: 3px solid #ec4899; border-radius: 20px; box-shadow: 0 0 15px rgba(236, 72, 153, 0.5); }
+
+        /* 버튼 그룹 */
+        .btn-group { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 20px; }
+        .btn-action { display: inline-flex; align-items: center; justify-content: center; gap: 6px; color: white; border: none; padding: 12px 20px; font-size: 14px; font-weight: 700; border-radius: 8px; cursor: pointer; text-decoration: none; flex: 1; min-width: 140px; }
+        .btn-download { background: #10b981; } .btn-download:hover { background: #059669; }
+        .btn-share { background: #3b82f6; } .btn-share:hover { background: #2563eb; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title-area">
+        <h2>📱 프리미엄 디자인 QR 생성기</h2>
+        <p>원클릭 액자 디자인 적용 및 스마트폰 공유 최적화 버전</p>
+    </div>
+
+    <div class="main-card">
+        <!-- 1. 용도 선택 -->
+        <div class="form-group">
+            <label for="qr-type">🎯 QR코드 용도 선택</label>
+            <select id="qr-type" onchange="toggleQrType()">
+                <option value="url">🌐 일반 웹사이트 링크 (URL)</option>
+                <option value="wifi">📶 매장 와이파이(Wi-Fi) 자동 연결</option>
+            </select>
+        </div>
+
+        <div class="form-group" id="url-input-area">
+            <label for="qr-url">🔗 연결할 링크 주소 입력</label>
+            <input type="url" id="qr-url" value="https://">
+        </div>
+
+        <div class="form-group wifi-group" id="wifi-input-area">
+            <div style="margin-bottom: 10px;">
+                <label style="font-size:12px; margin-bottom:4px;">네트워크 이름 (SSID)</label>
+                <input type="text" id="wifi-name" placeholder="예: GiGA_WiFi_5G">
+            </div>
+            <div>
+                <label style="font-size:12px; margin-bottom:4px;">비밀번호 (Password)</label>
+                <input type="text" id="wifi-pass" placeholder="와이파이 비밀번호 입력">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="qr-label-input">✍️ 하단 안내 문구 삽입</label>
+            <input type="text" id="qr-label-input" placeholder="예: 카메라로 스캔하여 리뷰 작성!">
+        </div>
+
+        <!-- 💡 킬러 포인트: 테두리/액자 스타일 선택 드롭다운 -->
+        <div class="form-group">
+            <label for="frame-style">🖼️ QR코드 테두리/액자 디자인 선택</label>
+            <select id="frame-style" onchange="updateFramePreview()">
+                <option value="frame-basic">◽ 기본형 (깔끔한 라운드 섀도우)</option>
+                <option value="frame-sticker">🎨 홍대 카페형 (볼드 스티커 스타일)</option>
+                <option value="frame-luxury">👑 고급 매장형 (클래식 골드 프레임)</option>
+                <option value="frame-neon">💖 트렌디 팝 (핑크 네온 광채 스타일)</option>
+            </select>
+        </div>
+
+        <div class="design-line">
+            <div>
+                <label>🎨 코드 색상</label>
+                <div class="color-picker-wrapper"><input type="color" id="color-dark" value="#000000"></div>
+            </div>
+            <div>
+                <label>⚪ 배경 색상</label>
+                <div class="color-picker-wrapper"><input type="color" id="color-light" value="#ffffff"></div>
+            </div>
+        </div>
+
+        <button class="btn-generate" onclick="generateQR()">⚡ 디자인 QR코드 구워내기</button>
+
+        <!-- 🎉 결과 존 -->
+        <div class="qr-result-zone" id="result-zone">
+            <!-- 적용된 액자 스타일 클래스가 자바스크립트로 주입됨 -->
+            <div id="qr-card-display" class="frame-basic">
+                <div id="qrcode-box"></div>
+                <div id="qr-text-label"></div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn-action btn-download" onclick="downloadQR()">💾 내 기기에 저장</button>
+                <button class="btn-action btn-share" onclick="shareQR()">📲 카톡/문자 즉시 공유</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleQrType() {
+        const type = document.getElementById('qr-type').value;
+        document.getElementById('url-input-area').style.display = type === 'url' ? 'block' : 'none';
+        document.getElementById('wifi-input-area').style.display = type === 'wifi' ? 'flex' : 'none';
+    }
+
+    // 액자 선택 시 실시간으로 화면에 테두리 변경 적용
+    function updateFramePreview() {
+        const frameStyle = document.getElementById('frame-style').value;
+        const cardDisplay = document.getElementById('qr-card-display');
+        
+        // 기존 액자 클래스 싹 지우고 새로 선택된 것만 부여
+        cardDisplay.className = "";
+        cardDisplay.classList.add(frameStyle);
+    }
+
+    function generateQR() {
+        const type = document.getElementById('qr-type').value;
+        const colorDark = document.getElementById('color-dark').value;
+        const colorLight = document.getElementById('color-light').value;
+        const labelInput = document.getElementById('qr-label-input').value.trim();
+        
+        const qrcodeBox = document.getElementById('qrcode-box');
+        const resultZone = document.getElementById('result-zone');
+        const textLabel = document.getElementById('qr-text-label');
+
+        let qrData = "";
+        if (type === 'url') {
+            qrData = document.getElementById('qr-url').value.trim();
+            if(!qrData || qrData === "https://" || qrData === "http://") { alert("링크 주소를 입력해 주세요."); return; }
+        } else {
+            const name = document.getElementById('wifi-name').value.trim();
+            const pass = document.getElementById('wifi-pass').value.trim();
+            if(!name) { alert("와이파이 이름을 입력해 주세요."); return; }
+            qrData = `WIFI:S:${name};T:WPA;P:${pass};;`;
+        }
+
+        qrcodeBox.innerHTML = "";
+
+        new QRCode(qrcodeBox, {
+            text: qrData,
+            width: 240,
+            height: 240,
+            colorDark: colorDark,
+            colorLight: colorLight,
+            correctLevel: QRCode.CorrectLevel.H
+        });
+
+        if (labelInput) {
+            textLabel.innerText = labelInput;
+            textLabel.style.display = "block";
+        } else {
+            textLabel.style.display = "none";
+        }
+
+        updateFramePreview(); // 생성할 때 현재 선택된 액자 입히기
+        resultZone.style.display = "block";
+        resultZone.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function downloadQR() {
+        const canvas = document.querySelector('#qrcode-box canvas');
+        if (!canvas) return;
+        const imgUrl = canvas.toDataURL("image/png");
+        const a = document.createElement("a");
+        a.href = imgUrl;
+        a.download = "my_design_qrcode.png";
+        a.click();
+    }
+
+    async function shareQR() {
+        const canvas = document.querySelector('#qrcode-box canvas');
+        if (!canvas) { alert("생성된 QR코드가 없습니다."); return; }
+        try {
+            canvas.toBlob(async (blob) => {
+                const file = new File([blob], "qrcode.png", { type: "image/png" });
+                if (navigator.canShare && navigator.canShare({ files: [file] })) {
+                    await navigator.share({
+                        files: [file],
+                        title: '디자인 QR코드',
+                        text: document.getElementById('qr-label-input').value || 'QR코드 공유'
+                    });
+                } else {
+                    alert("이 브라우저에서는 다이렉트 공유를 지원하지 않습니다.\n'내 기기에 저장' 버튼을 이용해 주세요!");
+                }
+            }, "image/png");
+        } catch (err) {
+            alert("공유하기 중 오류가 발생했습니다.");
+        }
+    }
+</script>
+</body>
+</html>

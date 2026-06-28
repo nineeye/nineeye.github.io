@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>자동 저장 임시 메모장</title>
+    <style>
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: #f0f4f8; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; margin: 0; }
+        .nav { display: flex; gap: 8px; margin-bottom: 25px; justify-content: center; width: 100%; max-width: 600px; }
+        .nav a { flex: 1; text-align: center; padding: 12px 4px; background: #e2e8f0; color: #475569; text-decoration: none; border-radius: 12px; font-size: 14px; font-weight: 700; transition: all 0.2s; }
+        .nav a.active { background: #f59e0b; color: white; }
+        
+        .container { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); width: 100%; max-width: 600px; box-sizing: border-box; }
+        h2 { color: #0f172a; font-size: 22px; margin: 0 0 10px 0; font-weight: 800; }
+        .sub-desc { color: #64748b; font-size: 14px; margin-bottom: 20px; }
+        
+        textarea { width: 100%; height: 300px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; font-size: 15px; box-sizing: border-box; background: #f8fafc; resize: vertical; }
+        .tool-toolbar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-top: 15px; }
+        .btn-action { padding: 14px; color: white; border: none; border-radius: 10px; font-weight: 700; cursor: pointer; }
+        .btn-main { background: #f59e0b; } .btn-clear { background: #ef4444; }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <div class="nav">
+        <a href="/korea-convenient-service/index.html">🏠 홈</a>
+        <a href="/korea-convenient-service/webtools/utility/randompassword.html">비밀번호 생성기</a>
+        <a href="/korea-convenient-service/webtools/utility/remember_notepad.html" class="active">임시 메모장</a>
+    </div>
+    </div>
+
+    <div class="container">
+        <h2>📄 자동 저장 임시 메모장</h2>
+        <p class="sub-desc">창을 닫아도 내용이 유지됩니다.</p>
+        
+        <textarea id="noteInput" placeholder="여기에 입력하세요..."></textarea>
+        
+        <div class="tool-toolbar">
+            <button class="btn-action btn-main" onclick="copyNote()">📋 전체 복사</button>
+            <button class="btn-action btn-clear" onclick="clearNote()">🗑️ 비우기</button>
+        </div>
+    </div>
+
+    <script>
+        const noteInput = document.getElementById('noteInput');
+        window.onload = () => noteInput.value = localStorage.getItem('savedNote') || '';
+        noteInput.addEventListener('input', () => localStorage.setItem('savedNote', noteInput.value));
+        function copyNote() { navigator.clipboard.writeText(noteInput.value); alert('복사되었습니다!'); }
+        function clearNote() { if(confirm('모두 지울까요?')) { noteInput.value = ''; localStorage.removeItem('savedNote'); } }
+    </script>
+</body>
+</html>

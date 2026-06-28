@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>점심 메뉴 & 이벤트 랜덤 돌림판</title>
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: #f5f6fa;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 450px;
+            width: 100%;
+        }
+        h2 { color: #2f3640; margin-top: 0; margin-bottom: 20px; }
+        
+        /* 입력창 스타일 */
+        .input-section { margin-bottom: 25px; }
+        textarea {
+            width: 90%;
+            height: 60px;
+            padding: 10px;
+            border: 2px solid #dcdde1;
+            border-radius: 10px;
+            font-size: 14px;
+            resize: none;
+            outline: none;
+        }
+        textarea:focus { border-color: #4cd137; }
+        .hint { font-size: 12px; color: #7f8c8d; margin-top: 5px; }
+
+        /* 돌림판 판넬 & 화살표 */
+        .roulette-wrapper {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            margin: 0 auto 25px auto;
+        }
+        /* 12시 방향 화살표 핀 */
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 25px solid #e84118;
+            z-index: 10;
+        }
+        canvas {
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 4s cubic-bezier(0.1, 0.8, 0.1, 1); /* 부드럽게 멈추는 감속 효과 */
+        }
+
+        /* 버튼 및 결과 */
+        .spin-btn {
+            background-color: #4cd137;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(76, 209, 55, 0.3);
+            transition: 0.2s;
+        }
+        .spin-btn:hover { background-color: #44bd32; transform: scale(1.05); }
+        .spin-btn:disabled { background-color: #c8d6e5; cursor: not-allowed; box-shadow: none; }
+        
+        #result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            color: #2f3640;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🎡 랜덤 메뉴/이벤트 추첨기</h2>
+    
+    <div class="input-section">
+        <textarea id="itemsInput" oninput="drawWheel()">짜장면, 김치찌개, 돈까스, 초밥, 햄버거, 제육볶음</textarea>
+        <div class="hint">※ 항목을 쉼표(,)로 구분해서 입력해 주세요.</div>
+    </div>
+
+    <div class="roulette-wrapper">
+        <div class="pointer"></div>
+        <canvas id="wheelCanvas" width="320" height="320"></canvas>
+    </div>
+
+    <button class="spin-btn" id="spinButton" onclick="spinWheel()">돌리기!</button>
+    <div id="result"></div>
+</div>
+
+<script>
+    const canvas = document.getElementById('wheelCanvas');
+    const ctx = canvas.getContext('2d');
+    const spinButton = document.getElementById('spinButton');
+    
+    // 돌림판 색상 템플릿
+    const colors = ["#ffea85", "#ff9ff3", "#feca57", "#ff6b6b", "#48dbfb", "#1dd1a1", "#a29bfe", "#ffeaa7"];
+    let items = [];
+    let currentRotation = 0;
+    let isSpinning = false;
+
+    // 돌림판 그리기 함수
+    function drawWheel() {
+        items = document.getElementById('itemsInput').value.split(',')
+            .map(item => item.trim())
+            .filter(item => item !== "");
+
+        if (items.length === 0) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            return;
+        }
+
+        const arcSize = (2 * Math.PI) / items.length;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        items.forEach((item, index) => {
+            const startAngle = index * arcSize;
+            const endAngle = startAngle + arcSize;
+
+            // 부채꼴 그리기
+            ctx.fillStyle = colors[index % colors.length];
+            ctx.beginPath();
+            ctx.moveTo(160, 160);
+            ctx.arc(160, 160, 160, startAngle, endAngle);
+            ctx.lineTo(160, 160);
+            ctx.fill();
+
+            // 텍스트 넣기
+            ctx.save();
+            ctx.translate(160, 160);
+            ctx.rotate(startAngle + arcSize / 2);
+            ctx.textAlign = "right";
+            ctx.fillStyle = "#2f3640";
+            ctx.font = "bold 16px Pretendard, sans-serif";
+            
+            // 글자가 길면 잘림 방지 처리
+            const maxLength = 7;
+            const displayText = item.length > maxLength ? item.substring(0, maxLength) + '..' : item;
+            ctx.fillText(displayText, 140, 6);
+            ctx.restore();
+        });
+    }
+
+    // 돌리기 버튼 클릭 이벤트
+    function spinWheel() {
+        if (isSpinning || items.length === 0) return;
+
+        isSpinning = true;
+        spinButton.disabled = true;
+        document.getElementById('result').innerText = "두근두근... 과연?!";
+
+        // 최소 6바퀴(2160도) ~ 최대 10바퀴 + 알파 랜덤 회전각 계산
+        const randomSpin = Math.floor(Math.random() * 360) + 2160;
+        currentRotation += randomSpin;
+
+        // CSS로 회전 애니메이션 적용
+        canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+        // 애니메이션이 끝나는 시점(4초 후)에 결과 계산
+        setTimeout(() => {
+            isSpinning = false;
+            spinButton.disabled = false;
+
+            // 12시 방향 화살표(270도) 기준으로 당첨 항목 계산하기
+            const actualDegree = currentRotation % 360;
+            const arcDegree = 360 / items.length;
+            
+            // 화살표가 가리키는 상대적 각도 계산
+            const relativeDegree = (270 - actualDegree + 360) % 360;
+            const winnerIndex = Math.floor(relativeDegree / arcDegree);
+
+            // 결과 발표
+            document.getElementById('result').innerText = `🎉 오늘의 선택: [ ${items[winnerIndex]} ]`;
+        }, 4000); // CSS transition에 적힌 4s와 일치해야 합니다.
+    }
+
+    // 초기 화면 로딩 시 돌림판 그리기
+    drawWheel();
+</script>
+
+</body>
+</html>

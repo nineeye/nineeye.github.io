@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>상품명 최적화 도구</title>
+
+<style>
+
+body{
+    font-family:Arial,sans-serif;
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+    background:#f5f6f8;
+}
+
+h1{
+    text-align:center;
+}
+
+.card{
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+    margin-bottom:20px;
+}
+
+input,select{
+    width:100%;
+    padding:10px;
+    margin-top:5px;
+    margin-bottom:15px;
+    border:1px solid #ddd;
+    border-radius:8px;
+}
+
+button{
+    background:#007bff;
+    color:white;
+    border:none;
+    padding:12px 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+
+.result{
+    background:#fff;
+    padding:15px;
+    margin-bottom:10px;
+    border-radius:8px;
+    border-left:5px solid #28a745;
+}
+
+.score{
+    font-size:20px;
+    font-weight:bold;
+    color:#28a745;
+}
+
+.warning{
+    color:red;
+    font-weight:bold;
+}
+
+.copy-btn{
+    margin-top:10px;
+    background:#28a745;
+}
+
+.copy-btn:hover{
+    background:#1d7c34;
+}
+
+</style>
+</head>
+<body>
+
+<h1>🏆 스마트스토어 상품명 최적화</h1>
+
+<div class="card">
+
+<label>브랜드</label>
+<input type="text" id="brand" placeholder="예: 한국야쿠르트">
+
+<label>상품명</label>
+<input type="text" id="product" placeholder="예: 프리바이오틱스">
+
+<label>용량</label>
+<input type="text" id="weight" placeholder="예: 4g">
+
+<label>수량</label>
+<input type="text" id="count" placeholder="예: 10포 x 6개">
+
+<button onclick="generateTitles()">상품명 생성</button>
+
+</div>
+
+<div id="scoreBox"></div>
+
+<div id="results"></div>
+
+<script>
+
+const bannedWords = [
+"최저가",
+"추천",
+"1위",
+"무료배송",
+"베스트",
+"국내최고",
+"인기상품",
+"정품보장"
+];
+
+const features = [
+"장건강",
+"생유산균",
+"비피더스",
+"프로바이오틱스",
+"장용성캡슐",
+"락토바실러스",
+"프락토올리고당",
+"유산균배합",
+"건강관리"
+];
+
+function calculateScore(title){
+
+let score = 100;
+
+if(title.length < 15) score -= 10;
+if(title.length > 50) score -= 10;
+
+const words = title.split(" ");
+
+if(words.length !== new Set(words).size){
+score -= 15;
+}
+
+bannedWords.forEach(word=>{
+if(title.includes(word)){
+score -= 20;
+}
+});
+
+return Math.max(score,0);
+
+}
+
+function generateTitles(){
+
+const brand =
+document.getElementById("brand").value.trim();
+
+const product =
+document.getElementById("product").value.trim();
+
+const weight =
+document.getElementById("weight").value.trim();
+
+const count =
+document.getElementById("count").value.trim();
+
+if(!brand || !product){
+
+alert("브랜드와 상품명을 입력해주세요.");
+return;
+
+}
+
+let titles = [];
+
+titles.push(
+`${brand} ${product} ${weight} ${count}`
+);
+
+features.forEach(feature=>{
+
+titles.push(
+`${brand} ${feature} ${product} ${weight} ${count}`
+);
+
+});
+
+let html = "";
+
+titles.forEach(title=>{
+
+let score = calculateScore(title);
+
+let bannedFound = [];
+
+bannedWords.forEach(word=>{
+if(title.includes(word)){
+bannedFound.push(word);
+}
+});
+
+html += `
+<div class="result">
+
+<div><strong>${title}</strong></div>
+
+<div class="score">
+SEO 점수 : ${score}점
+</div>
+
+${
+bannedFound.length
+?
+`<div class="warning">
+금지어 : ${bannedFound.join(", ")}
+</div>`
+:
+""
+}
+
+<button class="copy-btn"
+onclick="copyText('${title}')">
+복사하기
+</button>
+
+</div>
+`;
+
+});
+
+document.getElementById("results").innerHTML = html;
+
+document.getElementById("scoreBox").innerHTML =
+`
+<div class="card">
+<h2>📊 상품명 생성 완료</h2>
+<p>총 ${titles.length}개의 상품명을 생성했습니다.</p>
+</div>
+`;
+
+}
+
+function copyText(text){
+
+navigator.clipboard.writeText(text);
+
+alert("복사되었습니다.");
+
+}
+
+</script>
+
+</body>
+</html>

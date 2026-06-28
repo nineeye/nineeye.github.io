@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>인스타/블로그 댓글 이벤트 랜덤 추첨기</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: #f8fafc;
+            color: #1e293b;
+            padding: 40px 15px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+        }
+
+        .title-area {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .title-area h2 {
+            font-size: 26px;
+            color: #1e3a8a;
+            margin-bottom: 6px;
+        }
+
+        .title-area p {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .main-card {
+            background: #ffffff;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+
+        /* 명단 입력창: 스크롤 및 모바일 입력 최적화 */
+        textarea {
+            width: 100%;
+            height: 180px;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            font-size: 15px;
+            resize: vertical;
+            outline: none;
+            transition: border-color 0.2s;
+            line-height: 1.5;
+        }
+
+        textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        /* 세팅 라인 (인원수, 옵션) */
+        .setup-line {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .input-winner {
+            width: 120px;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            text-align: center;
+            outline: none;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            color: #475569;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-label input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        /* 추첨 버튼 */
+        .btn-draw {
+            width: 100%;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 700;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 6px rgba(37, 99, 235, 0.15);
+        }
+
+        .btn-draw:hover {
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
+            transform: translateY(-1px);
+        }
+
+        .btn-draw:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* 💡 쫄깃한 연출을 위한 셔플 화면 가동 구역 */
+        .status-box {
+            display: none;
+            text-align: center;
+            background: #eff6ff;
+            border: 2px dashed #bfdbfe;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 25px;
+            font-size: 20px;
+            font-weight: 800;
+            color: #1e40af;
+            animation: pulse 0.5s infinite alternate;
+        }
+
+        @keyframes pulse {
+            from { transform: scale(0.99); }
+            to { transform: scale(1.01); }
+        }
+
+        /* 🎉 최종 결과 박스 */
+        .result-zone {
+            display: none;
+            margin-top: 25px;
+            background: #fafafa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .result-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        .result-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .btn-copy {
+            background: #10b981;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .btn-copy:hover { background: #059669; }
+
+        .winner-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #ffffff;
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #f1f5f9;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.01);
+            font-weight: 600;
+        }
+
+        .badge {
+            background: #fef3c7;
+            color: #d97706;
+            padding: 2px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title-area">
+        <h2>🎉 SNS 이벤트 랜덤 추첨기</h2>
+        <p>댓글 작성자나 참여자 명단을 넣어 공정하게 당첨자를 선출하세요.</p>
+    </div>
+
+    <div class="main-card">
+        <div class="form-group">
+            <label for="names-input">👥 참여자 명단 입력 (줄바꿈 또는 쉼표로 구분)</label>
+            <textarea id="names-input" placeholder="홍길동&#13;김철수&#13;이영희&#13;@insta_id1, @insta_id2"></textarea>
+        </div>
+
+        <div class="form-group setup-line">
+            <div>
+                <label for="winner-count">🎯 뽑을 인원수</label>
+                <input type="number" id="winner-count" class="input-winner" value="1" min="1">
+            </div>
+            <div style="margin-top: 20px;">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="unique-chk" checked> 중복 아이디/이름 자동 제거
+                </label>
+            </div>
+        </div>
+
+        <button class="btn-draw" id="btn-submit" onclick="startLottery()">🎲 무작위 추첨 시작!</button>
+
+        <div class="status-box" id="shuffle-box">🔄 명단 섞는 중...</div>
+
+        <div class="result-zone" id="result-zone">
+            <div class="result-header">
+                <span class="result-title">🎁 당첨자 명단</span>
+                <button class="btn-copy" onclick="copyWinners()">📋 결과 복사하기</button>
+            </div>
+            <div id="winners-list">
+                </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let finalWinnersText = ""; // 복사용 텍스트 전역 저장
+
+    function startLottery() {
+        const rawInput = document.getElementById('names-input').value;
+        const countInput = parseInt(document.getElementById('winner-count').value);
+        const uniqueChk = document.getElementById('unique-chk').checked;
+        
+        const shuffleBox = document.getElementById('shuffle-box');
+        const resultZone = document.getElementById('result-zone');
+        const btnSubmit = document.getElementById('btn-submit');
+        const listContainer = document.getElementById('winners-list');
+
+        // 1. 데이터 파싱 (, 구분 및 줄바꿈 공백 정제)
+        let participants = rawInput.split(/[\n,]+/).map(name => name.trim()).filter(name => name !== "");
+
+        if (participants.length === 0) {
+            alert("참여자 명단을 입력해 주세요.");
+            return;
+        }
+
+        // 2. 중복 제거 옵션 처리
+        if (uniqueChk) {
+            participants = [...new Set(participants)];
+        }
+
+        if (countInput > participants.length) {
+            alert(`참여자 수(${participants.length}명)보다 뽑을 인원수(${countInput}명)가 더 많습니다.`);
+            return;
+        }
+
+        // UI 초기화 및 셔플 연출 가동
+        resultZone.style.display = "none";
+        shuffleBox.style.display = "block";
+        btnSubmit.disabled = true;
+
+        let duration = 1500; // 1.5초 동안 명단 흔들기 연출
+        let intervalTime = 60;
+        let elapsed = 0;
+
+        let timer = setInterval(() => {
+            let randomIdx = Math.floor(Math.random() * participants.length);
+            shuffleBox.innerText = `🎲 섞는 중... [ ${participants[randomIdx]} ]`;
+            elapsed += intervalTime;
+            
+            if (elapsed >= duration) {
+                clearInterval(timer);
+                executeDraw(participants, countInput, shuffleBox, resultZone, btnSubmit, listContainer);
+            }
+        }, intervalTime);
+    }
+
+    // 3. 실제 무작위 비복원 추출 실행
+    function executeDraw(list, count, sBox, rZone, btn, container) {
+        sBox.style.display = "none";
+        btn.disabled = false;
+        container.innerHTML = "";
+
+        // 원본 배열 복사 후 피셔-예이츠 셔플 알고리즘 적용
+        let shuffled = [...list];
+        for (let i = shuffled.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+
+        // 지정된 수만큼 당첨자 슬라이싱
+        let winners = shuffled.slice(0, count);
+        
+        // 결과 화면 렌더링 및 복사용 텍스트 구성
+        let textArr = ["[🎉 이벤트 당첨자 발표 🎉]\n"];
+        winners.forEach((winner, idx) => {
+            const item = document.createElement('div');
+            item.className = 'winner-item';
+            item.innerHTML = `<span class="badge">당첨 ${idx + 1}</span> <span>${winner}</span>`;
+            container.appendChild(item);
+            
+            textArr.push(`등수 ${idx + 1}: ${winner}`);
+        });
+
+        finalWinnersText = textArr.join("\n") + "\n\n축하드립니다!";
+        rZone.style.display = "block";
+        
+        // 스크롤 아래로 부드럽게 내려주기
+        rZone.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // 4. 클립보드 간편 복사 기능
+    function copyWinners() {
+        if (!finalWinnersText) return;
+        navigator.clipboard.writeText(finalWinnersText).then(() => {
+            alert("당첨자 명단이 클립보드에 복사되었습니다!\n메모장이나 SNS 공지글에 붙여넣기 하세요.");
+        }).catch(err => {
+            alert("복사에 실패했습니다. 직접 드래그하여 복사해 주세요.");
+        });
+    }
+</script>
+</body>
+</html>
