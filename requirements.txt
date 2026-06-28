@@ -1,0 +1,16 @@
+fastapi
+uvicorn
+google-genai
+streamlit
+pandas
+numpy
+pdf2docx
+pdf2image
+pypdf
+pdfplumber
+openpyxl
+pypdf
+pytesseract
+Pillow
+python-docx
+reportlab
