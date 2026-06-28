@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>프로 에디터 & 포맷터</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.9/beautify.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.9/beautify-css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.9/beautify-html.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.32.2/ace.js"></script>
+
+    <style>
+        * { box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background-color: #f0f2f5; 
+            padding: 20px; 
+            display: flex; 
+            justify-content: center; 
+            margin: 0;
+            height: 100vh;
+        }
+        
+        .container { 
+            background: white; 
+            padding: 20px 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1); 
+            width: 100%; 
+            max-width: 1000px; 
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        
+        h2 { margin: 0; color: #1e293b; font-size: 22px; }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 1px solid #cbd5e1;
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+            background-color: #f8fafc;
+            cursor: pointer;
+            outline: none;
+        }
+
+        #statusMsg {
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            display: none;
+            text-align: center;
+        }
+        .success { background-color: #dcfce7; color: #166534; }
+        .error { background-color: #fee2e2; color: #991b1b; }
+
+        /* 일반 textarea를 대체하는 전문 에디터 영역 */
+        #editor { 
+            flex-grow: 1; /* 남은 화면을 꽉 채움 */
+            width: 100%; 
+            min-height: 400px;
+            border: 1px solid #cbd5e1; 
+            border-radius: 8px; 
+            margin-bottom: 20px; 
+            font-size: 15px;
+        }
+        
+        .button-row { display: flex; gap: 10px; flex-wrap: wrap; }
+        button { 
+            flex: 1; 
+            min-width: 110px;
+            padding: 12px 15px; 
+            border: none; 
+            border-radius: 6px; 
+            cursor: pointer; 
+            font-size: 14px; 
+            font-weight: 600; 
+            transition: all 0.2s ease; 
+        }
+        button:active { transform: scale(0.98); }
+        
+        .btn-format { background: #3b82f6; color: white; }
+        .btn-format:hover { background: #2563eb; }
+        
+        .btn-minify { background: #475569; color: white; }
+        .btn-minify:hover { background: #334155; }
+        
+        .btn-copy { background: #10b981; color: white; }
+        .btn-copy:hover { background: #059669; }
+        
+        .btn-clear { background: #ef4444; color: white; }
+        .btn-clear:hover { background: #dc2626; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="header-row">
+            <h2>🚀 프로 개발자용 포맷터</h2>
+            <div class="controls">
+                <select id="themeSelect" onchange="changeTheme()">
+                    <option value="ace/theme/monokai">🌙 다크 모드 (Monokai)</option>
+                    <option value="ace/theme/github">☀️ 라이트 모드 (GitHub)</option>
+                </select>
+                <select id="langSelect" onchange="changeLanguage()">
+                    <option value="json">JSON</option>
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="python">Python (뷰어 전용)</option>
+                </select>
+            </div>
+        </div>
+        
+        <div id="statusMsg"></div>
+
+        <div id="editor"></div>
+
+        <div class="button-row">
+            <button class="btn-format" onclick="formatCode()">✨ 예쁘게 정렬</button>
+            <button class="btn-minify" onclick="minifyCode()">📦 한 줄로 압축</button>
+            <button class="btn-copy" onclick="copyResult()">📋 결과 복사</button>
+            <button class="btn-clear" onclick="clearAll()">🗑️ 에디터 비우기</button>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. Ace Editor 초기화 ---
+        const editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai"); // 기본 테마: 다크모드
+        editor.session.setMode("ace/mode/json"); // 기본 언어: JSON
+        editor.setOptions({
+            showPrintMargin: false,
+            wrap: true, // 자동 줄바꿈
+            indentedSoftWrap: false,
+            enableBasicAutocompletion: true,
+            enableLiveAutocompletion: true
+        });
+
+        const statusMsg = document.getElementById('statusMsg');
+
+        function showStatus(message, isError = false) {
+            statusMsg.style.display = 'block';
+            statusMsg.innerText = message;
+            statusMsg.className = isError ? 'error' : 'success';
+            if (!isError) setTimeout(() => { statusMsg.style.display = 'none'; }, 3000);
+        }
+
+        // 테마 변경 함수
+        function changeTheme() {
+            const theme = document.getElementById('themeSelect').value;
+            editor.setTheme(theme);
+        }
+
+        // 언어 변경 함수
+        function changeLanguage() {
+            const lang = document.getElementById('langSelect').value;
+            editor.session.setMode("ace/mode/" + lang);
+            
+            // 파이썬일 경우 안내 메시지 출력
+            if(lang === 'python') {
+                showStatus('ℹ️ 파이썬은 문법 구조상 정렬/압축 기능을 지원하지 않으며, 신택스 하이라이팅(뷰어) 기능만 제공됩니다.');
+            }
+        }
+
+        // --- 2. 통합 정렬 (Format) ---
+        function formatCode() {
+            // 에디터에서 현재 텍스트 가져오기
+            const rawData = editor.getValue().trim();
+            const lang = document.getElementById('langSelect').value;
+            
+            if (!rawData) return;
+            if (lang === 'python') return showStatus('❌ 파이썬은 포맷팅 기능을 지원하지 않습니다.', true);
+
+            try {
+                let formattedCode = '';
+                const options = { indent_size: 4, space_in_empty_paren: true };
+
+                if (lang === 'json') {
+                    formattedCode = JSON.stringify(JSON.parse(rawData), null, 4);
+                } else if (lang === 'html') {
+                    formattedCode = html_beautify(rawData, options);
+                } else if (lang === 'css') {
+                    formattedCode = css_beautify(rawData, options);
+                } else if (lang === 'javascript') {
+                    formattedCode = js_beautify(rawData, options);
+                }
+
+                // 변환된 텍스트를 다시 에디터에 넣기
+                editor.setValue(formattedCode, -1); // -1은 커서를 맨 위로 이동시킴
+                showStatus(`✅ ${lang.toUpperCase()} 코드가 성공적으로 정렬되었습니다.`);
+            } catch (error) {
+                showStatus('❌ 유효하지 않은 코드 형식이거나 분석 중 오류가 발생했습니다.', true);
+            }
+        }
+
+        // --- 3. 통합 압축 (Minify) ---
+        function minifyCode() {
+            let rawData = editor.getValue().trim();
+            const lang = document.getElementById('langSelect').value;
+            
+            if (!rawData) return;
+            if (lang === 'python') return showStatus('❌ 파이썬은 압축 기능을 지원하지 않습니다.', true);
+
+            try {
+                let minifiedCode = '';
+                if (lang === 'json') {
+                    minifiedCode = JSON.stringify(JSON.parse(rawData));
+                } else if (lang === 'html') {
+                    minifiedCode = rawData.replace(/\n/g, '').replace(/[\t ]+</g, '<').replace(/>[\t ]+/g, '>').replace(/(?:(?:\r\n|\r|\n)\s*)/gm, "");
+                } else if (lang === 'css') {
+                    minifiedCode = rawData.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\n/g, '').replace(/\s*([{};,:])\s*/g, '$1');
+                } else if (lang === 'javascript') {
+                    minifiedCode = rawData.replace(/(?:\r\n|\r|\n)/g, '');
+                    showStatus('⚠️ JS 압축은 줄바꿈 제거만 적용되었습니다.');
+                    editor.setValue(minifiedCode, -1);
+                    return;
+                }
+                
+                editor.setValue(minifiedCode, -1);
+                showStatus(`✅ ${lang.toUpperCase()} 코드가 성공적으로 압축되었습니다.`);
+            } catch (error) {
+                showStatus('❌ 유효하지 않은 코드 형식입니다.', true);
+            }
+        }
+
+        // --- 4. 기타 유틸리티 ---
+        function copyResult() {
+            const text = editor.getValue();
+            if (text.trim() === '') return alert('복사할 데이터가 없습니다.');
+            navigator.clipboard.writeText(text).then(() => showStatus('📋 에디터의 내용이 복사되었습니다!')).catch(err => alert('복사 실패: ' + err));
+        }
+
+        function clearAll() {
+            editor.setValue('', -1);
+            statusMsg.style.display = 'none';
+            editor.focus(); // 에디터에 다시 커서 활성화
+        }
+    </script>
+
+</body>
+</html>
