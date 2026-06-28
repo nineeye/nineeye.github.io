@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>온라인 영문 대소문자 변환기</title>
+    <meta name="description" content="영문 텍스트를 원클릭으로 대문자 또는 소문자로 일괄 변환해 주는 온라인 도구입니다.">
+    <meta name="keywords" content="대소문자변환, 영문대소문자변환, 대문자변경, 소문자변경">
+    <style>
+        body { 
+            font-family: 'Pretendard', -apple-system, sans-serif; 
+            background-color: #f0f4f8; 
+            padding: 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            min-height: 100vh;
+            margin: 0;
+            justify-content: center;
+        }
+        .nav { display: flex; gap: 4px; margin-bottom: 20px; justify-content: center; width: 100%; max-width: 700px; }
+        .nav a { flex: 1; text-align: center; padding: 10px 4px; background: #e2e8f0; color: #475569; text-decoration: none; border-radius: 8px; font-size: 13px; font-weight: 700; transition: all 0.2s; white-space: nowrap; }
+        .nav a:hover { background: #cbd5e1; }
+        .nav a.active { background: #e11d48; color: white; }
+        
+        .container { 
+            background: white; padding: 30px; border-radius: 20px; box-shadow: 0 12px 30px rgba(0,0,0,0.08); 
+            width: 100%; max-width: 700px; box-sizing: border-box;
+        }
+        h2 { color: #0f172a; font-size: 22px; margin: 0 0 6px 0; font-weight: 800; text-align: center; }
+        .sub-desc { color: #64748b; font-size: 13px; text-align: center; margin: 0 0 20px 0; }
+        textarea { 
+            width: 100%; height: 200px; padding: 15px; border: 1px solid #cbd5e1; border-radius: 12px;
+            font-size: 15px; box-sizing: border-box; outline: none; resize: vertical; background: #f8fafc; line-height: 1.6;
+        }
+        textarea:focus { border-color: #e11d48; background: white; box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.1); }
+        .tool-toolbar { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 15px; }
+        .btn-action { padding: 12px; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.2s; }
+        .btn-main { background: #e11d48; } .btn-main:hover { background: #be123c; }
+        .btn-sub { background: #4f46e5; } .btn-sub:hover { background: #4338ca; }
+        .btn-full { grid-column: span 2; background: #64748b; } .btn-full:hover { background: #475569; }
+        
+        @media (max-width: 600px) { .nav { gap: 2px; } .nav a { font-size: 11px; padding: 8px 2px; } }
+    </style>
+</head>
+<body>
+
+    <div class="nav">
+        <a href="index.html" style="background: #0f172a; color: white;">🏠 홈</a>
+        <a href="bigsmalltextchange1.html">📝 글자수</a>
+        <a href="bigsmalltextchange2.html" class="active">🔠 대소문자</a>
+        <a href="bigsmalltextchange3.html">✨ 맞춤법</a>
+        <a href="bigsmalltextchange4.html">🚫 공백제거</a>
+        
+    </div>
+
+    <div class="container">
+        <h2>🔠 영문 대소문자 변환기</h2>
+        <p class="sub-desc">입력한 영문 텍스트를 원하는 형태의 알파벳으로 한 번에 변경합니다.</p>
+        
+        <textarea id="textInput" placeholder="변환할 영문(English) 텍스트를 입력하세요..."></textarea>
+        
+        <div class="tool-toolbar">
+            <button class="btn-action btn-main" onclick="convertCase('upper')">ABC 대문자로 변환</button>
+            <button class="btn-action btn-sub" onclick="convertCase('lower')">abc 소문자로 변환</button>
+            <button class="btn-action btn-full" onclick="copyText()">📋 변환된 결과 전체 복사</button>
+        </div>
+    </div>
+
+    <script>
+        function convertCase(type) {
+            const textarea = document.getElementById('textInput');
+            if(!textarea.value) { alert("📌 변환할 텍스트를 먼저 입력해 주세요!"); return; }
+            if (type === 'upper') { textarea.value = textarea.value.toUpperCase(); } 
+            else if (type === 'lower') { textarea.value = textarea.value.toLowerCase(); }
+        }
+        function copyText() {
+            const textarea = document.getElementById('textInput');
+            if(!textarea.value) { alert("📌 복사할 내용이 없습니다!"); return; }
+            textarea.select(); document.execCommand('copy');
+            alert("📋 변환 완료된 텍스트가 클립보드에 복사되었습니다!");
+        }
+    </script>
+</body>
+</html>
