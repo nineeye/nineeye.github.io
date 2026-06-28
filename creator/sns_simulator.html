@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚡ SNS 크리에이터 올인원 시뮬레이터</title>
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .wrapper {
+            width: 100%;
+            max-width: 600px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+        }
+        
+        /* 모드 전환 탭 스위치 */
+        .mode-switch {
+            display: flex;
+            background: #e2e8f0;
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            gap: 5px;
+        }
+        .mode-btn {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .mode-btn.active {
+            background: #ffffff;
+            color: #3b82f6;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .calc-section {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .input-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .input-item label {
+            font-size: 13px;
+            color: #475569;
+            font-weight: 600;
+        }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box;
+            outline: none;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+        textarea {
+            resize: vertical;
+            height: 80px;
+        }
+        .counter-badge {
+            font-size: 12px;
+            color: #64748b;
+            text-align: right;
+            margin-top: 2px;
+        }
+        .warning {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        
+        /* 모바일 미리보기 가상 화면 스타일 */
+        .preview-card {
+            background: #000;
+            color: #fff;
+            padding: 15px;
+            border-radius: 12px;
+            margin-top: 15px;
+            font-size: 14px;
+            position: relative;
+            overflow: hidden;
+        }
+        .yt-preview {
+            background: #1f1f1f;
+            border-bottom: 4px solid #ef4444;
+        }
+        .yt-thumb-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #333;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            font-size: 18px;
+            font-weight: bold;
+            position: relative;
+            text-align: center;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+        .yt-thumb-text {
+            position: absolute;
+            width: 90%;
+            word-break: break-all;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+        }
+        .yt-title-area {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            line-height: 1.3;
+            color: #fff;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .insta-preview {
+            background: #ffffff;
+            color: #000;
+            border: 1px solid #dbdbdb;
+        }
+        .insta-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 13px;
+        }
+        .insta-avatar {
+            width: 28px;
+            height: 28px;
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+            border-radius: 50%;
+        }
+        .insta-body {
+            font-size: 13px;
+            line-height: 1.4;
+        }
+        .insta-more {
+            color: #8e8e8e;
+            cursor: pointer;
+        }
+
+        /* 해시태그 박스 스타일 */
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .tag-pill {
+            background: #e0f2fe;
+            color: #0369a1;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid #bae6fd;
+            transition: all 0.2s;
+        }
+        .tag-pill:hover {
+            background: #bae6fd;
+            transform: translateY(-1px);
+        }
+        .btn-copy {
+            background: #3b82f6;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .btn-copy:hover {
+            background: #2563eb;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <h2>⚡ SNS 콘텐츠 크리에이터 시뮬레이터</h2>
+
+    <div class="mode-switch">
+        <button class="mode-btn active" id="btn_modeYT" onclick="changeMode('YT')">유튜브 썸네일/제목</button>
+        <button class="mode-btn" id="btn_modeIN" onclick="changeMode('IN')">인스타 피드/글자수</button>
+        <button class="mode-btn" id="btn_modeTAG" onclick="changeMode('TAG')">치트키 해시태그 추출</button>
+    </div>
+
+    <div class="calc-section">
+        <div id="section_YT" class="grid-inputs">
+            <div class="input-item">
+                <label>유튜브 영상 제목 입력</label>
+                <input type="text" id="ytTitle" placeholder="조회수 폭발하는 제목을 입력하세요 (추천: 30자 이내)" oninput="updateYoutubePreview()">
+                <div class="counter-badge" id="ytTitleCount">0 / 100자 (추천: 28~32자)</div>
+            </div>
+            <div class="input-item">
+                <label>썸네일 중심 문구 (미리보기용)</label>
+                <input type="text" id="ytThumb" placeholder="썸네일에 들어갈 강렬한 핵심 키워드" oninput="updateYoutubePreview()">
+            </div>
+            
+            <label style="font-size: 13px; color: #475569; font-weight: 600; margin-top: 5px;">📱 모바일 유튜브 앱 실제 노출 시뮬레이션</label>
+            <div class="preview-card yt-preview">
+                <div class="yt-thumb-placeholder">
+                    <div class="yt-thumb-text" id="preview_ytThumb">썸네일 텍스트</div>
+                </div>
+                <div class="yt-title-area" id="preview_ytTitle">여기에 제목이 노출됩니다. 일정 글자수가 넘어가면 모바일 화면에서는 말줄임표(...) 처리됩니다.</div>
+            </div>
+        </div>
+
+        <div id="section_IN" class="grid-inputs" style="display: none;">
+            <div class="input-item">
+                <label>본문 내용 기획</label>
+                <textarea id="instaText" placeholder="인스타그램 피드 본문을 작성하세요. 첫 2줄이 가장 중요합니다!" oninput="updateInstaPreview()"></textarea>
+                <div class="counter-badge" id="instaCount">0자 (첫 장 노출 제한선 체크)</div>
+            </div>
+            
+            <label style="font-size: 13px; color: #475569; font-weight: 600; margin-top: 5px;">📱 피드 리스트 노출 시뮬레이션 (더보기 커트라인)</label>
+            <div class="preview-card insta-preview">
+                <div class="insta-header">
+                    <div class="insta-avatar"></div>
+                    <span>my_channel_official</span>
+                </div>
+                <div class="insta-body" id="preview_instaBody">
+                    본문을 입력하시면 인스타 피드에서 '더보기' 버튼이 생기는 기준점(약 3~4줄)을 시뮬레이션합니다.
+                </div>
+            </div>
+        </div>
+
+        <div id="section_TAG" class="grid-inputs" style="display: none;">
+            <div class="input-item">
+                <label>내 콘텐츠 카테고리 선택</label>
+                <select id="tagCategory" onchange="generateTags()">
+                    <option value="">-- 카테고리를 선택하세요 --</option>
+                    <option value="review">🎁 상품 리뷰 / 테크 / 내돈내산</option>
+                    <option value="money">💰 재테크 / 소상공인 / 부업 / 동기부여</option>
+                    <option value="daily">🎁 일상 / 브이로그 / 카페 / 맛집</option>
+                    <option value="marketing">⚡ 마케팅 / 비즈니스 / 인스타팁</option>
+                </select>
+            </div>
+            
+            <div id="tagResultArea" style="display: none;">
+                <label style="font-size: 13px; color: #475569; font-weight: 600;">🔥 클릭하면 바로 복사되는 필수 해시태그 그룹</label>
+                <div class="tag-container" id="tagContainer"></div>
+                <button class="btn-copy" onclick="copyTags()">📋 해시태그 전체 복사하기</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function changeMode(mode) {
+        document.getElementById('btn_modeYT').classList.toggle('active', mode === 'YT');
+        document.getElementById('btn_modeIN').classList.toggle('active', mode === 'IN');
+        document.getElementById('btn_modeTAG').classList.toggle('active', mode === 'TAG');
+
+        document.getElementById('section_YT').style.display = (mode === 'YT') ? "grid" : "none";
+        document.getElementById('section_IN').style.display = (mode === 'IN') ? "grid" : "none";
+        document.getElementById('section_TAG').style.display = (mode === 'TAG') ? "grid" : "none";
+    }
+
+    // 유튜브 미리보기 로직
+    function updateYoutubePreview() {
+        const title = document.getElementById('ytTitle').value;
+        const thumb = document.getElementById('ytThumb').value;
+        
+        document.getElementById('ytTitleCount').innerHTML = `${title.length} / 100자 ` + (title.length > 32 ? '<span class="warning">(모바일 잘림 위험!)</span>' : '<span style="color:#16a34a">(적정)</span>');
+        
+        document.getElementById('preview_ytTitle').innerText = title ? title : "여기에 제목이 노출됩니다. 일정 글자수가 넘어가면 모바일 화면에서는 말줄임표(...) 처리됩니다.";
+        document.getElementById('preview_ytThumb').innerText = thumb ? thumb : "썸네일 텍스트";
+    }
+
+    // 인스타 미리보기 로직 (더보기 끊김 현상 재현)
+    function updateInstaPreview() {
+        const text = document.getElementById('instaText').value;
+        document.getElementById('instaCount').innerText = `${text.length}자 입력 중`;
+        
+        const previewArea = document.getElementById('preview_instaBody');
+        if(!text) {
+            previewArea.innerHTML = "본문을 입력하시면 인스타 피드에서 '더보기' 버튼이 생기는 기준점을 시뮬레이션합니다.";
+            return;
+        }
+
+        const lines = text.split('\n');
+        if (lines.length > 3 || text.length > 60) {
+            let visibleText = lines.slice(0, 2).join('\n');
+            if (visibleText.length > 50) visibleText = visibleText.substring(0, 50);
+            previewArea.innerHTML = `<b>my_channel_official</b> ${visibleText.replace(/\n/g, '<br>')}... <span class="insta-more">더 보기</span>`;
+        } else {
+            previewArea.innerHTML = `<b>my_channel_official</b> ${text.replace(/\n/g, '<br>')}`;
+        }
+    }
+
+    // 해시태그 데이터베이스
+    const tagDatabase = {
+        review: ["#제품리뷰", "#내돈내산", "#솔직후기", "#아이템추천", "#리뷰스타", "#생활용품", "#살림템", "#꿀템추천", "#소비기록"],
+        money: ["#재테크", "#N잡러", "#부업추천", "#직장인부업", "#N잡", "#동기부여", "#자기계발", "#자산관리", "#수익인증"],
+        daily: ["#일상브이로그", "#카페투어", "#맛집추천", "#주말일상", "#오늘의기록", "#감성일상", "#데일리로그", "#일상소통"],
+        marketing: ["#디지털마케팅", "#인스타툰", "#블로그마케팅", "#지식창업", "#퍼스널브랜딩", "#콘텐츠제작", "#인스타마케팅", "#1인기업"]
+    };
+
+    function generateTags() {
+        const cat = document.getElementById('tagCategory').value;
+        const container = document.getElementById('tagContainer');
+        const area = document.getElementById('tagResultArea');
+        
+        if(!cat) {
+            area.style.display = "none";
+            return;
+        }
+        
+        container.innerHTML = "";
+        tagDatabase[cat].forEach(tag => {
+            const pill = document.createElement('span');
+            pill.className = "tag-pill";
+            pill.innerText = tag;
+            pill.onclick = () => {
+                navigator.clipboard.writeText(tag);
+                alert(`${tag}가 복사되었습니다!`);
+            };
+            container.appendChild(pill);
+        });
+        area.style.display = "block";
+    }
+
+    function copyTags() {
+        const cat = document.getElementById('tagCategory').value;
+        if(!cat) return;
+        const allTags = tagDatabase[cat].join(" ");
+        navigator.clipboard.writeText(allTags);
+        alert("해당 카테고리 해시태그 전체가 복사되었습니다! 피드에 바로 붙여넣으세요.");
+    }
+</script>
+
+</body>
+</html>
