@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>만 나이 계산기</title>
+    <style>
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .nav { display: flex; gap: 8px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 480px; }
+        .nav a { flex: 1; text-align: center; padding: 12px; background: #cbd5e1; color: #334155; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 14px; }
+        .nav a.active { background: #ec4899; color: white; box-shadow: 0 4px 12px rgba(236, 72, 153, 0.2); }
+        .wrapper { width: 100%; max-width: 480px; background: white; padding: 30px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); box-sizing: border-box; }
+        h2 { text-align: center; color: #1e293b; margin-bottom: 25px; font-size: 22px; }
+        .calc-card { background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; border-left: 5px solid #ec4899; }
+        .input-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+        .input-item { display: flex; flex-direction: column; gap: 6px; }
+        label { font-size: 14px; color: #475569; font-weight: 600; }
+        input[type="date"] { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; box-sizing: border-box; }
+        input[type="date"]:focus { border-color: #ec4899; box-shadow: 0 0 0 3px rgba(236, 72, 153, 0.1); }
+        .result-box { background: white; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; text-align: center; min-height: 50px; display: flex; flex-direction: column; justify-content: center; }
+        .age-huge { font-size: 32px; font-weight: 800; color: #db2777; }
+        .sub-info { font-size: 13px; color: #64748b; margin-top: 6px; }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="dday_age1.html">🎯 디데이</a>
+    <a href="dday_age2.html" class="active">🎂 만 나이</a>
+    <a href="dday_age3.html">🪖 전역일</a>
+</div>
+
+<div class="wrapper">
+    <h2>🎂 표준 만 나이 계산기</h2>
+    <div class="calc-card">
+        <div class="input-group">
+            <div class="input-item">
+                <label>생년월일 입력</label>
+                <input type="date" id="birthDate" oninput="validateYear(this); calcAge();" onchange="calcAge()">
+            </div>
+            <div class="input-item">
+                <label>기준일 (기본:오늘)</label>
+                <input type="date" id="baseDate" oninput="validateYear(this); calcAge();" onchange="calcAge()">
+            </div>
+        </div>
+        <div class="result-box" id="ageResult">
+            <span style="color:#94a3b8;">생년월일을 입력해 주세요.</span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function validateYear(inputEl) {
+        const dateVal = inputEl.value;
+        if (!dateVal) return;
+        const yearPart = dateVal.split('-')[0];
+        
+        if (yearPart && yearPart.length === 4) {
+            if (event && event.inputType !== 'deleteContentBackward') {
+                const stepRightEvent = new KeyboardEvent('keydown', { bubbles: true, key: 'ArrowRight', code: 'ArrowRight' });
+                inputEl.dispatchEvent(stepRightEvent);
+            }
+        }
+        if (yearPart && yearPart.length > 4) {
+            const parts = dateVal.split('-');
+            parts[0] = yearPart.substring(0, 4);
+            inputEl.value = parts.join('-');
+        }
+    }
+
+    document.getElementById('baseDate').value = new Date().toISOString().split('T')[0];
+
+    function calcAge() {
+        const birthInput = document.getElementById('birthDate').value;
+        const baseInput = document.getElementById('baseDate').value;
+        const resultDiv = document.getElementById('ageResult');
+        if (!birthInput || !baseInput) return;
+
+        const birth = new Date(birthInput);
+        const base = new Date(baseInput);
+
+        let age = base.getFullYear() - birth.getFullYear();
+        const monthDiff = base.getMonth() - birth.getMonth();
+        const dayDiff = base.getDate() - birth.getDate();
+
+        if (monthDiff < 0 || (monthDiff === 0 && dayDiff < 0)) { age--; }
+        if (age < 0) {
+            resultDiv.innerHTML = `<span style="color:#ef4444; font-weight:bold;">기준일이 생일보다 빠릅니다!</span>`;
+            return;
+        }
+
+        const zodiac = ["원숭이(신)", "닭(유)", "개(술)", "돼지(해)", "쥐(자)", "소(축)", "호랑이(인)", "토끼(묘)", "용(진)", "뱀(사)", "말(오)", "양(미)"];
+        const myZodiac = zodiac[birth.getFullYear() % 12];
+
+        resultDiv.innerHTML = `
+            <span class="age-huge">만 ${age}세</span>
+            <div class="sub-info">💡 ${birth.getFullYear()}년생 (${myZodiac}띠) / 생일 <b>${(monthDiff > 0 || (monthDiff === 0 && dayDiff >= 0)) ? '지남' : '안 지남'}</b></div>
+        `;
+    }
+</script>
+</body>
+</html>

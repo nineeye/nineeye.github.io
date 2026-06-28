@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>군 전역일 & 복무율 계산기</title>
+    <style>
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .nav { display: flex; gap: 8px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 480px; }
+        .nav a { flex: 1; text-align: center; padding: 12px; background: #cbd5e1; color: #334155; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 14px; }
+        .nav a.active { background: #22c55e; color: white; box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2); }
+        .wrapper { width: 100%; max-width: 480px; background: white; padding: 30px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); box-sizing: border-box; }
+        h2 { text-align: center; color: #1e293b; margin-bottom: 25px; font-size: 22px; }
+        .calc-card { background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; border-left: 5px solid #22c55e; }
+        .input-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 15px; }
+        .input-item { display: flex; flex-direction: column; gap: 6px; }
+        label { font-size: 14px; color: #475569; font-weight: 600; }
+        select, input[type="date"] { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; background: white; box-sizing: border-box; }
+        select:focus, input[type="date"]:focus { border-color: #22c55e; box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.1); }
+        .result-box { background: white; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; text-align: center; min-height: 50px; display: flex; flex-direction: column; justify-content: center; }
+        .mili-huge { font-size: 28px; font-weight: 800; color: #16a34a; }
+        .sub-info { font-size: 13px; color: #64748b; margin-top: 6px; }
+        .progress-container { width: 100%; background-color: #e2e8f0; border-radius: 8px; margin-top: 12px; overflow: hidden; }
+        .progress-bar { height: 12px; background-color: #22c55e; width: 0%; transition: width 0.5s; }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="dday_age1.html">🎯 디데이</a>
+    <a href="dday_age2.html">🎂 만 나이</a>
+    <a href="dday_age3.html" class="active">🪖 전역일</a>
+</div>
+
+<div class="wrapper">
+    <h2>🪖 군 전역일 계산기</h2>
+    <div class="calc-card">
+        <div class="input-group">
+            <div class="input-item">
+                <label>군 형태 선택</label>
+                <select id="milType" onchange="calcMilitary()">
+                    <option value="18">육군 / 해병대 / 의경 (18개월)</option>
+                    <option value="20">해군 / 해양경찰 (20개월)</option>
+                    <option value="21">공군 / 사회복무요원 (21개월)</option>
+                </select>
+            </div>
+            <div class="input-item">
+                <label>입대일 입력</label>
+                <input type="date" id="joinDate" oninput="validateYear(this); calcMilitary();" onchange="calcMilitary()">
+            </div>
+        </div>
+        <div class="result-box" id="militaryResult"></div>
+    </div>
+</div>
+
+<script>
+    function validateYear(inputEl) {
+        const dateVal = inputEl.value;
+        if (!dateVal) return;
+        const yearPart = dateVal.split('-')[0];
+        
+        if (yearPart && yearPart.length === 4) {
+            if (event && event.inputType !== 'deleteContentBackward') {
+                const stepRightEvent = new KeyboardEvent('keydown', { bubbles: true, key: 'ArrowRight', code: 'ArrowRight' });
+                inputEl.dispatchEvent(stepRightEvent);
+            }
+        }
+        if (yearPart && yearPart.length > 4) {
+            const parts = dateVal.split('-');
+            parts[0] = yearPart.substring(0, 4);
+            inputEl.value = parts.join('-');
+        }
+    }
+
+    document.getElementById('joinDate').value = new Date().toISOString().split('T')[0];
+
+    function calcMilitary() {
+        const joinInput = document.getElementById('joinDate').value;
+        const milMonths = parseInt(document.getElementById('milType').value);
+        const resultDiv = document.getElementById('militaryResult');
+        if (!joinInput) return;
+
+        const joinDate = new Date(joinInput);
+        joinDate.setHours(0,0,0,0);
+        
+        const dischargeDate = new Date(joinDate);
+        dischargeDate.setMonth(dischargeDate.getMonth() + milMonths);
+        dischargeDate.setDate(dischargeDate.getDate() - 1);
+
+        const today = new Date();
+        today.setHours(0,0,0,0);
+
+        const totalServiceDays = Math.round((dischargeDate - joinDate) / (1000 * 60 * 60 * 24)) + 1;
+        const leftDays = Math.round((dischargeDate - today) / (1000 * 60 * 60 * 24));
+        const servedDays = totalServiceDays - leftDays;
+        let percent = ((servedDays / totalServiceDays) * 100).toFixed(2);
+        
+        if (percent < 0) percent = 0;
+        if (percent > 100) percent = 100;
+
+        const dischargeStr = `${dischargeDate.getFullYear()}년 ${dischargeDate.getMonth() + 1}월 ${dischargeDate.getDate()}일`;
+
+        if (leftDays <= 0) {
+            resultDiv.innerHTML = `
+                <span class="mili-huge">축하합니다! 전역 완료</span>
+                <div class="sub-info">🗓️ 전역일: ${dischargeStr}</div>
+                <div class="progress-container"><div class="progress-bar" style="width: 100%;"></div></div>
+            `;
+        } else if (servedDays < 0) {
+            resultDiv.innerHTML = `
+                <span class="mili-huge">입대 대기중</span>
+                <div class="sub-info">🗓️ 전역 예정일: ${dischargeStr}</div>
+                <div class="sub-info">입대까지 ${Math.abs(servedDays)}일 남았습니다.</div>
+            `;
+        } else {
+            resultDiv.innerHTML = `
+                <span class="mili-huge">전역까지 D - ${leftDays}</span>
+                <div class="sub-info">🗓️ 전역 예정일: ${dischargeStr}</div>
+                <div class="progress-container"><div class="progress-bar" style="width: ${percent}%;"></div></div>
+                <div class="sub-info">총 ${totalServiceDays}일 중 ${servedDays}일 복무 (${percent}%)</div>
+            `;
+        }
+    }
+    calcMilitary();
+</script>
+</body>
+</html>

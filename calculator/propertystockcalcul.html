@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마케팅·마진율 필수 퍼센트 계산기 8종</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; padding: 30px 15px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .title-area { text-align: center; margin-bottom: 25px; }
+        .title-area h2 { font-size: 26px; color: #1e3a8a; margin-bottom: 6px; }
+        .title-area p { font-size: 14px; color: #64748b; }
+        
+        /* 상단 탭 메뉴 스타일 */
+        .tab-menu { display: flex; background: #e2e8f0; padding: 6px; border-radius: 12px; margin-bottom: 25px; gap: 5px; }
+        .tab-btn { flex: 1; padding: 12px; border: none; background: transparent; font-size: 15px; font-weight: 700; color: #475569; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; text-decoration: none; }
+        .tab-btn.active { background: #ffffff; color: #2563eb; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        
+        .tab-content { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (max-width: 850px) { .tab-content { grid-template-columns: 1fr; } }
+        
+        .calc-card { background: #ffffff; border-radius: 16px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; }
+        .calc-card h3 { font-size: 15px; color: #334155; margin-bottom: 16px; font-weight: 700; }
+        .input-line { display: flex; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap; }
+        .input-line input, .input-line select { flex: 1; min-width: 90px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; font-weight: 600; outline: none; transition: all 0.2s; text-align: right; }
+        .input-line input:focus, .input-line select:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .input-line select { text-align: left; flex: 0 0 110px; background-color: white; }
+        .unit-text { font-size: 14px; color: #475569; font-weight: 600; white-space: nowrap; }
+        
+        .result-box { margin-top: 18px; padding-top: 14px; border-top: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .result-label { font-size: 13px; color: #64748b; font-weight: 500; }
+        .result-value { font-size: 21px; font-weight: 800; color: #2563eb; word-break: break-all; text-align: right; }
+        .result-sub { font-size: 12px; color: #64748b; text-align: right; margin-top: 2px; }
+        .up { color: #dc2626; }
+        .down { color: #2563eb; }
+        .neutral { color: #10b981; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title-area">
+        <h2>🛠️ 올인원 메가 유틸리티 계산기</h2>
+        <p>비즈니스 효율을 극대화하는 실시간 연산 기능입니다.</p>
+    </div>
+
+    <div class="tab-menu">
+        <a href="propertystockcalcul.html" class="tab-btn active">📊 퍼센트 & 비즈니스 (8종)</a>
+        <a href="propertystockcalcul1.html" class="tab-btn">💰 주식 & 예적금 금융 (5종)</a>
+        <a href="propertystockcalcul2.html" class="tab-btn">🏢 부동산 간이 세금 (2종)</a>
+        <a href="propertystockcalcul3.html" class="tab-btn">📈 파이어족 은퇴 시뮬레이터 (2종)</a>
+        <a href="propertystockcalcul4.html" class="tab-btn">⏳ 시간당 생산성 & 몸값 계산기 (2종)</a>
+        <a href="propertystockcalcul5.html" class="tab-btn">💳 신용카드 피킹률 계산기 (1종)</a>
+    </div>
+
+    <div class="tab-content">
+        <div class="calc-card">
+            <h3>💡 전체의 몇 %는 얼마?</h3>
+            <div class="input-line"><input type="number" id="v1_1" placeholder="전체값" oninput="calc1()"><span class="unit-text">의</span><input type="number" id="v1_2" placeholder="퍼센트" oninput="calc1()"><span class="unit-text">%는?</span></div>
+            <div class="result-box"><span class="result-label">계산 결과</span><span class="result-value" id="res1">0</span></div>
+        </div>
+        <div class="calc-card">
+            <h3>💡 특정 값은 전체의 몇 %?</h3>
+            <div class="input-line"><input type="number" id="v2_1" placeholder="전체값" oninput="calc2()"><span class="unit-text">중에서</span><input type="number" id="v2_2" placeholder="특정값" oninput="calc2()"><span class="unit-text">은(는)?</span></div>
+            <div class="result-box"><span class="result-label">비율 결과</span><span class="result-value" id="res2">0 %</span></div>
+        </div>
+        <div class="calc-card">
+            <h3>💡 값이 변했을 때 증감률은?</h3>
+            <div class="input-line"><input type="number" id="v3_1" placeholder="처음값" oninput="calc3()"><span class="unit-text">이(가)</span><input type="number" id="v3_2" placeholder="나중값" oninput="calc3()"><span class="unit-text">(으)로 변하면?</span></div>
+            <div class="result-box"><span class="result-label">증감률 결과</span><span class="result-value" id="res3">0 %</span></div>
+        </div>
+        <div class="calc-card">
+            <h3>💡 값에서 몇 % 증가/감소하면?</h3>
+            <div class="input-line"><input type="number" id="v4_1" placeholder="기준값" oninput="calc4()"><span class="unit-text">에서</span><input type="number" id="v4_2" placeholder="퍼센트" oninput="calc4()"><select id="v4_type" onchange="calc4()"><option value="up">지정% 증가</option><option value="down">지정% 감소</option></select></div>
+            <div class="result-box"><span class="result-label">최종 결과값</span><span class="result-value" id="res4">0</span></div>
+        </div>
+        <div class="calc-card">
+            <h3>💡 특정 금액이 몇 %라면, 전체 100%는?</h3>
+            <div class="input-line"><input type="number" id="v5_1" placeholder="일부값" oninput="calc5()"><span class="unit-text">이(가) 전체의</span><input type="number" id="v5_2" placeholder="퍼센트" oninput="calc5()"><span class="unit-text">%라면?</span></div>
+            <div class="result-box"><span class="result-label">원래 전체값</span><span class="result-value" id="res5">0</span></div>
+        </div>
+        <div class="calc-card">
+            <h3>💡 정가에서 몇 % 세일하면 얼마?</h3>
+            <div class="input-line"><input type="number" id="v6_1" placeholder="정가" oninput="calc6()"><span class="unit-text">원에서</span><input type="number" id="v6_2" placeholder="할인율" oninput="calc6()"><span class="unit-text">% 세일 시</span></div>
+            <div class="result-box"><span class="result-label">할인가 (아낀돈)</span><div><div class="result-value up" id="res6">0 원</div><div class="result-sub" id="res6_sub">할인액: 0원</div></div></div>
+        </div>
+        <div class="calc-card">
+            <h3>💡 목표치 대비 현재 달성률은?</h3>
+            <div class="input-line"><input type="number" id="v7_1" placeholder="목표값" oninput="calc7()"><span class="unit-text">중에서</span><input type="number" id="v7_2" placeholder="현재값" oninput="calc7()"><span class="unit-text">만큼 달성 시</span></div>
+            <div class="result-box"><span class="result-label">현재 달성률</span><span class="result-value" id="res7">0 %</span></div>
+        </div>
+        <div class="calc-card">
+            <h3>💡 원가에 마진 붙인 판매가 계산</h3>
+            <div class="input-line"><input type="number" id="v8_1" placeholder="물건원가" oninput="calc8()"><span class="unit-text">원에 마진</span><input type="number" id="v8_2" placeholder="마진율" oninput="calc8()"><span class="unit-text">% 확보 시</span></div>
+            <div class="result-box"><span class="result-label">추천 판매가 (마진액)</span><div><div class="result-value neutral" id="res8">0 원</div><div class="result-sub" id="res8_sub">순수익: 0원</div></div></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function format(num) {
+        if (isNaN(num) || !isFinite(num) || num < 0) return "0";
+        return Number(num.toFixed(2)).toLocaleString('ko-KR');
+    }
+    function calc1() {
+        const v1 = parseFloat(document.getElementById('v1_1').value); const v2 = parseFloat(document.getElementById('v1_2').value);
+        document.getElementById('res1').innerText = (!v1 || !v2) ? "0" : format(v1 * (v2 / 100));
+    }
+    function calc2() {
+        const v1 = parseFloat(document.getElementById('v2_1').value); const v2 = parseFloat(document.getElementById('v2_2').value);
+        document.getElementById('res2').innerText = (!v1 || !v2) ? "0 %" : format((v2 / v1) * 100) + " %";
+    }
+    function calc3() {
+        const v1 = parseFloat(document.getElementById('v3_1').value); const v2 = parseFloat(document.getElementById('v3_2').value); const res = document.getElementById('res3');
+        if(!v1 || isNaN(v2)) { res.innerText = "0 %"; res.className = "result-value"; return; }
+        const gap = ((v2 - v1) / v1) * 100;
+        if (gap > 0) { res.innerText = "+" + format(gap) + " %"; res.className = "result-value up"; }
+        else if (gap < 0) { res.innerText = format(gap) + " %"; res.className = "result-value down"; }
+        else { res.innerText = "0 %"; res.className = "result-value"; }
+    }
+    function calc4() {
+        const v1 = parseFloat(document.getElementById('v4_1').value); const v2 = parseFloat(document.getElementById('v4_2').value); const type = document.getElementById('v4_type').value;
+        if(!v1 || !v2) { document.getElementById('res4').innerText = "0"; return; }
+        document.getElementById('res4').innerText = format(type === "up" ? v1 * (1 + (v2 / 100)) : v1 * (1 - (v2 / 100)));
+    }
+    function calc5() {
+        const v1 = parseFloat(document.getElementById('v5_1').value); const v2 = parseFloat(document.getElementById('v5_2').value);
+        document.getElementById('res5').innerText = (!v1 || !v2) ? "0" : format(v1 / (v2 / 100));
+    }
+    function calc6() {
+        const v1 = parseFloat(document.getElementById('v6_1').value); const v2 = parseFloat(document.getElementById('v6_2').value);
+        if(!v1 || !v2) { document.getElementById('res6').innerText = "0 원"; document.getElementById('res6_sub').innerText = "할인액: 0원"; return; }
+        const dc = v1 * (v2 / 100); document.getElementById('res6').innerText = format(v1 - dc) + " 원"; document.getElementById('res6_sub').innerText = "할인액: " + format(dc) + "원";
+    }
+    function calc7() {
+        const v1 = parseFloat(document.getElementById('v7_1').value); const v2 = parseFloat(document.getElementById('v7_2').value);
+        document.getElementById('res7').innerText = (!v1 || !v2) ? "0 %" : format((v2 / v1) * 100) + " %";
+    }
+    function calc8() {
+        const v1 = parseFloat(document.getElementById('v8_1').value); const v2 = parseFloat(document.getElementById('v8_2').value);
+        if(!v1 || !v2) { document.getElementById('res8').innerText = "0 원"; document.getElementById('res8_sub').innerText = "순수익: 0원"; return; }
+        const margin = v1 * (v2 / 100); document.getElementById('res8').innerText = format(v1 + margin) + " 원"; document.getElementById('res8_sub').innerText = "순수익: " + format(margin) + "원";
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>광고 효율 분석기</title>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; padding: 40px; background: #f0f4f8; }
+        .box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 400px; margin: auto; }
+        input { width: 100%; padding: 12px; margin: 5px 0 15px; border: 2px solid #ddd; border-radius: 10px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: #ec4899; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
+        #result { margin-top: 20px; padding: 15px; background: #f8fafc; border-radius: 10px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>📈 광고 효율 분석기</h1>
+        광고비 (원) <input type="number" id="cost">
+        매출액 (원) <input type="number" id="revenue">
+        전환수 (명) <input type="number" id="conversions">
+        <button onclick="calculate()">분석하기</button>
+        <div id="result">결과가 여기에 표시됩니다.</div>
+    </div>
+    <script>
+        function calculate() {
+            const cost = document.getElementById('cost').value;
+            const rev = document.getElementById('revenue').value;
+            const conv = document.getElementById('conversions').value;
+            const roas = (rev / cost * 100).toFixed(2);
+            const cpa = (cost / conv).toFixed(0);
+            document.getElementById('result').innerHTML = `ROAS: ${roas}%<br>CPA: ${cpa}원`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>세후 실수령 주식·예적금 금융 계산기 5종</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; padding: 30px 15px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .title-area { text-align: center; margin-bottom: 25px; }
+        .title-area h2 { font-size: 26px; color: #1e3a8a; margin-bottom: 6px; }
+        .title-area p { font-size: 14px; color: #64748b; }
+        
+        .tab-menu { display: flex; background: #e2e8f0; padding: 6px; border-radius: 12px; margin-bottom: 25px; gap: 5px; }
+        .tab-btn { flex: 1; padding: 12px; border: none; background: transparent; font-size: 15px; font-weight: 700; color: #475569; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; text-decoration: none; }
+        .tab-btn.active { background: #ffffff; color: #2563eb; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        
+        .tab-content { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (max-width: 850px) { .tab-content { grid-template-columns: 1fr; } }
+        
+        .calc-card { background: #ffffff; border-radius: 16px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; }
+        .calc-card.full-width { grid-column: 1 / -1; }
+        @media (max-width: 850px) { .calc-card.full-width { grid-column: auto; } }
+        
+        .calc-card h3 { font-size: 15px; color: #334155; margin-bottom: 16px; font-weight: 700; }
+        .input-line { display: flex; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap; margin-bottom: 8px; }
+        .input-line input, .input-line select { flex: 1; min-width: 90px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; font-weight: 600; outline: none; transition: all 0.2s; text-align: right; }
+        .input-line input:focus, .input-line select:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .input-line select { text-align: left; flex: 0 0 110px; background-color: white; }
+        .unit-text { font-size: 14px; color: #475569; font-weight: 600; white-space: nowrap; }
+        
+        .result-box { margin-top: 18px; padding-top: 14px; border-top: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .result-label { font-size: 13px; color: #64748b; font-weight: 500; }
+        .result-value { font-size: 21px; font-weight: 800; color: #2563eb; word-break: break-all; text-align: right; }
+        .result-sub { font-size: 12px; color: #64748b; text-align: right; margin-top: 2px; }
+        .up { color: #dc2626; }
+        .neutral { color: #10b981; }
+        
+        /* 세금비교 테이블 전용 스타일 */
+        .tax-table { width: 100%; border-collapse: collapse; margin-top: 12px; font-size: 14px; }
+        .tax-table th { background: #f1f5f9; padding: 10px; text-align: left; font-weight: 700; color: #475569; }
+        .tax-table td { padding: 12px 10px; border-bottom: 1px solid #e2e8f0; text-align: right; font-weight: 600; }
+        .tax-table td:first-child { text-align: left; color: #64748b; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title-area">
+        <h2>🛠️ 올인원 메가 유틸리티 계산기</h2>
+        <p>재테크 수익률 제고와 세후 실령액을 즉시 계산합니다.</p>
+    </div>
+
+    <div class="tab-menu">
+        <a href="propertystockcalcul.html" class="tab-btn">📊 퍼센트 & 비즈니스 (8종)</a>
+        <a href="propertystockcalcul1.html" class="tab-btn active">💰 주식 & 예적금 금융 (5종)</a>
+        <a href="propertystockcalcul2.html" class="tab-btn">🏢 부동산 간이 세금 (2종)</a>
+        <a href="propertystockcalcul3.html" class="tab-btn">📈 파이어족 은퇴 시뮬레이터 (2종)</a>
+        <a href="propertystockcalcul4.html" class="tab-btn">⏳ 시간당 생산성 & 몸값 계산기 (2종)</a>
+        <a href="propertystockcalcul5.html" class="tab-btn">💳 신용카드 피킹률 계산기 (1종)</a>
+    </div>
+
+    <div class="tab-content">
+        <div class="calc-card full-width">
+            <h3>🔥 비과세 vs 일반과세(15.4%) 세금 자동 차감 비교기</h3>
+            <div class="input-line">
+                <input type="number" id="tax_raw_interest" placeholder="세전 이자 및 수익금" oninput="calcTaxCompare()">
+                <span class="unit-text">원의 순이익 발생 시</span>
+            </div>
+            <table class="tax-table">
+                <thead>
+                    <tr>
+                        <th>과세 종류</th>
+                        <th>차감 세율</th>
+                        <th>수령할 세금</th>
+                        <th>최종 세후 실수령액</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>비과세 (ISA, 저축 등)</td>
+                        <td style="color:#10b981;">0.0%</td>
+                        <td id="tax_v_1">0 원</td>
+                        <td id="tax_r_1" style="color:#10b981; font-size:16px;">0 원</td>
+                    </tr>
+                    <tr>
+                        <td>일반과세 (시중 은행/증권)</td>
+                        <td style="color:#dc2626;">15.4%</td>
+                        <td id="tax_v_2" style="color:#dc2626;">0 원</td>
+                        <td id="tax_r_2" style="color:#2563eb; font-size:16px;">0 원</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="result-sub" id="tax_compare_sub" style="margin-top: 15px; text-align: left; font-weight: bold; color: #475569;">
+                💡 비과세 계좌 활용 시 일반과세 대비 세금 0원을 아낄 수 있습니다.
+            </div>
+        </div>
+
+        <div class="calc-card">
+            <h3>📊 주식/ETF 물타기 평단가 계산기</h3>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="input-line"><input type="number" id="f1_p1" placeholder="현재 평단가" oninput="calcFinance1()"><span class="unit-text">원에</span><input type="number" id="f1_q1" placeholder="보유 수량" oninput="calcFinance1()"><span class="unit-text">주 보유 중</span></div>
+                <div class="input-line"><input type="number" id="f1_p2" placeholder="추가 매수가" oninput="calcFinance1()"><span class="unit-text">원에</span><input type="number" id="f1_q2" placeholder="추가 수량" oninput="calcFinance1()"><span class="unit-text">주 더 사면?</span></div>
+            </div>
+            <div class="result-box"><span class="result-label">물타기 후 최종 평단</span><div><div class="result-value neutral" id="f1_res">0 원</div><div class="result-sub" id="f1_sub">총 보유 주수: 0주 / 총 투자금: 0원</div></div></div>
+        </div>
+
+        <div class="calc-card">
+            <h3>💰 예적금 만기 이자 계산기 (단리/복리)</h3>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="input-line"><input type="number" id="f2_money" placeholder="예치 원금" oninput="calcFinance2()"><span class="unit-text">원을</span><input type="number" id="f2_rate" placeholder="연이자율" oninput="calcFinance2()"><span class="unit-text">%로</span></div>
+                <div class="input-line"><input type="number" id="f2_period" placeholder="기간 (개월)" oninput="calcFinance2()"><span class="unit-text">개월간</span><select id="f2_type" onchange="calcFinance2()"><option value="simple">일반 단리</option><option value="compound">연 복리</option></select></div>
+            </div>
+            <div class="result-box"><span class="result-label">만기 예치 총액 (세전)</span><div><div class="result-value up" id="f2_res">0 원</div><div class="result-sub" id="f2_sub">순수 이자: 0원 (일반과세 15.4% 수령 시 이자: 0원)</div></div></div>
+        </div>
+
+        <div class="calc-card">
+            <h3>📈 주식/ETF 투자 수익률 및 평가액 계산</h3>
+            <div class="input-line"><input type="number" id="f3_total" placeholder="총 매수금액" oninput="calcFinance3()"><span class="unit-text">원을 투자하여</span><input type="number" id="f3_rate" placeholder="목표 수익률" oninput="calcFinance3()"><span class="unit-text">% 수익 시</span></div>
+            <div class="result-box"><span class="result-label">예상 평가 금액</span><div><div class="result-value up" id="f3_res">0 원</div><div class="result-sub" id="f3_sub">순수익금: +0원</div></div></div>
+        </div>
+
+        <div class="calc-card">
+            <h3>🎯 매년 일정 수익률 거둘 시 미래 자산 계산</h3>
+            <div class="input-line"><input type="number" id="f4_seed" placeholder="현재 자산" oninput="calcFinance4()"><span class="unit-text">원을 연</span><input type="number" id="f4_rate" placeholder="연간 수익률" oninput="calcFinance4()"><span class="unit-text">%로</span><input type="number" id="f4_year" placeholder="굴릴 기간" oninput="calcFinance4()"><span class="unit-text">년 굴리면?</span></div>
+            <div class="result-box"><span class="result-label">미래 최종 자산 규모</span><span class="result-value neutral" id="f4_res">0 원</span></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function format(num) {
+        if (isNaN(num) || !isFinite(num) || num < 0) return "0";
+        return Number(num.toFixed(2)).toLocaleString('ko-KR');
+    }
+
+    // 신규 추가: 세금 비교 연산
+    function calcTaxCompare() {
+        const rawInterest = parseFloat(document.getElementById('tax_raw_interest').value) || 0;
+        
+        const tax1 = 0;
+        const after1 = rawInterest;
+        
+        const tax2 = rawInterest * 0.154;
+        const after2 = rawInterest - tax2;
+        
+        const savedTax = tax2 - tax1;
+
+        document.getElementById('tax_v_1').innerText = format(tax1) + " 원";
+        document.getElementById('tax_r_1').innerText = format(after1) + " 원";
+        
+        document.getElementById('tax_v_2').innerText = format(tax2) + " 원";
+        document.getElementById('tax_r_2').innerText = format(after2) + " 원";
+        
+        document.getElementById('tax_compare_sub').innerHTML = `💡 비과세 계좌 활용 시 일반과세 대비 세금 <span style="color:#dc2626;">${format(savedTax)}원</span>을 아낄 수 있습니다.`;
+    }
+
+    function calcFinance1() {
+        const p1 = parseFloat(document.getElementById('f1_p1').value); const q1 = parseFloat(document.getElementById('f1_q1').value);
+        const p2 = parseFloat(document.getElementById('f1_p2').value); const q2 = parseFloat(document.getElementById('f1_q2').value);
+        const res = document.getElementById('f1_res'); const sub = document.getElementById('f1_sub');
+        if(!p1 || !q1 || !p2 || !q2) { res.innerText = "0 원"; sub.innerText = "총 보유 주수: 0주 / 총 투자금: 0원"; return; }
+        const total_qty = q1 + q2; const total_amt = (p1 * q1) + (p2 * q2); const avg_price = total_amt / total_qty;
+        res.innerText = format(avg_price) + " 원"; sub.innerText = "총 보유 주수: " + format(total_qty) + "주 / 총 투자금: " + format(total_amt) + "원";
+    }
+
+    function calcFinance2() {
+        const money = parseFloat(document.getElementById('f2_money').value); const rate = parseFloat(document.getElementById('f2_rate').value);
+        const period = parseFloat(document.getElementById('f2_period').value); const type = document.getElementById('f2_type').value;
+        const res = document.getElementById('f2_res'); const sub = document.getElementById('f2_sub');
+        if(!money || !rate || !period) { res.innerText = "0 원"; sub.innerText = "순수 이자: 0원"; return; }
+        let interest = 0;
+        if(type === 'simple') {
+            interest = money * (rate / 100) * (period / 12);
+        } else {
+            interest = money * (Math.pow(1 + (rate / 100), period / 12) - 1);
+        }
+        const tax_interest = interest * (1 - 0.154);
+        res.innerText = format(money + interest) + " 원";
+        sub.innerText = "순수 이자(세전): " + format(interest) + "원 (일반과세 15.4% 적용 시 실수령 이자: " + format(tax_interest) + "원)";
+    }
+
+    function calcFinance3() {
+        const total = parseFloat(document.getElementById('f3_total').value); const rate = parseFloat(document.getElementById('f3_rate').value);
+        if(!total || !rate) { document.getElementById('f3_res').innerText = "0 원"; document.getElementById('f3_sub').innerText = "순수익금: +0원"; return; }
+        const profit = total * (rate / 100);
+        document.getElementById('f3_res').innerText = format(total + profit) + " 원"; document.getElementById('f3_sub').innerText = "순수익금: +" + format(profit) + "원";
+    }
+
+    function calcFinance4() {
+        const seed = parseFloat(document.getElementById('f4_seed').value); const rate = parseFloat(document.getElementById('f4_rate').value); const year = parseFloat(document.getElementById('f4_year').value);
+        if(!seed || !rate || !year) { document.getElementById('f4_res').innerText = "0 원"; return; }
+        const final_asset = seed * Math.pow(1 + (rate / 100), year);
+        document.getElementById('f4_res').innerText = format(final_asset) + " 원";
+    }
+</script>
+</body>
+</html>

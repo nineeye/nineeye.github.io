@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>조기은퇴 자산 예측 파이어족 시뮬레이터 2종</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; padding: 30px 15px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .title-area { text-align: center; margin-bottom: 25px; }
+        .title-area h2 { font-size: 26px; color: #1e3a8a; margin-bottom: 6px; }
+        .title-area p { font-size: 14px; color: #64748b; }
+        
+        /* 상단 탭 메뉴 스타일 (4개 탭 대응) */
+        .tab-menu { display: flex; background: #e2e8f0; padding: 6px; border-radius: 12px; margin-bottom: 25px; gap: 5px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 140px; padding: 12px; border: none; background: transparent; font-size: 14px; font-weight: 700; color: #475569; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; text-decoration: none; }
+        .tab-btn.active { background: #ffffff; color: #2563eb; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        
+        .tab-content { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (max-width: 850px) { .tab-content { grid-template-columns: 1fr; } }
+        
+        .calc-card { background: #ffffff; border-radius: 16px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; }
+        .calc-card.full-width { grid-column: 1 / -1; }
+        @media (max-width: 850px) { .calc-card.full-width { grid-column: auto; } }
+        
+        .calc-card h3 { font-size: 15px; color: #334155; margin-bottom: 16px; font-weight: 700; }
+        .input-line { display: flex; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap; margin-bottom: 8px; }
+        .input-line input, .input-line select { flex: 1; min-width: 90px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; font-weight: 600; outline: none; transition: all 0.2s; text-align: right; }
+        .input-line input:focus, .input-line select:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .input-line select { text-align: left; flex: 0 0 110px; background-color: white; }
+        .unit-text { font-size: 14px; color: #475569; font-weight: 600; white-space: nowrap; }
+        
+        .result-box { margin-top: 18px; padding-top: 14px; border-top: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .result-label { font-size: 13px; color: #64748b; font-weight: 500; }
+        .result-value { font-size: 21px; font-weight: 800; color: #2563eb; word-break: break-all; text-align: right; }
+        .result-sub { font-size: 12px; color: #64748b; text-align: right; margin-top: 2px; }
+        .up { color: #dc2626; }
+        .neutral { color: #10b981; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title-area">
+        <h2>🛠️ 올인원 메가 유틸리티 계산기</h2>
+        <p>미래 경제적 자유(FIRE) 달성을 위한 생애주기별 자산 형성 시뮬레이터입니다.</p>
+    </div>
+
+    <div class="tab-menu">
+        <a href="propertystockcalcul.html" class="tab-btn">📊 퍼센트 & 비즈니스 (8종)</a>
+        <a href="propertystockcalcul1.html" class="tab-btn">💰 주식 & 예적금 금융 (5종)</a>
+        <a href="propertystockcalcul2.html" class="tab-btn">🏢 부동산 간이 세금 (2종)</a>
+        <a href="propertystockcalcul3.html" class="tab-btn active">📈 파이어족 은퇴 시뮬레이터 (2종)</a>
+        <a href="propertystockcalcul4.html" class="tab-btn">⏳ 시간당 생산성 & 몸값 계산기 (2종)</a>
+        <a href="propertystockcalcul5.html" class="tab-btn">💳 신용카드 피킹률 계산기 (1종)</a>
+    </div>
+
+    <div class="tab-content">
+        <div class="calc-card full-width">
+            <h3>🎯 목표 자산 기반 은퇴 가능 시점(연수) 계산기</h3>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 110px; text-align:left;">현재 준비 자산:</span>
+                    <input type="number" id="fire_seed" placeholder="현재 모아둔 돈" oninput="calcFireTimeline()">
+                    <span class="unit-text">원</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 110px; text-align:left;">매월 추가 저축:</span>
+                    <input type="number" id="fire_monthly" placeholder="매달 저축 가능 금액" oninput="calcFireTimeline()">
+                    <span class="unit-text">원</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 110px; text-align:left;">희망 은퇴 자산:</span>
+                    <input type="number" id="fire_target" placeholder="목표 최종 자산 규모" oninput="calcFireTimeline()">
+                    <span class="unit-text">원</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 110px; text-align:left;">예상 투자 수익률:</span>
+                    <input type="number" id="fire_rate" placeholder="연평균 기대 수익률" oninput="calcFireTimeline()">
+                    <span class="unit-text">% (연 복리 적용)</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <span class="result-label">경제적 자유 달성까지</span>
+                <div>
+                    <div class="result-value up" id="fire_res_year">0년 0개월</div>
+                    <div class="result-sub" id="fire_res_sub">총 투자 원금: 0원 / 예상 누적 이자: 0원</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calc-card full-width">
+            <h3>☕ 낙원 계산기 (보유 자산 기반 매월 안전 인출금 계산)</h3>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 110px; text-align:left;">은퇴 시점 자산:</span>
+                    <input type="number" id="withdraw_asset" placeholder="보유하고 있을 총 자산" oninput="calcSafeWithdraw()">
+                    <span class="unit-text">원</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 110px; text-align:left;">은퇴 후 연수익률:</span>
+                    <input type="number" id="withdraw_rate" placeholder="은퇴 후 자산 운용 수익률" value="5" oninput="calcSafeWithdraw()">
+                    <span class="unit-text">% (기본 권장 4~5%)</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <span class="result-label">원금을 보존하며 매달 쓸 수 있는 돈</span>
+                <div>
+                    <div class="result-value neutral" id="withdraw_res">매월 0 원</div>
+                    <div class="result-sub" id="withdraw_sub">연간 인출 가능 금액: 0원 (자산이 마르지 않는 안전 인출 기준)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function format(num) {
+        if (isNaN(num) || !isFinite(num) || num < 0) return "0";
+        return Number(num.toFixed(0)).toLocaleString('ko-KR');
+    }
+
+    // 1. 은퇴 시점 시뮬레이션 연산
+    function calcFireTimeline() {
+        const seed = parseFloat(document.getElementById('fire_seed').value) || 0;
+        const monthly = parseFloat(document.getElementById('fire_monthly').value) || 0;
+        const target = parseFloat(document.getElementById('fire_target').value) || 0;
+        const annualRate = parseFloat(document.getElementById('fire_rate').value) || 0;
+
+        const resYear = document.getElementById('fire_res_year');
+        const resSub = document.getElementById('fire_res_sub');
+
+        if (target <= seed) {
+            resYear.innerText = "지금 즉시 가능";
+            resSub.innerText = "목표 자산이 현재 자산보다 작거나 같습니다.";
+            return;
+        }
+        if (monthly <= 0 && annualRate <= 0) {
+            resYear.innerText = "달성 불가";
+            resSub.innerText = "매월 저축액이나 투자 수익률이 있어야 자산이 증식됩니다.";
+            return;
+        }
+
+        let currentAsset = seed;
+        let totalPrincipal = seed;
+        const monthlyRate = (annualRate / 100) / 12;
+        let months = 0;
+
+        // 대용량 루프 과부하 방지 (최대 100년까지만 연산)
+        while (currentAsset < target && months < 1200) {
+            months++;
+            totalPrincipal += monthly;
+            if (monthlyRate > 0) {
+                // 월 복리 시뮬레이션 (기존 자산 수익 + 이번 달 저축액)
+                currentAsset = (currentAsset + monthly) * (1 + monthlyRate);
+            } else {
+                currentAsset += monthly;
+            }
+        }
+
+        if (months >= 1200) {
+            resYear.innerText = "100년 이상 소요";
+            resSub.innerText = "현재 저축 속도로는 목표 달성에 100년 이상이 걸립니다.";
+        } else {
+            const y = Math.floor(months / 12);
+            const m = months % 12;
+            const totalInterest = currentAsset - totalPrincipal;
+
+            resYear.innerText = `${y}년 ${m}개월`;
+            resSub.innerText = `총 투자 원금: ${format(totalPrincipal)}원 / 예상 누적 이자: ${format(totalInterest)}원`;
+        }
+    }
+
+    // 2. 안전 인출금(낙원 계산기) 연산
+    function calcSafeWithdraw() {
+        const asset = parseFloat(document.getElementById('withdraw_asset').value) || 0;
+        const rate = parseFloat(document.getElementById('withdraw_rate').value) || 0;
+
+        const resValue = document.getElementById('withdraw_res');
+        const resSub = document.getElementById('withdraw_sub');
+
+        if (asset <= 0 || rate <= 0) {
+            resValue.innerText = "매월 0 원";
+            resSub.innerText = "연간 인출 가능 금액: 0원";
+            return;
+        }
+
+        // 연간 인출 가능 금액 = 자산 * 수익률
+        const annualWithdraw = asset * (rate / 100);
+        // 월 생활비
+        const monthlyWithdraw = annualWithdraw / 12;
+
+        resValue.innerText = `매월 ${format(monthlyWithdraw)} 원`;
+        resSub.innerText = `연간 인출 가능 금액: 약 ${format(annualWithdraw)}원 (자산 원금을 보존하며 매달 인출 가능한 금액)`;
+    }
+</script>
+</body>
+</html>
+
+```

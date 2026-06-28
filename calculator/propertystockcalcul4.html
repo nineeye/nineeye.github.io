@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>시간당 생산성 & 몸값 계산기</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; padding: 30px 15px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .title-area { text-align: center; margin-bottom: 25px; }
+        .title-area h2 { font-size: 26px; color: #1e3a8a; margin-bottom: 6px; }
+        .title-area p { font-size: 14px; color: #64748b; }
+        
+        /* 상단 탭 메뉴 스타일 (5개 탭 대응) */
+        .tab-menu { display: flex; background: #e2e8f0; padding: 6px; border-radius: 12px; margin-bottom: 25px; gap: 5px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 140px; padding: 12px; border: none; background: transparent; font-size: 14px; font-weight: 700; color: #475569; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; text-decoration: none; }
+        .tab-btn.active { background: #ffffff; color: #2563eb; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        
+        .tab-content { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+        @media (max-width: 850px) { .tab-content { grid-template-columns: 1fr; } }
+        
+        .calc-card { background: #ffffff; border-radius: 16px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; }
+        .calc-card.full-width { grid-column: 1 / -1; }
+        @media (max-width: 850px) { .calc-card.full-width { grid-column: auto; } }
+        
+        .calc-card h3 { font-size: 15px; color: #334155; margin-bottom: 16px; font-weight: 700; }
+        .input-line { display: flex; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap; margin-bottom: 8px; }
+        .input-line input, .input-line select { flex: 1; min-width: 90px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; font-weight: 600; outline: none; transition: all 0.2s; text-align: right; }
+        .input-line input:focus, .input-line select:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .unit-text { font-size: 14px; color: #475569; font-weight: 600; white-space: nowrap; }
+        
+        .result-box { margin-top: 18px; padding-top: 14px; border-top: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .result-label { font-size: 13px; color: #64748b; font-weight: 500; }
+        .result-value { font-size: 21px; font-weight: 800; color: #2563eb; word-break: break-all; text-align: right; }
+        .result-sub { font-size: 12px; color: #64748b; text-align: right; margin-top: 2px; }
+        .up { color: #dc2626; }
+        .neutral { color: #10b981; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title-area">
+        <h2>올인원 메가 유틸리티 계산기</h2>
+        <p>나의 시간당 순수 가치를 파악하고 업무 효율을 극대화하는 생산성 계산기입니다.</p>
+    </div>
+
+    <div class="tab-menu">
+        <a href="propertystockcalcul.html" class="tab-btn">퍼센트 & 비즈니스 (8종)</a>
+        <a href="propertystockcalcul1.html" class="tab-btn">주식 & 예적금 금융 (5종)</a>
+        <a href="propertystockcalcul2.html" class="tab-btn">부동산 간이 세금 (2종)</a>
+        <a href="propertystockcalcul3.html" class="tab-btn">파이어족 은퇴 시뮬레이터 (2종)</a>
+        <a href="propertystockcalcul4.html" class="tab-btn active">시간당 생산성 & 몸값 계산기 (2종)</a>
+        <a href="propertystockcalcul5.html" class="tab-btn">신용카드 피킹률 계산기 (1종)</a>
+    </div>
+
+    <div class="tab-content">
+        <div class="calc-card full-width">
+            <h3>진짜 나의 가치 계산기 (직장인·프리랜서 겸용)</h3>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 130px; text-align:left;">월평균 순수입:</span>
+                    <input type="number" id="income_val" placeholder="월급 또는 월 평균 수입" oninput="calcTrueSalary()">
+                    <span class="unit-text">원</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 130px; text-align:left;">주당 근무일수:</span>
+                    <input type="number" id="work_days" placeholder="예: 5" value="5" oninput="calcTrueSalary()">
+                    <span class="unit-text">일</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 130px; text-align:left;">하루 평균 근무시간:</span>
+                    <input type="number" id="work_hours" placeholder="예: 8" value="8" oninput="calcTrueSalary()">
+                    <span class="unit-text">시간</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 130px; text-align:left;">하루 출퇴근·준비시간:</span>
+                    <input type="number" id="commute_hours" placeholder="무급 노동 시간 포함" value="1.5" oninput="calcTrueSalary()">
+                    <span class="unit-text">시간</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <span class="result-label">시간당 순수 몸값 가치</span>
+                <div>
+                    <div class="result-value up" id="salary_res_hour">시간당 0 원</div>
+                    <div class="result-sub" id="salary_res_sub">1분당 약 0원 노동 중 (월 총 노동시간: 0시간)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="calc-card full-width">
+            <h3>목표 연봉 기반 시간당 업무 단가 계산기</h3>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 130px; text-align:left;">목표 연 수입:</span>
+                    <input type="number" id="target_year_income" placeholder="내가 받고 싶은 연봉/수입" oninput="calcTargetUnit()">
+                    <span class="unit-text">원</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 130px; text-align:left;">주당 목표 작업시간:</span>
+                    <input type="number" id="target_week_hours" placeholder="일주일간 일할 시간" value="40" oninput="calcTargetUnit()">
+                    <span class="unit-text">시간</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <span class="result-label">목표 달성을 위해 필요한 단가</span>
+                <div>
+                    <div class="result-value neutral" id="target_res_hour">시간당 최소 0 원</div>
+                    <div class="result-sub" id="target_res_sub">하루 8시간 기준 일당 약 0원 수준의 부가가치를 만들어야 합니다.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function format(num) {
+        if (isNaN(num) || !isFinite(num) || num < 0) return "0";
+        return Number(num.toFixed(0)).toLocaleString('ko-KR');
+    }
+
+    // 1. 진짜 나의 시급 계산 연산
+    function calcTrueSalary() {
+        const income = parseFloat(document.getElementById('income_val').value) || 0;
+        const days = parseFloat(document.getElementById('work_days').value) || 0;
+        const hours = parseFloat(document.getElementById('work_hours').value) || 0;
+        const commute = parseFloat(document.getElementById('commute_hours').value) || 0;
+
+        const resHour = document.getElementById('salary_res_hour');
+        const resSub = document.getElementById('salary_res_sub');
+
+        if (income <= 0 || days <= 0 || (hours + commute) <= 0) {
+            resHour.innerText = "시간당 0 원";
+            resSub.innerText = "1분당 약 0원 노동 중 (월 총 노동시간: 0시간)";
+            return;
+        }
+
+        // 월평균 주 수 (4.345주 적용)
+        const weeksPerMonth = 4.345;
+        // 하루 총 유무형 노동 시간 = 근무 시간 + 출퇴근/준비 시간
+        const totalDailyHours = hours + commute;
+        // 월간 총 노동 시간
+        const totalMonthlyHours = days * totalDailyHours * weeksPerMonth;
+
+        // 진짜 시급 및 분급 계산
+        const trueHourlyWage = income / totalMonthlyHours;
+        const trueMinuteWage = trueHourlyWage / 60;
+
+        resHour.innerText = `시간당 ${format(trueHourlyWage)} 원`;
+        resSub.innerText = `1분당 약 ${format(trueMinuteWage)}원 노동 중 (준비시간 포함 월 총 노동: ${totalMonthlyHours.toFixed(1)}시간)`;
+    }
+
+    // 2. 목표 몸값 기반 단가 연산
+    function calcTargetUnit() {
+        const targetYearIncome = parseFloat(document.getElementById('target_year_income').value) || 0;
+        const targetWeekHours = parseFloat(document.getElementById('target_week_hours').value) || 0;
+
+        const resTarget = document.getElementById('target_res_hour');
+        const resTargetSub = document.getElementById('target_res_sub');
+
+        if (targetYearIncome <= 0 || targetWeekHours <= 0) {
+            resTarget.innerText = "시간당 최소 0 원";
+            resTargetSub.innerText = "하루 8시간 기준 일당 약 0원 수준의 부가가치를 만들어야 합니다.";
+            return;
+        }
+
+        // 연간 총 주 수 (52주 적용)
+        const weeksPerYear = 52;
+        // 연간 총 작업 시간
+        const totalYearHours = targetWeekHours * weeksPerYear;
+
+        // 목표 시간당 단가 및 일당(8시간 기준) 계산
+        const requiredHourlyUnit = targetYearIncome / totalYearHours;
+        const dailyUnitValue = requiredHourlyUnit * 8;
+
+        resTarget.innerText = `시간당 최소 ${format(requiredHourlyUnit)} 원`;
+        resTargetSub.innerText = `하루 8시간 노동 기준 일당 약 ${format(dailyUnitValue)}원 수준의 수익을 올려야 합니다.`;
+    }
+</script>
+</body>
+</html>

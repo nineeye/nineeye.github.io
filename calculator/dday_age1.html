@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>디데이 & 날짜 계산기</title>
+    <style>
+        body { font-family: 'Pretendard', -apple-system, sans-serif; background-color: #f1f5f9; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .nav { display: flex; gap: 8px; margin-bottom: 25px; justify-content: center; flex-wrap: wrap; width: 100%; max-width: 480px; }
+        .nav a { flex: 1; text-align: center; padding: 12px; background: #cbd5e1; color: #334155; text-decoration: none; border-radius: 12px; font-weight: bold; font-size: 14px; transition: all 0.2s; }
+        .nav a.active { background: #6366f1; color: white; box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2); }
+        .wrapper { width: 100%; max-width: 480px; background: white; padding: 30px; border-radius: 24px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); box-sizing: border-box; }
+        h2 { text-align: center; color: #1e293b; margin-bottom: 25px; font-size: 22px; }
+        .calc-card { background: #f8fafc; padding: 20px; border-radius: 16px; border: 1px solid #e2e8f0; border-left: 5px solid #6366f1; margin-bottom: 20px; }
+        .calc-card.future-card { border-left: 5px solid #3b82f6; margin-bottom: 0; }
+        .input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 15px; }
+        .input-row { display: flex; gap: 10px; align-items: center; }
+        label { font-size: 14px; color: #475569; font-weight: 600; }
+        input[type="date"], input[type="number"] { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; box-sizing: border-box; }
+        input[type="date"]:focus, input[type="number"]:focus { border-color: #6366f1; box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1); }
+        .future-card input:focus { border-color: #3b82f6; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
+        .result-box { background: white; padding: 20px; border-radius: 10px; border: 1px solid #e2e8f0; text-align: center; min-height: 50px; display: flex; flex-direction: column; justify-content: center; }
+        .dday-huge { font-size: 32px; font-weight: 800; color: #4f46e5; }
+        .future-huge { font-size: 28px; font-weight: 800; color: #2563eb; }
+        .sub-info { font-size: 13px; color: #64748b; margin-top: 6px; }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <a href="dday_age1.html" class="active">🎯 디데이</a>
+    <a href="dday_age2.html">🎂 만 나이</a>
+    <a href="dday_age3.html">🪖 전역일</a>
+</div>
+
+<div class="wrapper">
+    <h2>🎯 디데이 & 기념일 계산기</h2>
+    
+    <div class="calc-card">
+        <div class="input-group">
+            <label>목표 날짜 선택</label>
+            <input type="date" id="targetDate" oninput="validateYear(this); calcDDay();" onchange="calcDDay()">
+        </div>
+        <div class="result-box" id="ddayResult"></div>
+    </div>
+
+    <div style="margin-top: 25px;"></div>
+
+    <div class="calc-card future-card">
+        <label style="color: #3b82f6; font-size: 16px; font-weight: bold; display: block; margin-bottom: 15px;">🗓️ 오늘부터 몇 일째 되는 날은?</label>
+        <div class="input-group">
+            <div class="input-row">
+                <input type="number" id="daysInput" value="100" min="1" oninput="calcFutureDate()" style="flex: 2;">
+                <span style="font-weight: bold; color: #475569; white-space: nowrap;">일째 되는 날</span>
+            </div>
+        </div>
+        <div class="result-box" id="futureResult"></div>
+    </div>
+</div>
+
+<script>
+    // 날짜 연도 4자리 자동 튕기기 및 초과 차단 함수 (핵심 솔루션)
+    function validateYear(inputEl) {
+        const dateVal = inputEl.value; // YYYY-MM-DD 형식
+        if (!dateVal) return;
+        
+        const yearPart = dateVal.split('-')[0];
+        
+        // 사용자가 키보드로 연도를 4자리 입력한 직후 순간 포커스 보정
+        if (yearPart && yearPart.length === 4) {
+            // 브라우저의 내부 포커스를 다음 세그먼트(월)로 강제 이동 유도
+            // 대다수 모던 브라우저에서 날짜창에 4자리 입력 후 우측 화살표를 누른 효과를 줍니다.
+            if (event && event.inputType !== 'deleteContentBackward') {
+                const stepRightEvent = new KeyboardEvent('keydown', { bubbles: true, key: 'ArrowRight', code: 'ArrowRight' });
+                inputEl.dispatchEvent(stepRightEvent);
+            }
+        }
+        
+        // 혹시라도 밀려서 5~6자리가 찍혔다면 4자리로 강제 컷트
+        if (yearPart && yearPart.length > 4) {
+            const parts = dateVal.split('-');
+            parts[0] = yearPart.substring(0, 4);
+            inputEl.value = parts.join('-');
+        }
+    }
+
+    const nextMonth = new Date();
+    nextMonth.setMonth(nextMonth.getMonth() + 1);
+    document.getElementById('targetDate').value = nextMonth.toISOString().split('T')[0];
+
+    function calcDDay() {
+        const targetInput = document.getElementById('targetDate').value;
+        const resultDiv = document.getElementById('ddayResult');
+        if (!targetInput) return;
+
+        const today = new Date();
+        const target = new Date(targetInput);
+        today.setHours(0,0,0,0);
+        target.setHours(0,0,0,0);
+
+        const diffTime = target - today;
+        const diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays === 0) {
+            resultDiv.innerHTML = `<span class="dday-huge">D-Day</span><div class="sub-info">🎉 드디어 오늘입니다!</div>`;
+        } else if (diffDays > 0) {
+            resultDiv.innerHTML = `<span class="dday-huge">D - ${diffDays}</span><div class="sub-info">앞으로 ${diffDays}일 남았습니다.</div>`;
+        } else {
+            const passedDays = Math.abs(diffDays) + 1;
+            resultDiv.innerHTML = `<span class="dday-huge">D + ${Math.abs(diffDays)}</span><div class="sub-info">🗓️ 지난 지 ${Math.abs(diffDays)}일째 (기념일 기준 ${passedDays}일차)</div>`;
+        }
+    }
+
+    function calcFutureDate() {
+        const daysInput = document.getElementById('daysInput').value;
+        const resultDiv = document.getElementById('futureResult');
+        
+        if (!daysInput || daysInput <= 0) {
+            resultDiv.innerHTML = `<span style="color:#94a3b8;">숫자를 입력해 주세요.</span>`;
+            return;
+        }
+
+        const targetDays = parseInt(daysInput);
+        const today = new Date();
+        today.setHours(0,0,0,0);
+
+        const futureDate = new Date(today);
+        futureDate.setDate(today.getDate() + (targetDays - 1));
+
+        const year = futureDate.getFullYear();
+        const month = futureDate.getMonth() + 1;
+        const date = futureDate.getDate();
+
+        const week = ['일', '월', '화', '수', '목', '금', '토'];
+        const dayOfWeek = week[futureDate.getDay()];
+
+        resultDiv.innerHTML = `
+            <span class="future-huge">${year}년 ${month}월 ${date}일 (${dayOfWeek})</span>
+            <div class="sub-info">💡 오늘을 1일로 잡았을 때, <b>${targetDays}일째</b> 되는 날입니다.</div>
+        `;
+    }
+
+    calcDDay();
+    calcFutureDate();
+</script>
+</body>
+</html>

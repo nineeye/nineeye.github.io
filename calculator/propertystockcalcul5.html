@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신용카드 피킹률 계산기</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+        body { background-color: #f8fafc; color: #1e293b; padding: 30px 15px; }
+        .container { max-width: 1100px; margin: 0 auto; }
+        .title-area { text-align: center; margin-bottom: 25px; }
+        .title-area h2 { font-size: 26px; color: #1e3a8a; margin-bottom: 6px; }
+        .title-area p { font-size: 14px; color: #64748b; }
+        
+        /* 상단 탭 메뉴 스타일 (6개 탭 대응) */
+        .tab-menu { display: flex; background: #e2e8f0; padding: 6px; border-radius: 12px; margin-bottom: 25px; gap: 5px; flex-wrap: wrap; }
+        .tab-btn { flex: 1; min-width: 140px; padding: 12px; border: none; background: transparent; font-size: 14px; font-weight: 700; color: #475569; cursor: pointer; border-radius: 8px; transition: all 0.2s; text-align: center; text-decoration: none; }
+        .tab-btn.active { background: #ffffff; color: #2563eb; box-shadow: 0 2px 6px rgba(0,0,0,0.08); }
+        
+        .tab-content { display: grid; grid-template-columns: repeat(1, 1fr); gap: 20px; }
+        
+        .calc-card { background: #ffffff; border-radius: 16px; padding: 22px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02); border: 1px solid #e2e8f0; display: flex; flex-direction: column; justify-content: space-between; }
+        
+        .calc-card h3 { font-size: 15px; color: #334155; margin-bottom: 16px; font-weight: 700; }
+        .input-line { display: flex; align-items: center; gap: 8px; width: 100%; flex-wrap: wrap; margin-bottom: 8px; }
+        .input-line input, .input-line select { flex: 1; min-width: 90px; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 16px; font-weight: 600; outline: none; transition: all 0.2s; text-align: right; }
+        .input-line input:focus, .input-line select:focus { border-color: #2563eb; box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .unit-text { font-size: 14px; color: #475569; font-weight: 600; white-space: nowrap; }
+        
+        .result-box { margin-top: 18px; padding-top: 14px; border-top: 1px dashed #e2e8f0; display: flex; justify-content: space-between; align-items: center; }
+        .result-label { font-size: 13px; color: #64748b; font-weight: 500; }
+        .result-value { font-size: 21px; font-weight: 800; color: #2563eb; word-break: break-all; text-align: right; }
+        .result-sub { font-size: 12px; color: #64748b; text-align: right; margin-top: 2px; }
+        
+        /* 피킹률 구간별 색상 정의 */
+        .bad { color: #ef4444; }      /* 1% 미만 혹은 3% 미만 */
+        .soso { color: #f59e0b; }     /* 3~5% 미만 */
+        .good { color: #10b981; }     /* 5% 이상 */
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="title-area">
+        <h2>올인원 메가 유틸리티 계산기</h2>
+        <p>내가 사용하는 신용카드의 실제 혜택 비율을 연회비 대비 정확하게 측정합니다.</p>
+    </div>
+
+    <div class="tab-menu">
+        <a href="propertystockcalcul.html" class="tab-btn">퍼센트 & 비즈니스 (8종)</a>
+        <a href="propertystockcalcul1.html" class="tab-btn">주식 & 예적금 금융 (5종)</a>
+        <a href="propertystockcalcul2.html" class="tab-btn">부동산 간이 세금 (2종)</a>
+        <a href="propertystockcalcul3.html" class="tab-btn">파이어족 은퇴 시뮬레이터 (2종)</a>
+        <a href="propertystockcalcul4.html" class="tab-btn">시간당 생산성 & 몸값 계산기 (2종)</a>
+        <a href="propertystockcalcul5.html" class="tab-btn active">신용카드 피킹률 계산기 (1종)</a>
+    </div>
+
+    <div class="tab-content">
+        <div class="calc-card">
+            <h3>신용카드 피킹률(Picking Rate) 진단기</h3>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 140px; text-align:left;">월평균 카드 사용금액:</span>
+                    <input type="number" id="card_spend" placeholder="전월 실적 또는 월 지출액" oninput="calcPickingRate()">
+                    <span class="unit-text">원</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 140px; text-align:left;">월평균 혜택(할인/적립):</span>
+                    <input type="number" id="card_benefit" placeholder="매달 받는 총 혜택 환산금액" oninput="calcPickingRate()">
+                    <span class="unit-text">원</span>
+                </div>
+                <div class="input-line">
+                    <span class="unit-text" style="flex:0 0 140px; text-align:left;">카드 연회비:</span>
+                    <input type="number" id="card_fee" placeholder="카드 기본 + 제휴 연회비" oninput="calcPickingRate()">
+                    <span class="unit-text">원</span>
+                </div>
+            </div>
+            <div class="result-box">
+                <span class="result-label">이 카드의 실제 피킹률</span>
+                <div>
+                    <div class="result-value" id="picking_res_val">0.00 %</div>
+                    <div class="result-sub" id="picking_res_sub">금액을 입력하시면 실시간으로 혜택 등급을 진단합니다.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function calcPickingRate() {
+        const spend = parseFloat(document.getElementById('card_spend').value) || 0;
+        const benefit = parseFloat(document.getElementById('card_benefit').value) || 0;
+        const fee = parseFloat(document.getElementById('card_fee').value) || 0;
+
+        const resVal = document.getElementById('picking_res_val');
+        const resSub = document.getElementById('picking_res_sub');
+
+        if (spend <= 0) {
+            resVal.innerText = "0.00 %";
+            resVal.className = "result-value";
+            resSub.innerText = "금액을 입력하시면 실시간으로 혜택 등급을 진단합니다.";
+            return;
+        }
+
+        // 피킹률 공식 = { (월평균 혜택 금액 - (연회비 / 12개월)) / 월평균 사용 금액 } * 100
+        const monthlyFee = fee / 12;
+        const netBenefit = benefit - monthlyFee;
+        const pickingRate = (netBenefit / spend) * 100;
+
+        // 소수점 둘째자리까지 표기
+        resVal.innerText = `${pickingRate.toFixed(2)} %`;
+
+        // 피킹률 기준 등급 분류 및 스타일 바인딩
+        if (pickingRate < 1) {
+            resVal.className = "result-value bad";
+            resSub.innerText = "🚨 [해지 권장] 혜택이 거의 없거나 연회비 마이너스 상태입니다.";
+        } else if (pickingRate < 3) {
+            resVal.className = "result-value bad";
+            resSub.innerText = "⚠️ [낮은 혜택] 기본 수준의 카드입니다. 다른 카드로 교체를 검토해 보세요.";
+        } else if (pickingRate < 5) {
+            resVal.className = "result-value soso";
+            resSub.innerText = "👍 [적정 혜택] 효율이 준수한 카드입니다. 유지하셔도 좋습니다.";
+        } else {
+            resVal.className = "result-value good";
+            resSub.innerText = "🔥 [혜택 우수] 효율이 매우 뛰어난 알짜배기 신용카드입니다!";
+        }
+    }
+</script>
+</body>
+</html>

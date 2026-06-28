@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>N잡러 올인원 세금 & 실수령액 계산기</title>
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .wrapper {
+            width: 100%;
+            max-width: 580px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+        }
+        
+        /* 모드 전환 탭 스위치 (3분할 디자인) */
+        .mode-switch {
+            display: flex;
+            background: #e2e8f0;
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            gap: 5px;
+        }
+        .mode-btn {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            text-align: center;
+            white-space: nowrap;
+        }
+        .mode-btn.active {
+            background: #ffffff;
+            color: #16a34a;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .calc-section {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #bbf7d0;
+        }
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .input-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .input-item label {
+            font-size: 13px;
+            color: #475569;
+            font-weight: 600;
+        }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            text-align: right;
+            box-sizing: border-box;
+            outline: none;
+        }
+        input:focus, select:focus {
+            border-color: #16a34a;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+        .unit {
+            position: absolute;
+            right: 12px;
+            font-size: 14px;
+            color: #94a3b8;
+            pointer-events: none;
+        }
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #1e293b;
+            line-height: 1.7;
+            border: 1px solid #bbf7d0;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #16a34a;
+            font-size: 22px;
+        }
+        .breakdown {
+            font-size: 13px;
+            color: #475569;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #cbd5e1;
+        }
+        .breakdown-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+        .sub-list {
+            margin: 4px 0 8px 12px;
+            color: #64748b;
+            font-size: 12px;
+        }
+        .info-text {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 8px;
+            background: rgba(0,0,0,0.02);
+            padding: 8px;
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <h2>💸 세금 & 실수령액 올인원 계산기</h2>
+
+    <div class="mode-switch">
+        <button class="mode-btn active" id="btn_modeA" onclick="changeMode('A')">원천징수 3.3%</button>
+        <button class="mode-btn" id="btn_modeC" onclick="changeMode('C')">직장인 월급 (4대보험)</button>
+        <button class="mode-btn" id="btn_modeB" onclick="changeMode('B')">직장인 부업 종소세</button>
+    </div>
+
+    <div class="calc-section">
+        <div class="grid-inputs" id="inputs_modeA">
+            <div class="input-item">
+                <label>지급 총액 (세전 수령 금액)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="incomeA" placeholder="3000000" oninput="calcTax()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-inputs" id="inputs_modeC" style="display: none;">
+            <div class="input-item">
+                <label>기본 월급 (세전 기준)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="salaryC" placeholder="3500000" oninput="calcTax()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label>비과세 액수 (식대, 자가운전보조금 등 기본 20만원)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="nonTaxableC" value="200000" oninput="calcTax()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label>부양가족 수 (본인 포함)</label>
+                <div class="input-wrapper">
+                    <select id="dependentsC" onchange="calcTax()">
+                        <option value="1">1명 (본인만)</option>
+                        <option value="2">2명</option>
+                        <option value="3">3명</option>
+                        <option value="4">4명</option>
+                        <option value="5">5명</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid-inputs" id="inputs_modeB" style="display: none;">
+            <div class="input-item">
+                <label>내 본업 총연봉 (세전 기준)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="mainSalary" placeholder="45000000" oninput="calcTax()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label>연간 부업 순수익 (매출 - 비용)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="sideIncome" placeholder="15000000" oninput="calcTax()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="result-box" id="calcResult">
+            금액을 입력하시면 실시간 간이 계산이 시작됩니다.
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentMode = 'A';
+
+    function formatNum(num) {
+        if(isNaN(num) || !isFinite(num) || num < 0) return "0";
+        return Math.round(num).toLocaleString('ko-KR');
+    }
+
+    function changeMode(mode) {
+        currentMode = mode;
+        
+        // 버튼 활성화 스타일 교체
+        document.getElementById('btn_modeA').classList.toggle('active', mode === 'A');
+        document.getElementById('btn_modeC').classList.toggle('active', mode === 'C');
+        document.getElementById('btn_modeB').classList.toggle('active', mode === 'B');
+
+        // 입력 폼 노출 토글
+        document.getElementById('inputs_modeA').style.display = (mode === 'A') ? "grid" : "none";
+        document.getElementById('inputs_modeC').style.display = (mode === 'C') ? "grid" : "none";
+        document.getElementById('inputs_modeB').style.display = (mode === 'B') ? "grid" : "none";
+
+        calcTax();
+    }
+
+    function calcTax() {
+        const resultDiv = document.getElementById('calcResult');
+
+        // ----------------------------------------------------
+        // [모드 A] 프리랜서 3.3% 원천징수 계산
+        // ----------------------------------------------------
+        if (currentMode === 'A') {
+            const incomeA = parseFloat(document.getElementById('incomeA').value);
+            if (!incomeA || isNaN(incomeA)) {
+                resultDiv.innerHTML = "💡 <b>지급 총액</b>을 입력하면 3.3% 공제액과 실수령액이 계산됩니다.";
+                return;
+            }
+
+            const incomeTax = incomeA * 0.03;       
+            const localTax = incomeA * 0.003;     
+            const totalTax = incomeTax + localTax;  
+            const netPay = incomeA - totalTax;      
+
+            resultDiv.innerHTML = `
+                🎯 <b>예상 통장 실수령액:</b> <span class="highlight">${formatNum(netPay)}원</span>
+                <div class="info-text">※ 사업소득 원천징수 세율 3.3%(국세 3% + 지방세 0.3%)를 공제한 금액입니다.</div>
+                
+                <div class="breakdown">
+                    <div class="breakdown-title">[세부 공제 내역]</div>
+                    • 세전 총액: ${formatNum(incomeA)}원<br>
+                    • 사업소득세 (3%): ${formatNum(incomeTax)}원<br>
+                    • 지방소득세 (0.3%): ${formatNum(localTax)}원<br>
+                    <span style="color:#ef4444; font-weight:bold;">• 총 원천징수 세액 (3.3%): ${formatNum(totalTax)}원</span>
+                </div>
+            `;
+        } 
+        // ----------------------------------------------------
+        // [모드 C] 직장인 월급 & 4대보험 공제 내역 계산 (최신 요율 반영)
+        // ----------------------------------------------------
+        else if (currentMode === 'C') {
+            const salaryC = parseFloat(document.getElementById('salaryC').value);
+            const nonTaxableC = parseFloat(document.getElementById('nonTaxableC').value) || 0;
+            const dependents = parseInt(document.getElementById('dependentsC').value) || 1;
+
+            if (!salaryC || isNaN(salaryC)) {
+                resultDiv.innerHTML = "💡 <b>기본 월급</b>을 입력하시면 4대보험료와 소득세가 자동 계산됩니다.";
+                return;
+            }
+
+            // 4대보험 부과 기준이 되는 보수월액 (월급 - 비과세액)
+            const taxableSalary = Math.max(0, salaryC - nonTaxableC);
+
+            // 근로자 부담 요율 세부 로직
+            const nationalPension = taxableSalary * 0.045;     // 국민연금 4.5%
+            const healthInsurance = taxableSalary * 0.03545;   // 건강보험 3.545%
+            const longTermCare = healthInsurance * 0.1295;     // 장기요양보험 (건보료의 12.95%)
+            const employmentInsurance = taxableSalary * 0.009; // 고용보험 0.9%
+            
+            const totalFourIns = nationalPension + healthInsurance + longTermCare + employmentInsurance;
+
+            // 간이 소득세 추정식 (소득구간 및 부양가족 수 보정)
+            let incomeTax = 0;
+            if (taxableSalary >= 1060000) {
+                const factor = taxableSalary / 1000000;
+                incomeTax = (factor * factor * 12500) * (1 / dependents);
+                if(incomeTax < 0) incomeTax = 0;
+            }
+            const localTax = incomeTax * 0.1; // 지방소득세 10%
+            const totalDeductions = totalFourIns + incomeTax + localTax;
+            const netPayC = salaryC - totalDeductions;
+
+            resultDiv.innerHTML = `
+                🎯 <b>예상 월 실수령액:</b> <span class="highlight">${formatNum(netPayC)}원</span>
+                <div class="info-text">※ 최신 4대보험 요율 기준 근로자 부담분 산식입니다. 비과세 금액(식대 등)은 보험료 산정에서 자동 제외됩니다.</div>
+                
+                <div class="breakdown">
+                    <div class="breakdown-title">[4대보험 및 세금 공제 상세]</div>
+                    • <b>국민연금 (4.5%):</b> ${formatNum(nationalPension)}원<br>
+                    • <b>건강보험 (3.545%):</b> ${formatNum(healthInsurance)}원<br>
+                    • <b>장기요양보험 (건보의 12.95%):</b> ${formatNum(longTermCare)}원<br>
+                    • <b>고용보험 (0.9%):</b> ${formatNum(employmentInsurance)}원<br>
+                    <div class="sub-list">↘︎ 4대보험 공제 합계: ${formatNum(totalFourIns)}원</div>
+                    • <b>근로소득세 (간이):</b> ${formatNum(incomeTax)}원<br>
+                    • <b>지방소득세 (10%):</b> ${formatNum(localTax)}원<br>
+                    <span style="color:#ef4444; font-weight:bold;">• 총 공제액 합계: ${formatNum(totalDeductions)}원</span>
+                </div>
+            `;
+        }
+        // ----------------------------------------------------
+        // [모드 B] 직장인 부업 연말 종합소득세 간이 시뮬레이션
+        // ----------------------------------------------------
+        else {
+            const mainSalary = parseFloat(document.getElementById('mainSalary').value) || 0;
+            const sideIncome = parseFloat(document.getElementById('sideIncome').value) || 0;
+
+            if (sideIncome <= 0) {
+                resultDiv.innerHTML = "💡 <b>본업 연봉</b>과 <b>연간 부업 순수익</b>을 입력하면 합산 소득세 구간이 시뮬레이션됩니다.";
+                return;
+            }
+
+            let deduction = 1500000;
+            if (mainSalary > 0) {
+                if (mainSalary <= 5000000) deduction += mainSalary * 0.7;
+                else if (mainSalary <= 15000000) deduction += 3500000 + (mainSalary - 5000000) * 0.4;
+                else if (mainSalary <= 45000000) deduction += 7500000 + (mainSalary - 15000000) * 0.15;
+                else if (mainSalary <= 100000000) deduction += 12000000 + (mainSalary - 45000000) * 0.05;
+                else deduction += 14750000 + (mainSalary - 100000000) * 0.02;
+            }
+
+            const approxBase = Math.max(0, (mainSalary + sideIncome) - deduction);
+
+            let baseRate = 6;
+
+            if (approxBase <= 14000000) { baseRate = 6; }
+            else if (approxBase <= 50000000) { baseRate = 15; }
+            else if (approxBase <= 88000000) { baseRate = 24; }
+            else if (approxBase <= 150000000) { baseRate = 35; }
+            else if (approxBase <= 300000000) { baseRate = 38; }
+            else if (approxBase <= 500000000) { baseRate = 40; }
+            else if (approxBase <= 1000000000) { baseRate = 42; }
+            else { baseRate = 45; }
+
+            const approxTax = (sideIncome * (baseRate / 100)) * 1.1; 
+
+            resultDiv.innerHTML = `
+                🎯 <b>부업 소득 최고 한계세율:</b> <span class="highlight">${baseRate}% (+지방세 10%)</span>
+                <div class="info-text">※ 본업 소득과 합산 시 사장님의 최종 과세표준 구간이 상승하여, 내년 5월 종합소득세 신고 시 부업 수익에 대해 대략 <b>${baseRate}%</b>의 부가 세금이 매겨질 수 있습니다.</div>
+                
+                <div class="breakdown">
+                    <div class="breakdown-title">[종합소득세 종합 분석]</div>
+                    • 합산 추정 소득 총액: ${formatNum(mainSalary + sideIncome)}원<br>
+                    • 적용 예상 소득세 구간: ${baseRate}%<br>
+                    • 부업으로 인한 종소세 추가 예상액: 약 ${formatNum(approxTax)}원<br>
+                    <span style="color:#16a34a; font-weight:bold;">• 세후 실질 부업 순수익률: 약 ${(100 - (baseRate * 1.1)).toFixed(1)}%</span>
+                </div>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>

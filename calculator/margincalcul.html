@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>쇼핑몰 마진 계산기 (국세청 부가세 완벽 반영 버전)</title>
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .wrapper {
+            width: 100%;
+            max-width: 550px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        
+        /* 계산기 내부 모드 전환 탭 스위치 */
+        .mode-switch {
+            display: flex;
+            background: #e2e8f0;
+            padding: 5px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            gap: 5px;
+        }
+        .mode-btn {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            border-radius: 7px;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .mode-btn.active {
+            background: #ffffff;
+            color: #16a34a;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .calc-section {
+            background: #f0fdf4;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #bbf7d0;
+        }
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .input-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .input-item.full-width {
+            grid-column: span 2;
+        }
+        .input-item label {
+            font-size: 13px;
+            color: #475569;
+            font-weight: 600;
+        }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            text-align: right;
+            box-sizing: border-box;
+            outline: none;
+        }
+        input:focus, select:focus {
+            border-color: #16a34a;
+            box-shadow: 0 0 0 3px rgba(22, 163, 74, 0.1);
+        }
+        select {
+            text-align-last: right;
+            padding-right: 20px;
+        }
+        .unit {
+            position: absolute;
+            right: 10px;
+            font-size: 14px;
+            color: #94a3b8;
+            pointer-events: none;
+        }
+        .result-box {
+            background: white;
+            padding: 18px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #1e293b;
+            line-height: 1.7;
+            border: 1px solid #bbf7d0;
+        }
+        .danger-alert {
+            background: #fef2f2 !important;
+            border-color: #fca5a5 !important;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #16a34a;
+            font-size: 18px;
+        }
+        .text-danger {
+            color: #ef4444 !important;
+        }
+        .breakdown {
+            font-size: 13px;
+            color: #64748b;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #cbd5e1;
+        }
+        .info-text {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 8px;
+            background: rgba(0,0,0,0.02);
+            padding: 6px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <h2>📈 쇼핑몰 마진 계산기 (세금 정밀반영)</h2>
+
+    <div class="mode-switch">
+        <button class="mode-btn active" id="btn_modeA" onclick="changeMode('A')">🎯 목표마진 기준 가격역산</button>
+        <button class="mode-btn" id="btn_modeB" onclick="changeMode('B')">🏷️ 내 판매가 기준 마진분석</button>
+    </div>
+
+    <div class="calc-section">
+        <div class="grid-inputs">
+            <div class="input-item full-width">
+                <label>판매 마켓 플랫폼 선택</label>
+                <select id="marketPreset" onchange="onMarketPresetChange()">
+                    <option value="smartstore" selected>네이버 스마트스토어 (실질 수수료 약 5.74% 세팅)</option>
+                    <option value="coupang_wing">쿠팡 일반윙 일반 카테고리 (수수료 약 10.8% 세팅)</option>
+                    <option value="coupang_growth">쿠팡 로켓그로스 (수수료 10.8% + 풀필먼트 배송 적용)</option>
+                    <option value="custom">직접 입력 (원하는 수수료율 설정)</option>
+                </select>
+            </div>
+
+            <div class="input-item">
+                <label>① 제품 원가 (도매가)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="mCost" placeholder="10000" value="10000" oninput="calcTaxMargin()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+            
+            <div class="input-item">
+                <label id="variableLabel">② 목표 마진율</label>
+                <div class="input-wrapper">
+                    <input type="number" id="mVariableInput" placeholder="30" value="30" oninput="calcTaxMargin()">
+                    <span class="unit" id="variableUnit">%</span>
+                </div>
+            </div>
+
+            <div class="input-item">
+                <label>③ 마켓 수수료율</label>
+                <div class="input-wrapper">
+                    <input type="number" id="mFee" placeholder="5.74" value="5.74" disabled oninput="calcTaxMargin()">
+                    <span class="unit">%</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label>④ 내 과세 유형 (세금 선택)</label>
+                <select id="mTaxType" onchange="calcTaxMargin()">
+                    <option value="general">일반과세자 (부가세 정밀)</option>
+                    <option value="simplified" selected>간이과세자 (매출의 1.5%)</option>
+                    <option value="none">세금 제외 (0%)</option>
+                </select>
+            </div>
+            <div class="input-item">
+                <label>⑤ 소비자 택배비 (본인 부담분)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="mShipping" placeholder="3000" value="3000" oninput="calcTaxMargin()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label>⑥ 개당 예상 광고비</label>
+                <div class="input-wrapper">
+                    <input type="number" id="mAd" placeholder="1500" value="1500" oninput="calcTaxMargin()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="result-box" id="ultimateResult">
+            원가와 변수를 입력하시면 정밀 연산이 시작됩니다.
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentMode = 'A'; // 'A': 마진율 기준 역산, 'B': 판매가 기준 분석
+
+    function formatNum(num) {
+        if(isNaN(num) || !isFinite(num)) return "0";
+        return Math.round(num).toLocaleString('ko-KR');
+    }
+
+    // 마켓 프리셋 변경 시 자동 세팅 핸들러
+    function onMarketPresetChange() {
+        const preset = document.getElementById('marketPreset').value;
+        const feeInput = document.getElementById('mFee');
+        const shippingInput = document.getElementById('mShipping');
+
+        if (preset === 'smartstore') {
+            feeInput.value = "5.74";
+            feeInput.disabled = true;
+            shippingInput.disabled = false;
+        } else if (preset === 'coupang_wing') {
+            feeInput.value = "10.8";
+            feeInput.disabled = true;
+            shippingInput.disabled = false;
+        } else if (preset === 'coupang_growth') {
+            feeInput.value = "10.8";
+            feeInput.disabled = true;
+            shippingInput.value = "0"; // 로켓그로스는 셀러 직접배송비 제외
+            shippingInput.disabled = true;
+        } else if (preset === 'custom') {
+            feeInput.disabled = false;
+            shippingInput.disabled = false;
+        }
+        calcTaxMargin();
+    }
+
+    // 상단 탭 스위치 작동 제어 함수
+    function changeMode(mode) {
+        currentMode = mode;
+        const btnA = document.getElementById('btn_modeA');
+        const btnB = document.getElementById('btn_modeB');
+        const varLabel = document.getElementById('variableLabel');
+        const varInput = document.getElementById('mVariableInput');
+        const varUnit = document.getElementById('variableUnit');
+
+        if (mode === 'A') {
+            btnA.className = "mode-btn active";
+            btnB.className = "mode-btn";
+            varLabel.innerText = "② 목표 마진율";
+            varInput.placeholder = "30";
+            varInput.value = "30";
+            varUnit.innerText = "%";
+        } else {
+            btnA.className = "mode-btn";
+            btnB.className = "mode-btn active";
+            varLabel.innerText = "② 내가 정한 판매가";
+            varInput.placeholder = "30000";
+            varInput.value = "30000";
+            varUnit.innerText = "원";
+        }
+        calcTaxMargin();     // 초기화 계산 호출
+    }
+
+    function calcTaxMargin() {
+        const cost = parseFloat(document.getElementById('mCost').value) || 0;
+        const varInputValue = parseFloat(document.getElementById('mVariableInput').value);
+        const feeRate = parseFloat(document.getElementById('mFee').value) || 0;
+        const taxType = document.getElementById('mTaxType').value;
+        const shipping = parseFloat(document.getElementById('mShipping').value) || 0;
+        const adCost = parseFloat(document.getElementById('mAd').value) || 0;
+        const preset = document.getElementById('marketPreset').value;
+        const resultDiv = document.getElementById('ultimateResult');
+
+        // 예외 검증 처리
+        if (cost <= 0 || isNaN(varInputValue)) {
+            resultDiv.className = "result-box";
+            if (currentMode === 'A') {
+                resultDiv.innerHTML = "💡 <b>원가</b>와 <b>목표 마진율</b>을 입력하면 정밀 판매가 역산이 시작됩니다.";
+            } else {
+                resultDiv.innerHTML = "💡 <b>원가</b>와 <b>지정 판매가</b>를 입력하면 실제 마진 구조 분석이 시작됩니다.";
+            }
+            return;
+        }
+
+        // 로켓그로스 시스템일 경우 내부적으로 대행 풀필먼트비(2500원) 연동 가산
+        let growthLogistics = (preset === 'coupang_growth') ? 2500 : 0;
+        const baseCost = cost + shipping + adCost + growthLogistics; // 총 지출 고정비용
+        
+        let sellPrice = 0;
+        let marginRate = 0;
+        let taxAmount = 0;
+        let feeAmount = 0;
+        let netProfit = 0;
+
+        // ----------------------------------------------------
+        // [모드 A] 목표 마진율 기준 -> 최종 판매가 및 세금 역산 모드
+        // ----------------------------------------------------
+        if (currentMode === 'A') {
+            marginRate = varInputValue;
+            const rateSum = feeRate + marginRate;
+
+            if (taxType === 'general') {
+                if ((1.1 * rateSum) >= 100) {
+                    resultDiv.className = "result-box danger-alert";
+                    resultDiv.innerHTML = "<span class='text-danger'>[오류] 목표 마진과 수수료율이 너무 높아 가격 산출이 불가능합니다.</span>";
+                    return;
+                }
+                sellPrice = baseCost / (1 - (1.1 * rateSum / 100));
+                taxAmount = (sellPrice - baseCost) / 11;
+            } else if (taxType === 'simplified') {
+                const totalRate = rateSum + 1.5;
+                if (totalRate >= 100) {
+                    resultDiv.className = "result-box danger-alert";
+                    resultDiv.innerHTML = "<span class='text-danger'>[오류] 비율의 합이 100% 이상일 수 없습니다.</span>";
+                    return;
+                }
+                sellPrice = baseCost / (1 - (totalRate / 100));
+                taxAmount = sellPrice * 0.015;
+            } else {
+                if (rateSum >= 100) {
+                    resultDiv.className = "result-box danger-alert";
+                    resultDiv.innerHTML = "<span class='text-danger'>[오류] 비율의 합이 100% 이상일 수 없습니다.</span>";
+                    return;
+                }
+                sellPrice = baseCost / (1 - (rateSum / 100));
+                taxAmount = 0;
+            }
+
+            feeAmount = sellPrice * (feeRate / 100);
+            netProfit = sellPrice - baseCost - feeAmount - taxAmount;
+
+        } 
+        // ----------------------------------------------------
+        // [모드 B] 고정된 판매가 입력 -> 실질 마진율 분석 모드
+        // ----------------------------------------------------
+        else {
+            sellPrice = varInputValue;
+            feeAmount = sellPrice * (feeRate / 100);
+
+            if (taxType === 'general') {
+                taxAmount = (sellPrice - baseCost) / 11;
+                if(taxAmount < 0) taxAmount = 0; 
+            } else if (taxType === 'simplified') {
+                taxAmount = sellPrice * 0.015;
+            } else {
+                taxAmount = 0;
+            }
+
+            // 순수익 계산 = 판매가 - 고정비용 - 마켓수수료 - 부가세
+            netProfit = sellPrice - baseCost - feeAmount - taxAmount;
+            // 실질 마진율 계산
+            marginRate = sellPrice > 0 ? (netProfit / sellPrice) * 100 : 0;
+        }
+
+        // 역마진 경고 알림 토글
+        if (netProfit <= 0) {
+            resultDiv.className = "result-box danger-alert";
+        } else {
+            resultDiv.className = "result-box";
+        }
+
+        let isMinusClass = netProfit < 0 ? 'text-danger' : '';
+        let taxExpl = taxType === 'general' ? '예상 부가세 (매입공제 반영)' : (taxType === 'simplified' ? '간이과세 부가세 (매출의 1.5%)' : '세금 제외');
+
+        if (currentMode === 'A') {
+            resultDiv.innerHTML = `
+                🎯 <b>최종 추천 판매가:</b> <span class="highlight ${isMinusClass}">${formatNum(sellPrice)}원</span>
+                <div class="info-text">※ 세금 유형에 맞게 국세청 부가세 방어 공식을 적용했습니다. 이 가격에 팔면 사장님 마진율은 정확히 <b>${marginRate}% (${formatNum(netProfit)}원)</b>가 보장됩니다.</div>
+                
+                <div class="breakdown">
+                    <b>[지출 및 정산 브레이크다운]</b><br>
+                    • <b>제품 원가(도매가):</b> ${formatNum(cost)}원<br>
+                    • <b>마켓 수수료 (${feeRate}%):</b> ${formatNum(feeAmount)}원<br>
+                    • <b>${taxExpl}:</b> ${formatNum(taxAmount)}원<br>
+                    ${growthLogistics > 0 ? '• <b>쿠팡 로켓그로스 입출고/배송비:</b> ' + formatNum(growthLogistics) + '원<br>' : '• <b>소비자 택배비 부담분:</b> ' + formatNum(shipping) + '원<br>'}
+                    • <b>개당 광고 비용:</b> ${formatNum(adCost)}원<br>
+                    <span style="font-weight:bold;" class="${netProfit < 0 ? 'text-danger' : 'highlight'}">• 최종 순수익 (내 몫): ${formatNum(netProfit)}원</span>
+                </div>
+            `;
+        } else {
+            resultDiv.innerHTML = `
+                📊 <b>예상 실질 마진율:</b> <span class="highlight ${isMinusClass}">${marginRate.toFixed(1)}%</span>
+                <div class="info-text">※ 입력하신 판매가에서 플랫폼 수수료와 세금을 정밀 제외한 순수 남는 마진 결과입니다.</div>
+                
+                <div class="breakdown">
+                    <b>[지출 및 정산 브레이크다운]</b><br>
+                    • <b>입력 판매가:</b> ${formatNum(sellPrice)}원<br>
+                    • <b>제품 원가(도매가):</b> ${formatNum(cost)}원<br>
+                    • <b>마켓 수수료 (${feeRate}%):</b> ${formatNum(feeAmount)}원<br>
+                    • <b>${taxExpl}:</b> ${formatNum(taxAmount)}원<br>
+                    ${growthLogistics > 0 ? '• <b>쿠팡 로켓그로스 입출고/배송비:</b> ' + formatNum(growthLogistics) + '원<br>' : '• <b>소비자 택배비 부담분:</b> ' + formatNum(shipping) + '원<br>'}
+                    • <b>개당 광고 비용:</b> ${formatNum(adCost)}원<br>
+                    <span style="font-weight:bold;" class="${netProfit < 0 ? 'text-danger' : 'highlight'}">• 최종 순수익 (내 몫): ${formatNum(netProfit)}원</span>
+                </div>
+            `;
+        }
+    }
+
+    // 초기 구동
+    calcTaxMargin();
+</script>
+
+</body>
+</html>

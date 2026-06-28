@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내집마련 청약가점 & 대출 이자 시뮬레이터</title>
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .wrapper {
+            width: 100%;
+            max-width: 580px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 20px;
+            font-size: 24px;
+            letter-spacing: -0.5px;
+        }
+        
+        /* 모드 전환 탭 스위치 */
+        .mode-switch {
+            display: flex;
+            background: #e2e8f0;
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            gap: 5px;
+        }
+        .mode-btn {
+            flex: 1;
+            padding: 12px 8px;
+            border: none;
+            background: transparent;
+            font-size: 14px;
+            font-weight: 700;
+            color: #475569;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        .mode-btn.active {
+            background: #ffffff;
+            color: #0284c7;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        }
+
+        .calc-section {
+            background: #f0f9ff;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #bae6fd;
+        }
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .input-item {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .input-item label {
+            font-size: 13px;
+            color: #475569;
+            font-weight: 600;
+        }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            text-align: right;
+            box-sizing: border-box;
+            outline: none;
+        }
+        input:focus, select:focus {
+            border-color: #0284c7;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.1);
+        }
+        .unit {
+            position: absolute;
+            right: 12px;
+            font-size: 14px;
+            color: #94a3b8;
+            pointer-events: none;
+        }
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #1e293b;
+            line-height: 1.7;
+            border: 1px solid #bae6fd;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #0284c7;
+            font-size: 24px;
+        }
+        .warning-text {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        .breakdown {
+            font-size: 13px;
+            color: #475569;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #cbd5e1;
+        }
+        .breakdown-title {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 6px;
+        }
+        .info-text {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 8px;
+            background: rgba(0,0,0,0.02);
+            padding: 8px;
+            border-radius: 6px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <h2>🏠 내집마련 올인원 시뮬레이터</h2>
+
+    <div class="mode-switch">
+        <button class="mode-btn active" id="btn_modeA" onclick="changeMode('A')">청약 가점 계산기</button>
+        <button class="mode-btn" id="btn_modeB" onclick="changeMode('B')">대출 이자 & DSR 계산</button>
+    </div>
+
+    <div class="calc-section">
+        <div class="grid-inputs" id="inputs_modeA">
+            <div class="input-item">
+                <label>1. 무주택 기간 선택 (본인 및 배우자 기준)</label>
+                <select id="homelessYears" onchange="calcRealestate()">
+                    <option value="0">30세 미만 미혼 또는 유주택자 (0점)</option>
+                    <option value="2">1년 미만 (2점)</option>
+                    <option value="4">1년 이상 ~ 2년 미만 (4점)</option>
+                    <option value="6">2년 이상 ~ 3년 미만 (6점)</option>
+                    <option value="8">3년 이상 ~ 4년 미만 (8점)</option>
+                    <option value="10">4년 이상 ~ 5년 미만 (10점)</option>
+                    <option value="12">5년 이상 ~ 6년 미만 (12점)</option>
+                    <option value="14">6년 이상 ~ 7년 미만 (14점)</option>
+                    <option value="16">7년 이상 ~ 8년 미만 (16점)</option>
+                    <option value="18">8년 이상 ~ 9년 미만 (18점)</option>
+                    <option value="20">9년 이상 ~ 10년 미만 (20점)</option>
+                    <option value="22">10년 이상 ~ 11년 미만 (22점)</option>
+                    <option value="24">11년 이상 ~ 12년 미만 (24점)</option>
+                    <option value="26">12년 이상 ~ 13년 미만 (26점)</option>
+                    <option value="28">13년 이상 ~ 14년 미만 (28점)</option>
+                    <option value="30">14년 이상 ~ 15년 미만 (30점)</option>
+                    <option value="32">15년 이상 무주택 만점 (32점)</option>
+                </select>
+            </div>
+            <div class="input-item">
+                <label>2. 부양가족 수 (직계존비속, 배우자 포함)</label>
+                <select id="dependentsNum" onchange="calcRealestate()">
+                    <option value="5">0명 - 본인만 (5점)</option>
+                    <option value="10">1명 (10점)</option>
+                    <option value="15">2명 (15점)</option>
+                    <option value="20">3명 (20점)</option>
+                    <option value="25">4명 (25점)</option>
+                    <option value="30">5명 (30점)</option>
+                    <option value="35">6명 이상 만점 (35점)</option>
+                </select>
+            </div>
+            <div class="input-item">
+                <label>3. 청약통장 가입 기간</label>
+                <select id="bankYears" onchange="calcRealestate()">
+                    <option value="1">6개월 미만 (1점)</option>
+                    <option value="2">6개월 이상 ~ 1년 미만 (2점)</option>
+                    <option value="3">1년 이상 ~ 2년 미만 (3점)</option>
+                    <option value="4">2년 이상 ~ 3년 미만 (4점)</option>
+                    <option value="5">3년 이상 ~ 4년 미만 (5점)</option>
+                    <option value="6">4년 이상 ~ 5년 미만 (6점)</option>
+                    <option value="7">5년 이상 ~ 6년 미만 (7점)</option>
+                    <option value="8">6년 이상 ~ 7년 미만 (8점)</option>
+                    <option value="9">7년 이상 ~ 8년 미만 (9점)</option>
+                    <option value="10">8년 이상 ~ 9년 미만 (10점)</option>
+                    <option value="11">9년 이상 ~ 10년 미만 (11점)</option>
+                    <option value="12">10년 이상 ~ 11년 미만 (12점)</option>
+                    <option value="13">11년 이상 ~ 12년 미만 (13점)</option>
+                    <option value="14">12년 이상 ~ 13년 미만 (14점)</option>
+                    <option value="15">13년 이상 ~ 14년 미만 (15점)</option>
+                    <option value="16">14년 이상 ~ 15년 미만 (16점)</option>
+                    <option value="17">15년 이상 만점 (17점)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid-inputs" id="inputs_modeB" style="display: none;">
+            <div class="input-item">
+                <label>대출 원금 (원하는 대출 금액)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="loanAmount" placeholder="300000000" oninput="calcRealestate()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label>대출 금리 (연이율)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="loanRate" placeholder="4.2" step="0.1" oninput="calcRealestate()">
+                    <span class="unit">%</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label>대출 기간 (상환 기간)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="loanTerm" placeholder="30" value="30" oninput="calcRealestate()">
+                    <span class="unit">년</span>
+                </div>
+            </div>
+            <div class="input-item">
+                <label>본인 및 부부 합산 연소득 (DSR 진단용)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="annualIncome" placeholder="60000000" oninput="calcRealestate()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="result-box" id="calcResult">
+            조건을 변경하시면 실시간 분석 결과가 나타납니다.
+        </div>
+    </div>
+</div>
+
+<script>
+    let currentMode = 'A';
+
+    function formatNum(num) {
+        if(isNaN(num) || !isFinite(num) || num < 0) return "0";
+        return Math.round(num).toLocaleString('ko-KR');
+    }
+
+    function changeMode(mode) {
+        currentMode = mode;
+        document.getElementById('btn_modeA').classList.toggle('active', mode === 'A');
+        document.getElementById('btn_modeB').classList.toggle('active', mode === 'B');
+        document.getElementById('inputs_modeA').style.display = (mode === 'A') ? "grid" : "none";
+        document.getElementById('inputs_modeB').style.display = (mode === 'B') ? "grid" : "none";
+        calcRealestate();
+    }
+
+    function calcRealestate() {
+        const resultDiv = document.getElementById('calcResult');
+
+        // ----------------------------------------------------
+        // [모드 A] 청약 가점 계산
+        // ----------------------------------------------------
+        if (currentMode === 'A') {
+            const score1 = parseInt(document.getElementById('homelessYears').value) || 0;
+            const score2 = parseInt(document.getElementById('dependentsNum').value) || 0;
+            const score3 = parseInt(document.getElementById('bankYears').value) || 0;
+            const totalScore = score1 + score2 + score3;
+
+            resultDiv.innerHTML = `
+                🎯 <b>나의 청약 가점 총점:</b> <span class="highlight">${totalScore}점</span> / 84점 만점
+                <div class="info-text">※ 청약홈 기준 일반공급 가점제 산정 기준표를 100% 적용한 점수입니다. 당첨 안정권은 지역별로 상이합니다.</div>
+                
+                <div class="breakdown">
+                    <div class="breakdown-title">[항목별 점수 세부내역]</div>
+                    • <b>무주택 기간 (최대 32점):</b> ${score1}점<br>
+                    • <b>부양가족 수 (최대 35점):</b> ${score2}점<br>
+                    • <b>청약통장 가입기간 (최대 17점):</b> ${score3}점
+                </div>
+            `;
+        } 
+        // ----------------------------------------------------
+        // [모드 B] 대출 이자 & 원리금 & 간이 DSR 계산
+        // ----------------------------------------------------
+        else {
+            const loanAmount = parseFloat(document.getElementById('loanAmount').value);
+            const annualRate = parseFloat(document.getElementById('loanRate').value);
+            const termYears = parseInt(document.getElementById('loanTerm').value);
+            const annualIncome = parseFloat(document.getElementById('annualIncome').value) || 0;
+
+            if (!loanAmount || !annualRate || isNaN(loanAmount) || isNaN(annualRate)) {
+                resultDiv.innerHTML = "💡 <b>대출 원금</b>과 <b>금리</b>를 입력하면 월 상환액과 DSR 한도가 산출됩니다.";
+                return;
+            }
+
+            // 원리금균등상환 수식 계산
+            const monthlyRate = (annualRate / 100) / 12;
+            const totalMonths = termYears * 12;
+            
+            // 월 평등 상환액 구하기 공식
+            const monthlyPayment = (loanAmount * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1);
+            const totalRepayment = monthlyPayment * totalMonths;
+            const totalInterest = totalRepayment - loanAmount;
+
+            // DSR(총부채원리금상환비율) 계산 (연간 상환액 / 연소득 * 100)
+            let dsrContent = "";
+            if (annualIncome > 0) {
+                const annualPayment = monthlyPayment * 12;
+                const dsrRatio = (annualPayment / annualIncome) * 100;
+                
+                let dsrStatus = "<span style='color:#16a34a; font-weight:bold;'>안전 은행권 대출 가능</span>";
+                if(dsrRatio > 40) {
+                    dsrStatus = "<span class='warning-text'>위험 (은행권 DSR 40% 규제 한도 초과!)</span>";
+                } else if(dsrRatio > 30) {
+                    dsrStatus = "<span style='color:#eab308; font-weight:bold;'>주의 (DSR 한도 임박)</span>";
+                }
+
+                dsrContent = `<br>• <b>나의 추정 DSR 비율:</b> 약 ${dsrRatio.toFixed(1)}% [${dsrStatus}]`;
+            } else {
+                dsrContent = `<br><span style="color:#64748b; font-size:12px;">• 연소득을 추가로 적으시면 현재 1금융권 제한선인 DSR 40% 통과 여부를 진단해 드립니다.</span>`;
+            }
+
+            resultDiv.innerHTML = `
+                🎯 <b>매월 예상 납부액:</b> <span class="highlight">${formatNum(monthlyPayment)}원</span>
+                <div class="info-text">※ 가장 대중적인 <b>원리금 균등상환</b>(매달 원금과 이자를 똑같이 나누어 내는 방식) 기준입니다.</div>
+                
+                <div class="breakdown">
+                    <div class="breakdown-title">[대출 및 이자 상세 분석]</div>
+                    • <b>대출 총 원금:</b> ${formatNum(loanAmount)}원<br>
+                    • <b>총 납부 이자액:</b> ${formatNum(totalInterest)}원<br>
+                    • <b>만기까지의 총 상환금:</b> ${formatNum(totalRepayment)}원${dsrContent}
+                </div>
+            `;
+        }
+    }
+</script>
+
+</body>
+</html>

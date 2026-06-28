@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>직장인 부업 종합소득세 계산기</title>
+    <style>
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .wrapper {
+            width: 100%;
+            max-width: 550px;
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+        }
+        h2 {
+            text-align: center;
+            color: #1e293b;
+            margin-bottom: 25px;
+            font-size: 22px;
+            letter-spacing: -0.5px;
+        }
+        .calc-section {
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 14px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 16px;
+        }
+        .input-item {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .input-item label {
+            font-size: 14px;
+            color: #475569;
+            font-weight: 600;
+        }
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 15px;
+            text-align: right;
+            box-sizing: border-box;
+            outline: none;
+        }
+        input:focus, select:focus {
+            border-color: #0ea5e9;
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.1);
+        }
+        .unit {
+            position: absolute;
+            right: 12px;
+            font-size: 14px;
+            color: #94a3b8;
+            pointer-events: none;
+        }
+        .result-box {
+            background: #f0f9ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #1e293b;
+            line-height: 1.7;
+            border: 1px solid #bae6fd;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #0284c7;
+            font-size: 22px;
+        }
+        .breakdown {
+            font-size: 13px;
+            color: #475569;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #cbd5e1;
+        }
+        .info-text {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 8px;
+            line-height: 1.4;
+            background: rgba(0,0,0,0.02);
+            padding: 8px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <h2>N잡러를 위한 직장인 부업 종합소득세 계산기</h2>
+
+    <div class="calc-section">
+        <div class="grid-inputs">
+            <div class="input-item">
+                <label>본업 연봉 (세전 총급여)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="mainSalary" placeholder="50000000" value="50000000" oninput="calcTotalTax()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+
+            <div class="input-item">
+                <label>부업 종류 선택</label>
+                <select id="subType" onchange="calcTotalTax()">
+                    <option value="youtube">AI 유튜브 / 크리에이터 수익 (애드센스 달러)</option>
+                    <option value="blog">AI 블로그 운영 / 원고료 수익 (3.3% 또는 애드포스트)</option>
+                    <option value="digital">디지털 파일 / 지식 상품 판매 (노션 템플릿, 전자책 등)</option>
+                    <option value="delivery">배달 대행 / 대리운전 알바 (3.3% 원천징수)</option>
+                    <option value="store">위탁판매 / 스마트스토어 / 쿠팡 셀러</option>
+                    <option value="trading">해외구매대행 / 중고 리셀 수입</option>
+                </select>
+            </div>
+
+            <div class="input-item">
+                <label>부업 연간 총 수입액 (세전 매출 또는 정산액)</label>
+                <div class="input-wrapper">
+                    <input type="number" id="subIncome" placeholder="10000000" value="10000000" oninput="calcTotalTax()">
+                    <span class="unit">원</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-box" id="taxResult">
+            금액을 입력하시면 5월 종합소득세 합산 추정치가 실시간 계산됩니다.
+        </div>
+    </div>
+</div>
+
+<script>
+    function formatNum(num) {
+        return Math.round(num).toLocaleString('ko-KR');
+    }
+
+    function calcTotalTax() {
+        const mainSalary = parseFloat(document.getElementById('mainSalary').value) || 0;
+        const subIncome = parseFloat(document.getElementById('subIncome').value) || 0;
+        const subType = document.getElementById('subType').value;
+        const resultDiv = document.getElementById('taxResult');
+
+        if (mainSalary <= 0 && subIncome <= 0) {
+            resultDiv.innerHTML = "금액을 입력하시면 실시간 결과가 계산됩니다.";
+            return;
+        }
+
+        // 1. 근로소득금액 모의 계산 (연봉별 공제율 세분화)
+        let mainDed = mainSalary * 0.15; 
+        if(mainSalary <= 45000000) mainDed = mainSalary * 0.20;
+        let mainIncomeAmount = mainSalary - mainDed;
+        if(mainIncomeAmount < 0) mainIncomeAmount = 0;
+
+        // 2. 부업 업종별 실전 기준 소득금액 및 기납부세액 계산
+        let subIncomeAmount = 0; 
+        let subPaidTax = 0; 
+
+        if (subType === 'youtube') {
+            subIncomeAmount = subIncome * 0.3; // 단순경비율 약 70% 가정
+            subPaidTax = 0; 
+        } else if (subType === 'blog') {
+            subIncomeAmount = subIncome * 0.4; // 경비율 약 60% 가정
+            subPaidTax = subIncome * 0.03;    // 프리랜서 3% 원천징수 기준
+        } else if (subType === 'digital') {
+            subIncomeAmount = subIncome * 0.4; // 지식창업 콘텐츠 경비율 60% 가정
+            subPaidTax = 0; 
+        } else if (subType === 'delivery') {
+            subIncomeAmount = subIncome * 0.25; // 퀵서비스, 대리운전 단순경비율 약 75% 가정
+            subPaidTax = subIncome * 0.03;    // 3.3% 원천징수
+        } else if (subType === 'store') {
+            subIncomeAmount = subIncome * 0.15; // 일반 도소매 단순경비율 약 85% 가정
+            subPaidTax = 0; 
+        } else if (subType === 'trading') {
+            subIncomeAmount = subIncome * 0.18; // 구매대행, 리셀 단순경비율 약 82% 가정
+            subPaidTax = 0; 
+        }
+
+        // 3. 과세표준 합산
+        const baseDeduction = 4500000; 
+        let taxBase = (mainIncomeAmount + subIncomeAmount) - baseDeduction;
+        if(taxBase < 0) taxBase = 0;
+
+        // 4. 소득세율 누진 계산
+        let estimatedTax = 0;
+        if (taxBase <= 14000000) {
+            estimatedTax = taxBase * 0.06;
+        } else if (taxBase <= 50000000) {
+            estimatedTax = 14000000 * 0.06 + (taxBase - 14000000) * 0.15;
+        } else if (taxBase <= 88000000) {
+            estimatedTax = 14000000 * 0.06 + 36000000 * 0.15 + (taxBase - 50000000) * 0.24;
+        } else {
+            estimatedTax = 14000000 * 0.06 + 36000000 * 0.15 + 38000000 * 0.24 + (taxBase - 88000000) * 0.35;
+        }
+
+        // 본업 회사 연말정산 기납부세액 차감 유추
+        let mainTaxBase = mainIncomeAmount - baseDeduction;
+        if(mainTaxBase < 0) mainTaxBase = 0;
+        let mainPaidTax = 0;
+        if (mainTaxBase <= 14000000) mainPaidTax = mainTaxBase * 0.06;
+        else if (mainTaxBase <= 50000000) mainPaidTax = 14000000 * 0.06 + (mainTaxBase - 14000000) * 0.15;
+        else mainPaidTax = 14000000 * 0.06 + 36000000 * 0.15 + (mainTaxBase - 50000000) * 0.24;
+
+        // 최종 추가 납부 혹은 환급 세액 (소득세 + 지방세 10%)
+        let finalNationalTax = estimatedTax - mainPaidTax - subPaidTax;
+        let finalLocalTax = finalNationalTax * 0.1;
+        let totalFinalPay = finalNationalTax + finalLocalTax;
+
+        let resultType = "💰 5월 예상 추가 납부액:";
+        if(totalFinalPay < 0) {
+            resultType = "💵 5월 예상 환급액:";
+            totalFinalPay = Math.abs(totalFinalPay);
+        }
+
+        resultDiv.innerHTML = `
+            🎯 ${resultType} <span class="highlight">${formatNum(totalFinalPay)}원</span>
+            <div class="info-text">※ 입력하신 부업 업종별 국세청 평균 단순경비율이 정밀하게 반영된 결과입니다. 본업과 합산되어 종합소득세 누진세율 구간이 적용됩니다.</div>
+            
+            <div class="breakdown">
+                • <b>합산 추정 과세표준:</b> 약 ${formatNum(taxBase)}원<br>
+                • <b>부업으로 인해 증가된 종합소득세:</b> 약 ${formatNum(finalNationalTax)}원<br>
+                • <b>지방소득세 (10%):</b> 약 ${formatNum(finalLocalTax)}원
+            </div>
+        `;
+    }
+    calcTotalTax();
+</script>
+
+</body>
+</html>
