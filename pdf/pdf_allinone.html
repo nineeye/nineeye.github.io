@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>PDF 마스터 툴 (병합/변환/압축)</title>
+    <script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+    <style>
+        body { font-family: 'Pretendard', sans-serif; padding: 40px; background: #f8fafc; text-align: center; }
+        .box { background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); max-width: 500px; margin: auto; }
+        .btn-group { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        button { padding: 15px; border: none; border-radius: 10px; font-weight: bold; color: white; cursor: pointer; }
+        .merge { background: #3b82f6; } .convert { background: #8b5cf6; } .compress { background: #10b981; }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <h1>📑 PDF 마스터 툴</h1>
+        <input type="file" id="fileInput" multiple accept="image/*, application/pdf">
+        <div class="btn-group">
+            <button class="merge" onclick="mergePDFs()">PDF 병합하기</button>
+            <button class="convert" onclick="convertImageToPDF()">이미지 → PDF 변환</button>
+            <button class="compress" onclick="compressPDF()">PDF 압축 (메타데이터 삭제)</button>
+        </div>
+    </div>
+
+    <script>
+        const { PDFDocument } = PDFLib;
+
+        // 1. PDF 병합
+        async function mergePDFs() {
+            const files = document.getElementById('fileInput').files;
+            if (files.length < 2) return alert("병합할 PDF를 2개 이상 선택하세요!");
+            const mergedPdf = await PDFDocument.create();
+            for (const file of files) {
+                const pdf = await PDFDocument.load(await file.arrayBuffer());
+                const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+                pages.forEach(p => mergedPdf.addPage(p));
+            }
+            downloadPDF(await mergedPdf.save(), 'merged.pdf');
+        }
+
+        // 2. 이미지 -> PDF 변환
+        async function convertImageToPDF() {
+            const file = document.getElementById('fileInput').files[0];
+            if (!file) return alert("이미지를 선택하세요!");
+            const pdfDoc = await PDFDocument.create();
+            const imgBytes = await file.arrayBuffer();
+            const img = await pdfDoc.embedJpg(imgBytes).catch(() => pdfDoc.embedPng(imgBytes));
+            const page = pdfDoc.addPage([img.width, img.height]);
+            page.drawImage(img, { x: 0, y: 0, width: img.width, height: img.height });
+            downloadPDF(await pdfDoc.save(), 'converted.pdf');
+        }
+
+        // 3. PDF 압축 (간이 최적화)
+        async function compressPDF() {
+            const file = document.getElementById('fileInput').files[0];
+            if (!file) return alert("PDF 파일을 선택하세요!");
+            const pdfDoc = await PDFDocument.load(await file.arrayBuffer());
+            // 불필요한 메타데이터 제거 및 최적화
+            pdfDoc.setTitle(''); pdfDoc.setAuthor(''); pdfDoc.setCreator('');
+            downloadPDF(await pdfDoc.save({ useObjectStreams: true }), 'compressed.pdf');
+        }
+
+        function downloadPDF(bytes, name) {
+            const blob = new Blob([bytes], { type: 'application/pdf' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = name;
+            link.click();
+        }
+    </script>
+</body>
+</html>
