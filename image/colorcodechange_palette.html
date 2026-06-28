@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>국민 통합 색상 코드 변환기 & 160인의 팔레트</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: #f8fafc;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+            width: 100%;
+            max-width: 800px; /* 많은 색상을 위해 가로폭을 넓혔습니다 */
+        }
+
+        h2 {
+            text-align: center;
+            color: #0f172a;
+            margin-top: 0;
+            margin-bottom: 30px;
+            font-size: 26px;
+        }
+
+        /* 메인 제어 센터 */
+        .picker-section {
+            background: #f1f5f9;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 35px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .picker-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            gap: 20px;
+        }
+
+        .color-input-wrapper {
+            position: relative;
+            width: 85px;
+            height: 85px;
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            cursor: pointer;
+            border: 4px solid white;
+        }
+
+        .color-input-wrapper input[type="color"] {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: 110px;
+            height: 110px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .picker-info h3 {
+            margin: 0 0 8px 0;
+            font-size: 15px;
+            color: #475569;
+        }
+
+        .color-bar {
+            height: 24px;
+            width: 100%;
+            border-radius: 8px;
+            background-color: #03C75A;
+            transition: background-color 0.15s;
+        }
+
+        /* 코드 표시창 */
+        .code-box {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border: 1px solid #cbd5e1;
+            padding: 12px 16px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .code-label {
+            font-weight: bold;
+            color: #94a3b8;
+            width: 45px;
+            font-size: 14px;
+        }
+
+        .code-value {
+            flex-grow: 1;
+            font-family: monospace;
+            font-size: 16px;
+            color: #0f172a;
+            font-weight: 600;
+        }
+
+        .copy-btn {
+            background: #f1f5f9;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            color: #475569;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+        }
+
+        .copy-btn:hover { background: #e2e8f0; }
+
+        /* 대제목 */
+        .section-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #1e293b;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+            padding-bottom: 8px;
+        }
+
+        .theme-subtitle {
+            font-size: 13px;
+            font-weight: 700;
+            color: #64748b;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+
+        /* 🔥 핵심: 대규모 8열 격자 레이아웃 시스템 (모바일 반응형 탑재) */
+        .color-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr); /* 데스크톱에서는 무조건 한 줄에 8개 */
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .color-grid {
+                grid-template-columns: repeat(4, 1fr); /* 패드나 폰에서는 터치 편하게 4개로 자동 변환 */
+            }
+        }
+
+        /* 상자 크기를 컴팩트하게 줄인 카드 디자인 */
+        .color-card {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 5px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .color-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            background: white;
+            border-color: #cbd5e1;
+        }
+
+        .card-preview {
+            height: 32px; /* 영리하게 높이를 줄여 컴팩트화 */
+            width: 100%;
+            border-radius: 5px;
+            margin-bottom: 4px;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .card-name {
+            font-size: 10px; /* 작은 상자에 맞게 폰트 미세조정 */
+            font-weight: 600;
+            color: #475569;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis; /* 글자가 길면 ... 처리 */
+        }
+
+        /* 토스트 알림 */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #10b981;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 10px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.2);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>🎨 색상 코드 변환기 & 160대 마스터 팔레트</h2>
+
+        <!-- 메인 제어 장치 -->
+        <div class="picker-section">
+            <div class="picker-header">
+                <div class="color-input-wrapper" title="포토샵 컬러피커 열기">
+                    <input type="color" id="mainColorPicker" value="#03C75A">
+                </div>
+                <div class="picker-info" style="flex-grow: 1;">
+                    <h3>상자 클릭 시 포토샵형 피커 활성화 (1,670만 색상)</h3>
+                    <div class="color-bar" id="colorBar"></div>
+                </div>
+            </div>
+
+            <div class="code-box">
+                <div class="code-label">HEX</div>
+                <div class="code-value" id="hexOutput">#03C75A</div>
+                <button class="copy-btn" onclick="copyText('hexOutput')">복사</button>
+            </div>
+
+            <div class="code-box">
+                <div class="code-label">RGB</div>
+                <div class="code-value" id="rgbOutput">rgb(3, 199, 90)</div>
+                <button class="copy-btn" onclick="copyText('rgbOutput')">복사</button>
+            </div>
+        </div>
+
+        <!-- 파트 1: 초고빈도 검색 인기 브랜드 (16선) -->
+        <div class="section-title">🔥 가장 많이 검색하는 초인기 브랜드 컬러 (16선)</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#03C75A')"><div class="card-preview" style="background-color: #03C75A;"></div><div class="card-name">네이버</div></div>
+            <div class="color-card" onclick="setColor('#FEE500')"><div class="card-preview" style="background-color: #FEE500;"></div><div class="card-name">카카오</div></div>
+            <div class="color-card" onclick="setColor('#0064FF')"><div class="card-preview" style="background-color: #0064FF;"></div><div class="card-name">토스</div></div>
+            <div class="color-card" onclick="setColor('#FF0000')"><div class="card-preview" style="background-color: #FF0000;"></div><div class="card-name">유튜브</div></div>
+            <div class="color-card" onclick="setColor('#2AC1BC')"><div class="card-preview" style="background-color: #2AC1BC;"></div><div class="card-name">배민 민트</div></div>
+            <div class="color-card" onclick="setColor('#FF7E36')"><div class="card-preview" style="background-color: #FF7E36;"></div><div class="card-name">당근 마켓</div></div>
+            <div class="color-card" onclick="setColor('#006241')"><div class="card-preview" style="background-color: #006241;"></div><div class="card-name">스타벅스</div></div>
+            <div class="color-card" onclick="setColor('#111111')"><div class="card-preview" style="background-color: #111111;"></div><div class="card-name">무신사</div></div>
+            <div class="color-card" onclick="setColor('#1877F2')"><div class="card-preview" style="background-color: #1877F2;"></div><div class="card-name">페이스북</div></div>
+            <div class="color-card" onclick="setColor('#E1306C')"><div class="card-preview" style="background-color: #E1306C;"></div><div class="card-name">인스타 핑크</div></div>
+            <div class="color-card" onclick="setColor('#E50914')"><div class="card-preview" style="background-color: #E50914;"></div><div class="card-name">넷플릭스</div></div>
+            <div class="color-card" onclick="setColor('#1DA1F2')"><div class="card-preview" style="background-color: #1DA1F2;"></div><div class="card-name">트위터 X</div></div>
+            <div class="color-card" onclick="setColor('#4285F4')"><div class="card-preview" style="background-color: #4285F4;"></div><div class="card-name">구글 블루</div></div>
+            <div class="color-card" onclick="setColor('#EA4335')"><div class="card-preview" style="background-color: #EA4335;"></div><div class="card-name">구글 레드</div></div>
+            <div class="color-card" onclick="setColor('#0A46A5')"><div class="card-preview" style="background-color: #0A46A5;"></div><div class="card-name">삼성 블루</div></div>
+            <div class="color-card" onclick="setColor('#FF6600')"><div class="card-preview" style="background-color: #FF6600;"></div><div class="card-name">한화 주황</div></div>
+        </div>
+
+        <!-- 파트 2: 전문 디자인 테마 시리즈 (9개 테마 × 16개 = 144선) -->
+        <div class="section-title">✨ 스페셜 기획 디자인 테마 컬렉션 (144선)</div>
+        
+        <div class="theme-subtitle">① 로맨틱 마카롱 파스텔 감성</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#FFB7B2')"><div class="card-preview" style="background-color: #FFB7B2;"></div><div class="card-name">살구피치</div></div>
+            <div class="color-card" onclick="setColor('#FFDAC1')"><div class="card-preview" style="background-color: #FFDAC1;"></div><div class="card-name">밀크버터</div></div>
+            <div class="color-card" onclick="setColor('#E2F0CB')"><div class="card-preview" style="background-color: #E2F0CB;"></div><div class="card-name">메론크림</div></div>
+            <div class="color-card" onclick="setColor('#B5EAD7')"><div class="card-preview" style="background-color: #B5EAD7;"></div><div class="card-name">민트캔디</div></div>
+            <div class="color-card" onclick="setColor('#C7CEEA')"><div class="card-preview" style="background-color: #C7CEEA;"></div><div class="card-name">라벤더무드</div></div>
+            <div class="color-card" onclick="setColor('#FFC6FF')"><div class="card-preview" style="background-color: #FFC6FF;"></div><div class="card-name">딸기우유</div></div>
+            <div class="color-card" onclick="setColor('#BDB2FF')"><div class="card-preview" style="background-color: #BDB2FF;"></div><div class="card-name">블루베리</div></div>
+            <div class="color-card" onclick="setColor('#9BF6FF')"><div class="card-preview" style="background-color: #9BF6FF;"></div><div class="card-name">소다요거트</div></div>
+            <div class="color-card" onclick="setColor('#CAFFBF')"><div class="card-preview" style="background-color: #CAFFBF;"></div><div class="card-name">청포도젤리</div></div>
+            <div class="color-card" onclick="setColor('#FDFFB6')"><div class="card-preview" style="background-color: #FDFFB6;"></div><div class="card-name">레몬샤베트</div></div>
+            <div class="color-card" onclick="setColor('#FFADAD')"><div class="card-preview" style="background-color: #FFADAD;"></div><div class="card-name">체리블라썸</div></div>
+            <div class="color-card" onclick="setColor('#ECE4DB')"><div class="card-preview" style="background-color: #ECE4DB;"></div><div class="card-name">라떼폼</div></div>
+            <div class="color-card" onclick="setColor('#D8E2DC')"><div class="card-preview" style="background-color: #D8E2DC;"></div><div class="card-name">얼그레이티</div></div>
+            <div class="color-card" onclick="setColor('#FFE5D9')"><div class="card-preview" style="background-color: #FFE5D9;"></div><div class="card-name">아기살결</div></div>
+            <div class="color-card" onclick="setColor('#FFCAD4')"><div class="card-preview" style="background-color: #FFCAD4;"></div><div class="card-name">바비핑크</div></div>
+            <div class="color-card" onclick="setColor('#F4ACB7')"><div class="card-preview" style="background-color: #F4ACB7;"></div><div class="card-name">인디로즈</div></div>
+        </div>
+
+        <div class="theme-subtitle">② 신뢰를 주는 대기업 비즈니스 & 신뢰</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#1E3A8A')"><div class="card-preview" style="background-color: #1E3A8A;"></div><div class="card-name">딥네이비</div></div>
+            <div class="color-card" onclick="setColor('#0284C7')"><div class="card-preview" style="background-color: #0284C7;"></div><div class="card-name">오션블루</div></div>
+            <div class="color-card" onclick="setColor('#0369A1')"><div class="card-preview" style="background-color: #0369A1;"></div><div class="card-name">스카이하이</div></div>
+            <div class="color-card" onclick="setColor('#0F172A')"><div class="card-preview" style="background-color: #0F172A;"></div><div class="card-name">미드나잇</div></div>
+            <div class="color-card" onclick="setColor('#1E293B')"><div class="card-preview" style="background-color: #1E293B;"></div><div class="card-name">다크슬레이트</div></div>
+            <div class="color-card" onclick="setColor('#334155')"><div class="card-preview" style="background-color: #334155;"></div><div class="card-name">강철그레이</div></div>
+            <div class="color-card" onclick="setColor('#475569')"><div class="card-preview" style="background-color: #475569;"></div><div class="card-name">오피스실버</div></div>
+            <div class="color-card" onclick="setColor('#64748B')"><div class="card-preview" style="background-color: #64748B;"></div><div class="card-name">시티리서치</div></div>
+            <div class="color-card" onclick="setColor('#0D9488')"><div class="card-preview" style="background-color: #0D9488;"></div><div class="card-name">스마트딥그린</div></div>
+            <div class="color-card" onclick="setColor('#059669')"><div class="card-preview" style="background-color: #059669;"></div><div class="card-name">신뢰의바이오</div></div>
+            <div class="color-card" onclick="setColor('#2563EB')"><div class="card-preview" style="background-color: #2563EB;"></div><div class="card-name">글로벌블루</div></div>
+            <div class="color-card" onclick="setColor('#3B82F6')"><div class="card-preview" style="background-color: #3B82F6;"></div><div class="card-name">테크노블루</div></div>
+            <div class="color-card" onclick="setColor('#60A5FA')"><div class="card-preview" style="background-color: #60A5FA;"></div><div class="card-name">라이트테크</div></div>
+            <div class="color-card" onclick="setColor('#1D4ED8')"><div class="card-preview" style="background-color: #1D4ED8;"></div><div class="card-name">딥인디고</div></div>
+            <div class="color-card" onclick="setColor('#1E40AF')"><div class="card-preview" style="background-color: #1E40AF;"></div><div class="card-name">로열블루</div></div>
+            <div class="color-card" onclick="setColor('#172554')"><div class="card-preview" style="background-color: #172554;"></div><div class="card-name">심해블랙</div></div>
+        </div>
+
+        <div class="theme-subtitle">③ 마음이 편안해지는 내추럴 얼스 & 그린 테라피</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#8B5A2B')"><div class="card-preview" style="background-color: #8B5A2B;"></div><div class="card-name">원목우드</div></div>
+            <div class="color-card" onclick="setColor('#CD853F')"><div class="card-preview" style="background-color: #CD853F;"></div><div class="card-name">황토벽돌</div></div>
+            <div class="color-card" onclick="setColor('#D2B48C')"><div class="card-preview" style="background-color: #D2B48C;"></div><div class="card-name">샌드베이지</div></div>
+            <div class="color-card" onclick="setColor('#556B2F')"><div class="card-preview" style="background-color: #556B2F;"></div><div class="card-name">깊은숲카키</div></div>
+            <div class="color-card" onclick="setColor('#E6F2E8')"><div class="card-preview" style="background-color: #E6F2E8;"></div><div class="card-name">어린녹차잎</div></div>
+            <div class="color-card" onclick="setColor('#A3B19B')"><div class="card-preview" style="background-color: #A3B19B;"></div><div class="card-name">유칼립투스</div></div>
+            <div class="color-card" onclick="setColor('#8FBC8F')"><div class="card-preview" style="background-color: #8FBC8F;"></div><div class="card-name">말린세이지</div></div>
+            <div class="color-card" onclick="setColor('#2E8B57')"><div class="card-preview" style="background-color: #2E8B57;"></div><div class="card-name">소나무숲</div></div>
+            <div class="color-card" onclick="setColor('#3CB371')"><div class="card-preview" style="background-color: #3CB371;"></div><div class="card-name">신선한잔디</div></div>
+            <div class="color-card" onclick="setColor('#228B22')"><div class="card-preview" style="background-color: #228B22;"></div><div class="card-name">정글조직</div></div>
+            <div class="color-card" onclick="setColor('#008080')"><div class="card-preview" style="background-color: #008080;"></div><div class="card-name">청록빛이끼</div></div>
+            <div class="color-card" onclick="setColor('#6B8E23')"><div class="card-preview" style="background-color: #6B8E23;"></div><div class="card-name">올리브오일</div></div>
+            <div class="color-card" onclick="setColor('#9ACD32')"><div class="card-preview" style="background-color: #9ACD32;"></div><div class="card-name">풋사과그린</div></div>
+            <div class="color-card" onclick="setColor('#BC8F8F')"><div class="card-preview" style="background-color: #BC8F8F;"></div><div class="card-name">드라이로즈</div></div>
+            <div class="color-card" onclick="setColor('#F5F5DC')"><div class="card-preview" style="background-color: #F5F5DC;"></div><div class="card-name">모던베이지</div></div>
+            <div class="color-card" onclick="setColor('#FAF0E6')"><div class="card-preview" style="background-color: #FAF0E6;"></div><div class="card-name">리넨화이트</div></div>
+        </div>
+
+        <div class="theme-subtitle">④ 성수동 힙스터 감성 레트로 & 빈티지</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#E63946')"><div class="card-preview" style="background-color: #E63946;"></div><div class="card-name">빈티지레드</div></div>
+            <div class="color-card" onclick="setColor('#F1FAEE')"><div class="card-preview" style="background-color: #F1FAEE;"></div><div class="card-name">밀크스프</div></div>
+            <div class="color-card" onclick="setColor('#A8DADC')"><div class="card-preview" style="background-color: #A8DADC;"></div><div class="card-name">소다파우더</div></div>
+            <div class="color-card" onclick="setColor('#457B9D')"><div class="card-preview" style="background-color: #457B9D;"></div><div class="card-name">LP판블루</div></div>
+            <div class="color-card" onclick="setColor('#1D3557')"><div class="card-preview" style="background-color: #1D3557;"></div><div class="card-name">미드나잇블루</div></div>
+            <div class="color-card" onclick="setColor('#F4A261')"><div class="card-preview" style="background-color: #F4A261;"></div><div class="card-name">구운오렌지</div></div>
+            <div class="color-card" onclick="setColor('#E76F51')"><div class="card-preview" style="background-color: #E76F51;"></div><div class="card-name">벽돌토마토</div></div>
+            <div class="color-card" onclick="setColor('#2A9D8F')"><div class="card-preview" style="background-color: #2A9D8F;"></div><div class="card-name">레트로카키</div></div>
+            <div class="color-card" onclick="setColor('#E9C46A')"><div class="card-preview" style="background-color: #E9C46A;"></div><div class="card-name">빛바랜겨자</div></div>
+            <div class="color-card" onclick="setColor('#264653')"><div class="card-preview" style="background-color: #264653;"></div><div class="card-name">올드메탈</div></div>
+            <div class="color-card" onclick="setColor('#D62828')"><div class="card-preview" style="background-color: #D62828;"></div><div class="card-name">올드칠리</div></div>
+            <div class="color-card" onclick="setColor('#003049')"><div class="card-preview" style="background-color: #003049;"></div><div class="card-name">네이비진</div></div>
+            <div class="color-card" onclick="setColor('#F77F00')"><div class="card-preview" style="background-color: #F77F00;"></div><div class="card-name">턴테이블황토</div></div>
+            <div class="color-card" onclick="setColor('#FCBF49')"><div class="card-preview" style="background-color: #FCBF49;"></div><div class="card-name">체다치즈</div></div>
+            <div class="color-card" onclick="setColor('#EAE2B7')"><div class="card-preview" style="background-color: #EAE2B7;"></div><div class="card-name">양장본속지</div></div>
+            <div class="color-card" onclick="setColor('#774936')"><div class="card-preview" style="background-color: #774936;"></div><div class="card-name">카카오쉘</div></div>
+        </div>
+
+        <div class="theme-subtitle">⑤ 사이버펑크 야경 네온 시티 & 힙스터팝</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#FF007F')"><div class="card-preview" style="background-color: #FF007F;"></div><div class="card-name">야광핫핑크</div></div>
+            <div class="color-card" onclick="setColor('#39FF14')"><div class="card-preview" style="background-color: #39FF14;"></div><div class="card-name">네온라임</div></div>
+            <div class="color-card" onclick="setColor('#00FFFF')"><div class="card-preview" style="background-color: #00FFFF;"></div><div class="card-name">일렉시안</div></div>
+            <div class="color-card" onclick="setColor('#8A2BE2')"><div class="card-preview" style="background-color: #8A2BE2;"></div><div class="card-name">퍼플일렉</div></div>
+            <div class="color-card" onclick="setColor('#FF4500')"><div class="card-preview" style="background-color: #FF4500;"></div><div class="card-name">선셋마그마</div></div>
+            <div class="color-card" onclick="setColor('#00FF00')"><div class="card-preview" style="background-color: #00FF00;"></div><div class="card-name">매트릭스그린</div></div>
+            <div class="color-card" onclick="setColor('#FF00FF')"><div class="card-preview" style="background-color: #FF00FF;"></div><div class="card-name">사이버마젠타</div></div>
+            <div class="color-card" onclick="setColor('#FFFF00')"><div class="card-preview" style="background-color: #FFFF00;"></div><div class="card-name">경고야광노랑</div></div>
+            <div class="color-card" onclick="setColor('#FF1493')"><div class="card-preview" style="background-color: #FF1493;"></div><div class="card-name">딥네온핑크</div></div>
+            <div class="color-card" onclick="setColor('#1F8EFA')"><div class="card-preview" style="background-color: #1F8EFA;"></div><div class="card-name">강렬한사이버</div></div>
+            <div class="color-card" onclick="setColor('#7B2CBF')"><div class="card-preview" style="background-color: #7B2CBF;"></div><div class="card-name">조커퍼플</div></div>
+            <div class="color-card" onclick="setColor('#9D4EDD')"><div class="card-preview" style="background-color: #9D4EDD;"></div><div class="card-name">바이올렛쇼크</div></div>
+            <div class="color-card" onclick="setColor('#E0AAFF')"><div class="card-preview" style="background-color: #E0AAFF;"></div><div class="card-name">사이버안개</div></div>
+            <div class="color-card" onclick="setColor('#00F5D4')"><div class="card-preview" style="background-color: #00F5D4;"></div><div class="card-name">네온오로라</div></div>
+            <div class="color-card" onclick="setColor('#70E000')"><div class="card-preview" style="background-color: #70E000;"></div><div class="card-name">몬스터그린</div></div>
+            <div class="color-card" onclick="setColor('#CCFF00')"><div class="card-preview" style="background-color: #CCFF00;"></div><div class="card-name">라임스파크</div></div>
+        </div>
+
+        <div class="theme-subtitle">⑥ 상큼하고 과즙 팡팡 터지는 후르츠 스퀴즈</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#FF4D4D')"><div class="card-preview" style="background-color: #FF4D4D;"></div><div class="card-name">생딸기레드</div></div>
+            <div class="color-card" onclick="setColor('#FFA502')"><div class="card-preview" style="background-color: #FFA502;"></div><div class="card-name">오렌지필</div></div>
+            <div class="color-card" onclick="setColor('#FFD32A')"><div class="card-preview" style="background-color: #FFD32A;"></div><div class="card-name">골드파인애플</div></div>
+            <div class="color-card" onclick="setColor('#05C46B')"><div class="card-preview" style="background-color: #05C46B;"></div><div class="card-name">생라임그린</div></div>
+            <div class="color-card" onclick="setColor('#EF5777')"><div class="card-preview" style="background-color: #EF5777;"></div><div class="card-name">자몽스퀴즈</div></div>
+            <div class="color-card" onclick="setColor('#5758BB')"><div class="card-preview" style="background-color: #5758BB;"></div><div class="card-name">야생블루베리</div></div>
+            <div class="color-card" onclick="setColor('#6D214F')"><div class="card-preview" style="background-color: #6D214F;"></div><div class="card-name">포도와인</div></div>
+            <div class="color-card" onclick="setColor('#F8A5C2')"><div class="card-preview" style="background-color: #F8A5C2;"></div><div class="card-name">복숭아샤벳</div></div>
+            <div class="color-card" onclick="setColor('#FF7F50')"><div class="card-preview" style="background-color: #FF7F50;"></div><div class="card-name">홍시감색</div></div>
+            <div class="color-card" onclick="setColor('#9E2A2B')"><div class="card-preview" style="background-color: #9E2A2B;"></div><div class="card-name">석류원액</div></div>
+            <div class="color-card" onclick="setColor('#38B000')"><div class="card-preview" style="background-color: #38B000;"></div><div class="card-name">청망고그린</div></div>
+            <div class="color-card" onclick="setColor('#007200')"><div class="card-preview" style="background-color: #007200;"></div><div class="card-name">수박껍질</div></div>
+            <div class="color-card" onclick="setColor('#FFCCD5')"><div class="card-preview" style="background-color: #FFCCD5;"></div><div class="card-name">앵두입술</div></div>
+            <div class="color-card" onclick="setColor('#A2D2FF')"><div class="card-preview" style="background-color: #A2D2FF;"></div><div class="card-name">파워에이드</div></div>
+            <div class="color-card" onclick="setColor('#BDE0FE')"><div class="card-preview" style="background-color: #BDE0FE;"></div><div class="card-name">밀키스파란</div></div>
+            <div class="color-card" onclick="setColor('#F07167')"><div class="card-preview" style="background-color: #F07167;"></div><div class="card-name">자두캔디</div></div>
+        </div>
+
+        <div class="theme-subtitle">⑦ 5성급 럭셔리 부티크 호텔 & 클래식 명품</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#D4AF37')"><div class="card-preview" style="background-color: #D4AF37;"></div><div class="card-name">24K골드</div></div>
+            <div class="color-card" onclick="setColor('#AA7C11')"><div class="card-preview" style="background-color: #AA7C11;"></div><div class="card-name">앤틱브론즈</div></div>
+            <div class="color-card" onclick="setColor('#800020')"><div class="card-preview" style="background-color: #800020;"></div><div class="card-name">버건디와인</div></div>
+            <div class="color-card" onclick="setColor('#36454F')"><div class="card-preview" style="background-color: #36454F;"></div><div class="card-name">고급에반스</div></div>
+            <div class="color-card" onclick="setColor('#1A2E40')"><div class="card-preview" style="background-color: #1A2E40;"></div><div class="card-name">프렌치로열</div></div>
+            <div class="color-card" onclick="setColor('#2F4F4F')"><div class="card-preview" style="background-color: #2F4F4F;"></div><div class="card-name">다크대리석</div></div>
+            <div class="color-card" onclick="setColor('#4A0E17')"><div class="card-preview" style="background-color: #4A0E17;"></div><div class="card-name">마호가니가구</div></div>
+            <div class="color-card" onclick="setColor('#D9D2E9')"><div class="card-preview" style="background-color: #D9D2E9;"></div><div class="card-name">실크스카프</div></div>
+            <div class="color-card" onclick="setColor('#E6D7FF')"><div class="card-preview" style="background-color: #E6D7FF;"></div><div class="card-name">진주빛라벤더</div></div>
+            <div class="color-card" onclick="setColor('#B38F4D')"><div class="card-preview" style="background-color: #B38F4D;"></div><div class="card-name">로즈골드샴페</div></div>
+            <div class="color-card" onclick="setColor('#1C3144')"><div class="card-preview" style="background-color: #1C3144;"></div><div class="card-name">귀족네이비</div></div>
+            <div class="color-card" onclick="setColor('#004225')"><div class="card-preview" style="background-color: #004225;"></div><div class="card-name">브리티시그린</div></div>
+            <div class="color-card" onclick="setColor('#541300')"><div class="card-preview" style="background-color: #541300;"></div><div class="card-name">다크루비</div></div>
+            <div class="color-card" onclick="setColor('#705335')"><div class="card-preview" style="background-color: #705335;"></div><div class="card-name">고급가죽브라</div></div>
+            <div class="color-card" onclick="setColor('#F4F1EA')"><div class="card-preview" style="background-color: #F4F1EA;"></div><div class="card-name">갤러리화이트</div></div>
+            <div class="color-card" onclick="setColor('#E5E5E5')"><div class="card-preview" style="background-color: #E5E5E5;"></div><div class="card-name">백금실버</div></div>
+        </div>
+
+        <div class="theme-subtitle">⑧ 시원한 동해바다 캘리포니아 마린 해변</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#0077B6')"><div class="card-preview" style="background-color: #0077B6;"></div><div class="card-name">동해바다청량</div></div>
+            <div class="color-card" onclick="setColor('#0096C7')"><div class="card-preview" style="background-color: #0096C7;"></div><div class="card-name">몰디브에메랄</div></div>
+            <div class="color-card" onclick="setColor('#03045E')"><div class="card-preview" style="background-color: #03045E;"></div><div class="card-name">심해어두움</div></div>
+            <div class="color-card" onclick="setColor('#00B4D8')"><div class="card-preview" style="background-color: #00B4D8;"></div><div class="card-name">수영장하늘색</div></div>
+            <div class="color-card" onclick="setColor('#90E0EF')"><div class="card-preview" style="background-color: #90E0EF;"></div><div class="card-name">빙산블루</div></div>
+            <div class="color-card" onclick="setColor('#CAF0F8')"><div class="card-preview" style="background-color: #CAF0F8;"></div><div class="card-name">물안개푸른</div></div>
+            <div class="color-card" onclick="setColor('#03254C')"><div class="card-preview" style="background-color: #03254C;"></div><div class="card-name">선원제복네이</div></div>
+            <div class="color-card" onclick="setColor('#118AB2')"><div class="card-preview" style="background-color: #118AB2;"></div><div class="card-name">산토리니블루</div></div>
+            <div class="color-card" onclick="setColor('#06D6A0')"><div class="card-preview" style="background-color: #06D6A0;"></div><div class="card-name">바다민트오로</div></div>
+            <div class="color-card" onclick="setColor('#1A759F')"><div class="card-preview" style="background-color: #1A759F;"></div><div class="card-name">파도그늘</div></div>
+            <div class="color-card" onclick="setColor('#1E6091')"><div class="card-preview" style="background-color: #1E6091;"></div><div class="card-name">청청데님</div></div>
+            <div class="color-card" onclick="setColor('#34A0A4')"><div class="card-preview" style="background-color: #34A0A4;"></div><div class="card-name">산호초투명</div></div>
+            <div class="color-card" onclick="setColor('#52B69A')"><div class="card-preview" style="background-color: #52B69A;"></div><div class="card-name">에메랄드라군</div></div>
+            <div class="color-card" onclick="setColor('#76C893')"><div class="card-preview" style="background-color: #76C893;"></div><div class="card-name">바다이끼초록</div></div>
+            <div class="color-card" onclick="setColor('#E0FAFF')"><div class="card-preview" style="background-color: #E0FAFF;"></div><div class="card-name">서핑보드크림</div></div>
+            <div class="color-card" onclick="setColor('#001219')"><div class="card-preview" style="background-color: #001219;"></div><div class="card-name">심연블랙보라</div></div>
+        </div>
+
+        <div class="theme-subtitle">⑨ 눈이 편안해지는 올라운드 시크 모노크롬 (무채색)</div>
+        <div class="color-grid">
+            <div class="color-card" onclick="setColor('#000000')"><div class="card-preview" style="background-color: #000000;"></div><div class="card-name">순수제트블랙</div></div>
+            <div class="color-card" onclick="setColor('#1A1A1A')"><div class="card-preview" style="background-color: #1A1A1A;"></div><div class="card-name">매트블랙</div></div>
+            <div class="color-card" onclick="setColor('#2B2B2B')"><div class="card-preview" style="background-color: #2B2B2B;"></div><div class="card-name">다크흑연</div></div>
+            <div class="color-card" onclick="setColor('#3D3D3D')"><div class="card-preview" style="background-color: #3D3D3D;"></div><div class="card-name">차콜그레이</div></div>
+            <div class="color-card" onclick="setColor('#525252')"><div class="card-preview" style="background-color: #525252;"></div><div class="card-name">재벌그레이</div></div>
+            <div class="color-card" onclick="setColor('#6B6B6B')"><div class="card-preview" style="background-color: #6B6B6B;"></div><div class="card-name">스톤그레이</div></div>
+            <div class="color-card" onclick="setColor('#858585')"><div class="card-preview" style="background-color: #858585;"></div><div class="card-name">콘크리트회색</div></div>
+            <div class="color-card" onclick="setColor('#9E9E9E')"><div class="card-preview" style="background-color: #9E9E9E;"></div><div class="card-name">일반마우스灰</div></div>
+            <div class="color-card" onclick="setColor('#B8B8B8')"><div class="card-preview" style="background-color: #B8B8B8;"></div><div class="card-name">알루미늄실버</div></div>
+            <div class="color-card" onclick="setColor('#D4D4D4')"><div class="card-preview" style="background-color: #D4D4D4;"></div><div class="card-name">밝은키보드灰</div></div>
+            <div class="color-card" onclick="setColor('#E5E5E5')"><div class="card-preview" style="background-color: #E5E5E5;"></div><div class="card-name">시멘트파우더</div></div>
+            <div class="color-card" onclick="setColor('#F0F0F0')"><div class="card-preview" style="background-color: #F0F0F0;"></div><div class="card-name">눈꽃아이보리</div></div>
+            <div class="color-card" onclick="setColor('#F5F5F5')"><div class="card-preview" style="background-color: #F5F5F5;"></div><div class="card-name">연한안개화이</div></div>
+            <div class="color-card" onclick="setColor('#FAFAFA')"><div class="card-preview" style="background-color: #FAFAFA;"></div><div class="card-name">종이질감화이</div></div>
+            <div class="color-card" onclick="setColor('#FFFFFF')"><div class="card-preview" style="background-color: #FFFFFF;"></div><div class="card-name">완벽한화이트</div></div>
+            <div class="color-card" onclick="setColor('#1C1A27')"><div class="card-preview" style="background-color: #1C1A27;"></div><div class="card-name">밤하늘보라블</div></div>
+        </div>
+
+    </div>
+
+    <div class="toast" id="toast">✅ 클립보드에 복사되었습니다!</div>
+
+    <script>
+        const colorPicker = document.getElementById('mainColorPicker');
+        const colorBar = document.getElementById('colorBar');
+        const hexOutput = document.getElementById('hexOutput');
+        const rgbOutput = document.getElementById('rgbOutput');
+
+        function hexToRgb(hex) {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        function updateColors(hexValue) {
+            const upperHex = hexValue.toUpperCase();
+            colorPicker.value = hexValue;
+            colorBar.style.backgroundColor = hexValue;
+            hexOutput.innerText = upperHex;
+            rgbOutput.innerText = hexToRgb(hexValue);
+        }
+
+        colorPicker.addEventListener('input', function(e) {
+            updateColors(e.target.value);
+        });
+
+        function setColor(hexValue) {
+            updateColors(hexValue);
+        }
+
+        function copyText(elementId) {
+            const textToCopy = document.getElementById(elementId).innerText;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                const toast = document.getElementById('toast');
+                toast.style.opacity = '1';
+                setTimeout(() => { toast.style.opacity = '0'; }, 1500);
+            });
+        }
+    </script>
+</body>
+</html>

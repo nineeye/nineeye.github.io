@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>이미지 최적화 변환기</title>
+    <style>
+        /* 기본 리셋 및 폰트 설정 */
+        * { box-sizing: border-box; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; 
+            background-color: #f4f7f6; 
+            padding: 40px 20px; 
+            display: flex; 
+            justify-content: center; 
+            margin: 0;
+        }
+        
+        .container { 
+            background: white; 
+            padding: 30px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); 
+            width: 100%; 
+            max-width: 600px; 
+        }
+        
+        h2 { margin-top: 0; color: #2c3e50; margin-bottom: 20px; font-size: 24px; text-align: center; }
+
+        /* 파일 업로드 영역 */
+        .upload-area {
+            border: 2px dashed #cbd5e1;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            background-color: #f8fafc;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+        .upload-area:hover { border-color: #3498db; background-color: #f1f5f9; }
+        input[type="file"] { display: none; }
+        .upload-btn {
+            background: #34495e; color: white; padding: 10px 20px;
+            border-radius: 6px; cursor: pointer; font-weight: bold; display: inline-block;
+        }
+
+        /* 옵션 설정 영역 */
+        .options { margin-bottom: 20px; display: none; /* 파일 업로드 전엔 숨김 */ }
+        .option-group { margin-bottom: 15px; }
+        .option-group label { display: block; font-weight: 600; color: #475569; margin-bottom: 8px; }
+        
+        select { 
+            width: 100%; padding: 10px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 16px; 
+        }
+        
+        input[type="range"] { width: 100%; cursor: pointer; }
+        .quality-val { color: #3498db; font-weight: bold; }
+
+        /* 통계 및 미리보기 영역 */
+        .preview-area {
+            display: none; /* 파일 업로드 전엔 숨김 */
+            background: #f8fafc; padding: 15px; border-radius: 8px; border: 1px solid #e2e8f0;
+            margin-bottom: 20px; text-align: center;
+        }
+        .stats {
+            display: flex; justify-content: space-around; margin-bottom: 15px;
+        }
+        .stat-box { font-size: 14px; color: #64748b; }
+        .stat-val { display: block; font-size: 18px; font-weight: bold; color: #2c3e50; margin-top: 5px; }
+        .stat-val.reduced { color: #2ecc71; }
+
+        /* 다운로드 버튼 */
+        .btn-download { 
+            width: 100%; padding: 15px; border: none; border-radius: 8px; 
+            cursor: pointer; font-size: 18px; font-weight: bold; 
+            background: #3498db; color: white; transition: all 0.2s ease;
+            display: none; /* 파일 업로드 전엔 숨김 */
+        }
+        .btn-download:hover { background: #2980b9; }
+        .btn-download:active { transform: scale(0.98); }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>이미지 웹 최적화 변환기</h2>
+        
+        <div class="upload-area">
+            <label for="imageInput" class="upload-btn">이미지 파일 선택</label>
+            <input type="file" id="imageInput" accept="image/*">
+            <p style="color: #64748b; font-size: 14px; margin-top: 15px;">서버 업로드 없이 브라우저에서 안전하게 바로 변환됩니다.</p>
+        </div>
+
+        <div class="options" id="optionsArea">
+            <div class="option-group">
+                <label for="formatSelect">변환할 포맷 선택</label>
+                <select id="formatSelect">
+                    <option value="image/webp">WebP (웹 권장, 고압축)</option>
+                    <option value="image/jpeg">JPEG (호환성 높음)</option>
+                    <option value="image/png">PNG (투명 배경 유지, 압축률 낮음)</option>
+                </select>
+            </div>
+            
+            <div class="option-group" id="qualityGroup">
+                <label>이미지 화질 (압축률): <span class="quality-val" id="qualityVal">80%</span></label>
+                <input type="range" id="qualitySlider" min="10" max="100" value="80">
+            </div>
+        </div>
+
+        <div class="preview-area" id="previewArea">
+            <div class="stats">
+                <div class="stat-box">원본 용량<span class="stat-val" id="originalSize">-</span></div>
+                <div class="stat-box">변환 후 예상 용량<span class="stat-val reduced" id="convertedSize">-</span></div>
+            </div>
+        </div>
+
+        <button class="btn-download" id="downloadBtn">최적화 이미지 다운로드</button>
+    </div>
+
+    <script>
+        const imageInput = document.getElementById('imageInput');
+        const optionsArea = document.getElementById('optionsArea');
+        const previewArea = document.getElementById('previewArea');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const formatSelect = document.getElementById('formatSelect');
+        const qualitySlider = document.getElementById('qualitySlider');
+        const qualityVal = document.getElementById('qualityVal');
+        const qualityGroup = document.getElementById('qualityGroup');
+        const originalSizeTxt = document.getElementById('originalSize');
+        const convertedSizeTxt = document.getElementById('convertedSize');
+
+        let originalImageObj = new Image();
+        let originalFileName = "";
+        let finalDataUrl = "";
+
+        // 용량 단위 변환 함수 (Bytes -> KB/MB)
+        function formatBytes(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+
+        // 이미지 파일이 업로드 되었을 때
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            originalFileName = file.name.split('.')[0]; // 확장자 제외한 파일명
+            originalSizeTxt.innerText = formatBytes(file.size);
+
+            // 숨겨져 있던 옵션과 버튼들 보여주기
+            optionsArea.style.display = 'block';
+            previewArea.style.display = 'block';
+            downloadBtn.style.display = 'block';
+
+            // 이미지 읽어서 화면(메모리)에 로드하기
+            const reader = new FileReader();
+            reader.onload = function(event) {
+                originalImageObj.src = event.target.result;
+                originalImageObj.onload = () => {
+                    processImage(); // 이미지 로드 완료 후 즉시 변환 실행
+                }
+            };
+            reader.readAsDataURL(file);
+        });
+
+        // 화질 슬라이더나 포맷을 바꿀 때마다 재계산
+        qualitySlider.addEventListener('input', function() {
+            qualityVal.innerText = this.value + '%';
+            processImage();
+        });
+
+        formatSelect.addEventListener('change', function() {
+            // PNG는 화질 조절을 지원하지 않으므로 슬라이더 숨김 처리
+            if(this.value === 'image/png') {
+                qualityGroup.style.display = 'none';
+            } else {
+                qualityGroup.style.display = 'block';
+            }
+            processImage();
+        });
+
+        // 핵심 기능: 캔버스를 이용한 이미지 변환
+        function processImage() {
+            if (!originalImageObj.src) return;
+
+            // HTML5 Canvas 생성
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            
+            canvas.width = originalImageObj.width;
+            canvas.height = originalImageObj.height;
+
+            // 투명 배경인 PNG를 JPEG로 변환할 때 배경이 까맣게 변하는 것을 방지하기 위해 흰색 바탕을 먼저 깔아줌
+            if (formatSelect.value === 'image/jpeg') {
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+
+            // 캔버스에 원본 이미지 그리기
+            ctx.drawImage(originalImageObj, 0, 0);
+
+            const format = formatSelect.value;
+            const quality = parseInt(qualitySlider.value) / 100; // 0.1 ~ 1.0 사이 값
+
+            // 캔버스에서 새로운 포맷과 화질로 이미지 추출 (데이터 URL 형태)
+            finalDataUrl = canvas.toDataURL(format, quality);
+
+            // 변환된 데이터 URL의 대략적인 용량 계산 (Base64 인코딩 특성 고려)
+            const head = 'data:' + format + ';base64,';
+            const base64Data = finalDataUrl.replace(head, '');
+            const convertedBytes = Math.round((base64Data.length * 3) / 4);
+            
+            convertedSizeTxt.innerText = formatBytes(convertedBytes);
+        }
+
+        // 다운로드 버튼 클릭 시
+        downloadBtn.addEventListener('click', function() {
+            if (!finalDataUrl) return;
+
+            const extension = formatSelect.value.split('/')[1]; // webp, jpeg, png
+            const newFileName = `${originalFileName}_optimized.${extension}`;
+
+            // 임시 다운로드 링크를 만들어 클릭 이벤트를 발생시킴
+            const link = document.createElement('a');
+            link.download = newFileName;
+            link.href = finalDataUrl;
+            link.click();
+        });
+    </script>
+
+</body>
+</html>
