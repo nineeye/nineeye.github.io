@@ -6,10 +6,6 @@ import SaveManager
 from "../core/SaveManager.js";
 
 
-import UIManager
-from "../../ui/ui.js";
-
-
 import ResultUI
 from "../../ui/result.js";
 
@@ -19,7 +15,7 @@ export default class SlidingPuzzleScene {
 
 
 
-constructor(input,size=3){
+constructor(input,size=3,audio){
 
 
 this.input=input;
@@ -28,9 +24,18 @@ this.input=input;
 this.size=size;
 
 
+this.audio=audio;
+
+
 
 this.game =
-new SlidingPuzzle(size);
+new SlidingPuzzle(
+
+size,
+
+audio
+
+);
 
 
 
@@ -39,17 +44,12 @@ new SaveManager();
 
 
 
-this.ui =
-new UIManager();
-
-
-
 this.result =
 new ResultUI();
 
 
 
-this.finished=false;
+this.done=false;
 
 
 
@@ -61,35 +61,12 @@ enter(){
 
 
 
-this.ui.button(
-
-"RESTART",
-
-()=>{
-
-
-this.game.restart();
-
-
-
-}
-
-);
-
-
-
 this.input.on(
 
-(x,y)=>{
+data=>{
 
 
-this.game.click(
-
-x,
-
-y
-
-);
+this.game.input(data);
 
 
 
@@ -112,22 +89,17 @@ this.game.update();
 
 if(
 
-this.game.finished &&
+this.game.finished
 
-!this.finished
+&&
+
+!this.done
 
 ){
 
 
-this.finished=true;
 
-
-
-this.result.show(
-
-"COMPLETE!"
-
-);
+this.done=true;
 
 
 
@@ -138,6 +110,33 @@ this.size,
 this.game.moves
 
 );
+
+
+
+this.result.show(
+
+this.game.moves
+
+);
+
+
+
+this.result.onAgain(()=>{
+
+
+this.result.hide();
+
+
+
+this.game.restart();
+
+
+
+this.done=false;
+
+
+
+});
 
 
 
