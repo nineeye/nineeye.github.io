@@ -2,12 +2,12 @@ import SlidingPuzzle
 from "../../games/sliding-puzzle/sliding.js";
 
 
-import SaveManager
-from "../core/SaveManager.js";
-
-
 import ResultUI
 from "../../ui/result.js";
+
+
+import SaveManager
+from "../core/SaveManager.js";
 
 
 
@@ -15,23 +15,25 @@ export default class SlidingPuzzleScene {
 
 
 
-constructor(input,size=3,audio){
+constructor(input,level,audio){
+
 
 
 this.input=input;
-
-
-this.size=size;
 
 
 this.audio=audio;
 
 
 
+this.level=level;
+
+
+
 this.game =
 new SlidingPuzzle(
 
-size,
+level,
 
 audio
 
@@ -83,6 +85,7 @@ this.game.input(data);
 update(){
 
 
+
 this.game.update();
 
 
@@ -98,14 +101,13 @@ this.game.finished
 ){
 
 
-
 this.done=true;
 
 
 
 this.save.setBest(
 
-this.size,
+this.level.size,
 
 this.game.moves
 
@@ -125,7 +127,6 @@ this.result.onAgain(()=>{
 
 
 this.result.hide();
-
 
 
 this.game.restart();
