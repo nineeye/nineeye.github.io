@@ -1,9 +1,19 @@
-export default class SlidingPuzzleScene{
+import SlidingPuzzle
+from "../../games/sliding-puzzle/sliding.js";
+
+
+
+export default class SlidingPuzzleScene {
+
 
 
 constructor(){
 
-    this.time=0;
+
+this.game =
+new SlidingPuzzle();
+
+
 
 }
 
@@ -13,8 +23,9 @@ enter(){
 
 
 console.log(
-"Sliding Puzzle Loaded"
+"Sliding Puzzle Start"
 );
+
 
 
 }
@@ -23,7 +34,10 @@ console.log(
 
 update(){
 
-    this.time++;
+
+this.game.update();
+
+
 
 }
 
@@ -33,48 +47,24 @@ draw(ctx){
 
 
 
-ctx.fillStyle="#111";
+ctx.fillStyle="#000";
 
 
 ctx.fillRect(
+
 0,
+
 0,
+
 ctx.canvas.width,
+
 ctx.canvas.height
-);
-
-
-
-ctx.fillStyle="#fff";
-
-
-ctx.font="32px Arial";
-
-
-ctx.fillText(
-
-"Puzzle Studio Ultimate",
-
-50,
-
-80
 
 );
 
 
 
-ctx.font="20px Arial";
-
-
-ctx.fillText(
-
-"Sliding Puzzle Engine Ready",
-
-50,
-
-130
-
-);
+this.game.draw(ctx);
 
 
 
