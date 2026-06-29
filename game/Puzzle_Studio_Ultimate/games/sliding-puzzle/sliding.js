@@ -1,7 +1,10 @@
-import Board from "./board.js";
+import Board
+from "./board.js";
+
 
 
 export default class SlidingPuzzle {
+
 
 
 constructor(size=3){
@@ -14,11 +17,11 @@ this.board =
 new Board(size);
 
 
+this.board.shuffle();
 
-this.moveCount=0;
 
 
-this.finished=false;
+this.moves=0;
 
 
 }
@@ -32,36 +35,10 @@ this.board =
 new Board(this.size);
 
 
-
 this.board.shuffle();
 
 
-
-this.moveCount=0;
-
-
-this.finished=false;
-
-
-
-}
-
-
-
-update(){
-
-
-if(
-!this.finished &&
-this.board.isComplete()
-){
-
-
-this.finished=true;
-
-
-}
-
+this.moves=0;
 
 
 }
@@ -71,14 +48,10 @@ this.finished=true;
 click(x,y){
 
 
-
-if(this.finished)
-return;
-
-
-
-const before =
-this.moveCount;
+const old =
+this.board.tiles
+.map(t=>t.value)
+.join();
 
 
 
@@ -89,18 +62,26 @@ y
 
 
 
-const after =
+const now =
 this.board.tiles
 .map(t=>t.value)
-.join(",");
+.join();
 
 
 
-if(before !== after){
+if(old!==now){
 
-this.moveCount++;
+this.moves++;
 
 }
+
+
+
+}
+
+
+
+update(){
 
 
 
@@ -111,7 +92,6 @@ this.moveCount++;
 draw(ctx){
 
 
-
 this.board.draw(ctx);
 
 
@@ -119,14 +99,18 @@ this.board.draw(ctx);
 ctx.fillStyle="#fff";
 
 
-ctx.font="20px Arial";
+ctx.font="22px Arial";
 
 
 ctx.fillText(
 
-"Moves : "
+"SIZE : "
 +
-this.moveCount,
+this.size
++
+"x"
++
+this.size,
 
 20,
 
@@ -136,23 +120,36 @@ this.moveCount,
 
 
 
-if(this.finished){
+ctx.fillText(
+
+"MOVE : "
++
+this.moves,
+
+20,
+
+390
+
+);
 
 
 
-ctx.fillStyle="#0f0";
+if(this.board.isComplete()){
 
 
 ctx.font="40px Arial";
 
 
+ctx.fillStyle="#00ff00";
+
+
 ctx.fillText(
 
-"COMPLETE!",
+"WIN!",
 
-60,
+100,
 
-450
+480
 
 );
 
