@@ -1,3 +1,30 @@
+# IMPORTANT NOTICE
+
+이 문서는 Puzzle_Studio_Ultimate 프로젝트의
+
+Single Source of Truth(SSOT)이다.
+
+모든 설계,
+모든 개발,
+모든 버전,
+모든 API,
+모든 규칙은
+
+PROJECT.md를 최우선 기준으로 한다.
+
+새로운 AI,
+새로운 개발자,
+새로운 ChatGPT 세션은
+
+항상 PROJECT.md를 먼저 읽고 개발을 시작한다.
+
+PROJECT.md와 실제 코드가 다를 경우
+
+PROJECT.md를 기준으로 코드를 수정한다.
+
+코드를 기준으로 PROJECT.md를 수정하지 않는다.
+
+
 # DEVELOPMENT WORKFLOW (VERY IMPORTANT)
 
 이 프로젝트는 일반적인 게임 프로젝트가 아니다.
