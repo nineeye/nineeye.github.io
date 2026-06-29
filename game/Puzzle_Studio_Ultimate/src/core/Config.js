@@ -1,31 +1,90 @@
+import Version
+from "./Version.js";
+
+
+
 export default {
 
 
-version:"0.1.0",
+
+app:
+
+
+{
+
+
+name:
+
+Version.name,
+
+
+version:
+
+Version.version
 
 
 
-gameTitle:
-
-"Puzzle Studio Ultimate",
+},
 
 
 
-defaultPuzzle:
-
-"sliding-puzzle",
+canvas:
 
 
+{
 
-canvasId:
+
+id:
 
 "game",
 
 
 
-saveKey:
+background:
+
+"#000"
+
+
+
+},
+
+
+
+save:
+
+
+{
+
+
+key:
 
 "PuzzleStudioSave"
+
+
+
+},
+
+
+
+default:
+
+
+{
+
+
+plugin:
+
+"sliding-puzzle",
+
+
+
+level:
+
+1
+
+
+
+}
 
 
 
