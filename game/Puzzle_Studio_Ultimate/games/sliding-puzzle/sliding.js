@@ -7,11 +7,23 @@ export default class SlidingPuzzle {
 
 
 
-constructor(size=3,audio=null){
+constructor(config,audio){
+
+
+
+this.config=config;
+
+
+this.audio=audio;
+
 
 
 this.board =
-new Board(size);
+new Board(
+
+config.size
+
+);
 
 
 
@@ -25,9 +37,6 @@ this.moves=0;
 this.finished=false;
 
 
-this.audio=audio;
-
-
 
 }
 
@@ -36,17 +45,17 @@ this.audio=audio;
 restart(){
 
 
+
 this.board =
 new Board(
 
-this.board.size
+this.config.size
 
 );
 
 
 
 this.board.shuffle();
-
 
 
 this.moves=0;
@@ -76,6 +85,7 @@ let moved=false;
 if(data.type==="click"){
 
 
+
 this.board.click(
 
 data.x,
@@ -83,6 +93,7 @@ data.x,
 data.y
 
 );
+
 
 
 moved=true;
@@ -128,7 +139,9 @@ this.moves++;
 
 if(this.audio)
 
-this.audio.play("move");
+this.audio.play(
+"move"
+);
 
 
 
@@ -143,6 +156,7 @@ this.audio.play("move");
 update(){
 
 
+
 if(
 
 this.board.isComplete()
@@ -154,14 +168,15 @@ this.board.isComplete()
 ){
 
 
-
 this.finished=true;
 
 
 
 if(this.audio)
 
-this.audio.play("win");
+this.audio.play(
+"win"
+);
 
 
 
@@ -190,7 +205,27 @@ ctx.font="20px Arial";
 
 ctx.fillText(
 
-"MOVE : "+this.moves,
+"LEVEL : "
+
++
+
+this.config.id,
+
+20,
+
+360
+
+);
+
+
+
+ctx.fillText(
+
+"MOVE : "
+
++
+
+this.moves,
 
 20,
 
