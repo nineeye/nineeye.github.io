@@ -11,7 +11,7 @@ constructor(size=3){
 this.size=size;
 
 
-this.tileSize=
+this.tileSize =
 Math.min(
 window.innerWidth,
 window.innerHeight
@@ -21,21 +21,19 @@ window.innerHeight
 
 
 
-this.offsetX=
+this.offsetX =
 (
 window.innerWidth -
 this.tileSize*this.size
-)
-/2;
+)/2;
 
 
 
-this.offsetY=
+this.offsetY =
 (
 window.innerHeight -
 this.tileSize*this.size
-)
-/2;
+)/2;
 
 
 
@@ -56,33 +54,52 @@ create(){
 let n=1;
 
 
-for(let y=0;y<this.size;y++){
+for(
+let y=0;
+y<this.size;
+y++
+){
 
 
-for(let x=0;x<this.size;x++){
+for(
+let x=0;
+x<this.size;
+x++
+){
+
 
 
 this.tiles.push(
 
 new Tile(
 
-n===this.size*this.size?0:n,
+n===this.size*this.size
+?
+0
+:
+n,
+
 
 this.offsetX+x*this.tileSize,
 
+
 this.offsetY+y*this.tileSize,
 
+
 this.tileSize
+
 
 )
 
 );
 
 
+
 n++;
 
 
 }
+
 
 
 }
@@ -96,6 +113,9 @@ n++;
 shuffle(){
 
 
+do{
+
+
 this.tiles.sort(
 
 ()=>Math.random()-0.5
@@ -103,7 +123,62 @@ this.tiles.sort(
 );
 
 
+}
+
+while(!this.isSolvable());
+
+
 this.updatePosition();
+
+
+
+}
+
+
+
+isSolvable(){
+
+
+let arr =
+this.tiles
+.filter(t=>t.value!==0)
+.map(t=>t.value);
+
+
+
+let inv=0;
+
+
+
+for(
+let i=0;
+i<arr.length;
+i++
+){
+
+
+for(
+let j=i+1;
+j<arr.length;
+j++
+){
+
+
+
+if(arr[i]>arr[j])
+inv++;
+
+
+
+}
+
+
+
+}
+
+
+
+return inv%2===0;
 
 
 
@@ -134,6 +209,7 @@ Math.floor(i/this.size)
 );
 
 
+
 }
 
 );
@@ -147,8 +223,8 @@ Math.floor(i/this.size)
 click(x,y){
 
 
-
-const index=this.tiles.findIndex(
+const index =
+this.tiles.findIndex(
 
 t=>t.contains(x,y)
 
@@ -156,11 +232,12 @@ t=>t.contains(x,y)
 
 
 
-if(index<0)return;
+if(index<0)return false;
 
 
 
-const empty=this.tiles.findIndex(
+const empty =
+this.tiles.findIndex(
 
 t=>t.value===0
 
@@ -170,9 +247,11 @@ t=>t.value===0
 
 const dx=Math.abs(
 
-index%this.size-empty%this.size
+index%this.size -
+empty%this.size
 
 );
+
 
 
 const dy=Math.abs(
@@ -188,6 +267,7 @@ Math.floor(empty/this.size)
 if(dx+dy===1){
 
 
+
 [
 this.tiles[index],
 this.tiles[empty]
@@ -201,10 +281,20 @@ this.tiles[index]
 ];
 
 
+
 this.updatePosition();
 
 
+
+return true;
+
+
+
 }
+
+
+
+return false;
 
 
 
@@ -213,7 +303,6 @@ this.updatePosition();
 
 
 draw(ctx){
-
 
 
 this.tiles.forEach(
@@ -231,7 +320,25 @@ t=>t.draw(ctx)
 isComplete(){
 
 
-return false;
+return this.tiles.every(
+
+(t,i)=>{
+
+
+if(i===this.tiles.length-1)
+
+return t.value===0;
+
+
+
+return t.value===i+1;
+
+
+
+}
+
+);
+
 
 
 }
