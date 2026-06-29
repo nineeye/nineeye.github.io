@@ -17,11 +17,16 @@ this.board =
 new Board(size);
 
 
+
 this.board.shuffle();
 
 
 
 this.moves=0;
+
+
+this.finished=false;
+
 
 
 }
@@ -35,10 +40,16 @@ this.board =
 new Board(this.size);
 
 
+
 this.board.shuffle();
 
 
+
 this.moves=0;
+
+
+this.finished=false;
+
 
 
 }
@@ -48,7 +59,12 @@ this.moves=0;
 click(x,y){
 
 
-const old =
+if(this.finished)
+return;
+
+
+
+const before =
 this.board.tiles
 .map(t=>t.value)
 .join();
@@ -62,16 +78,18 @@ y
 
 
 
-const now =
+const after =
 this.board.tiles
 .map(t=>t.value)
 .join();
 
 
 
-if(old!==now){
+if(before!==after){
+
 
 this.moves++;
+
 
 }
 
@@ -85,11 +103,27 @@ update(){
 
 
 
+if(
+
+this.board.isComplete()
+
+){
+
+
+this.finished=true;
+
+
+
+}
+
+
+
 }
 
 
 
 draw(ctx){
+
 
 
 this.board.draw(ctx);
@@ -100,6 +134,7 @@ ctx.fillStyle="#fff";
 
 
 ctx.font="22px Arial";
+
 
 
 ctx.fillText(
@@ -134,22 +169,22 @@ this.moves,
 
 
 
-if(this.board.isComplete()){
-
-
-ctx.font="40px Arial";
+if(this.finished){
 
 
 ctx.fillStyle="#00ff00";
 
 
+ctx.font="40px Arial";
+
+
 ctx.fillText(
 
-"WIN!",
+"COMPLETE",
 
-100,
+80,
 
-480
+470
 
 );
 
