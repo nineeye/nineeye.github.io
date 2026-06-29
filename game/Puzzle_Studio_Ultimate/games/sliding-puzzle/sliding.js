@@ -1,16 +1,40 @@
-import { Board } from "./board.js";
+import Board from "./board.js";
 
-export class SlidingPuzzle {
-  constructor(engine) {
-    this.engine = engine;
-    this.board = new Board(4);
-  }
 
-  update(dt) {
-    this.board.update(dt);
-  }
 
-  render(renderer) {
-    this.board.render(renderer);
-  }
+export default class SlidingPuzzle {
+
+
+
+constructor(){
+
+
+this.board =
+new Board(3);
+
+
+
+}
+
+
+
+update(){
+
+
+
+}
+
+
+
+draw(ctx){
+
+
+this.board.draw(ctx);
+
+
+
+}
+
+
+
 }
