@@ -1,331 +1,212 @@
-# Puzzle_Studio_Ultimate
+# DEVELOPMENT WORKFLOW (VERY IMPORTANT)
 
-Version : 1.0
+이 프로젝트는 일반적인 게임 프로젝트가 아니다.
 
-Last Update : 2026-06-29
-
----
-
-# PROJECT VISION
-
-Puzzle_Studio_Ultimate는 하나의 퍼즐 게임이 아니다.
-
-Puzzle_Studio_Ultimate는 다양한 퍼즐 게임을 제작할 수 있는 범용 Puzzle Engine이며,
-최종 목표는 GUI 기반의 Puzzle Builder를 제공하는 것이다.
-
-Sliding Puzzle은 첫 번째 Plugin이다.
+프로젝트 규모가 매우 커질 것을 전제로 설계하며,
+모든 개발은 장기 유지보수와 확장성을 최우선으로 한다.
 
 ---
 
-# ULTIMATE GOAL
+## Development Method
 
-Puzzle Builder
+작업은 개별 파일 단위가 아니라 Patch(패치) 단위로 진행한다.
 
-↓
+예)
 
-Puzzle Plugin
+v0.6.1
 
-↓
+Engine Core Patch
 
-Puzzle Engine
-
-↓
-
-Game
-
-One Click으로 퍼즐 게임을 생성한다.
+* engine.js
+* scene.js
+* input.js
+* render.js
+* board.js
 
 ---
 
-# CORE PHILOSOPHY
+v0.6.2
 
-Engine은 퍼즐를 모른다.
+UI Patch
 
-Engine은 다음 시스템만 관리한다.
-
-- Scene
-- Renderer
-- Input
-- Audio
-- Save
-- Asset
-- Event
-- Plugin
-
-퍼즐는 Plugin이다.
+* button.js
+* menu.js
+* hud.js
 
 ---
 
-# CORE RULES
+v0.6.3
 
-Renderer는 계산하지 않는다.
+Plugin Patch
 
-Puzzle는 화면을 그리지 않는다.
+* Plugin API
+* Sliding Plugin
+* Puzzle Registry
 
-Input은 Puzzle를 직접 호출하지 않는다.
-
-Scene는 Puzzle 내부를 모른다.
-
-Engine만 전체를 제어한다.
-
-Plugin은 Engine을 수정하지 않는다.
-
-모든 기능은 확장 가능해야 한다.
+모든 작업은 Patch 단위로 관리한다.
 
 ---
 
-# ARCHITECTURE
+## Patch Rule
 
-Engine
+한 번의 작업은 하나의 목적만 가진다.
 
-├── SceneManager
+좋은 예
 
-├── Renderer
+Engine Patch
 
-├── InputManager
+Renderer Patch
 
-├── AudioManager
+Plugin Patch
 
-├── SaveManager
+Builder Patch
 
-├── AssetManager
+나쁜 예
 
-├── EventBus
+Engine 수정
 
-├── PluginManager
+UI 수정
 
-└── PuzzleManager
+Audio 수정
 
----
+Save 수정
 
-# PLUGIN INTERFACE
+Animation 수정
 
-모든 Puzzle Plugin은 다음 API를 가진다.
-
-init()
-
-update()
-
-render()
-
-destroy()
-
-reset()
-
-resize()
+모두 한 번에 작업
 
 ---
 
-# CURRENT PLUGINS
+## Version Rule
 
-Sliding Puzzle
-
-Future
-
-2048
-
-Sudoku
-
-Jigsaw
-
-Memory
-
-Nonogram
-
-Crossword
-
-Picture Puzzle
-
----
-
-# FOLDER STRUCTURE
-
-assets/
-
-engine/
-
-game/
-
-games/
-
-graphics/
-
-plugins/
-
-src/
-
-ui/
-
-docs/
-
----
-
-# DEVELOPMENT PRINCIPLES
-
-기능보다 구조를 우선한다.
-
-임시코드보다 유지보수를 우선한다.
-
-중복 코드를 만들지 않는다.
-
-Engine 수정 없이 Plugin 추가가 가능해야 한다.
-
----
-
-# CODING STYLE
-
-SOLID 원칙을 최대한 따른다.
-
-역할 분리를 철저히 한다.
-
-Renderer는 렌더만 담당한다.
-
-Puzzle는 데이터만 관리한다.
-
-Input은 입력만 처리한다.
-
-Scene는 화면 전환만 담당한다.
-
-Engine은 전체를 관리한다.
-
----
-
-# VERSION ROADMAP
+Version
 
 v0.6
 
-Engine Core
+↓
 
-Sliding 개선
+Patch
 
-Renderer 개선
+v0.6.1
 
-Input 개선
+v0.6.2
 
-Scene 개선
+v0.6.3
 
-Menu
-
-Save
-
-Animation
-
----
+↓
 
 v0.7
 
-Plugin API
-
-Puzzle Registry
-
-Difficulty
-
-Audio
-
----
+↓
 
 v0.8
 
-Builder Core
-
-Plugin Loader
-
-Asset Pipeline
-
----
-
-v0.9
-
-Optimization
-
-Animation
-
-Editor
-
----
+↓
 
 v1.0
 
-Puzzle Studio Builder
+---
 
-One Click Generate
+## Development Priority
 
-SDK
+항상 다음 순서를 따른다.
 
-Plugin Marketplace
+① Engine Core
+
+↓
+
+② UI Core
+
+↓
+
+③ Puzzle Plugin
+
+↓
+
+④ Save
+
+↓
+
+⑤ Audio
+
+↓
+
+⑥ Builder
+
+↓
+
+⑦ Optimization
+
+이 순서는 특별한 이유가 없는 한 변경하지 않는다.
 
 ---
 
-# CURRENT STATUS
+## Architecture Rule
 
-Engine : 진행중
+기존 구조보다 더 뛰어난 구조가 발견되면
+기존 코드와의 호환성을 이유로 발전을 멈추지 않는다.
 
-Builder : 준비중
+더 우수한 구조가 명확하다면
+프로젝트의 장기적인 품질을 위해 자유롭게 변경한다.
 
-Plugin : Sliding Puzzle
+단,
 
-Version : v0.6
+변경의 목적은 반드시 아래 중 하나여야 한다.
 
-Current Task
+* 유지보수 향상
+* 확장성 향상
+* 성능 향상
+* 구조 단순화
+* 중복 제거
+* 안정성 향상
 
-Engine Core Refactoring
-
----
-
-# TODO
-
-HOME 버튼 수정
-
-RESET 버튼 수정
-
-버튼 UI 개선
-
-Board 중앙정렬
-
-Moves 표시 개선
-
-승리 판정
-
-Animation
-
-Menu
-
-Save
-
-Settings
-
-Plugin API
-
-Builder
+단순 취향 차이로 구조를 변경하지 않는다.
 
 ---
 
-# AI CONTEXT
+## AI Development Rule
 
-이 프로젝트는 퍼즐 게임이 아니다.
+AI는 단순히 코드를 수정하는 역할이 아니다.
 
-Puzzle Game Engine이다.
+AI는 Puzzle_Studio_Ultimate의
+CTO(Chief Technology Officer)이자
+총괄 아키텍트 역할을 수행한다.
 
-새로운 기능을 추가할 때는 반드시 구조를 먼저 설계한다.
+AI의 책임
 
-기존 코드보다 더 좋은 구조가 있다면 변경을 허용한다.
+* Engine Architecture
+* Code Review
+* Refactoring
+* Performance Optimization
+* Long-term Maintainability
+* Plugin Architecture
+* Builder Architecture
 
-기존 코드와의 호환성보다 장기적인 유지보수를 우선한다.
-
-Engine은 Plugin을 모르고 Plugin은 Engine을 수정하지 않는다.
-
-모든 퍼즐는 Plugin으로 개발한다.
+항상 1년 후,
+3년 후에도 유지 가능한 구조를 우선한다.
 
 ---
 
-# CHANGELOG
+## AI Context
 
-2026-06-29
+새로운 ChatGPT 세션을 시작할 경우
 
-PROJECT Constitution 작성
+PROJECT.md 하나만 읽으면
+프로젝트의 목표, 구조, 철학, 현재 상태,
+개발 방향, 작업 규칙을 모두 이해할 수 있도록 작성한다.
 
-Engine 중심 구조로 방향 결정
+PROJECT.md는
 
-Sliding Puzzle을 첫 번째 Plugin으로 정의
+Puzzle_Studio_Ultimate의
 
-Builder 개발 방향 확정
+헌법(Constitution)
+
+설계도(Blueprint)
+
+개발 규칙(Development Rules)
+
+AI 기억(Context)
+
+역할을 동시에 수행한다.
+
+모든 개발은 PROJECT.md를 최우선 기준으로 한다.
