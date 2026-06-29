@@ -1,59 +1,159 @@
-import Scene from "../core/Scene.js";
-import Button from "../ui/Button.js";
+import SlidingPuzzleScene
+from "./SlidingPuzzleScene.js";
 
-export default class MenuScene extends Scene {
 
-    constructor() {
 
-        super();
+export default class MenuScene {
 
-        this.playButton = new Button(
-            100,
-            180,
-            250,
-            70,
-            "PLAY",
-            () => {
-                console.log("Play Button");
-            }
-        );
 
-    }
 
-    update(dt) {
+constructor(manager,input){
 
-    }
 
-    updateInput(input) {
+this.manager=manager;
 
-        if (
-            input.mouse.clicked &&
-            this.playButton.contains(
-                input.mouse.x,
-                input.mouse.y
-            )
-        ) {
 
-            alert("다음부터 Sliding Puzzle로 이동!");
+this.input=input;
 
-        }
 
-    }
+this.create();
 
-    render(ctx) {
 
-        ctx.fillStyle = "#202020";
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "52px Arial";
-        ctx.textAlign = "left";
-        ctx.textBaseline = "alphabetic";
+}
 
-        ctx.fillText("Puzzle Studio Ultimate", 100, 100);
 
-        this.playButton.draw(ctx);
 
-    }
+create(){
+
+
+this.container =
+document.createElement("div");
+
+
+
+this.container.style.position =
+"absolute";
+
+
+this.container.style.top =
+"50%";
+
+
+this.container.style.left =
+"50%";
+
+
+this.container.style.transform =
+"translate(-50%,-50%)";
+
+
+this.container.style.textAlign =
+"center";
+
+
+
+document.body.appendChild(
+this.container
+);
+
+
+
+this.title =
+document.createElement("h1");
+
+
+this.title.innerText =
+"Puzzle Studio Ultimate";
+
+
+this.container.appendChild(
+this.title
+);
+
+
+
+[3,4,5].forEach(size=>{
+
+
+const btn =
+document.createElement("button");
+
+
+btn.innerText =
+size+" x "+size;
+
+
+btn.style.fontSize =
+"25px";
+
+
+btn.style.margin =
+"10px";
+
+
+
+btn.onclick=()=>{
+
+
+this.remove();
+
+
+this.manager.change(
+
+new SlidingPuzzleScene(
+
+this.input,
+
+size
+
+)
+
+);
+
+
+
+};
+
+
+
+this.container.appendChild(btn);
+
+
+
+});
+
+
+
+}
+
+
+
+remove(){
+
+
+this.container.remove();
+
+
+
+}
+
+
+
+enter(){
+
+
+
+}
+
+
+
+update(){}
+
+
+
+draw(){}
+
+
 
 }
