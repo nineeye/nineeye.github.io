@@ -1,67 +1,56 @@
-import GameLoop from "./GameLoop.js";
-import SceneManager from "./SceneManager.js";
-import InputManager from "./InputManager.js";
-
 export default class CanvasEngine {
 
-    constructor(id) {
 
-        this.canvas = document.getElementById(id);
-        this.ctx = this.canvas.getContext("2d");
+constructor(canvas){
 
-        this.sceneManager = new SceneManager();
-        this.input = new InputManager(this.canvas);
+    this.canvas = canvas;
 
-        this.resize();
+    this.ctx =
+        canvas.getContext("2d");
 
-        window.addEventListener("resize", () => this.resize());
 
-        this.loop = new GameLoop(
+    this.resize();
 
-            (dt) => {
 
-                this.sceneManager.update(dt);
+    window.addEventListener(
+        "resize",
+        ()=>this.resize()
+    );
 
-            },
+}
 
-            () => {
 
-                this.clear();
 
-                this.sceneManager.render(this.ctx);
+resize(){
 
-                if (this.sceneManager.current?.updateInput) {
-                    this.sceneManager.current.updateInput(this.input);
-                }
+    this.canvas.width =
+        window.innerWidth;
 
-                this.input.reset();
 
-            }
+    this.canvas.height =
+        window.innerHeight;
 
-        );
+}
 
-    }
 
-    resize() {
 
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+clear(){
 
-    }
+    this.ctx.clearRect(
+        0,
+        0,
+        this.canvas.width,
+        this.canvas.height
+    );
 
-    clear() {
+}
 
-        this.ctx.fillStyle = "#151515";
-        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
-    }
 
-    start(scene) {
+draw(){
 
-        this.sceneManager.change(scene);
+}
 
-        this.loop.start();
 
-    }
 
 }
