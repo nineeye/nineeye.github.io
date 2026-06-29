@@ -1,6 +1,7 @@
 export default class ResultUI {
 
 
+
 constructor(){
 
 
@@ -9,29 +10,33 @@ document.createElement("div");
 
 
 
-this.el.style.position =
+this.el.style.position=
 "absolute";
 
 
-this.el.style.top =
+this.el.style.top=
 "50%";
 
 
-this.el.style.left =
+this.el.style.left=
 "50%";
 
 
-this.el.style.transform =
+this.el.style.transform=
 "translate(-50%,-50%)";
 
 
 
-this.el.style.color =
+this.el.style.color=
 "white";
 
 
-this.el.style.fontSize =
-"45px";
+this.el.style.textAlign=
+"center";
+
+
+this.el.style.fontSize=
+"40px";
 
 
 
@@ -39,10 +44,27 @@ this.el.style.fontSize =
 
 
 
-show(text){
+show(moves){
 
 
-this.el.innerText=text;
+
+this.el.innerHTML=
+
+`
+<div>
+COMPLETE!
+<br>
+Moves : ${moves}
+
+<br><br>
+
+<button id="again">
+AGAIN
+</button>
+
+</div>
+`;
+
 
 
 document.body.appendChild(
@@ -57,8 +79,33 @@ this.el
 
 
 
+onAgain(callback){
+
+
+
+const btn =
+this.el.querySelector(
+
+"#again"
+
+);
+
+
+
+if(btn)
+
+btn.onclick=callback;
+
+
+
+}
+
+
+
 hide(){
 
+
+if(this.el)
 
 this.el.remove();
 
