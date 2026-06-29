@@ -24,41 +24,29 @@ return;
 
 
 
-const audio =
-new Audio();
+let src="";
 
 
 
-switch(type){
+if(type==="move")
 
-
-case "move":
-
-
-audio.src =
-"assets/move.wav";
-
-break;
+src="assets/move.wav";
 
 
 
-case "win":
+if(type==="win")
 
-
-audio.src =
-"assets/win.wav";
-
-break;
+src="assets/win.wav";
 
 
 
-default:
-
+if(!src)
 return;
 
 
 
-}
+const audio =
+new Audio(src);
 
 
 
