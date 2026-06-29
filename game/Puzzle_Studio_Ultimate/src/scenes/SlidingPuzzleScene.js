@@ -7,14 +7,17 @@ export default class SlidingPuzzleScene {
 
 
 
-constructor(input){
+constructor(input,size=3){
 
 
 this.input=input;
 
 
+this.size=size;
+
+
 this.game =
-new SlidingPuzzle(3);
+new SlidingPuzzle(size);
 
 
 
@@ -29,14 +32,13 @@ this.createUI();
 createUI(){
 
 
-
 const button =
 document.createElement("button");
 
 
 
 button.innerText =
-"NEW GAME";
+"RESTART";
 
 
 
@@ -50,10 +52,6 @@ button.style.top =
 
 button.style.right =
 "20px";
-
-
-button.style.padding =
-"10px";
 
 
 
@@ -78,14 +76,6 @@ document.body.appendChild(button);
 
 
 enter(){
-
-
-
-console.log(
-
-"Sliding Puzzle Scene"
-
-);
 
 
 
