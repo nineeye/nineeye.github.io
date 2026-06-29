@@ -3,12 +3,18 @@ from "./SlidingPuzzleScene.js";
 
 
 
-export default class BootScene{
+export default class BootScene {
 
 
-constructor(manager){
+constructor(manager,input){
 
-    this.manager=manager;
+
+this.manager=manager;
+
+
+this.input=input;
+
+
 
 }
 
@@ -17,8 +23,11 @@ constructor(manager){
 enter(){
 
 
+
 console.log(
-"Boot Scene"
+
+"BOOT"
+
 );
 
 
@@ -28,13 +37,17 @@ setTimeout(()=>{
 
 this.manager.change(
 
-new SlidingPuzzleScene()
+new SlidingPuzzleScene(
+
+this.input
+
+)
 
 );
 
 
 
-},500);
+},300);
 
 
 
