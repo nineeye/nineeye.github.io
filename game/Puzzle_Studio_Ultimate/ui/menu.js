@@ -1,34 +1,74 @@
-// ui/menu.js (final state switch fix)
-export class Menu {
-  constructor(scene) {
-    this.scene = scene;
-  }
+export default class MenuUI {
 
-  click(x, y) {
-    if (x > 120 && x < 320 && y > 280 && y < 330) {
-      this.scene.setState("game");
-    }
 
-    if (x > 120 && x < 320 && y > 340 && y < 390) {
-      this.scene.setState("select");
-    }
+constructor(){
 
-    if (x > 120 && x < 320 && y > 400 && y < 450) {
-      this.scene.setState("settings");
-    }
-  }
 
-  render(ctx) {
-    ctx.fillStyle = "#0f0f14";
-    ctx.fillRect(0, 0, innerWidth, innerHeight);
+this.el =
+document.createElement("div");
 
-    ctx.fillStyle = "#fff";
-    ctx.font = "50px sans-serif";
-    ctx.fillText("PUZZLE STUDIO", 100, 150);
 
-    ctx.font = "30px sans-serif";
-    ctx.fillText("START", 120, 300);
-    ctx.fillText("SELECT", 120, 360);
-    ctx.fillText("SETTINGS", 120, 420);
-  }
+
+this.el.style.position =
+"absolute";
+
+
+this.el.style.top =
+"50%";
+
+
+this.el.style.left =
+"50%";
+
+
+this.el.style.transform =
+"translate(-50%,-50%)";
+
+
+
+}
+
+
+
+add(element){
+
+
+this.el.appendChild(
+
+element
+
+);
+
+
+
+}
+
+
+
+show(){
+
+
+document.body.appendChild(
+
+this.el
+
+);
+
+
+
+}
+
+
+
+hide(){
+
+
+this.el.remove();
+
+
+
+}
+
+
+
 }
