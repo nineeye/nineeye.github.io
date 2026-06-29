@@ -237,3 +237,184 @@ AI 기억(Context)
 역할을 동시에 수행한다.
 
 모든 개발은 PROJECT.md를 최우선 기준으로 한다.
+
+
+
+# Puzzle Studio Ultimate
+
+
+Version
+
+1.0.0
+
+
+
+## Overview
+
+
+Puzzle Studio Ultimate is a modular HTML5 puzzle game engine.
+
+Designed for creating and running multiple puzzle games through a plugin system.
+
+
+
+---
+
+# Architecture
+
+
+
+## Core
+
+
+src/core/
+
+
+- CanvasEngine
+- GameLoop
+- SceneManager
+- Input
+- SaveManager
+- AudioManager
+- PluginManager
+- Builder
+
+
+
+## Scenes
+
+
+src/scenes/
+
+
+- BootScene
+- MenuScene
+- SlidingPuzzleScene
+- BuilderScene
+
+
+
+## Games
+
+
+games/
+
+
+- sliding-puzzle
+
+
+
+## Plugins
+
+
+plugins/
+
+
+- sliding-puzzle
+
+
+
+## Data
+
+
+data/
+
+
+- puzzles.json
+
+
+
+---
+
+
+# Features
+
+
+## Engine
+
+✅ Canvas Engine
+
+✅ Game Loop
+
+✅ Scene System
+
+
+
+## Input
+
+✅ Mouse
+
+✅ Keyboard
+
+✅ Touch Swipe
+
+
+
+## Puzzle
+
+
+✅ Sliding Puzzle
+
+✅ 3x3
+
+✅ 4x4
+
+✅ 5x5
+
+
+
+## System
+
+
+✅ Save Data
+
+✅ Best Record
+
+✅ Audio Manager
+
+✅ Plugin Architecture
+
+
+
+## Builder
+
+
+Basic puzzle creation system prepared.
+
+
+
+---
+
+
+# Version History
+
+
+## v1.0.0
+
+
+- Engine reconstruction
+
+- Puzzle system completed
+
+- Plugin architecture added
+
+- Save system added
+
+- Builder foundation added
+
+
+
+---
+
+
+# Future
+
+
+- Jigsaw Puzzle
+
+- Memory Puzzle
+
+- Online Level Sharing
+
+- AI Puzzle Generator
+
