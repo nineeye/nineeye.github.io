@@ -22,6 +22,14 @@ import PluginManager
 from "./core/PluginManager.js";
 
 
+import Config
+from "./core/Config.js";
+
+
+import Version
+from "./core/Version.js";
+
+
 import BootScene
 from "./scenes/BootScene.js";
 
@@ -36,40 +44,47 @@ from "../plugins/sliding-puzzle.js";
 
 
 
-// ========================
 // Canvas
-// ========================
 
 const canvas =
-document.getElementById("game");
+document.getElementById(
+
+Config.canvas.id
+
+);
 
 
 
 if(!canvas){
 
-    throw new Error(
-        "Canvas #game not found"
-    );
+throw new Error(
+
+"Canvas missing"
+
+);
 
 }
 
 
 
-// ========================
+
 // Core
-// ========================
 
 
 const engine =
 new CanvasEngine(
-    canvas
+
+canvas
+
 );
 
 
 
 const input =
 new Input(
-    canvas
+
+canvas
+
 );
 
 
@@ -85,25 +100,21 @@ new PluginManager();
 
 
 
-// ========================
-// Plugin Register
-// ========================
+// Plugins
 
 
 plugins.register(
 
-    "sliding-puzzle",
+"sliding-puzzle",
 
-    SlidingPuzzlePlugin
+SlidingPuzzlePlugin
 
 );
 
 
 
 
-// ========================
 // Scene
-// ========================
 
 
 const sceneManager =
@@ -112,41 +123,37 @@ new SceneManager();
 
 
 
-// ========================
 // Start
-// ========================
 
 
 sceneManager.change(
 
-    new BootScene(
+new BootScene(
 
-        sceneManager,
+sceneManager,
 
-        input,
+input,
 
-        plugins,
+plugins,
 
-        audio
+audio
 
-    )
+)
 
 );
 
 
 
 
-// ========================
 // Loop
-// ========================
 
 
 const loop =
 new GameLoop(
 
-    engine,
+engine,
 
-    sceneManager
+sceneManager
 
 );
 
@@ -157,33 +164,41 @@ loop.start();
 
 
 
-// ========================
-// Global API
-// ========================
+// Global
 
 
 window.PuzzleStudio = {
 
 
-    engine,
+version:
+
+Version,
 
 
-    input,
+config:
+
+Config,
 
 
-    audio,
+engine,
 
 
-    plugins,
+input,
 
 
-    sceneManager,
+audio,
 
 
-    loop,
+plugins,
 
 
-    BuilderScene
+sceneManager,
+
+
+loop,
+
+
+BuilderScene
 
 
 
@@ -191,9 +206,14 @@ window.PuzzleStudio = {
 
 
 
-
 console.log(
 
-    "Puzzle Studio Ultimate Started"
+Version.name +
+
+" v" +
+
+Version.version +
+
+" Started"
 
 );
