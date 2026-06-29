@@ -6,11 +6,13 @@ from "./board.js";
 export default class SlidingPuzzle {
 
 
-constructor(size=3){
+
+constructor(size=3,audio=null){
 
 
 this.board =
 new Board(size);
+
 
 
 this.board.shuffle();
@@ -23,6 +25,9 @@ this.moves=0;
 this.finished=false;
 
 
+this.audio=audio;
+
+
 
 }
 
@@ -32,10 +37,16 @@ restart(){
 
 
 this.board =
-new Board(this.board.size);
+new Board(
+
+this.board.size
+
+);
+
 
 
 this.board.shuffle();
+
 
 
 this.moves=0;
@@ -58,6 +69,10 @@ return;
 
 
 
+let moved=false;
+
+
+
 if(data.type==="click"){
 
 
@@ -70,12 +85,23 @@ data.y
 );
 
 
+moved=true;
+
+
+
 }
 
 
 
-if(data.type==="key" ||
-data.type==="swipe"){
+if(
+
+data.type==="key"
+
+||
+
+data.type==="swipe"
+
+){
 
 
 this.board.move(
@@ -85,11 +111,28 @@ data.direction
 );
 
 
+
+moved=true;
+
+
+
 }
 
 
 
+if(moved){
+
+
 this.moves++;
+
+
+if(this.audio)
+
+this.audio.play("move");
+
+
+
+}
 
 
 
@@ -100,10 +143,29 @@ this.moves++;
 update(){
 
 
+if(
 
-if(this.board.isComplete())
+this.board.isComplete()
+
+&&
+
+!this.finished
+
+){
+
+
 
 this.finished=true;
+
+
+
+if(this.audio)
+
+this.audio.play("win");
+
+
+
+}
 
 
 
@@ -114,12 +176,16 @@ this.finished=true;
 draw(ctx){
 
 
+
 this.board.draw(ctx);
+
 
 
 ctx.fillStyle="#fff";
 
+
 ctx.font="20px Arial";
+
 
 
 ctx.fillText(
