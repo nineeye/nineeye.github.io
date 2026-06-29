@@ -1,15 +1,118 @@
-export class Input {
-  constructor(canvas, scene, board) {
-    this.scene = scene;
-    this.board = board;
+export default class Input {
 
-    canvas.addEventListener("mousedown", (e) => {
-      const rect = canvas.getBoundingClientRect();
 
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
+constructor(canvas){
 
-      this.scene.click(x, y);
-    });
-  }
+
+this.canvas = canvas;
+
+
+this.listeners = [];
+
+
+
+canvas.addEventListener(
+
+"click",
+
+(e)=>{
+
+
+const rect =
+canvas.getBoundingClientRect();
+
+
+
+const x =
+e.clientX - rect.left;
+
+
+const y =
+e.clientY - rect.top;
+
+
+
+this.emit(
+x,
+y
+);
+
+
+
+}
+
+);
+
+
+
+canvas.addEventListener(
+
+"touchstart",
+
+(e)=>{
+
+
+const touch =
+e.touches[0];
+
+
+const rect =
+canvas.getBoundingClientRect();
+
+
+
+const x =
+touch.clientX - rect.left;
+
+
+const y =
+touch.clientY - rect.top;
+
+
+
+this.emit(
+x,
+y
+);
+
+
+
+}
+
+);
+
+
+
+}
+
+
+
+on(callback){
+
+
+this.listeners.push(
+callback
+);
+
+
+
+}
+
+
+
+emit(x,y){
+
+
+this.listeners.forEach(
+
+fn=>fn(x,y)
+
+);
+
+
+
+}
+
+
+
 }
