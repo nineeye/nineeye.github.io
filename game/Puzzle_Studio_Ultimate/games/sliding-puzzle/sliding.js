@@ -6,7 +6,6 @@ from "./board.js";
 export default class SlidingPuzzle {
 
 
-
 constructor(size=3){
 
 
@@ -44,7 +43,6 @@ new Board(this.size);
 this.board.shuffle();
 
 
-
 this.moves=0;
 
 
@@ -57,6 +55,7 @@ this.finished=false;
 
 
 click(x,y){
+
 
 
 if(this.finished)
@@ -72,8 +71,11 @@ this.board.tiles
 
 
 this.board.click(
+
 x,
+
 y
+
 );
 
 
@@ -91,6 +93,7 @@ if(before!==after){
 this.moves++;
 
 
+
 }
 
 
@@ -102,12 +105,11 @@ this.moves++;
 update(){
 
 
+this.board.update();
 
-if(
 
-this.board.isComplete()
 
-){
+if(this.board.isComplete()){
 
 
 this.finished=true;
@@ -125,7 +127,6 @@ this.finished=true;
 draw(ctx){
 
 
-
 this.board.draw(ctx);
 
 
@@ -133,26 +134,7 @@ this.board.draw(ctx);
 ctx.fillStyle="#fff";
 
 
-ctx.font="22px Arial";
-
-
-
-ctx.fillText(
-
-"SIZE : "
-+
-this.size
-+
-"x"
-+
-this.size,
-
-20,
-
-350
-
-);
-
+ctx.font="20px Arial";
 
 
 ctx.fillText(
@@ -163,7 +145,7 @@ this.moves,
 
 20,
 
-390
+400
 
 );
 
@@ -184,7 +166,7 @@ ctx.fillText(
 
 80,
 
-470
+480
 
 );
 
