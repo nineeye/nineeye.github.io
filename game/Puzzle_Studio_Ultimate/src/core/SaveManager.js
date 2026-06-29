@@ -1,23 +1,128 @@
-export default class SaveManager{
+export default class SaveManager {
 
-    static save(key,data){
 
-        localStorage.setItem(key,JSON.stringify(data));
+constructor(){
 
-    }
 
-    static load(key){
+this.key =
+"PuzzleStudioSave";
 
-        const data=localStorage.getItem(key);
 
-        return data ? JSON.parse(data) : null;
 
-    }
+}
 
-    static remove(key){
 
-        localStorage.removeItem(key);
 
-    }
+load(){
+
+
+const data =
+localStorage.getItem(
+this.key
+);
+
+
+
+if(!data){
+
+return {
+
+best:{}
+
+};
+
+}
+
+
+
+return JSON.parse(data);
+
+
+
+}
+
+
+
+save(data){
+
+
+
+localStorage.setItem(
+
+this.key,
+
+JSON.stringify(data)
+
+);
+
+
+
+}
+
+
+
+getBest(size){
+
+
+
+const data =
+this.load();
+
+
+
+return (
+
+data.best[size]
+
+|| null
+
+);
+
+
+
+}
+
+
+
+setBest(size,moves){
+
+
+const data =
+this.load();
+
+
+
+const current =
+data.best[size];
+
+
+
+if(
+!current ||
+moves < current
+){
+
+
+data.best[size]=moves;
+
+
+this.save(data);
+
+
+return true;
+
+
+
+}
+
+
+
+return false;
+
+
+
+}
+
+
 
 }
