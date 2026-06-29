@@ -1,103 +1,32 @@
-/**
- * Global Configuration
- *
- * 프로젝트 전체 설정.
- * 모든 시스템은 이 파일을 통해 설정을 참조한다.
- */
+export default {
 
-import Version from "./Version.js";
 
-const Config = Object.freeze({
+version:"0.1.0",
 
-    version: Version,
 
-    canvas: {
 
-        width: 1280,
-        height: 720,
+gameTitle:
 
-        autoResize: true,
+"Puzzle Studio Ultimate",
 
-        pixelRatio: window.devicePixelRatio || 1,
 
-        imageSmoothing: true
 
-    },
+defaultPuzzle:
 
-    render: {
+"sliding-puzzle",
 
-        targetFPS: 120,
 
-        fixedTimeStep: 1000 / 120,
 
-        maxDelta: 100,
+canvasId:
 
-        backgroundColor: "#101418"
+"game",
 
-    },
 
-    animation: {
 
-        duration: 220,
+saveKey:
 
-        easing: "easeOutCubic"
+"PuzzleStudioSave"
 
-    },
 
-    input: {
 
-        doubleTapTime: 300,
-
-        longPressTime: 500,
-
-        swipeThreshold: 20
-
-    },
-
-    audio: {
-
-        masterVolume: 1.0,
-
-        musicVolume: 0.7,
-
-        sfxVolume: 0.9,
-
-        muted: false
-
-    },
-
-    save: {
-
-        storageKey: "PSU_SAVE",
-
-        autoSave: true,
-
-        autoSaveInterval: 60000
-
-    },
-
-    theme: {
-
-        defaultTheme: "dark",
-
-        enableAnimation: true
-
-    },
-
-    debug: {
-
-        enabled: true,
-
-        showFPS: true,
-
-        showMemory: true,
-
-        showScene: true,
-
-        showHitbox: false
-
-    }
-
-});
-
-export default Config;
+};
