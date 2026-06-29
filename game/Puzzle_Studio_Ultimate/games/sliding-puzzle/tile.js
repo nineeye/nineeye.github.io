@@ -1,26 +1,69 @@
-// games/sliding-puzzle/tile.js
-export class Tile {
-  constructor(x, y, id) {
-    this.x = x;
-    this.y = y;
-    this.id = id;
+export default class Tile {
 
-    this.tx = x;
-    this.ty = y;
 
-    this.progress = 0;
-  }
+constructor(value,x,y,size){
 
-  setTarget(x, y) {
-    this.tx = x;
-    this.ty = y;
-    this.progress = 1;
-  }
 
-  update(dt) {
-    if (this.progress > 0) {
-      this.progress -= 0.2;
-      if (this.progress < 0) this.progress = 0;
-    }
-  }
+this.value=value;
+
+this.x=x;
+
+this.y=y;
+
+this.size=size;
+
+
+
+}
+
+
+
+draw(ctx){
+
+
+ctx.fillStyle="#222";
+
+
+ctx.fillRect(
+
+this.x,
+
+this.y,
+
+this.size-5,
+
+this.size-5
+
+);
+
+
+
+ctx.fillStyle="#fff";
+
+
+ctx.font="24px Arial";
+
+
+ctx.textAlign="center";
+
+
+ctx.textBaseline="middle";
+
+
+ctx.fillText(
+
+this.value,
+
+this.x+this.size/2,
+
+this.y+this.size/2
+
+);
+
+
+
+}
+
+
+
 }
