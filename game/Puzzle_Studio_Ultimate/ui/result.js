@@ -1,42 +1,71 @@
-// ui/result.js
-export class Result {
-  constructor(scene) {
-    this.scene = scene;
-    this.visible = false;
+export default class ResultUI {
 
-    this.moves = 0;
-    this.time = 0;
-  }
 
-  show(moves, time) {
-    this.moves = moves;
-    this.time = time;
-    this.visible = true;
-  }
+constructor(){
 
-  click(x, y) {
-    if (!this.visible) return;
 
-    if (x > 120 && x < 320 && y > 400 && y < 460) {
-      this.visible = false;
-      this.scene.setState("select");
-    }
-  }
+this.el =
+document.createElement("div");
 
-  render(ctx) {
-    if (!this.visible) return;
 
-    ctx.fillStyle = "rgba(0,0,0,0.8)";
-    ctx.fillRect(0, 0, innerWidth, innerHeight);
 
-    ctx.fillStyle = "#fff";
-    ctx.font = "40px sans-serif";
-    ctx.fillText("CLEAR!", 120, 150);
+this.el.style.position =
+"absolute";
 
-    ctx.font = "25px sans-serif";
-    ctx.fillText(`Moves: ${this.moves}`, 120, 250);
-    ctx.fillText(`Time: ${this.time}`, 120, 300);
 
-    ctx.fillText("BACK", 120, 430);
-  }
+this.el.style.top =
+"50%";
+
+
+this.el.style.left =
+"50%";
+
+
+this.el.style.transform =
+"translate(-50%,-50%)";
+
+
+
+this.el.style.color =
+"white";
+
+
+this.el.style.fontSize =
+"45px";
+
+
+
+}
+
+
+
+show(text){
+
+
+this.el.innerText=text;
+
+
+document.body.appendChild(
+
+this.el
+
+);
+
+
+
+}
+
+
+
+hide(){
+
+
+this.el.remove();
+
+
+
+}
+
+
+
 }
