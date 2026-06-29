@@ -1,3 +1,8 @@
+import BuilderScene
+from "./BuilderScene.js";
+
+
+
 export default class MenuScene {
 
 
@@ -94,7 +99,11 @@ this.plugins.get(name);
 
 
 
-const scene =
+box.remove();
+
+
+
+this.manager.change(
 
 plugin.createScene(
 
@@ -112,15 +121,9 @@ size:3
 
 this.audio
 
+)
+
 );
-
-
-
-box.remove();
-
-
-
-this.manager.change(scene);
 
 
 
@@ -133,6 +136,38 @@ box.appendChild(btn);
 
 
 });
+
+
+
+const builder =
+document.createElement("button");
+
+
+builder.innerText=
+"BUILDER";
+
+
+
+builder.onclick=()=>{
+
+
+box.remove();
+
+
+
+this.manager.change(
+
+new BuilderScene()
+
+);
+
+
+
+};
+
+
+
+box.appendChild(builder);
 
 
 
