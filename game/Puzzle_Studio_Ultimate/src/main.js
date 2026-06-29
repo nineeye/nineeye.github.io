@@ -26,23 +26,51 @@ import BootScene
 from "./scenes/BootScene.js";
 
 
+import BuilderScene
+from "./scenes/BuilderScene.js";
+
+
 import SlidingPuzzlePlugin
 from "../plugins/sliding-puzzle.js";
 
 
+
+
+// ========================
+// Canvas
+// ========================
 
 const canvas =
 document.getElementById("game");
 
 
 
+if(!canvas){
+
+    throw new Error(
+        "Canvas #game not found"
+    );
+
+}
+
+
+
+// ========================
+// Core
+// ========================
+
+
 const engine =
-new CanvasEngine(canvas);
+new CanvasEngine(
+    canvas
+);
 
 
 
 const input =
-new Input(canvas);
+new Input(
+    canvas
+);
 
 
 
@@ -56,45 +84,69 @@ new PluginManager();
 
 
 
+
+// ========================
+// Plugin Register
+// ========================
+
+
 plugins.register(
 
-"sliding-puzzle",
+    "sliding-puzzle",
 
-SlidingPuzzlePlugin
+    SlidingPuzzlePlugin
 
 );
 
 
 
-const scenes =
+
+// ========================
+// Scene
+// ========================
+
+
+const sceneManager =
 new SceneManager();
 
 
 
-scenes.change(
 
-new BootScene(
+// ========================
+// Start
+// ========================
 
-scenes,
 
-input,
+sceneManager.change(
 
-plugins,
+    new BootScene(
 
-audio
+        sceneManager,
 
-)
+        input,
+
+        plugins,
+
+        audio
+
+    )
 
 );
 
+
+
+
+// ========================
+// Loop
+// ========================
 
 
 const loop =
 new GameLoop(
 
-engine,
+    engine,
 
-scenes
+    sceneManager
 
 );
 
@@ -104,28 +156,44 @@ loop.start();
 
 
 
-window.PuzzleStudio={
+
+// ========================
+// Global API
+// ========================
 
 
-engine,
+window.PuzzleStudio = {
 
-input,
 
-audio,
+    engine,
 
-plugins,
 
-scenes,
+    input,
 
-loop
+
+    audio,
+
+
+    plugins,
+
+
+    sceneManager,
+
+
+    loop,
+
+
+    BuilderScene
+
 
 
 };
 
 
 
+
 console.log(
 
-"Plugin System Ready"
+    "Puzzle Studio Ultimate Started"
 
 );
