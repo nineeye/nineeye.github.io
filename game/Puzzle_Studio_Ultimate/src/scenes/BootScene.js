@@ -1,6 +1,5 @@
-import SlidingPuzzleScene
-from "./SlidingPuzzleScene.js";
-
+import MenuScene
+from "./MenuScene.js";
 
 
 export default class BootScene {
@@ -10,7 +9,6 @@ constructor(manager,input){
 
 
 this.manager=manager;
-
 
 this.input=input;
 
@@ -25,9 +23,7 @@ enter(){
 
 
 console.log(
-
-"BOOT"
-
+"Puzzle Studio Boot"
 );
 
 
@@ -37,7 +33,9 @@ setTimeout(()=>{
 
 this.manager.change(
 
-new SlidingPuzzleScene(
+new MenuScene(
+
+this.manager,
 
 this.input
 
