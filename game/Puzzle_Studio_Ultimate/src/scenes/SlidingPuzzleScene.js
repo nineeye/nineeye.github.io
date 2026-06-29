@@ -7,7 +7,10 @@ export default class SlidingPuzzleScene {
 
 
 
-constructor(){
+constructor(input){
+
+
+this.input=input;
 
 
 this.game =
@@ -31,8 +34,10 @@ const button =
 document.createElement("button");
 
 
+
 button.innerText =
 "NEW GAME";
+
 
 
 button.style.position =
@@ -47,8 +52,8 @@ button.style.right =
 "20px";
 
 
-button.style.fontSize =
-"20px";
+button.style.padding =
+"10px";
 
 
 
@@ -78,24 +83,22 @@ enter(){
 
 console.log(
 
-"Puzzle Ready"
+"Sliding Puzzle Scene"
 
 );
 
 
 
-window.addEventListener(
+this.input.on(
 
-"click",
-
-(e)=>{
+(x,y)=>{
 
 
 this.game.click(
 
-e.clientX,
+x,
 
-e.clientY
+y
 
 );
 
@@ -112,7 +115,6 @@ e.clientY
 
 
 update(){
-
 
 
 this.game.update();
