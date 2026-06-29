@@ -10,16 +10,24 @@ import SceneManager
 from "./core/SceneManager.js";
 
 
-import BootScene
-from "./scenes/BootScene.js";
-
-
 import Input
 from "../engine/input.js";
 
 
 import AudioManager
 from "./core/AudioManager.js";
+
+
+import PluginManager
+from "./core/PluginManager.js";
+
+
+import BootScene
+from "./scenes/BootScene.js";
+
+
+import SlidingPuzzlePlugin
+from "../plugins/sliding-puzzle.js";
 
 
 
@@ -43,6 +51,21 @@ new AudioManager();
 
 
 
+const plugins =
+new PluginManager();
+
+
+
+plugins.register(
+
+"sliding-puzzle",
+
+SlidingPuzzlePlugin
+
+);
+
+
+
 const scenes =
 new SceneManager();
 
@@ -54,7 +77,11 @@ new BootScene(
 
 scenes,
 
-input
+input,
+
+plugins,
+
+audio
 
 )
 
@@ -86,6 +113,8 @@ input,
 
 audio,
 
+plugins,
+
 scenes,
 
 loop
@@ -97,6 +126,6 @@ loop
 
 console.log(
 
-"Puzzle Studio Ultimate Engine Ready"
+"Plugin System Ready"
 
 );
