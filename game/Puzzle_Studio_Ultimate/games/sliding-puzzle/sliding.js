@@ -14,11 +14,29 @@ new Board(3);
 
 
 
+this.board.shuffle();
+
+
+
 }
 
 
 
 update(){
+
+
+
+}
+
+
+
+click(x,y){
+
+
+this.board.click(
+x,
+y
+);
 
 
 
