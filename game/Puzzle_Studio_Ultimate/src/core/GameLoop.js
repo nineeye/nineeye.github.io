@@ -1,32 +1,74 @@
-export default class GameLoop{
+export default class GameLoop {
 
-    constructor(update,render){
 
-        this.update=update;
-        this.render=render;
+constructor(engine,sceneManager){
 
-        this.last=0;
+    this.engine = engine;
 
-    }
+    this.sceneManager =
+        sceneManager;
 
-    start(){
 
-        requestAnimationFrame(this.loop.bind(this));
+    this.running=false;
 
-    }
 
-    loop(time){
+}
 
-        const delta=(time-this.last)/1000;
 
-        this.last=time;
 
-        this.update(delta);
+start(){
 
-        this.render();
+    this.running=true;
 
-        requestAnimationFrame(this.loop.bind(this));
+    this.frame();
 
-    }
+
+}
+
+
+
+frame(){
+
+
+if(!this.running)
+return;
+
+
+
+this.engine.clear();
+
+
+
+const scene =
+this.sceneManager.current;
+
+
+
+if(scene){
+
+
+    if(scene.update)
+        scene.update();
+
+
+    if(scene.draw)
+        scene.draw(
+            this.engine.ctx
+        );
+
+
+}
+
+
+
+requestAnimationFrame(
+()=>this.frame()
+);
+
+
+
+}
+
+
 
 }
