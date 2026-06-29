@@ -18,6 +18,10 @@ import Input
 from "../engine/input.js";
 
 
+import AudioManager
+from "./core/AudioManager.js";
+
+
 
 const canvas =
 document.getElementById("game");
@@ -34,16 +38,21 @@ new Input(canvas);
 
 
 
-const sceneManager =
+const audio =
+new AudioManager();
+
+
+
+const scenes =
 new SceneManager();
 
 
 
-sceneManager.change(
+scenes.change(
 
 new BootScene(
 
-sceneManager,
+scenes,
 
 input
 
@@ -58,7 +67,7 @@ new GameLoop(
 
 engine,
 
-sceneManager
+scenes
 
 );
 
@@ -75,7 +84,9 @@ engine,
 
 input,
 
-sceneManager,
+audio,
+
+scenes,
 
 loop
 
@@ -86,6 +97,6 @@ loop
 
 console.log(
 
-"Puzzle Studio Boot Complete"
+"Puzzle Studio Ultimate Engine Ready"
 
 );
