@@ -18,10 +18,34 @@ this.size=size;
 
 
 
+contains(mx,my){
+
+
+return (
+
+mx >= this.x &&
+
+mx <= this.x + this.size &&
+
+my >= this.y &&
+
+my <= this.y + this.size
+
+);
+
+
+
+}
+
+
+
 draw(ctx){
 
 
-ctx.fillStyle="#222";
+ctx.fillStyle =
+this.value === 0
+? "#000"
+: "#333";
 
 
 ctx.fillRect(
@@ -38,14 +62,16 @@ this.size-5
 
 
 
+if(this.value !== 0){
+
+
 ctx.fillStyle="#fff";
 
 
-ctx.font="24px Arial";
+ctx.font="28px Arial";
 
 
 ctx.textAlign="center";
-
 
 ctx.textBaseline="middle";
 
@@ -61,9 +87,11 @@ this.y+this.size/2
 );
 
 
-
 }
 
+
+
+}
 
 
 }
