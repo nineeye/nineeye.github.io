@@ -2,15 +2,34 @@ import MenuScene
 from "./MenuScene.js";
 
 
+
 export default class BootScene {
 
 
-constructor(manager,input){
+
+constructor(
+
+manager,
+
+input,
+
+plugins,
+
+audio
+
+){
 
 
 this.manager=manager;
 
+
 this.input=input;
+
+
+this.plugins=plugins;
+
+
+this.audio=audio;
 
 
 
@@ -22,30 +41,21 @@ enter(){
 
 
 
-console.log(
-"Puzzle Studio Boot"
-);
-
-
-
-setTimeout(()=>{
-
-
 this.manager.change(
 
 new MenuScene(
 
 this.manager,
 
-this.input
+this.input,
+
+this.plugins,
+
+this.audio
 
 )
 
 );
-
-
-
-},300);
 
 
 
