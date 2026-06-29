@@ -1,10 +1,52 @@
 import CanvasEngine from "./core/CanvasEngine.js";
-import MenuScene from "./scenes/MenuScene.js";
+import GameLoop from "./core/GameLoop.js";
+import SceneManager from "./core/SceneManager.js";
 
-window.addEventListener("DOMContentLoaded",()=>{
+import BootScene from "./scenes/BootScene.js";
 
-    const engine=new CanvasEngine("canvas");
 
-    engine.start(new MenuScene());
+const canvas = document.getElementById("game");
 
-});
+
+const engine = new CanvasEngine(canvas);
+
+
+const sceneManager =
+    new SceneManager();
+
+
+
+sceneManager.change(
+    new BootScene(
+        sceneManager
+    )
+);
+
+
+
+const loop =
+    new GameLoop(
+        engine,
+        sceneManager
+    );
+
+
+
+loop.start();
+
+
+
+window.PuzzleStudio = {
+
+    engine,
+
+    sceneManager,
+
+    loop
+
+};
+
+
+console.log(
+    "Puzzle Studio Ultimate Started"
+);
