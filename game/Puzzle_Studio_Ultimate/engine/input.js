@@ -4,37 +4,53 @@ export default class Input {
 constructor(canvas){
 
 
-this.canvas = canvas;
+this.canvas=canvas;
 
 
-this.listeners = [];
+this.listeners=[];
+
+
+this.startX=0;
+
+this.startY=0;
 
 
 
-canvas.addEventListener(
+this.bind();
+
+
+
+}
+
+
+
+bind(){
+
+
+this.canvas.addEventListener(
 
 "click",
 
-(e)=>{
+e=>{
 
 
-const rect =
-canvas.getBoundingClientRect();
-
-
-
-const x =
-e.clientX - rect.left;
-
-
-const y =
-e.clientY - rect.top;
+const pos =
+this.position(e);
 
 
 
 this.emit(
-x,
-y
+
+{
+
+type:"click",
+
+x:pos.x,
+
+y:pos.y
+
+}
+
 );
 
 
@@ -45,41 +61,162 @@ y
 
 
 
-canvas.addEventListener(
+this.canvas.addEventListener(
 
 "touchstart",
 
-(e)=>{
+e=>{
 
 
-const touch =
+const t =
 e.touches[0];
 
 
-const rect =
-canvas.getBoundingClientRect();
+this.startX=t.clientX;
 
-
-
-const x =
-touch.clientX - rect.left;
-
-
-const y =
-touch.clientY - rect.top;
-
-
-
-this.emit(
-x,
-y
-);
+this.startY=t.clientY;
 
 
 
 }
 
 );
+
+
+
+this.canvas.addEventListener(
+
+"touchend",
+
+e=>{
+
+
+const t =
+e.changedTouches[0];
+
+
+const dx =
+t.clientX-this.startX;
+
+
+const dy =
+t.clientY-this.startY;
+
+
+
+if(Math.abs(dx)>30 ||
+Math.abs(dy)>30){
+
+
+this.emit(
+
+{
+
+type:"swipe",
+
+direction:
+
+Math.abs(dx)>Math.abs(dy)
+
+?
+
+(dx>0?"right":"left")
+
+:
+
+(dy>0?"down":"up")
+
+}
+
+);
+
+
+
+}
+
+
+
+}
+
+);
+
+
+
+window.addEventListener(
+
+"keydown",
+
+e=>{
+
+
+let dir=null;
+
+
+if(e.key==="ArrowUp")
+dir="up";
+
+
+if(e.key==="ArrowDown")
+dir="down";
+
+
+if(e.key==="ArrowLeft")
+dir="left";
+
+
+if(e.key==="ArrowRight")
+dir="right";
+
+
+
+if(dir){
+
+
+this.emit(
+
+{
+
+type:"key",
+
+direction:dir
+
+}
+
+);
+
+
+
+}
+
+
+
+}
+
+);
+
+
+
+}
+
+
+
+position(e){
+
+
+const rect =
+this.canvas.getBoundingClientRect();
+
+
+
+return {
+
+
+x:e.clientX-rect.left,
+
+y:e.clientY-rect.top
+
+
+};
 
 
 
@@ -90,9 +227,7 @@ y
 on(callback){
 
 
-this.listeners.push(
-callback
-);
+this.listeners.push(callback);
 
 
 
@@ -100,12 +235,12 @@ callback
 
 
 
-emit(x,y){
+emit(data){
 
 
 this.listeners.forEach(
 
-fn=>fn(x,y)
+fn=>fn(data)
 
 );
 
