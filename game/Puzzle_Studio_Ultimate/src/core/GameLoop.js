@@ -1,15 +1,19 @@
 export default class GameLoop {
 
 
+
 constructor(engine,sceneManager){
 
-    this.engine = engine;
-
-    this.sceneManager =
-        sceneManager;
 
 
-    this.running=false;
+this.engine=engine;
+
+
+this.sceneManager=sceneManager;
+
+
+this.running=false;
+
 
 
 }
@@ -18,9 +22,14 @@ constructor(engine,sceneManager){
 
 start(){
 
-    this.running=true;
 
-    this.frame();
+
+this.running=true;
+
+
+
+this.frame();
+
 
 
 }
@@ -30,8 +39,13 @@ start(){
 frame(){
 
 
+
 if(!this.running)
 return;
+
+
+
+this.sceneManager.update();
 
 
 
@@ -39,31 +53,31 @@ this.engine.clear();
 
 
 
-const scene =
-this.sceneManager.current;
+this.sceneManager.draw(
+
+this.engine.ctx
+
+);
 
 
 
-if(scene){
+requestAnimationFrame(
 
+()=>this.frame()
 
-    if(scene.update)
-        scene.update();
+);
 
-
-    if(scene.draw)
-        scene.draw(
-            this.engine.ctx
-        );
 
 
 }
 
 
 
-requestAnimationFrame(
-()=>this.frame()
-);
+stop(){
+
+
+
+this.running=false;
 
 
 
