@@ -11,7 +11,60 @@ constructor(){
 
 
 this.game =
-new SlidingPuzzle();
+new SlidingPuzzle(3);
+
+
+
+this.createUI();
+
+
+
+}
+
+
+
+createUI(){
+
+
+
+const button =
+document.createElement("button");
+
+
+button.innerText =
+"NEW GAME";
+
+
+button.style.position =
+"absolute";
+
+
+button.style.top =
+"20px";
+
+
+button.style.right =
+"20px";
+
+
+button.style.fontSize =
+"20px";
+
+
+
+button.onclick =
+()=>{
+
+
+this.game.restart();
+
+
+
+};
+
+
+
+document.body.appendChild(button);
 
 
 
@@ -25,7 +78,7 @@ enter(){
 
 console.log(
 
-"Sliding Puzzle Running"
+"Puzzle Ready"
 
 );
 
@@ -47,6 +100,7 @@ e.clientY
 );
 
 
+
 }
 
 );
@@ -58,6 +112,7 @@ e.clientY
 
 
 update(){
+
 
 
 this.game.update();
