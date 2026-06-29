@@ -9,12 +9,8 @@ export default class SlidingPuzzle {
 constructor(size=3){
 
 
-this.size=size;
-
-
 this.board =
 new Board(size);
-
 
 
 this.board.shuffle();
@@ -36,8 +32,7 @@ restart(){
 
 
 this.board =
-new Board(this.size);
-
+new Board(this.board.size);
 
 
 this.board.shuffle();
@@ -54,7 +49,7 @@ this.finished=false;
 
 
 
-click(x,y){
+input(data){
 
 
 
@@ -63,31 +58,35 @@ return;
 
 
 
-const before =
-this.board.tiles
-.map(t=>t.value)
-.join();
-
+if(data.type==="click"){
 
 
 this.board.click(
 
-x,
+data.x,
 
-y
+data.y
 
 );
 
 
-
-const after =
-this.board.tiles
-.map(t=>t.value)
-.join();
+}
 
 
 
-if(before!==after){
+if(data.type==="key" ||
+data.type==="swipe"){
+
+
+this.board.move(
+
+data.direction
+
+);
+
+
+}
+
 
 
 this.moves++;
@@ -98,25 +97,13 @@ this.moves++;
 
 
 
-}
-
-
-
 update(){
 
 
-this.board.update();
 
-
-
-if(this.board.isComplete()){
-
+if(this.board.isComplete())
 
 this.finished=true;
-
-
-
-}
 
 
 
@@ -130,49 +117,20 @@ draw(ctx){
 this.board.draw(ctx);
 
 
-
 ctx.fillStyle="#fff";
-
 
 ctx.font="20px Arial";
 
 
 ctx.fillText(
 
-"MOVE : "
-+
-this.moves,
+"MOVE : "+this.moves,
 
 20,
 
 400
 
 );
-
-
-
-if(this.finished){
-
-
-ctx.fillStyle="#00ff00";
-
-
-ctx.font="40px Arial";
-
-
-ctx.fillText(
-
-"COMPLETE",
-
-80,
-
-480
-
-);
-
-
-
-}
 
 
 
