@@ -1,29 +1,91 @@
-export default class AudioManager{
+export default class AudioManager {
 
-    constructor(){
 
-        this.sounds=new Map();
 
-    }
+constructor(){
 
-    load(name,src){
 
-        const audio=new Audio(src);
+this.enabled=true;
 
-        this.sounds.set(name,audio);
 
-    }
+this.volume=0.5;
 
-    play(name){
 
-        const audio=this.sounds.get(name);
 
-        if(!audio) return;
+}
 
-        audio.currentTime=0;
 
-        audio.play();
 
-    }
+play(type){
+
+
+if(!this.enabled)
+return;
+
+
+
+const audio =
+new Audio();
+
+
+
+switch(type){
+
+
+case "move":
+
+
+audio.src =
+"assets/move.wav";
+
+break;
+
+
+
+case "win":
+
+
+audio.src =
+"assets/win.wav";
+
+break;
+
+
+
+default:
+
+return;
+
+
+
+}
+
+
+
+audio.volume =
+this.volume;
+
+
+
+audio.play()
+.catch(()=>{});
+
+
+
+}
+
+
+
+toggle(){
+
+
+this.enabled =
+!this.enabled;
+
+
+
+}
+
+
 
 }
