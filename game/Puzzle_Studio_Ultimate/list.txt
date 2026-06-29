@@ -1,83 +1,43 @@
-폴더 PATH의 목록입니다.
-볼륨 일련 번호가 00000016 C24C:20A7입니다.
-C:.
-│  index.html
-│  list.txt
-│  style.css
-│  
-├─assets
-├─build
-├─core
-├─data
-├─docs
-├─engine
-│      audio.js
-│      engine.js
-│      input.js
-│      render.js
-│      save.js
-│      scene.js
-│      utils.js
-│      
-├─game
-│      difficulty.js
-│      session.js
-│      
-├─games
-│  └─sliding-puzzle
-│          board.js
-│          sliding.js
-│          tile.js
-│          
-├─graphics
-├─platform
-├─plugins
-├─public
-├─src
-│  │  main.js
-│  │  
-│  ├─core
-│  │      AssetManager.js
-│  │      AudioManager.js
-│  │      CanvasEngine.js
-│  │      Config.js
-│  │      Constants.js
-│  │      EventBus.js
-│  │      GameEvents.js
-│  │      GameLoop.js
-│  │      InputManager.js
-│  │      Logger.js
-│  │      SaveManager.js
-│  │      Scene.js
-│  │      SceneManager.js
-│  │      Version.js
-│  │      
-│  ├─engine
-│  │  └─scene
-│  │          .txt
-│  │          LoadingScene.js
-│  │          Scene.js
-│  │          SceneManager.js
-│  │          
-│  ├─scenes
-│  │      BootScene.js
-│  │      MenuScene.js
-│  │      SlidingPuzzleScene.js
-│  │      
-│  └─ui
-│          Button.js
-│          UIManager.js
-│          
-├─tests
-├─tools
-└─ui
-        button.js
-        hud.js
-        input-ui.js
-        menu.js
-        result.js
-        select.js
-        settings.js
-        transition.js
-        ui.js
-        
+Puzzle Studio Ultimate v1.0.0
+
+
+/index.html
+
+
+/src
+
+/core
+
+/scenes
+
+/ui
+
+
+
+/games
+
+/sliding-puzzle
+
+
+
+/plugins
+
+/sliding-puzzle
+
+
+
+/data
+
+/puzzles.json
+
+
+
+/assets
+
+
+
+/docs
+
+
+
+/tools
