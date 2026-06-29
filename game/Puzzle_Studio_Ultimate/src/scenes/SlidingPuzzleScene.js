@@ -22,8 +22,33 @@ new SlidingPuzzle();
 enter(){
 
 
+
 console.log(
-"Sliding Puzzle Start"
+
+"Sliding Puzzle Running"
+
+);
+
+
+
+window.addEventListener(
+
+"click",
+
+(e)=>{
+
+
+this.game.click(
+
+e.clientX,
+
+e.clientY
+
+);
+
+
+}
+
 );
 
 
