@@ -1,26 +1,38 @@
-// engine/audio.js (final polish)
-export class AudioManager {
-  constructor() {
-    this.sounds = {};
-    this.volume = 1;
-  }
+export default class Audio {
 
-  register(name, src) {
-    const a = new Audio(src);
-    a.preload = "auto";
-    this.sounds[name] = a;
-  }
 
-  play(name) {
-    const s = this.sounds[name];
-    if (!s) return;
+constructor(){
 
-    s.currentTime = 0;
-    s.volume = this.volume;
-    s.play().catch(() => {});
-  }
 
-  setVolume(v) {
-    this.volume = v;
-  }
+this.enabled=true;
+
+
+
+}
+
+
+
+play(src){
+
+
+
+if(!this.enabled)
+return;
+
+
+
+const sound =
+new window.Audio(src);
+
+
+
+sound.play()
+.catch(()=>{});
+
+
+
+}
+
+
+
 }
