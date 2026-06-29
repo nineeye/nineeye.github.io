@@ -6,11 +6,51 @@ constructor(value,x,y,size){
 
 this.value=value;
 
+
 this.x=x;
+
 
 this.y=y;
 
+
+this.targetX=x;
+
+
+this.targetY=y;
+
+
 this.size=size;
+
+
+
+}
+
+
+
+moveTo(x,y){
+
+
+this.targetX=x;
+
+
+this.targetY=y;
+
+
+
+}
+
+
+
+update(){
+
+
+this.x +=
+(this.targetX-this.x)*0.25;
+
+
+
+this.y +=
+(this.targetY-this.y)*0.25;
 
 
 
@@ -23,13 +63,13 @@ contains(mx,my){
 
 return (
 
-mx >= this.x &&
+mx>=this.x &&
 
-mx <= this.x + this.size &&
+mx<=this.x+this.size &&
 
-my >= this.y &&
+my>=this.y &&
 
-my <= this.y + this.size
+my<=this.y+this.size
 
 );
 
@@ -42,11 +82,16 @@ my <= this.y + this.size
 draw(ctx){
 
 
-ctx.fillStyle =
-this.value === 0
-? "#000"
-: "#333";
+this.update();
 
+
+
+if(this.value===0)
+return;
+
+
+
+ctx.fillStyle="#333";
 
 ctx.fillRect(
 
@@ -62,9 +107,6 @@ this.size-5
 
 
 
-if(this.value !== 0){
-
-
 ctx.fillStyle="#fff";
 
 
@@ -72,6 +114,7 @@ ctx.font="28px Arial";
 
 
 ctx.textAlign="center";
+
 
 ctx.textBaseline="middle";
 
@@ -87,11 +130,9 @@ this.y+this.size/2
 );
 
 
-}
-
-
 
 }
+
 
 
 }
