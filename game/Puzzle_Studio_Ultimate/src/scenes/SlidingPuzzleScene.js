@@ -2,6 +2,10 @@ import SlidingPuzzle
 from "../../games/sliding-puzzle/sliding.js";
 
 
+import SaveManager
+from "../core/SaveManager.js";
+
+
 
 export default class SlidingPuzzleScene {
 
@@ -21,6 +25,20 @@ new SlidingPuzzle(size);
 
 
 
+this.save =
+new SaveManager();
+
+
+
+this.best =
+this.save.getBest(size);
+
+
+
+this.finished=false;
+
+
+
 this.createUI();
 
 
@@ -32,31 +50,31 @@ this.createUI();
 createUI(){
 
 
-const button =
+
+this.button =
 document.createElement("button");
 
 
 
-button.innerText =
+this.button.innerText =
 "RESTART";
 
 
 
-button.style.position =
+this.button.style.position =
 "absolute";
 
 
-button.style.top =
+this.button.style.top =
 "20px";
 
 
-button.style.right =
+this.button.style.right =
 "20px";
 
 
 
-button.onclick =
-()=>{
+this.button.onclick=()=>{
 
 
 this.game.restart();
@@ -67,7 +85,9 @@ this.game.restart();
 
 
 
-document.body.appendChild(button);
+document.body.appendChild(
+this.button
+);
 
 
 
@@ -107,7 +127,49 @@ y
 update(){
 
 
+
 this.game.update();
+
+
+
+if(
+this.game.finished &&
+!this.finished
+
+){
+
+
+this.finished=true;
+
+
+
+const saved =
+this.save.setBest(
+
+this.size,
+
+this.game.moves
+
+);
+
+
+
+if(saved){
+
+
+alert(
+
+"NEW RECORD!"
+
+);
+
+
+
+}
+
+
+
+}
 
 
 
@@ -137,6 +199,30 @@ ctx.canvas.height
 
 
 this.game.draw(ctx);
+
+
+
+ctx.fillStyle="#fff";
+
+
+ctx.font="20px Arial";
+
+
+
+ctx.fillText(
+
+"BEST : "
++
+(
+this.best || "-"
+
+),
+
+20,
+
+430
+
+);
 
 
 
