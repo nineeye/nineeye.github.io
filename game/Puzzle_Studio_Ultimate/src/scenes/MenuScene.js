@@ -1,21 +1,18 @@
-import SlidingPuzzleScene
-from "./SlidingPuzzleScene.js";
-
-
-import Button
-from "../../ui/button.js";
-
-
-import MenuUI
-from "../../ui/menu.js";
-
-
-
 export default class MenuScene {
 
 
 
-constructor(manager,input){
+constructor(
+
+manager,
+
+input,
+
+plugins,
+
+audio
+
+){
 
 
 this.manager=manager;
@@ -24,9 +21,14 @@ this.manager=manager;
 this.input=input;
 
 
+this.plugins=plugins;
 
-this.ui =
-new MenuUI();
+
+this.audio=audio;
+
+
+
+this.create();
 
 
 
@@ -34,7 +36,26 @@ new MenuUI();
 
 
 
-enter(){
+create(){
+
+
+
+const box =
+document.createElement("div");
+
+
+
+box.style.position="absolute";
+
+
+box.style.top="50%";
+
+
+box.style.left="50%";
+
+
+box.style.transform=
+"translate(-50%,-50%)";
 
 
 
@@ -42,45 +63,72 @@ const title =
 document.createElement("h1");
 
 
-title.innerText =
+title.innerText=
+
 "Puzzle Studio Ultimate";
 
 
 
-this.ui.add(title);
+box.appendChild(title);
 
 
 
-[3,4,5].forEach(size=>{
+this.plugins.list()
+
+.forEach(name=>{
 
 
 const btn =
-new Button(
-
-size+" x "+size
-
-);
+document.createElement("button");
 
 
-
-btn.onClick(()=>{
-
-
-this.ui.hide();
+btn.innerText=name;
 
 
 
-this.manager.change(
+btn.onclick=()=>{
 
-new SlidingPuzzleScene(
+
+const plugin =
+this.plugins.get(name);
+
+
+
+const scene =
+
+plugin.createScene(
+
+this.manager,
 
 this.input,
 
-size
+{
 
-)
+id:1,
+
+size:3
+
+},
+
+this.audio
 
 );
+
+
+
+box.remove();
+
+
+
+this.manager.change(scene);
+
+
+
+};
+
+
+
+box.appendChild(btn);
 
 
 
@@ -88,23 +136,15 @@ size
 
 
 
-this.ui.add(
-
-btn.element
-
-);
-
-
-
-});
-
-
-
-this.ui.show();
+document.body.appendChild(box);
 
 
 
 }
+
+
+
+enter(){}
 
 
 
