@@ -2,10 +2,6 @@ import SlidingPuzzle
 from "../../games/sliding-puzzle/sliding.js";
 
 
-import ResultUI
-from "../../ui/result.js";
-
-
 
 export default class SlidingPuzzleScene {
 
@@ -25,7 +21,8 @@ this.level=level;
 this.audio=audio;
 
 
-this.game=
+
+this.game =
 new SlidingPuzzle(
 
 level.size,
@@ -69,27 +66,49 @@ this.game.input(data);
 createUI(){
 
 
-
-const box=document.createElement("div");
-
-
-box.style.position="absolute";
-
-
-box.style.top="20px";
-
-
-box.style.left="20px";
-
-
-box.style.zIndex=10;
+const ui =
+document.createElement("div");
 
 
 
-const home=document.createElement("button");
+ui.style.position="absolute";
 
 
-home.innerText="HOME";
+ui.style.top="20px";
+
+
+ui.style.right="20px";
+
+
+ui.style.zIndex="999";
+
+
+
+const makeBtn=(text)=>{
+
+
+const b=document.createElement("button");
+
+
+b.innerText=text;
+
+
+b.style.fontSize="20px";
+
+
+b.style.margin="5px";
+
+
+return b;
+
+
+
+};
+
+
+
+const home =
+makeBtn("HOME");
 
 
 home.onclick=()=>{
@@ -102,10 +121,8 @@ location.reload();
 
 
 
-const restart=document.createElement("button");
-
-
-restart.innerText="RESTART";
+const restart =
+makeBtn("RESTART");
 
 
 restart.onclick=()=>{
@@ -118,23 +135,31 @@ this.game.restart();
 
 
 
-[home,restart].forEach(b=>{
+const quit =
+makeBtn("QUIT");
 
 
-b.style.fontSize="20px";
+quit.onclick=()=>{
 
 
-b.style.margin="5px";
+this.game.finished=true;
 
 
-box.appendChild(b);
-
-
-});
+};
 
 
 
-document.body.appendChild(box);
+ui.appendChild(home);
+
+
+ui.appendChild(restart);
+
+
+ui.appendChild(quit);
+
+
+
+document.body.appendChild(ui);
 
 
 
@@ -145,7 +170,9 @@ document.body.appendChild(box);
 update(){
 
 
+
 this.game.update();
+
 
 
 }
@@ -180,29 +207,57 @@ this.game.draw(ctx);
 ctx.fillStyle="white";
 
 
-ctx.font="25px Arial";
+ctx.font="22px Arial";
+
 
 
 ctx.fillText(
 
 "LEVEL : "+this.level.id,
 
-20,
+40,
 
-50
+40
 
 );
+
 
 
 ctx.fillText(
 
 "MOVE : "+this.game.moves,
 
-20,
+40,
 
-85
+75
 
 );
+
+
+
+if(this.game.finished){
+
+
+
+ctx.font="45px Arial";
+
+
+ctx.fillStyle="#00ff00";
+
+
+ctx.fillText(
+
+"COMPLETE!",
+
+window.innerWidth/2-120,
+
+120
+
+);
+
+
+
+}
 
 
 
