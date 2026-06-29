@@ -1,52 +1,85 @@
-import Scene from "../core/Scene.js";
+export default class SlidingPuzzleScene{
 
-export default class SlidingPuzzleScene extends Scene {
 
-    constructor() {
+constructor(){
 
-        super();
+    this.time=0;
 
-        this.x = 100;
-        this.y = 100;
-        this.size = 120;
+}
 
-    }
 
-    update(dt) {
 
-    }
+enter(){
 
-    updateInput(input) {
 
-        if (input.mouse.clicked) {
+console.log(
+"Sliding Puzzle Loaded"
+);
 
-            this.x += 20;
 
-            if (this.x > 700) {
-                this.x = 100;
-            }
+}
 
-        }
 
-    }
 
-    render(ctx) {
+update(){
 
-        ctx.fillStyle = "#222";
-        ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    this.time++;
 
-        ctx.fillStyle = "#ffffff";
-        ctx.font = "42px Arial";
-        ctx.fillText("Sliding Puzzle", 100, 70);
+}
 
-        ctx.fillStyle = "#3b82f6";
-        ctx.fillRect(
-            this.x,
-            this.y,
-            this.size,
-            this.size
-        );
 
-    }
+
+draw(ctx){
+
+
+
+ctx.fillStyle="#111";
+
+
+ctx.fillRect(
+0,
+0,
+ctx.canvas.width,
+ctx.canvas.height
+);
+
+
+
+ctx.fillStyle="#fff";
+
+
+ctx.font="32px Arial";
+
+
+ctx.fillText(
+
+"Puzzle Studio Ultimate",
+
+50,
+
+80
+
+);
+
+
+
+ctx.font="20px Arial";
+
+
+ctx.fillText(
+
+"Sliding Puzzle Engine Ready",
+
+50,
+
+130
+
+);
+
+
+
+}
+
+
 
 }
