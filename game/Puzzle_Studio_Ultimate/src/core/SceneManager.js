@@ -1,9 +1,13 @@
 export default class SceneManager {
 
 
+
 constructor(){
 
-    this.current=null;
+
+this.current=null;
+
+
 
 }
 
@@ -12,23 +16,76 @@ constructor(){
 change(scene){
 
 
-    if(this.current &&
-       this.current.exit){
 
-        this.current.exit();
+if(this.current){
 
-    }
+if(this.current.exit)
 
-
-    this.current=scene;
+this.current.exit();
 
 
 
-    if(scene.enter){
+}
 
-        scene.enter();
 
-    }
+
+this.current=scene;
+
+
+
+if(this.current.enter)
+
+this.current.enter();
+
+
+
+}
+
+
+
+update(){
+
+
+
+if(
+
+this.current &&
+
+this.current.update
+
+){
+
+
+this.current.update();
+
+
+
+}
+
+
+
+}
+
+
+
+draw(ctx){
+
+
+
+if(
+
+this.current &&
+
+this.current.draw
+
+){
+
+
+this.current.draw(ctx);
+
+
+
+}
 
 
 
