@@ -6,6 +6,14 @@ import SaveManager
 from "../core/SaveManager.js";
 
 
+import UIManager
+from "../../ui/ui.js";
+
+
+import ResultUI
+from "../../ui/result.js";
+
+
 
 export default class SlidingPuzzleScene {
 
@@ -20,6 +28,7 @@ this.input=input;
 this.size=size;
 
 
+
 this.game =
 new SlidingPuzzle(size);
 
@@ -30,64 +39,17 @@ new SaveManager();
 
 
 
-this.best =
-this.save.getBest(size);
+this.ui =
+new UIManager();
+
+
+
+this.result =
+new ResultUI();
 
 
 
 this.finished=false;
-
-
-
-this.createUI();
-
-
-
-}
-
-
-
-createUI(){
-
-
-
-this.button =
-document.createElement("button");
-
-
-
-this.button.innerText =
-"RESTART";
-
-
-
-this.button.style.position =
-"absolute";
-
-
-this.button.style.top =
-"20px";
-
-
-this.button.style.right =
-"20px";
-
-
-
-this.button.onclick=()=>{
-
-
-this.game.restart();
-
-
-
-};
-
-
-
-document.body.appendChild(
-this.button
-);
 
 
 
@@ -96,6 +58,23 @@ this.button
 
 
 enter(){
+
+
+
+this.ui.button(
+
+"RESTART",
+
+()=>{
+
+
+this.game.restart();
+
+
+
+}
+
+);
 
 
 
@@ -127,13 +106,14 @@ y
 update(){
 
 
-
 this.game.update();
 
 
 
 if(
+
 this.game.finished &&
+
 !this.finished
 
 ){
@@ -143,7 +123,14 @@ this.finished=true;
 
 
 
-const saved =
+this.result.show(
+
+"COMPLETE!"
+
+);
+
+
+
 this.save.setBest(
 
 this.size,
@@ -151,21 +138,6 @@ this.size,
 this.game.moves
 
 );
-
-
-
-if(saved){
-
-
-alert(
-
-"NEW RECORD!"
-
-);
-
-
-
-}
 
 
 
@@ -178,7 +150,6 @@ alert(
 
 
 draw(ctx){
-
 
 
 ctx.fillStyle="#000";
@@ -199,30 +170,6 @@ ctx.canvas.height
 
 
 this.game.draw(ctx);
-
-
-
-ctx.fillStyle="#fff";
-
-
-ctx.font="20px Arial";
-
-
-
-ctx.fillText(
-
-"BEST : "
-+
-(
-this.best || "-"
-
-),
-
-20,
-
-430
-
-);
 
 
 
