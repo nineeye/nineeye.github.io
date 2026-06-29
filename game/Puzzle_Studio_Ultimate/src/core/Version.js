@@ -1,20 +1,25 @@
-/**
- * Puzzle Studio Ultimate
- * Version Information
- */
+export default {
 
-const Version = Object.freeze({
 
-    NAME: "Puzzle Studio Ultimate",
+name:
 
-    VERSION: "0.1.1",
+"Puzzle Studio Ultimate",
 
-    BUILD: "2026.06.28",
 
-    STAGE: "Foundation",
+version:
 
-    AUTHOR: "Puzzle Studio Team"
+"1.0.0",
 
-});
 
-export default Version;
+build:
+
+"Final Cleanup",
+
+
+date:
+
+"2026-06-29"
+
+
+
+};
