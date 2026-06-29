@@ -1,27 +1,30 @@
 export default class Builder {
 
 
-
 constructor(){
 
 
-this.project = {
+this.key =
+"PuzzleBuilderProject";
+
+
+this.project={
 
 
 name:"Untitled Puzzle",
 
-
 type:"sliding-puzzle",
 
-
 size:3,
-
 
 level:1
 
 
-
 };
+
+
+
+this.load();
 
 
 
@@ -51,33 +54,18 @@ return this.project;
 
 
 
-export(){
-
-
-return JSON.stringify(
-
-this.project,
-
-null,
-
-2
-
-);
-
-
-
-}
-
-
-
 save(){
 
 
 localStorage.setItem(
 
-"PuzzleBuilderProject",
+this.key,
 
-this.export()
+JSON.stringify(
+
+this.project
+
+)
 
 );
 
@@ -91,10 +79,9 @@ load(){
 
 
 const data =
-
 localStorage.getItem(
 
-"PuzzleBuilderProject"
+this.key
 
 );
 
@@ -105,6 +92,7 @@ if(data){
 
 this.project =
 JSON.parse(data);
+
 
 
 }
