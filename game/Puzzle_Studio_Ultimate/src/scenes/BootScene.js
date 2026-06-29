@@ -1,23 +1,45 @@
-import Scene from "../core/Scene.js";
+import SlidingPuzzleScene
+from "./SlidingPuzzleScene.js";
 
-export default class BootScene extends Scene{
 
-    render(ctx){
 
-        ctx.fillStyle="#222";
+export default class BootScene{
 
-        ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
 
-        ctx.fillStyle="#fff";
+constructor(manager){
 
-        ctx.font="40px Arial";
+    this.manager=manager;
 
-        ctx.fillText("Puzzle Studio Ultimate",50,80);
+}
 
-        ctx.font="22px Arial";
 
-        ctx.fillText("Engine Boot Success",50,130);
 
-    }
+enter(){
+
+
+console.log(
+"Boot Scene"
+);
+
+
+
+setTimeout(()=>{
+
+
+this.manager.change(
+
+new SlidingPuzzleScene()
+
+);
+
+
+
+},500);
+
+
+
+}
+
+
 
 }
