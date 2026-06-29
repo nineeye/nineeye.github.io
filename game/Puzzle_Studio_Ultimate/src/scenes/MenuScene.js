@@ -1,105 +1,95 @@
-import BuilderScene
-from "./BuilderScene.js";
-
-
-
 export default class MenuScene {
 
 
-
 constructor(
-
 manager,
-
 input,
-
 plugins,
-
 audio
-
 ){
 
-
 this.manager=manager;
-
-
 this.input=input;
-
-
 this.plugins=plugins;
-
-
 this.audio=audio;
-
-
-
-this.create();
-
-
 
 }
 
 
 
-create(){
+enter(){
 
 
-
-const box =
-document.createElement("div");
+this.box=document.createElement("div");
 
 
+this.box.style.position="absolute";
 
-box.style.position="absolute";
+this.box.style.top="50%";
 
+this.box.style.left="50%";
 
-box.style.top="50%";
-
-
-box.style.left="50%";
-
-
-box.style.transform=
+this.box.style.transform=
 "translate(-50%,-50%)";
 
 
+this.box.style.background="#111";
 
-const title =
-document.createElement("h1");
+this.box.style.padding="40px";
 
+this.box.style.borderRadius="20px";
+
+
+this.box.style.textAlign="center";
+
+
+this.box.style.minWidth="320px";
+
+
+const title=document.createElement("h1");
 
 title.innerText=
-
 "Puzzle Studio Ultimate";
 
 
-
-box.appendChild(title);
-
+title.style.color="white";
 
 
-this.plugins.list()
-
-.forEach(name=>{
+this.box.appendChild(title);
 
 
-const btn =
-document.createElement("button");
+
+this.plugins.list().forEach(name=>{
+
+
+const btn=document.createElement("button");
 
 
 btn.innerText=name;
+
+
+btn.style.display="block";
+
+btn.style.width="250px";
+
+btn.style.margin="15px auto";
+
+btn.style.padding="15px";
+
+
+btn.style.fontSize="22px";
 
 
 
 btn.onclick=()=>{
 
 
-const plugin =
+const plugin=
 this.plugins.get(name);
 
 
 
-box.remove();
+this.box.remove();
 
 
 
@@ -112,11 +102,8 @@ this.manager,
 this.input,
 
 {
-
 id:1,
-
 size:3
-
 },
 
 this.audio
@@ -131,7 +118,7 @@ this.audio
 
 
 
-box.appendChild(btn);
+this.box.appendChild(btn);
 
 
 
@@ -139,47 +126,42 @@ box.appendChild(btn);
 
 
 
-const builder =
+
+const builder=
 document.createElement("button");
 
 
-builder.innerText=
-"BUILDER";
+builder.innerText="BUILDER";
+
+
+builder.style.width="250px";
+
+builder.style.padding="15px";
+
+
+builder.style.fontSize="22px";
 
 
 
 builder.onclick=()=>{
 
 
-box.remove();
-
-
-
-this.manager.change(
-
-new BuilderScene()
-
-);
-
+this.box.remove();
 
 
 };
 
 
 
-box.appendChild(builder);
+this.box.appendChild(builder);
 
 
 
-document.body.appendChild(box);
+document.body.appendChild(this.box);
 
 
 
 }
-
-
-
-enter(){}
 
 
 
