@@ -2,6 +2,11 @@ import BuilderScene
 from "./BuilderScene.js";
 
 
+import Builder
+from "../core/Builder.js";
+
+
+
 export default class MenuScene {
 
 
@@ -12,6 +17,7 @@ plugins,
 audio
 ){
 
+
 this.manager=manager;
 
 this.input=input;
@@ -19,6 +25,11 @@ this.input=input;
 this.plugins=plugins;
 
 this.audio=audio;
+
+
+
+this.builder=
+new Builder();
 
 
 
@@ -40,9 +51,9 @@ this.box.style.top="50%";
 
 this.box.style.left="50%";
 
+
 this.box.style.transform=
 "translate(-50%,-50%)";
-
 
 
 this.box.style.background="#111";
@@ -51,19 +62,12 @@ this.box.style.background="#111";
 this.box.style.padding="40px";
 
 
-this.box.style.borderRadius="20px";
-
-
 this.box.style.textAlign="center";
 
 
-this.box.style.minWidth="350px";
 
-
-
-const title =
+const title=
 document.createElement("h1");
-
 
 
 title.innerText=
@@ -82,19 +86,24 @@ this.box.appendChild(title);
 this.plugins.list().forEach(name=>{
 
 
-const btn =
+const btn=
 document.createElement("button");
 
 
-btn.innerText=name;
+
+btn.innerText=
+name;
 
 
 
 btn.style.display="block";
 
+
 btn.style.width="280px";
 
+
 btn.style.margin="15px auto";
+
 
 btn.style.padding="15px";
 
@@ -106,12 +115,17 @@ btn.style.fontSize="22px";
 btn.onclick=()=>{
 
 
-const plugin =
+const plugin=
 this.plugins.get(name);
 
 
 
 this.box.remove();
+
+
+
+const config =
+this.builder.get();
 
 
 
@@ -125,9 +139,11 @@ this.input,
 
 {
 
-id:1,
 
-size:3
+id:config.level,
+
+size:config.size
+
 
 },
 
@@ -153,20 +169,17 @@ this.box.appendChild(btn);
 
 
 
-const builder =
+const builder=
 document.createElement("button");
 
 
-builder.innerText=
-"BUILDER";
+builder.innerText="BUILDER";
 
 
 builder.style.width="280px";
 
+
 builder.style.padding="15px";
-
-
-builder.style.margin="15px";
 
 
 builder.style.fontSize="22px";
@@ -215,7 +228,6 @@ document.body.appendChild(this.box);
 
 
 update(){}
-
 
 
 draw(){}
