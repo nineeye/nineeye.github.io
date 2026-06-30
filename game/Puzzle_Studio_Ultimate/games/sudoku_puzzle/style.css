@@ -1,0 +1,113 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    /* 칙칙한 보라색 탈피: 청량하고 깊이감 있는 세련된 블루 그라데이션 */
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 50%, #2193b0 100%);
+    color: #333;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main-container {
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 20px;
+}
+
+.main-container h1 {
+    color: #ffffff;
+    font-size: 2.8em;
+    margin-bottom: 12px;
+    letter-spacing: -1px;
+    text-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.subtitle {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.2em;
+    margin-bottom: 45px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+/* 카드가 3개가 되었으므로 반응형 그리드로 정렬 밸런스 조정 */
+.game-cards {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.game-card {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    padding: 45px 30px;
+    width: 300px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 마우스 올렸을 때 살짝 뜨는 역동적인 효과 */
+.game-card:hover {
+    transform: translateY(-12px);
+    background: #ffffff;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.35);
+}
+
+.card-icon {
+    font-size: 3.8em;
+    margin-bottom: 20px;
+    /* 아이콘에 살짝 입체감 주는 섀도우 */
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+}
+
+.game-card h2 {
+    color: #1e3c72;
+    margin-bottom: 12px;
+    font-size: 1.6em;
+    font-weight: 700;
+}
+
+.game-card p {
+    color: #666;
+    margin-bottom: 20px;
+    font-size: 0.95em;
+}
+
+/* 난이도 배지 색상 다양화로 화사함 추가 */
+.difficulty {
+    display: inline-block;
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(30,60,114,0.2);
+}
+
+.difficulty.cyan {
+    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    box-shadow: 0 4px 10px rgba(17,153,142,0.2);
+}
+
+.difficulty.pink {
+    background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%);
+    box-shadow: 0 4px 10px rgba(255,8,68,0.2);
+}
+
+@media (max-width: 768px) {
+    .main-container h1 { font-size: 2.2em; }
+    .game-card { width: 100%; max-width: 340px; padding: 35px 25px; }
+}

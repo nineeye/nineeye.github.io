@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스도쿠 게임 센터</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="main-container">
+        <h1>🎮 스도쿠 게임 센터</h1>
+        <p class="subtitle">다양한 규칙의 스도쿠 퍼즐을 즐겨보세요!</p>
+        
+        <div class="game-cards">
+            <!-- 1번 카드: 오리지널 -->
+            <div class="game-card" onclick="location.href='sudoku.html'">
+                <div class="card-icon">🧩</div>
+                <h2>스도쿠 퍼즐 원조</h2>
+                <p>클래식 9x9 스도쿠 퍼즐</p>
+                <span class="difficulty">쉬움 • 중간 • 어려움</span>
+            </div>
+            
+            <!-- 2번 카드: 부등호 -->
+            <div class="game-card" onclick="location.href='inequality.html'">
+                <div class="card-icon">🔢</div>
+                <h2>부등호 스도쿠</h2>
+                <p>가변형 부등호 퍼즐</p>
+                <span class="difficulty cyan">새로운 도전!</span>
+            </div>
+
+            <!-- 3번 카드: 홀짝 (추가됨!) -->
+            <div class="game-card" onclick="location.href='oddeven.html'">
+                <div class="card-icon">🔴</div>
+                <h2>홀짝 스도쿠</h2>
+                <p>음영 칸에는 오직 짝수만!</p>
+                <span class="difficulty pink">색다른 규칙성</span>
+            </div>
+	    <!-- index.html에 추가할 4번째 대각선 스도쿠 카드 -->
+	    <div class="game-card" onclick="location.href='xsudoku.html'">
+	        <div class="card-icon">📐</div>
+	        <h2>대각선 스도쿠</h2>
+		<p>X자 대각선 라인도 중복 금지!</p>
+		<span class="difficulty" style="background: linear-gradient(135deg, #7f00ff 0%, #e100ff 100%); box-shadow: 0 4px 10px rgba(127,0,255,0.2);">X-매운맛 챌린지</span>
+            </div>
+	    <!-- index.html에 추가할 5번째 킬러 스도쿠 카드 -->
+	    <div class="game-card" onclick="location.href='killer.html'">
+	        <div class="card-icon">⚔️</div>
+	        <h2>킬러 스도쿠</h2>
+	        <p>지정된 연산 구역의 합을 맞춰라!</p>
+	       <span class="difficulty" style="background: linear-gradient(135deg, #ff0844 0%, #ffb199 100%); box-shadow: 0 4px 10px rgba(255,8,68,0.25);">최상위 두뇌 가동</span>
+ 	    </div>
+		<!-- index.html에 추가할 6번째 킹스 스도쿠 카드 -->
+		<div class="game-card" onclick="location.href='kings.html'">
+		    <div class="card-icon">👑</div>
+		    <h2>킹스 스도쿠</h2>
+		    <p>주변 8칸 대각선까지 똑같은 숫자 금지!</p>
+		    <span class="difficulty" style="background: linear-gradient(135deg, #f1c40f 0%, #f39c12 100%); box-shadow: 0 4px 10px rgba(241,196,15,0.3);">직관적인 스피드런</span>
+		</div>
+
+        </div>
+		
+
+
+    </div>
+</body>
+</html>

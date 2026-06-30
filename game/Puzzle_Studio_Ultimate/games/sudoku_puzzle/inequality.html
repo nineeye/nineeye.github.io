@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가변형 부등호 스도쿠 (Futoshiki)</title>
+    <style>
+        :root {
+            --bg-color: #f8f9fa;
+            --panel-bg: #ffffff;
+            --primary-color: #6c5ce7;
+            --error-color: #ff7675;
+            --text-color: #2d3436;
+            --border-color: #dfe6e9;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+
+        .rules {
+            font-size: 0.9rem;
+            color: #636e72;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        /* 크기 조절 컨트롤러 */
+        .size-selector {
+            margin-bottom: 20px;
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+        .size-selector select {
+            padding: 6px 12px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: 2px solid var(--primary-color);
+            outline: none;
+            cursor: pointer;
+        }
+
+        /* 가변형 게임 보드 레이아웃 */
+        .game-container {
+            background: var(--panel-bg);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 100%;
+            overflow-x: auto; /* 화면 밖으로 나갈 경우 스크롤 조치 */
+        }
+
+        .board {
+            display: grid;
+            /* 자바스크립트에서 선택된 크기(N)에 맞춰 grid-template 조절 */
+            gap: 20px 25px; 
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .cell-container {
+            position: relative;
+            width: 50px; /* 크기가 커지므로 기존 60px에서 50px로 최적화 */
+            height: 50px;
+        }
+
+        .cell {
+            width: 100%;
+            height: 100%;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--text-color);
+            outline: none;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        .cell:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 8px rgba(108, 92, 231, 0.2);
+        }
+
+        .cell.initial {
+            background-color: #f1f2f6;
+            color: #57606f;
+        }
+
+        .cell.invalid {
+            background-color: rgba(255, 118, 117, 0.15);
+            border-color: var(--error-color);
+        }
+
+        /* 부등호 스타일 */
+        .sign {
+            position: absolute;
+            font-weight: bold;
+            color: #b2bec3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .sign.horizontal {
+            width: 25px;
+            height: 50px;
+            right: -25px;
+            top: 0;
+            font-size: 1.1rem;
+        }
+
+        .sign.vertical {
+            width: 50px;
+            height: 20px;
+            bottom: -20px;
+            top: auto;
+            left: 0;
+            font-size: 0.9rem;
+        }
+
+        /* 컨트롤 버튼 */
+        .controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            padding: 10px 18px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover { background-color: #5b4bc4; }
+
+        .btn-secondary {
+            background-color: #e4e7eb;
+            color: var(--text-color);
+        }
+
+        .btn-secondary:hover { background-color: #d1d5db; }
+
+        .success-msg {
+            margin-top: 15px;
+            color: #2ecc71;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>부등호 스도쿠 (Futoshiki)</h1>
+    <div class="rules" id="rulesText">1~4의 숫자를 중복 없이 채우세요. 격자 사이의 부등호 조건들을 만족해야 합니다!</div>
+
+    <!-- 단계 조절 기능 추가 -->
+    <div class="size-selector">
+        <label for="boardSize">게임 단계(크기) 선택: </label>
+        <select id="boardSize" onchange="changeSize()">
+            <option value="3">3단 (3x3)</option>
+            <option value="4" selected>4단 (4x4)</option>
+            <option value="5">5단 (5x5)</option>
+            <option value="6">6단 (6x6)</option>
+            <option value="7">7단 (7x7)</option>
+            <option value="8">8단 (8x8)</option>
+            <option value="9">9단 (9x9)</option>
+        </select>
+    </div>
+
+    <div class="game-container">
+        <div class="board" id="board">
+            <!-- 동적 생성 -->
+        </div>
+
+        <div class="controls">
+            <button class="btn-primary" onclick="resetGame()">초기화</button>
+            <button class="btn-secondary" onclick="startNewGame()">새 게임</button>
+        </div>
+        <div class="success-msg" id="successIdx">🎉 축하합니다! 퍼즐을 완벽하게 해결하셨습니다!</div>
+    </div>
+
+    <script>
+        let N = 4; // 기본 크기
+        let initialNumbers = [];
+        let signs = [];
+        let currentSolution = [];
+
+        // 임의의 N x N 라틴 스퀘어(스도쿠 정답 베이스)를 실시간으로 생성하는 밀기(Shifting) 알고리즘
+        function generateLatinSquare(size) {
+            let baseRow = [];
+            for (let i = 1; i <= size; i++) baseRow.push(i);
+            
+            // 행과 열을 무작위로 섞기 위한 셔플
+            baseRow.sort(() => Math.random() - 0.5);
+
+            let matrix = [];
+            for (let r = 0; r < size; r++) {
+                // 각 행마다 옆으로 한 칸씩 밀어서 중복 방지 행렬 생성
+                let row = [...baseRow.slice(r), ...baseRow.slice(0, r)];
+                matrix.push(row);
+            }
+            
+            // 무작위성을 높이기 위해 행 자체를 한 번 더 셔플
+            matrix.sort(() => Math.random() - 0.5);
+            return matrix;
+        }
+
+        // 선택된 크기(N)에 따라 맵과 힌트, 부등호를 랜덤 빌드하는 핵심 함수
+        function generateRandomPuzzle() {
+            initialNumbers = [];
+            signs = [];
+            
+            // 1. 현재 단계에 맞는 라틴 스퀘어 정답 생성
+            currentSolution = generateLatinSquare(N);
+            
+            // 2. 초기 숫자 힌트 개수 지정 (크기에 비례)
+            // 3단은 1개, 4단은 2개, 9단은 5~6개 정도 노출
+            const hintCount = Math.max(1, Math.floor(N * 0.6) + Math.floor(Math.random() * 2));
+            const positions = [];
+            
+            while(positions.length < hintCount) {
+                const r = Math.floor(Math.random() * N);
+                const c = Math.floor(Math.random() * N);
+                if(!positions.some(p => p.r === r && p.c === c)) {
+                    positions.push({r, c});
+                    initialNumbers.push({r, c, v: currentSolution[r][c]});
+                }
+            }
+
+            // 3. 인접 타일 비교 부등호 자동 추출 생성 (확률 분포 조절)
+            const pChance = 0.35; // 부등호가 생성될 확률 (35%)
+            
+            // 가로 부등호 생성
+            for (let r = 0; r < N; r++) {
+                for (let c = 0; c < N - 1; c++) {
+                    if (Math.random() < pChance) {
+                        const text = currentSolution[r][c] > currentSolution[r][c+1] ? '>' : '<';
+                        signs.push({type: 'H', r, c, text});
+                    }
+                }
+            }
+            // 세로 부등호 생성
+            for (let r = 0; r < N - 1; r++) {
+                for (let c = 0; c < N; c++) {
+                    if (Math.random() < pChance || (signs.length < N)) { // 최소 수량 방어선
+                        const text = currentSolution[r][c] > currentSolution[r+1][c] ? '>' : '<';
+                        signs.push({type: 'V', r, c, text});
+                    }
+                }
+            }
+        }
+
+        const boardElement = document.getElementById('board');
+        const successMessage = document.getElementById('successIdx');
+        const rulesText = document.getElementById('rulesText');
+
+        // 선택한 단계에 맞는 그리드 보드 렌더링 함수
+        function createBoard() {
+            boardElement.innerHTML = '';
+            successMessage.style.display = 'none';
+            rulesText.innerText = `1~${N}의 숫자를 중복 없이 채우세요. 격자 사이의 부등호 조건들을 만족해야 합니다!`;
+
+            // 그리드 레이아웃 동적 대입
+            boardElement.style.gridTemplateColumns = `repeat(${N}, 50px)`;
+            boardElement.style.gridTemplateRows = `repeat(${N}, 50px)`;
+
+            for (let r = 0; r < N; r++) {
+                for (let c = 0; c < N; c++) {
+                    const container = document.createElement('div');
+                    container.className = 'cell-container';
+
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.className = 'cell';
+                    input.id = `cell-${r}-${c}`;
+                    input.dataset.row = r;
+                    input.dataset.col = c;
+                    
+                    // 정규식 동적 변경 (1부터 N까지의 숫자만 허용)
+                    const regex = new RegExp(`[^1-${N}]`, 'g');
+                    input.addEventListener('input', function(e) {
+                        this.value = this.value.replace(regex, '');
+                        if(this.value.length > 1) this.value = this.value.charAt(0);
+                        validateBoard();
+                    });
+
+                    // 초기 고정 힌트 배치
+                    const initValue = initialNumbers.find(n => n.r === r && n.c === c);
+                    if (initValue) {
+                        input.value = initValue.v;
+                        input.classList.add('initial');
+                        input.disabled = true;
+                    }
+
+                    container.appendChild(input);
+
+                    // 부등호 배치
+                    const cellSigns = signs.filter(s => s.r === r && s.c === c);
+                    cellSigns.forEach(s => {
+                        const signDiv = document.createElement('div');
+                        
+                        if (s.type === 'H') {
+                            signDiv.className = 'sign horizontal';
+                            signDiv.innerText = s.text;
+                        } else {
+                            signDiv.className = 'sign vertical';
+                            // 지난 번 수정한 ∧, ∨ 절대 기호 매핑 적용
+                            signDiv.innerText = (s.text === '<') ? '∧' : '∨';
+                        }
+                        container.appendChild(signDiv);
+                    });
+
+                    boardElement.appendChild(container);
+                }
+            }
+        }
+
+        // 실시간 매트릭스 검증 알고리즘 (N 대입형 확장)
+        function validateBoard() {
+            let hasError = false;
+            let isAllFilled = true;
+
+            // 1. 초기화
+            for (let r = 0; r < N; r++) {
+                for (let c = 0; c < N; c++) {
+                    document.getElementById(`cell-${r}-${c}`).classList.remove('invalid');
+                }
+            }
+
+            // 2. 가로/세로 중복 검사
+            for (let i = 0; i < N; i++) {
+                let rowValues = [];
+                let colValues = [];
+
+                for (let j = 0; j < N; j++) {
+                    const rowCell = document.getElementById(`cell-${i}-${j}`);
+                    const colCell = document.getElementById(`cell-${j}-${i}`);
+
+                    if (!rowCell.value) isAllFilled = false;
+
+                    if (rowCell.value) {
+                        if (rowValues.includes(rowCell.value)) {
+                            markRowInvalid(i);
+                            hasError = true;
+                        }
+                        rowValues.push(rowCell.value);
+                    }
+
+                    if (colCell.value) {
+                        if (colValues.includes(colCell.value)) {
+                            markColInvalid(i);
+                            hasError = true;
+                        }
+                        colValues.push(colCell.value);
+                    }
+                }
+            }
+
+            // 3. 부등호 검사
+            signs.forEach(s => {
+                const currentCell = document.getElementById(`cell-${s.r}-${s.c}`);
+                let targetCell;
+
+                if (s.type === 'H') {
+                    targetCell = document.getElementById(`cell-${s.r}-${s.c + 1}`);
+                } else {
+                    targetCell = document.getElementById(`cell-${s.r + 1}-${s.c}`);
+                }
+
+                if (currentCell.value && targetCell.value) {
+                    const v1 = parseInt(currentCell.value);
+                    const v2 = parseInt(targetCell.value);
+
+                    if (s.text === '>' && !(v1 > v2)) {
+                        currentCell.classList.add('invalid');
+                        targetCell.classList.add('invalid');
+                        hasError = true;
+                    }
+                    if (s.text === '<' && !(v1 < v2)) {
+                        currentCell.classList.add('invalid');
+                        targetCell.classList.add('invalid');
+                        hasError = true;
+                    }
+                }
+            });
+
+            // 4. 성공 메시지 처리
+            if (isAllFilled && !hasError) {
+                successMessage.style.display = 'block';
+            } else {
+                successMessage.style.display = 'none';
+            }
+        }
+
+        function markRowInvalid(row) {
+            for (let c = 0; c < N; c++) {
+                document.getElementById(`cell-${row}-${c}`).classList.add('invalid');
+            }
+        }
+
+        function markColInvalid(col) {
+            for (let r = 0; r < N; r++) {
+                document.getElementById(`cell-${r}-${col}`).classList.add('invalid');
+            }
+        }
+
+        // 현재 판 초기화
+        function resetGame() {
+            for (let r = 0; r < N; r++) {
+                for (let c = 0; c < N; c++) {
+                    const cell = document.getElementById(`cell-${r}-${c}`);
+                    if (cell && !cell.classList.contains('initial')) {
+                        cell.value = '';
+                    }
+                }
+            }
+            validateBoard();
+        }
+
+        // 새 게임 생성
+        function startNewGame() {
+            generateRandomPuzzle();
+            createBoard();
+        }
+
+        // 드롭다운 변경 시 구동 함수
+        function changeSize() {
+            N = parseInt(document.getElementById('boardSize').value);
+            startNewGame();
+        }
+
+        // 앱 최초 실행
+        startNewGame();
+    </script>
+</body>
+</html>

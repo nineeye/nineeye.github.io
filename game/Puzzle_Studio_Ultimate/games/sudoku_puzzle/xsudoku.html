@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대각선 스도쿠 (X-Sudoku)</title>
+    <!-- 메인과 통일된 스타일시트 적용 -->
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        .rules {
+            background: white;
+            max-width: 450px;
+            margin: 0 auto 15px auto;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            line-height: 1.5;
+        }
+        .rules span.x-indicator {
+            background-color: #e8f4f8;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #3498db;
+            color: #2980b9;
+        }
+
+        /* ★ 대각선(X) 라인 전용 시각 스타일 효과 ★ */
+        .cell.x-diagonal {
+            background-color: #eaf2f8 !important; /* 은은한 대각선 네온 블루빛 청량감 */
+        }
+        /* 고정된 대각선 칸 밸런스 조정 */
+        .cell.fixed.x-diagonal {
+            background-color: #cee3f6 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📐 대각선 스도쿠</h1>
+    <a href="index.html" class="back-link">← 게임 센터로 돌아가기</a>
+
+    <div class="rules">
+        기본 스도쿠 규칙에 플러스!<br>
+        <span class="x-indicator">대각선 X자 라인</span>의 9칸도 숫자가 <strong>중복 없이 1~9</strong>가 들어가야 합니다!
+    </div>
+    
+    <div id="board"></div>
+    
+    <div class="controls">
+        <button onclick="checkPuzzle()">정답 확인</button>
+        <button class="reset" onclick="resetPuzzle()">다시 풀기</button>
+        <button class="new-game" onclick="newGame()">새 게임</button>
+    </div>
+    
+    <p id="message"></p>
+
+    <script>
+        let currentBoard = []; 
+        let solution = [];     
+        let selectedCell = null;
+
+        function init() {
+            generateXSudoku();
+            createBoard();
+            document.addEventListener('keydown', handleKeyPress);
+        }
+
+        // 대각선 규칙이 반영된 보드 생성 알고리즘
+        function generateXSudoku() {
+            solution = Array(9).fill(null).map(() => Array(9).fill(0));
+            fillXBoard(solution);
+            
+            // 난이도를 높이기 위해 숫자 45개 제거 (매운맛)
+            currentBoard = solution.map(row => [...row]);
+            removeNumbers(currentBoard, 45);
+        }
+
+        // X-스도쿠 전용 백트래킹 알고리즘
+        function fillXBoard(board) {
+            for (let row = 0; row < 9; row++) {
+                for (let col = 0; col < 9; col++) {
+                    if (board[row][col] === 0) {
+                        let nums = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
+                        for (let num of nums) {
+                            if (isValidX(board, num, row, col)) {
+                                board[row][col] = num;
+                                if (fillXBoard(board)) return true;
+                                board[row][col] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function isValidX(board, num, row, col) {
+            // 1. 가로 세로 검사
+            for (let j = 0; j < 9; j++) if (board[row][j] === num) return false;
+            for (let i = 0; i < 9; i++) if (board[i][col] === num) return false;
+            
+            // 2. 3x3 박스 검사
+            const boxRow = Math.floor(row / 3) * 3;
+            const boxCol = Math.floor(col / 3) * 3;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[boxRow + i][boxCol + j] === num) return false;
+                }
+            }
+
+            // 3. ★ 대각선 (\ 방향) 중복 검사 ★
+            if (row === col) {
+                for (let i = 0; i < 9; i++) {
+                    if (board[i][i] === num) return false;
+                }
+            }
+
+            // 4. ★ 대각선 (/ 방향) 중복 검사 ★
+            if (row + col === 8) {
+                for (let i = 0; i < 9; i++) {
+                    if (board[i][8 - i] === num) return false;
+                }
+            }
+
+            return true;
+        }
+
+        function removeNumbers(board, count) {
+            let removed = 0;
+            while (removed < count) {
+                let r = Math.floor(Math.random() * 9);
+                let c = Math.floor(Math.random() * 9);
+                if (board[r][c] !== 0) {
+                    board[r][c] = 0;
+                    removed++;
+                }
+            }
+        }
+
+        function isDiagonalCell(r, c) {
+            return (r === c) || (r + c === 8);
+        }
+
+        function createBoard() {
+            const boardEl = document.getElementById('board');
+            boardEl.innerHTML = '';
+            
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    
+                    // 대각선 위치일 경우 특수 디자인 클래스 부여
+                    if (isDiagonalCell(r, c)) {
+                        cell.classList.add('x-diagonal');
+                    }
+                    
+                    if (currentBoard[r][c] !== 0) {
+                        cell.classList.add('fixed');
+                        cell.textContent = currentBoard[r][c];
+                    } else {
+                        cell.classList.add('user-input');
+                    }
+                    
+                    cell.addEventListener('click', () => selectCell(r, c));
+                    boardEl.appendChild(cell);
+                }
+            }
+            updateHighlights();
+        }
+
+        function selectCell(row, col) {
+            selectedCell = { row, col };
+            updateHighlights();
+        }
+
+        function updateHighlights() {
+            const cells = document.querySelectorAll('.cell');
+            
+            let selectedValue = 0;
+            if (selectedCell) {
+                const sCell = document.querySelector(`.cell[data-row="${selectedCell.row}"][data-col="${selectedCell.col}"]`);
+                if (sCell && sCell.textContent) {
+                    selectedValue = parseInt(sCell.textContent);
+                }
+            }
+
+            cells.forEach(cell => {
+                cell.classList.remove('selected', 'highlight', 'same-number', 'error');
+                
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const value = cell.textContent ? parseInt(cell.textContent) : 0;
+                
+                // 실시간 대각선 룰 위반 및 일반 규칙 위반 체크
+                if (value !== 0 && currentBoard[r][c] === 0) {
+                    if (hasConflictX(r, c, value)) {
+                        cell.classList.add('error');
+                    }
+                }
+                
+                if (selectedCell) {
+                    const { row: sr, col: sc } = selectedCell;
+                    
+                    if (r === sr && c === sc) {
+                        cell.classList.add('selected');
+                    }
+                    else if (r === sr || c === sc || (Math.floor(r/3) === Math.floor(sr/3) && Math.floor(c/3) === Math.floor(sc/3))) {
+                        cell.classList.add('highlight');
+                    }
+                    
+                    if (selectedValue !== 0 && value === selectedValue) {
+                        cell.classList.add('same-number');
+                    }
+                }
+            });
+        }
+
+        // 대각선 충돌 감지 로직
+        function hasConflictX(row, col, value) {
+            const cells = document.querySelectorAll('.cell');
+            let conflict = false;
+
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const v = cell.textContent ? parseInt(cell.textContent) : 0;
+                
+                if (r === row && c === col) return;
+                if (v !== value) return;
+
+                // 1. 가로, 세로, 박스 중복 검사
+                if (r === row || c === col || (Math.floor(r/3) === Math.floor(row/3) && Math.floor(c/3) === Math.floor(col/3))) {
+                    conflict = true;
+                }
+
+                // 2. \ 대각선 중복 검사
+                if (row === col && r === c) {
+                    conflict = true;
+                }
+
+                // 3. / 대각선 중복 검사
+                if (row + col === 8 && r + c === 8) {
+                    conflict = true;
+                }
+            });
+            return conflict;
+        }
+
+        function handleKeyPress(e) {
+            if (!selectedCell) return;
+            const { row, col } = selectedCell;
+            
+            if (e.key === 'ArrowUp' && row > 0) { selectCell(row - 1, col); e.preventDefault(); }
+            else if (e.key === 'ArrowDown' && row < 8) { selectCell(row + 1, col); e.preventDefault(); }
+            else if (e.key === 'ArrowLeft' && col > 0) { selectCell(row, col - 1); e.preventDefault(); }
+            else if (e.key === 'ArrowRight' && col < 8) { selectCell(row, col + 1); e.preventDefault(); }
+            
+            else if (!document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`).classList.contains('fixed')) {
+                const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                
+                if (e.key >= '1' && e.key <= '9') {
+                    cell.textContent = e.key;
+                    updateHighlights();
+                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                    cell.textContent = '';
+                    updateHighlights();
+                }
+            }
+        }
+
+        function checkPuzzle() {
+            const messageEl = document.getElementById('message');
+            const cells = document.querySelectorAll('.cell');
+            let isComplete = true;
+            let hasError = false;
+
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const v = cell.textContent ? parseInt(cell.textContent) : 0;
+
+                if (!v) isComplete = false;
+                if (cell.classList.contains('error') || (v && v !== solution[r][c])) {
+                    hasError = true;
+                }
+            });
+
+            if (!isComplete) {
+                messageEl.textContent = '⚠️ 빈칸을 전부 채운 뒤 검사해 주세요!';
+                messageEl.style.color = '#e67e22';
+            } else if (hasError) {
+                messageEl.textContent = '❌ 규칙을 위반했거나 틀린 칸이 있습니다.';
+                messageEl.style.color = '#e74c3c';
+            } else {
+                messageEl.textContent = '🎉 대단합니다! 매운맛 대각선 스도쿠를 클리어하셨습니다! 🏆';
+                messageEl.style.color = '#27ae60';
+            }
+        }
+
+        function resetPuzzle() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                if (currentBoard[r][c] === 0) cell.textContent = '';
+            });
+            document.getElementById('message').textContent = '';
+            selectedCell = null;
+            updateHighlights();
+        }
+
+        function newGame() {
+            generateXSudoku();
+            createBoard();
+            document.getElementById('message').textContent = '🎮 새 대각선 맵이 준비되었습니다!';
+            document.getElementById('message').style.color = '#3498db';
+            selectedCell = null;
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

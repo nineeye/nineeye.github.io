@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>킹스 스도쿠 (King's Sudoku)</title>
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        .rules {
+            background: white;
+            max-width: 450px;
+            margin: 0 auto 15px auto;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            line-height: 1.5;
+        }
+        .rules span.king-indicator {
+            background-color: #fef9e7;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #f1c40f;
+            color: #d35400;
+        }
+
+        /* 난이도 선택 버튼 스타일 */
+        .diff-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .diff-btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: 2px solid #ccc;
+            border-radius: 20px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .diff-btn.active {
+            color: white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        .diff-btn.easy.active { background-color: #27ae60; border-color: #27ae60; }
+        .diff-btn.medium.active { background-color: #e67e22; border-color: #e67e22; }
+        .diff-btn.hard.active { background-color: #c0392b; border-color: #c0392b; }
+
+        /* 체스 킹의 공격 범위 인접 하이라이트 효과 */
+        .cell.king-range {
+            background-color: #fef5e7 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>👑 킹스 스도쿠</h1>
+    <a href="index.html" class="back-link">← 게임 센터로 돌아가기</a>
+
+    <div class="rules">
+        기본 스도쿠 규칙에 체스 룰 가미!<br>
+        모든 숫자는 <span class="king-indicator">자신을 둘러싼 인접한 8칸(대각선 포함)</span>에 <strong>똑같은 숫자가 올 수 없습니다!</strong>
+    </div>
+
+    <div class="diff-buttons">
+        <button class="diff-btn easy active" onclick="changeDifficulty('easy')">쉬움 (Easy)</button>
+        <button class="diff-btn medium" onclick="changeDifficulty('medium')">보통 (Medium)</button>
+        <button class="diff-btn hard" onclick="changeDifficulty('hard')">어려움 (Hard)</button>
+    </div>
+    
+    <div id="board"></div>
+    
+    <div class="controls">
+        <button onclick="checkPuzzle()">정답 확인</button>
+        <button class="reset" onclick="resetPuzzle()">다시 풀기</button>
+        <button class="new-game" onclick="newGame()">새 게임</button>
+    </div>
+    
+    <p id="message"></p>
+
+    <script>
+        let currentBoard = []; 
+        let solution = [];     
+        let selectedCell = null;
+        let currentDifficulty = 'easy';
+
+        // 난이도별 남겨둘 힌트 숫자 개수 정의
+        const diffSettings = { easy: 46, medium: 35, hard: 24 };
+
+        function init() {
+            generateKingsSudoku();
+            createBoard();
+            document.addEventListener('keydown', handleKeyPress);
+        }
+
+        function changeDifficulty(diff) {
+            currentDifficulty = diff;
+            document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.diff-btn.${diff}`).classList.add('active');
+            newGame();
+        }
+
+        function generateKingsSudoku() {
+            solution = Array(9).fill(null).map(() => Array(9).fill(0));
+            fillKingsBoard(solution);
+            
+            currentBoard = solution.map(row => [...row]);
+            let totalCells = 81;
+            let removeCount = totalCells - diffSettings[currentDifficulty];
+            removeNumbers(currentBoard, removeCount);
+        }
+
+        function fillKingsBoard(board) {
+            for (let row = 0; row < 9; row++) {
+                for (let col = 0; col < 9; col++) {
+                    if (board[row][col] === 0) {
+                        let nums = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
+                        for (let num of nums) {
+                            if (isValidKing(board, num, row, col)) {
+                                board[row][col] = num;
+                                if (fillKingsBoard(board)) return true;
+                                board[row][col] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        // 킹스 스도쿠 핵심 검증 로직
+        function isValidKing(board, num, row, col) {
+            // 1. 기존 가로, 세로, 3x3 박스 체크
+            for (let j = 0; j < 9; j++) if (board[row][j] === num) return false;
+            for (let i = 0; i < 9; i++) if (board[i][col] === num) return false;
+            
+            const boxRow = Math.floor(row / 3) * 3;
+            const boxCol = Math.floor(col / 3) * 3;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[boxRow + i][boxCol + j] === num) return false;
+                }
+            }
+
+            // 2. ★ 체스 킹 규칙: 인접 8방향 대각선 중복 검사 ★
+            for (let dr = -1; dr <= 1; dr++) {
+                for (let dc = -1; dc <= 1; dc++) {
+                    if (dr === 0 && dc === 0) continue;
+                    let nr = row + dr;
+                    let nc = col + dc;
+                    if (nr >= 0 && nr < 9 && nc >= 0 && nc < 9) {
+                        if (board[nr][nc] === num) return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        function removeNumbers(board, count) {
+            let removed = 0;
+            while (removed < count) {
+                let r = Math.floor(Math.random() * 9);
+                let c = Math.floor(Math.random() * 9);
+                if (board[r][c] !== 0) {
+                    board[r][c] = 0;
+                    removed++;
+                }
+            }
+        }
+
+        function createBoard() {
+            const boardEl = document.getElementById('board');
+            boardEl.innerHTML = '';
+            
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    
+                    if (currentBoard[r][c] !== 0) {
+                        cell.classList.add('fixed');
+                        cell.textContent = currentBoard[r][c];
+                    } else {
+                        cell.classList.add('user-input');
+                    }
+                    
+                    cell.addEventListener('click', () => selectCell(r, c));
+                    boardEl.appendChild(cell);
+                }
+            }
+            updateHighlights();
+        }
+
+        function selectCell(row, col) {
+            selectedCell = { row, col };
+            updateHighlights();
+        }
+
+        function updateHighlights() {
+            const cells = document.querySelectorAll('.cell');
+            
+            let selectedValue = 0;
+            if (selectedCell) {
+                const sCell = document.querySelector(`.cell[data-row="${selectedCell.row}"][data-col="${selectedCell.col}"]`);
+                if (sCell && sCell.textContent) {
+                    selectedValue = parseInt(sCell.textContent);
+                }
+            }
+
+            cells.forEach(cell => {
+                cell.classList.remove('selected', 'highlight', 'same-number', 'error', 'king-range');
+                
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const value = cell.textContent ? parseInt(cell.textContent) : 0;
+                
+                // 실시간 규칙 위반 체크
+                if (value !== 0 && currentBoard[r][c] === 0) {
+                    if (hasConflictKing(r, c, value)) {
+                        cell.classList.add('error');
+                    }
+                }
+                
+                if (selectedCell) {
+                    const { row: sr, col: sc } = selectedCell;
+                    
+                    if (r === sr && c === sc) {
+                        cell.classList.add('selected');
+                    }
+                    // 가로 세로 박스 기본 가이드
+                    else if (r === sr || c === sc || (Math.floor(r/3) === Math.floor(sr/3) && Math.floor(c/3) === Math.floor(sc/3))) {
+                        cell.classList.add('highlight');
+                    }
+                    // ★ 비주얼 팁: 현재 선택한 칸 주변 8칸 범위 은은하게 표시 ★
+                    else if (Math.abs(r - sr) <= 1 && Math.abs(c - sc) <= 1) {
+                        cell.classList.add('king-range');
+                    }
+                    
+                    if (selectedValue !== 0 && value === selectedValue) {
+                        cell.classList.add('same-number');
+                    }
+                }
+            });
+        }
+
+        function hasConflictKing(row, col, value) {
+            const cells = document.querySelectorAll('.cell');
+            let conflict = false;
+
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const v = cell.textContent ? parseInt(cell.textContent) : 0;
+                
+                if (r === row && c === col) return;
+                if (v !== value) return;
+
+                // 1. 일반 스도쿠 범위 중복
+                if (r === row || c === col || (Math.floor(r/3) === Math.floor(row/3) && Math.floor(c/3) === Math.floor(col/3))) {
+                    conflict = true;
+                }
+
+                // 2. 킹 범위(인접 8칸) 중복
+                if (Math.abs(r - row) <= 1 && Math.abs(c - col) <= 1) {
+                    conflict = true;
+                }
+            });
+            return conflict;
+        }
+
+        function handleKeyPress(e) {
+            if (!selectedCell) return;
+            const { row, col } = selectedCell;
+            
+            if (e.key === 'ArrowUp' && row > 0) { selectCell(row - 1, col); e.preventDefault(); }
+            else if (e.key === 'ArrowDown' && row < 8) { selectCell(row + 1, col); e.preventDefault(); }
+            else if (e.key === 'ArrowLeft' && col > 0) { selectCell(row, col - 1); e.preventDefault(); }
+            else if (e.key === 'ArrowRight' && col < 8) { selectCell(row, col + 1); e.preventDefault(); }
+            
+            else if (!document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`).classList.contains('fixed')) {
+                const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                
+                if (e.key >= '1' && e.key <= '9') {
+                    cell.textContent = e.key;
+                    updateHighlights();
+                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                    cell.textContent = '';
+                    updateHighlights();
+                }
+            }
+        }
+
+        function checkPuzzle() {
+            const messageEl = document.getElementById('message');
+            const cells = document.querySelectorAll('.cell');
+            let isComplete = true;
+            let hasError = false;
+
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const v = cell.textContent ? parseInt(cell.textContent) : 0;
+
+                if (!v) isComplete = false;
+                if (cell.classList.contains('error') || (v && v !== solution[r][c])) {
+                    hasError = true;
+                }
+            });
+
+            if (!isComplete) {
+                messageEl.textContent = '⚠️ 빈칸을 전부 채운 뒤 검사해 주세요!';
+                messageEl.style.color = '#e67e22';
+            } else if (hasError) {
+                messageEl.textContent = '❌ 킹스 규칙(인접 칸 중복 등) 위반 또는 틀린 칸이 있습니다.';
+                messageEl.style.color = '#e74c3c';
+            } else {
+                messageEl.textContent = `🎉 축하합니다! 킹스 스도쿠 [${currentDifficulty.toUpperCase()}] 클리어! 👑`;
+                messageEl.style.color = '#27ae60';
+            }
+        }
+
+        function resetPuzzle() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                if (currentBoard[r][c] === 0) cell.textContent = '';
+            });
+            document.getElementById('message').textContent = '';
+            selectedCell = null;
+            updateHighlights();
+        }
+
+        function newGame() {
+            generateKingsSudoku();
+            createBoard();
+            document.getElementById('message').textContent = `🎮 새 킹스 스도쿠 판이 준비되었습니다! (${currentDifficulty === 'easy' ? '쉬움' : currentDifficulty === 'medium' ? '보통' : '어려움'})`;
+            document.getElementById('message').style.color = '#3498db';
+            selectedCell = null;
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스도쿠 퍼즐</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<body>
+    <h1>🧩 스도쿠</h1>
+    
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-box legend-fixed">5</div>
+            <span>초기 숫자</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-box legend-user">3</div>
+            <span>내 답안</span>
+        </div>
+    </div>
+
+    <div class="difficulty-selector">
+        <button class="diff-btn active" onclick="setDifficulty('easy')">쉬움</button>
+        <button class="diff-btn" onclick="setDifficulty('medium')">중간</button>
+        <button class="diff-btn" onclick="setDifficulty('hard')">어려움</button>
+    </div>
+    
+    <div id="board"></div>
+    
+    <div class="controls">
+        <button onclick="checkPuzzle()">정답 확인</button>
+        <button class="reset" onclick="resetPuzzle()">다시 풀기</button>
+        <button class="new-game" onclick="newGame()">새로 시작</button>
+        <button class="solve" onclick="showSolution()">정답 보기</button>
+    </div>
+    
+    <p id="message"></p>
+    <p class="info">💡 키보드 방향키(↑↓←→)로 이동, 숫자(1~9) 입력, Backspace/Delete로 삭제</p>
+
+    <script src="script1.js"></script>
+</body>
+</html>

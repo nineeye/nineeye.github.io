@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>홀짝 스도쿠 (Odd-Even Sudoku)</title>
+    <!-- 메인과 통일된 스타일시트 적용 -->
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        /* 홀짝 스도쿠 전용 추가 디자인 스타일 */
+        .rules {
+            background: white;
+            max-width: 450px;
+            margin: 0 auto 15px auto;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            line-height: 1.5;
+        }
+        .rules span.even-indicator {
+            background-color: #eaeded;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #bdc3c7;
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🔴 홀짝 스도쿠</h1>
+    <a href="index.html" class="back-link">← 게임 센터로 돌아가기</a>
+
+    <div class="rules">
+        기본 스도쿠 규칙과 동일하며, <span class="even-indicator">회색 음영 칸</span>에는 <br><strong>무조건 짝수(2, 4, 6, 8)</strong>만 들어갈 수 있습니다!
+    </div>
+    
+    <div id="board"></div>
+    
+    <div class="controls">
+        <button onclick="checkPuzzle()">정답 확인</button>
+        <button class="reset" onclick="resetPuzzle()">다시 풀기</button>
+        <button class="new-game" onclick="newGame()">새 게임</button>
+    </div>
+    
+    <p id="message"></p>
+
+    <script>
+        let currentBoard = []; // 유저가 보는 판 (0은 빈칸)
+        let solution = [];     // 백트래킹 정답 매트릭스
+        let evenMask = [];     // 짝수 칸 조건 맵 (true 면 짝수 칸)
+        let selectedCell = null;
+
+        function init() {
+            generateOddEvenSudoku();
+            createBoard();
+            document.addEventListener('keydown', handleKeyPress);
+        }
+
+        // 1. 완벽한 스도쿠 기본형 판 생성
+        function generateOddEvenSudoku() {
+            solution = Array(9).fill(null).map(() => Array(9).fill(0));
+            fillBoard(solution);
+            
+            // 정답 기반으로 짝수(2,4,6,8)가 들어있는 위치를 마스킹
+            evenMask = Array(9).fill(null).map(() => Array(9).fill(false));
+            for(let r=0; r<9; r++){
+                for(let c=0; c<9; c++){
+                    if(solution[r][c] % 2 === 0) {
+                        // 정답이 짝수인 자리 중 60% 확률로 유저에게 회색 '짝수 힌트 칸' 제공
+                        if(Math.random() < 0.6) evenMask[r][c] = true;
+                    }
+                }
+            }
+
+            // 문제 출제를 위해 숫자 40개 제거
+            currentBoard = solution.map(row => [...row]);
+            removeNumbers(currentBoard, 40);
+        }
+
+        // 백트래킹 라틴 매트릭스 알고리즘
+        function fillBoard(board) {
+            for (let row = 0; row < 9; row++) {
+                for (let col = 0; col < 9; col++) {
+                    if (board[row][col] === 0) {
+                        let nums = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
+                        for (let num of nums) {
+                            if (isValid(board, num, row, col)) {
+                                board[row][col] = num;
+                                if (fillBoard(board)) return true;
+                                board[row][col] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function isValid(board, num, row, col) {
+            for (let j = 0; j < 9; j++) if (board[row][j] === num) return false;
+            for (let i = 0; i < 9; i++) if (board[i][col] === num) return false;
+            const boxRow = Math.floor(row / 3) * 3;
+            const boxCol = Math.floor(col / 3) * 3;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[boxRow + i][boxCol + j] === num) return false;
+                }
+            }
+            return true;
+        }
+
+        function removeNumbers(board, count) {
+            let removed = 0;
+            while (removed < count) {
+                let r = Math.floor(Math.random() * 9);
+                let c = Math.floor(Math.random() * 9);
+                if (board[r][c] !== 0) {
+                    board[r][c] = 0;
+                    removed++;
+                }
+            }
+        }
+
+        // 2. 화면 보드 렌더링
+        function createBoard() {
+            const boardEl = document.getElementById('board');
+            boardEl.innerHTML = '';
+            
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'cell';
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    
+                    // 짝수 마스크 칸 구별 지정
+                    if (evenMask[r][c]) {
+                        cell.classList.add('even-zone');
+                    }
+                    
+                    if (currentBoard[r][c] !== 0) {
+                        cell.classList.add('fixed');
+                        cell.textContent = currentBoard[r][c];
+                    } else {
+                        cell.classList.add('user-input');
+                    }
+                    
+                    cell.addEventListener('click', () => selectCell(r, c));
+                    boardEl.appendChild(cell);
+                }
+            }
+            updateHighlights();
+        }
+
+        function selectCell(row, col) {
+            selectedCell = { row, col };
+            updateHighlights();
+        }
+
+        // ★ 버그 완벽 수정본: 다른 빈칸들이 좀비처럼 감염되지 않도록 로직 교정 ★
+        function updateHighlights() {
+            const cells = document.querySelectorAll('.cell');
+            
+            // 현재 선택된 칸의 진짜 숫자 파악 (화면 텍스트 기준)
+            let selectedValue = 0;
+            if (selectedCell) {
+                const sCell = document.querySelector(`.cell[data-row="${selectedCell.row}"][data-col="${selectedCell.col}"]`);
+                if (sCell && sCell.textContent) {
+                    selectedValue = parseInt(sCell.textContent);
+                }
+            }
+
+            cells.forEach(cell => {
+                cell.classList.remove('selected', 'highlight', 'same-number', 'error');
+                
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const value = cell.textContent ? parseInt(cell.textContent) : 0;
+                
+                // 1. 실시간 규칙 위반(에러) 체크
+                if (value !== 0 && currentBoard[r][c] === 0) {
+                    if (hasConflict(r, c, value) || (evenMask[r][c] && value % 2 !== 0)) {
+                        cell.classList.add('error');
+                    }
+                }
+                
+                // 2. 하이라이트 및 같은 숫자 시각 효과 처리
+                if (selectedCell) {
+                    const { row: sr, col: sc } = selectedCell;
+                    
+                    // 선택된 칸 자체
+                    if (r === sr && c === sc) {
+                        cell.classList.add('selected');
+                    }
+                    // 행, 열, 3x3 구역 하이라이트
+                    else if (r === sr || c === sc || (Math.floor(r/3) === Math.floor(sr/3) && Math.floor(c/3) === Math.floor(sc/3))) {
+                        cell.classList.add('highlight');
+                    }
+                    
+                    // 실제 숫자 데이터가 존재하고 선택한 숫자와 정확히 일치할 때만 똑같은 숫자 강조!
+                    if (selectedValue !== 0 && value === selectedValue) {
+                        cell.classList.add('same-number');
+                    }
+                }
+            });
+        }
+
+        function hasConflict(row, col, value) {
+            const cells = document.querySelectorAll('.cell');
+            let conflict = false;
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const v = cell.textContent ? parseInt(cell.textContent) : 0;
+                
+                if ((r === row && c !== col) || (c === col && r !== row) || 
+                    (Math.floor(r/3) === Math.floor(row/3) && Math.floor(c/3) === Math.floor(col/3) && !(r === row && c === col))) {
+                    if (v === value) conflict = true;
+                }
+            });
+            return conflict;
+        }
+
+        // ★ 키보드 입력 인터랙션 처리 수정본 ★
+        function handleKeyPress(e) {
+            if (!selectedCell) return;
+            const { row, col } = selectedCell;
+            
+            if (e.key === 'ArrowUp' && row > 0) { selectCell(row - 1, col); e.preventDefault(); }
+            else if (e.key === 'ArrowDown' && row < 8) { selectCell(row + 1, col); e.preventDefault(); }
+            else if (e.key === 'ArrowLeft' && col > 0) { selectCell(row, col - 1); e.preventDefault(); }
+            else if (e.key === 'ArrowRight' && col < 8) { selectCell(row, col + 1); e.preventDefault(); }
+            
+            // 시스템 고정 칸(fixed)이 아닐 때만 값 입력 변경 허용
+            else if (!document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`).classList.contains('fixed')) {
+                const cell = document.querySelector(`.cell[data-row="${row}"][data-col="${col}"]`);
+                
+                if (e.key >= '1' && e.key <= '9') {
+                    cell.textContent = e.key;
+                    updateHighlights(); // 입력 직후 실시간 하이라이트 동기화
+                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                    cell.textContent = '';
+                    updateHighlights();
+                }
+            }
+        }
+
+        // 정답 수동 확인
+        function checkPuzzle() {
+            const messageEl = document.getElementById('message');
+            const cells = document.querySelectorAll('.cell');
+            let isComplete = true;
+            let hasError = false;
+
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const v = cell.textContent ? parseInt(cell.textContent) : 0;
+
+                if (!v) isComplete = false;
+                if (cell.classList.contains('error') || (v && v !== solution[r][c])) {
+                    hasError = true;
+                }
+            });
+
+            if (!isComplete) {
+                messageEl.textContent = '⚠️ 빈칸을 전부 채운 뒤 검사해 주세요!';
+                messageEl.style.color = '#e67e22';
+            } else if (hasError) {
+                messageEl.textContent = '❌ 틀린 칸이 있거나 규칙을 위반했습니다. 확인해 보세요.';
+                messageEl.style.color = '#e74c3c';
+            } else {
+                messageEl.textContent = '🎉 완벽합니다! 짝수 조건을 모두 파해하셨습니다! 🎉';
+                messageEl.style.color = '#27ae60';
+            }
+        }
+
+        function resetPuzzle() {
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                if (currentBoard[r][c] === 0) cell.textContent = '';
+            });
+            document.getElementById('message').textContent = '';
+            selectedCell = null;
+            updateHighlights();
+        }
+
+        function newGame() {
+            generateOddEvenSudoku();
+            createBoard();
+            document.getElementById('message').textContent = '🎮 새 게임판이 준비되었습니다!';
+            document.getElementById('message').style.color = '#3498db';
+            selectedCell = null;
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>

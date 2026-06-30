@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>킬러 스도쿠 (Killer Sudoku)</title>
+    <!-- 메인과 통일된 스타일시트 적용 -->
+    <link rel="stylesheet" href="style1.css">
+    <style>
+        .rules {
+            background: white;
+            max-width: 450px;
+            margin: 0 auto 15px auto;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            line-height: 1.5;
+        }
+        .rules span.killer-indicator {
+            background-color: #fcedf2;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border: 1px solid #ff0844;
+            color: #ff0844;
+        }
+
+        /* ★ 난이도 선택 버튼 스타일 ★ */
+        .diff-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        .diff-btn {
+            padding: 8px 16px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            border: 2px solid #ccc;
+            border-radius: 20px;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .diff-btn.active {
+            color: white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        .diff-btn.easy.active { background-color: #27ae60; border-color: #27ae60; }
+        .diff-btn.medium.active { background-color: #e67e22; border-color: #e67e22; }
+        .diff-btn.hard.active { background-color: #c0392b; border-color: #c0392b; }
+
+        .killer-cell {
+            position: relative;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: 500;
+            cursor: pointer;
+            user-select: none;
+            box-sizing: border-box;
+            border: 1.5px dashed #555;
+        }
+
+        .cage-sum {
+            position: absolute;
+            top: 2px;
+            left: 4px;
+            font-size: 11px;
+            font-weight: 800;
+            color: #222;
+            line-height: 1;
+            z-index: 5;
+        }
+
+        .killer-cell.user-input { color: #130cb7; font-weight: 600; }
+        .killer-cell.selected { background-color: #f1c40f !important; box-shadow: inset 0 0 10px rgba(0,0,0,0.3); z-index: 10; }
+        .killer-cell.highlight { filter: brightness(0.9); }
+        .killer-cell.same-number { background-color: #2ec4b6 !important; color: white !important; }
+        .killer-cell.error { color: #e74c3c !important; background-color: #fadbd8 !important; font-weight: bold; }
+
+        .cage-color-0 { background-color: #fff2cc; }
+        .cage-color-1 { background-color: #e1f5fe; }
+        .cage-color-2 { background-color: #fce4ec; }
+        .cage-color-3 { background-color: #e8f5e9; }
+        .cage-color-4 { background-color: #f3e5f5; }
+        .cage-color-5 { background-color: #efebe9; }
+        .cage-color-6 { background-color: #e0f2f1; }
+    </style>
+</head>
+<body>
+
+    <h1>⚔️ 킬러 스도쿠</h1>
+    <a href="index.html" class="back-link">← 게임 센터로 돌아가기</a>
+
+    <div class="rules">
+        점선 구역의 <span class="killer-indicator">왼쪽 위 숫자</span>는 구역 내 칸들의 <strong>총합</strong>입니다!
+    </div>
+
+    <!-- ★ 난이도 선택 버튼 UI ★ -->
+    <div class="diff-buttons">
+        <button class="diff-btn easy active" onclick="changeDifficulty('easy')">쉬움 (Easy)</button>
+        <button class="diff-btn medium" onclick="changeDifficulty('medium')">보통 (Medium)</button>
+        <button class="diff-btn hard" onclick="changeDifficulty('hard')">어려움 (Hard)</button>
+    </div>
+    
+    <div id="board"></div>
+    
+    <div class="controls">
+        <button onclick="checkPuzzle()">정답 확인</button>
+        <button class="reset" onclick="resetPuzzle()">다시 풀기</button>
+        <button class="new-game" onclick="newGame()">새 게임</button>
+    </div>
+    
+    <p id="message"></p>
+
+    <script>
+        let currentBoard = []; 
+        let solution = [];     
+        let cageMap = [];      
+        let cageSums = {};     
+        let cageCells = {};    
+        let cageColorIds = {}; 
+        let selectedCell = null;
+        let currentDifficulty = 'easy'; // 기본 난이도는 쉬움으로 세팅
+
+        function init() {
+            generateKillerSudoku();
+            createBoard();
+            document.addEventListener('keydown', handleKeyPress);
+        }
+
+        // 난이도 변경 함수
+        function changeDifficulty(diff) {
+            currentDifficulty = diff;
+            document.querySelectorAll('.diff-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.diff-btn.${diff}`).classList.add('active');
+            newGame();
+        }
+
+        function generateKillerSudoku() {
+            solution = Array(9).fill(null).map(() => Array(9).fill(0));
+            fillBoard(solution);
+            currentBoard = Array(9).fill(null).map(() => Array(9).fill(0));
+            generateCages();
+        }
+
+        function fillBoard(board) {
+            for (let row = 0; row < 9; row++) {
+                for (let col = 0; col < 9; col++) {
+                    if (board[row][col] === 0) {
+                        let nums = [1,2,3,4,5,6,7,8,9].sort(() => Math.random() - 0.5);
+                        for (let num of nums) {
+                            if (isValid(board, num, row, col)) {
+                                board[row][col] = num;
+                                if (fillBoard(board)) return true;
+                                board[row][col] = 0;
+                            }
+                        }
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function isValid(board, num, row, col) {
+            for (let j = 0; j < 9; j++) if (board[row][j] === num) return false;
+            for (let i = 0; i < 9; i++) if (board[i][col] === num) return false;
+            const boxRow = Math.floor(row / 3) * 3;
+            const boxCol = Math.floor(col / 3) * 3;
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[boxRow + i][boxCol + j] === num) return false;
+                }
+            }
+            return true;
+        }
+
+        // ★ 난이도별 주머니 크기 조절 매직 알고리즘 ★
+        function generateCages() {
+            cageMap = Array(9).fill(null).map(() => Array(9).fill(-1));
+            cageSums = {};
+            cageCells = {};
+            cageColorIds = {};
+            let cageId = 0;
+
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    if (cageMap[r][c] !== -1) continue;
+
+                    let currentCage = [[r, c]];
+                    cageMap[r][c] = cageId;
+
+                    // 난이도별 주머니 최대 칸 수 설정
+                    let maxSize = 2; 
+                    if (currentDifficulty === 'medium') maxSize = Math.random() < 0.4 ? 3 : 2;
+                    if (currentDifficulty === 'hard') maxSize = Math.random() < 0.3 ? 4 : (Math.random() < 0.6 ? 3 : 2);
+
+                    let directions = [[0, 1], [1, 0]]; 
+                    
+                    for (let i = 1; i < maxSize; i++) {
+                        let last = currentCage[currentCage.length - 1];
+                        let moved = false;
+                        directions.sort(() => Math.random() - 0.5);
+                        
+                        for (let [dr, dc] of directions) {
+                            let nr = last[0] + dr;
+                            let nc = last[1] + dc;
+                            if (nr < 9 && nc < 9 && cageMap[nr][nc] === -1) {
+                                cageMap[nr][nc] = cageId;
+                                currentCage.push([nr, nc]);
+                                moved = true;
+                                break;
+                            }
+                        }
+                        if (!moved) break;
+                    }
+
+                    let sum = 0;
+                    currentCage.forEach(([cr, cc]) => {
+                        sum += solution[cr][cc];
+                    });
+
+                    cageSums[cageId] = sum;
+                    cageCells[cageId] = currentCage;
+
+                    let neighborColors = new Set();
+                    currentCage.forEach(([cr, cc]) => {
+                        let checks = [[-1,0], [1,0], [0,-1], [0,1]];
+                        checks.forEach(([dr, dc]) => {
+                            let nr = cr + dr, nc = cc + dc;
+                            if (nr >= 0 && nr < 9 && nc >= 0 && nc < 9) {
+                                let nCageId = cageMap[nr][nc];
+                                if (nCageId !== -1 && nCageId !== cageId && cageColorIds[nCageId] !== undefined) {
+                                    neighborColors.add(cageColorIds[nCageId]);
+                                }
+                            }
+                        });
+                    });
+
+                    let chosenColor = 0;
+                    for (let colorIdx = 0; colorIdx < 7; colorIdx++) {
+                        if (!neighborColors.has(colorIdx)) {
+                            chosenColor = colorIdx;
+                            break;
+                        }
+                    }
+                    cageColorIds[cageId] = chosenColor;
+                    cageId++;
+                }
+            }
+        }
+
+        function createBoard() {
+            const boardEl = document.getElementById('board');
+            boardEl.innerHTML = '';
+            
+            for (let r = 0; r < 9; r++) {
+                for (let c = 0; c < 9; c++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'killer-cell';
+                    cell.dataset.row = r;
+                    cell.dataset.col = c;
+                    
+                    const cId = cageMap[r][c];
+                    cell.classList.add(`cage-color-${cageColorIds[cId]}`);
+
+                    if ((c + 1) % 3 === 0 && c !== 8) cell.style.borderRight = "3px solid #111";
+                    if ((r + 1) % 3 === 0 && r !== 8) cell.style.borderBottom = "3px solid #111";
+                    if (c === 0) cell.style.borderLeft = "3px solid #111";
+                    if (r === 0) cell.style.borderTop = "3px solid #111";
+
+                    const firstCell = cageCells[cId][0];
+                    if (firstCell[0] === r && firstCell[1] === c) {
+                        const sumLabel = document.createElement('span');
+                        sumLabel.className = 'cage-sum';
+                        sumLabel.textContent = cageSums[cId];
+                        cell.appendChild(sumLabel);
+                    }
+                    
+                    cell.classList.add('user-input');
+                    cell.addEventListener('click', () => selectCell(r, c));
+                    boardEl.appendChild(cell);
+                }
+            }
+            updateHighlights();
+        }
+
+        function selectCell(row, col) {
+            selectedCell = { row, col };
+            updateHighlights();
+        }
+
+        function updateHighlights() {
+            const cells = document.querySelectorAll('.killer-cell');
+            
+            let selectedValue = 0;
+            if (selectedCell) {
+                const sCell = document.querySelector(`.killer-cell[data-row="${selectedCell.row}"][data-col="${selectedCell.col}"]`);
+                if (sCell) {
+                    let text = Array.from(sCell.childNodes)
+                                    .filter(node => node.nodeType === Node.TEXT_NODE)
+                                    .map(node => node.textContent.trim()).join('');
+                    if (text) selectedValue = parseInt(text);
+                }
+            }
+
+            let currentCageSums = {};
+            let cageCounts = {};
+            for (let id in cageSums) { currentCageSums[id] = 0; cageCounts[id] = 0; }
+
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const cId = cageMap[r][c];
+                let text = Array.from(cell.childNodes).filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent.trim()).join('');
+                const v = text ? parseInt(text) : 0;
+                
+                if (v !== 0) {
+                    currentCageSums[cId] += v;
+                    cageCounts[cId]++;
+                }
+            });
+
+            cells.forEach(cell => {
+                cell.classList.remove('selected', 'highlight', 'same-number', 'error');
+                
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                const cId = cageMap[r][c];
+                let text = Array.from(cell.childNodes).filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent.trim()).join('');
+                const v = text ? parseInt(text) : 0;
+                
+                if (v !== 0) {
+                    let totalMax = cageSums[cId];
+                    let currentSum = currentCageSums[cId];
+                    let totalCellsCount = cageCells[cId].length;
+
+                    if (hasConflict(r, c, v) || currentSum > totalMax || (cageCounts[cId] === totalCellsCount && currentSum !== totalMax)) {
+                        cell.classList.add('error');
+                    }
+                }
+                
+                if (selectedCell) {
+                    const { row: sr, col: sc } = selectedCell;
+                    
+                    if (r === sr && c === sc) {
+                        cell.classList.add('selected');
+                    }
+                    else if (r === sr || c === sc || (Math.floor(r/3) === Math.floor(sr/3) && Math.floor(c/3) === Math.floor(sc/3))) {
+                        cell.classList.add('highlight');
+                    }
+                    
+                    if (selectedValue !== 0 && v === selectedValue) {
+                        cell.classList.add('same-number');
+                    }
+                }
+            });
+        }
+
+        function hasConflict(row, col, value) {
+            const cells = document.querySelectorAll('.killer-cell');
+            let conflict = false;
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                let text = Array.from(cell.childNodes).filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent.trim()).join('');
+                const v = text ? parseInt(text) : 0;
+                
+                if ((r === row && c !== col) || (c === col && r !== row) || 
+                    (Math.floor(r/3) === Math.floor(row/3) && Math.floor(c/3) === Math.floor(col/3) && !(r === row && c === col))) {
+                    if (v === value) conflict = true;
+                }
+            });
+            return conflict;
+        }
+
+        function handleKeyPress(e) {
+            if (!selectedCell) return;
+            const { row, col } = selectedCell;
+            
+            if (e.key === 'ArrowUp' && row > 0) { selectCell(row - 1, col); e.preventDefault(); }
+            else if (e.key === 'ArrowDown' && row < 8) { selectCell(row + 1, col); e.preventDefault(); }
+            else if (e.key === 'ArrowLeft' && col > 0) { selectCell(row, col - 1); e.preventDefault(); }
+            else if (e.key === 'ArrowRight' && col < 8) { selectCell(row, col + 1); e.preventDefault(); }
+            
+            else {
+                const cell = document.querySelector(`.killer-cell[data-row="${row}"][data-col="${col}"]`);
+                
+                if (e.key >= '1' && e.key <= '9') {
+                    removeTextNodes(cell);
+                    cell.appendChild(document.createTextNode(e.key));
+                    updateHighlights();
+                } else if (e.key === 'Backspace' || e.key === 'Delete') {
+                    removeTextNodes(cell);
+                    updateHighlights();
+                }
+            }
+        }
+
+        function removeTextNodes(el) {
+            let nodes = Array.from(el.childNodes);
+            nodes.forEach(node => {
+                if (node.nodeType === Node.TEXT_NODE) el.removeChild(node);
+            });
+        }
+
+        function checkPuzzle() {
+            const messageEl = document.getElementById('message');
+            const cells = document.querySelectorAll('.killer-cell');
+            let isComplete = true;
+            let hasError = false;
+
+            cells.forEach(cell => {
+                const r = parseInt(cell.dataset.row);
+                const c = parseInt(cell.dataset.col);
+                let text = Array.from(cell.childNodes).filter(node => node.nodeType === Node.TEXT_NODE).map(node => node.textContent.trim()).join('');
+                const v = text ? parseInt(text) : 0;
+
+                if (!v) isComplete = false;
+                if (cell.classList.contains('error') || (v && v !== solution[r][c])) {
+                    hasError = true;
+                }
+            });
+
+            if (!isComplete) {
+                messageEl.textContent = '⚠️ 빈칸을 전부 채운 뒤 연산 매칭 검사를 해주세요!';
+                messageEl.style.color = '#e67e22';
+            } else if (hasError) {
+                messageEl.textContent = '❌ 합산 규칙 오류 또는 잘못 배치된 숫자가 존재합니다.';
+                messageEl.style.color = '#e74c3c';
+            } else {
+                messageEl.textContent = `🏆 대성공!! [${currentDifficulty.toUpperCase()}] 모드를 정복하셨습니다! 🎉`;
+                messageEl.style.color = '#27ae60';
+            }
+        }
+
+        function resetPuzzle() {
+            const cells = document.querySelectorAll('.killer-cell');
+            cells.forEach(cell => { removeTextNodes(cell); });
+            document.getElementById('message').textContent = '';
+            selectedCell = null;
+            updateHighlights();
+        }
+
+        function newGame() {
+            generateKillerSudoku();
+            createBoard();
+            document.getElementById('message').textContent = `🎮 [${currentDifficulty === 'easy' ? '쉬움' : currentDifficulty === 'medium' ? '보통' : '어려움'}] 난이도로 새 맵이 생성되었습니다!`;
+            document.getElementById('message').style.color = '#3498db';
+            selectedCell = null;
+        }
+
+        window.onload = init;
+    </script>
+</body>
+</html>
