@@ -9,8 +9,8 @@ pdf2image
 pypdf
 pdfplumber
 openpyxl
-pypdf
 pytesseract
 Pillow
 python-docx
 reportlab
+PyPDF2
