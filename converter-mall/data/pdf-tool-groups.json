@@ -1,0 +1,59 @@
+{
+  "version": "1.40.0",
+  "groups": [
+    {
+      "id": "convert",
+      "label": "변환·내보내기",
+      "order": 10,
+      "description": "PDF를 이미지·텍스트 등 다른 형식으로 변환하는 도구"
+    },
+    {
+      "id": "page-edit",
+      "label": "페이지 편집",
+      "order": 20,
+      "description": "페이지 합치기·분할·회전·삭제·추출·재배열 도구"
+    },
+    {
+      "id": "layout",
+      "label": "레이아웃·인쇄",
+      "order": 30,
+      "description": "용지 크기·여백·자르기·흑백·압축·페이지 장식 도구"
+    },
+    {
+      "id": "metadata",
+      "label": "메타데이터·문서 정보",
+      "order": 40,
+      "description": "문서 속성과 구조 정보를 확인하거나 정리하는 도구"
+    },
+    {
+      "id": "forms",
+      "label": "양식·주석·링크",
+      "order": 50,
+      "description": "양식 필드·주석·링크를 분석하거나 정리하는 도구"
+    },
+    {
+      "id": "security",
+      "label": "보안·배포",
+      "order": 60,
+      "description": "배포 전 위험 요소와 민감정보를 점검하고 안전본을 만드는 도구"
+    },
+    {
+      "id": "resources",
+      "label": "리소스·구조 분석",
+      "order": 70,
+      "description": "글꼴·이미지·페이지 리소스·첨부파일·북마크를 분석하는 도구"
+    },
+    {
+      "id": "content",
+      "label": "텍스트·콘텐츠 분석",
+      "order": 80,
+      "description": "키워드·언어·표·날짜·금액·제목 후보를 분석하는 도구"
+    },
+    {
+      "id": "quality",
+      "label": "품질·비교·OCR 준비",
+      "order": 90,
+      "description": "문서 버전 비교·OCR 준비·텍스트 품질·인쇄 상태를 점검하는 도구"
+    }
+  ]
+}

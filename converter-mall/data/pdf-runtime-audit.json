@@ -1,0 +1,23 @@
+{
+  "version": "1.41.1",
+  "pdfTools": 60,
+  "checks": [
+    "공통 런타임 로더 연결",
+    "pdf-lib 로딩 상태",
+    "PDF.js 로딩 상태",
+    "Worker 경로",
+    "핵심 PDF 페이지 HTTP 응답",
+    "테스트 fixture 존재"
+  ],
+  "fixtures": [
+    "01_text_mixed_sizes.pdf",
+    "02_blank_pages.pdf",
+    "03_form_fields.pdf",
+    "04_compare_v1.pdf",
+    "04_compare_v2.pdf"
+  ],
+  "notes": [
+    "PDF 라이브러리 로컬 번들이 없으면 CDN을 사용합니다.",
+    "진단 페이지는 검색엔진 색인에서 제외됩니다."
+  ]
+}

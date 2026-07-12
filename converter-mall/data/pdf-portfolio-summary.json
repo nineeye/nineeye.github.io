@@ -1,0 +1,49 @@
+{
+  "version": "1.40.0",
+  "totalPdfTools": 60,
+  "byGroup": {
+    "convert": {
+      "label": "변환·내보내기",
+      "count": 4
+    },
+    "page-edit": {
+      "label": "페이지 편집",
+      "count": 9
+    },
+    "layout": {
+      "label": "레이아웃·인쇄",
+      "count": 8
+    },
+    "metadata": {
+      "label": "메타데이터·문서 정보",
+      "count": 5
+    },
+    "forms": {
+      "label": "양식·주석·링크",
+      "count": 6
+    },
+    "security": {
+      "label": "보안·배포",
+      "count": 3
+    },
+    "resources": {
+      "label": "리소스·구조 분석",
+      "count": 6
+    },
+    "content": {
+      "label": "텍스트·콘텐츠 분석",
+      "count": 10
+    },
+    "quality": {
+      "label": "품질·비교·OCR 준비",
+      "count": 9
+    }
+  },
+  "byAccessLevel": {
+    "free": 22,
+    "pro": 13,
+    "professional": 25
+  },
+  "requiresInternet": 60,
+  "generatedAt": "2026-07-12"
+}
