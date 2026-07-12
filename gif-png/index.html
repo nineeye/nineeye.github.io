@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GIF → PNG 변환기 - 온라인 GIF PNG 변환 | Converter Mall</title>
+<meta name="theme-color" content="#2563eb">
+<meta name="color-scheme" content="light dark">
+
+<link rel="icon" href="../../assets/icons/converter-mall.svg" type="image/svg+xml">
+<link rel="manifest" href="../../site.webmanifest">
+<link rel="apple-touch-icon" href="../../assets/icons/converter-mall-192.png">
+<script type="module" src="../../assets/js/pwa-register.js"></script>
+<meta name="description" content="GIF 파일을 PNG 형식으로 변환하세요. 파일 선택, 옵션 설정, 일괄 처리와 다운로드를 브라우저에서 간편하게 이용할 수 있습니다.">
+<link rel="stylesheet" href="../../assets/css/image-converter-page.css?v=20260712-popular-pack1">
+
+<meta name="keywords" content="GIF → PNG, GIF PNG 변환, GIF를 PNG로, PNG 변환기">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="GIF → PNG 변환기 - 온라인 GIF PNG 변환 | Converter Mall">
+<meta property="og:description" content="GIF 파일을 PNG 형식으로 변환하세요. 파일 선택, 옵션 설정, 일괄 처리와 다운로드를 브라우저에서 간편하게 이용할 수 있습니다.">
+<link rel="stylesheet" href="../../assets/css/foundation-seo.css?v=1.9.0">
+<script type="module" src="../../assets/js/page-foundation.js?v=1.9.0"></script>
+<meta name="robots" content="index,follow">
+</head>
+<body>
+<noscript>이 변환기는 JavaScript가 필요합니다.</noscript>
+<script type="module">
+import { GIF_PNG_DEFINITION } from "./converter.definition.js";
+import { mountConverterPage } from "../../assets/js/image-platform/templates/ConverterPageTemplate.js";
+mountConverterPage(GIF_PNG_DEFINITION);
+const { start } = await import("./app.js?v=20260712-popular-pack1");
+await start();
+</script>
+</body>
+</html>
