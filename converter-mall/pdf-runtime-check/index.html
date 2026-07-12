@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PDF 엔진 진단 - Converter Mall</title><meta name="description" content="Converter Mall PDF 도구의 편집 엔진, 렌더링 엔진과 Worker 연결 상태를 확인합니다."><meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../assets/css/main.css"><link rel="stylesheet" href="../assets/css/pdf-runtime-check.css?v=1.41.1"><script type="module" src="../assets/js/theme.js"></script></head>
+<body><header class="header"><a class="logo" href="../index.html" style="text-decoration:none">📁 Converter Mall</a><nav><button class="theme-btn" type="button">🌙</button></nav></header>
+<main class="diag-shell"><section class="diag-hero"><a href="../pdf-tools/">← PDF 도구 60개</a><h1>PDF 엔진 진단</h1><p>PDF 페이지가 열리지 않거나 엔진 준비 단계에서 멈출 때 이 페이지에서 라이브러리와 Worker 상태를 확인할 수 있습니다.</p></section>
+<div id="diagOverall" class="diag-overall warn">PDF 엔진 상태를 확인하고 있습니다.</div>
+<section class="diag-grid" aria-label="PDF 런타임 상태"><article class="diag-card" id="diagPdfLib"></article><article class="diag-card" id="diagPdfJs"></article><article class="diag-card" id="diagWorker"></article></section>
+<div class="diag-actions"><button id="diagRun" type="button">엔진 다시 검사</button><a href="../pdf-tools/">PDF 도구 목록</a><a href="../tests/pdf-fixtures/README.txt">테스트 파일 안내</a></div>
+<section class="diag-section"><h2>핵심 도구 빠른 점검</h2><div class="diag-tools">
+<a class="diag-tool" href="../converters/pdf-merge/"><span>PDF 합치기</span><span>열기 →</span></a>
+<a class="diag-tool" href="../converters/pdf-split/"><span>PDF 분할</span><span>열기 →</span></a>
+<a class="diag-tool" href="../converters/pdf-rotate/"><span>PDF 회전</span><span>열기 →</span></a>
+<a class="diag-tool" href="../converters/pdf-remove-blank/"><span>PDF 빈 페이지 제거</span><span>열기 →</span></a>
+<a class="diag-tool" href="../converters/pdf-png/"><span>PDF → PNG</span><span>열기 →</span></a>
+<a class="diag-tool" href="../converters/pdf-txt/"><span>PDF → TXT</span><span>열기 →</span></a>
+</div></section>
+<section class="diag-section"><div class="diag-note"><strong>현재 구조:</strong> 프로젝트 내부의 로컬 PDF 라이브러리를 먼저 확인하고, 없으면 두 개의 CDN을 순서대로 시도합니다. 파일 내용은 라이브러리 로딩 과정에서 외부로 전송되지 않습니다.</div></section>
+</main><script src="../assets/js/pdf-tools/PDFRuntimeLoader.js?v=1.41.1"></script><script src="../assets/js/pdf-tools/PDFRuntimeDiagnostics.js?v=1.41.1"></script><script type="module">import{initTheme}from'../assets/js/theme.js';document.addEventListener('DOMContentLoaded',initTheme);</script></body></html>
