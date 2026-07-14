@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://example.com/sitemap.xml
-# 배포 전 example.com을 실제 도메인으로 변경하세요.
