@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 480" role="img" aria-label="숙박 · 펜션 분야를 표현하는 일러스트레이션">
+<defs><linearGradient id="g" x2="1" y2="1"><stop stop-color="#e1eff1"/><stop offset="1" stop-color="#4e7c83" stop-opacity=".32"/></linearGradient><pattern id="p" width="28" height="28" patternUnits="userSpaceOnUse"><circle cx="3" cy="3" r="1.2" fill="#294c55" opacity=".14"/></pattern></defs>
+<rect width="720" height="480" rx="38" fill="url(#g)"/><rect width="720" height="480" fill="url(#p)"/>
+<circle cx="572" cy="96" r="114" fill="#4e7c83" opacity=".09"/><circle cx="108" cy="405" r="165" fill="#4e7c83" opacity=".12"/>
+<g transform="translate(198 66)" fill="#4e7c83" stroke="#4e7c83" stroke-linejoin="round"><path d="M13 299 124 95l76 136 43-71 111 139z"/><path d="m124 95 31 56-32 20-24-16zM243 160l29 49-24 17-24-31z" fill="white" opacity=".53"/><circle cx="275" cy="76" r="27" fill="white" opacity=".6"/></g>
+<rect x="24" y="24" width="672" height="432" rx="22" fill="none" stroke="#4e7c83" stroke-opacity=".18" stroke-width="2"/>
+</svg>
