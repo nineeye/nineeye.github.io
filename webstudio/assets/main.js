@@ -135,6 +135,7 @@ root.getElementById('download-estimate').addEventListener('click',()=>{
   const mailLink=root.getElementById('mail-estimate');
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
     mailLink.hidden=false;
+    mailLink.href=`mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent('[올파일원 웹스튜디오] 홈페이지 제작 문의')}`;
     mailLink.addEventListener('click',()=>{mailLink.href=`mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent('[올파일원 웹스튜디오] 홈페이지 제작 문의')}&body=${encodeURIComponent(quoteText())}`;});
     root.getElementById('lead-note').textContent='견적 문의는 방문자의 기본 이메일 앱을 통해 작성됩니다. 전송 여부는 이메일 앱에서 확인해야 합니다.';
   }
