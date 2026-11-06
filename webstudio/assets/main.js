@@ -119,15 +119,18 @@
     catch {info.textContent='자동 복사가 불가능한 환경입니다. HTTPS로 접속하여 다시 시도해 주세요.';}
   });
 
-  root.getElementById('download-estimate').addEventListener('click',()=>{
-    const brief = quoteText() + '\n\n[상담 준비 메모]\n제작 목적: \n필요한 페이지: \n원하는 일정: \n참고 사이트: \n';
-    const blob = new Blob(['\uFEFF',brief],{type:'text/plain;charset=utf-8'});
-    const url = URL.createObjectURL(blob);
-    const a = node('a'); a.href=url; a.download='allfileone_website_brief.txt';
-    document.body.append(a); a.click(); a.remove();
-    setTimeout(()=>URL.revokeObjectURL(url),1000);
-    root.getElementById('copy-feedback').textContent='구성서를 저장했습니다. 서버로 정보가 전송되지는 않습니다.';
-  });
+root.getElementById('download-estimate').addEventListener('click',()=>{
+  const text = quoteText() + '\n\n[상담 전에 정리할 사항]\n홈페이지의 목적: \n필요한 페이지: \n원하는 제작 시기: \n참고 사이트: \n';
+  const blob = new Blob(['\uFEFF',text],{type:'text/plain;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = node('a');
+  a.href = url;
+  a.download = 'allfileone_website_brief.txt';
+  document.body.append(a);
+  a.click();a.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1000);
+  root.getElementById('copy-feedback').textContent='구성서를 다운로드했습니다. 파일은 이 브라우저에서 생성되며 서버로 전송되지 않습니다.';
+});
   const email=(window.WEBSTUDIO_CONFIG?.contactEmail||'').trim();
   const mailLink=root.getElementById('mail-estimate');
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
@@ -157,4 +160,18 @@
     noResults.hidden=false;
     noResults.textContent='배포 파일에 assets/catalog.js가 포함되어 있는지 확인해 주세요.';
   }
+})();
+
+/* V4 accessible animations */
+'use strict';
+(()=>{
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ if(!('IntersectionObserver' in window))return;
+ const targets=[...document.querySelectorAll('.section-head,.gallery-card,.solution-card,.value-grid article,.price-card,.delivery-steps article,.proof-choices a')];
+ targets.forEach((el,i)=>{el.classList.add('observe-reveal');el.style.setProperty('--reveal-delay',(i%3)*70+'ms');});
+ const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('is-visible');observer.unobserve(e.target);}});},{threshold:.08,rootMargin:'0px 0px 10px 0px'});
+ targets.forEach(el=>observer.observe(el));
+ // Cards created after the initial script (catalog).
+ const grid=document.getElementById('gallery-grid');
+ if(grid){const cards=new MutationObserver(()=>{grid.querySelectorAll('.gallery-card:not(.observe-reveal)').forEach((el,i)=>{el.classList.add('observe-reveal');el.style.setProperty('--reveal-delay',(i%3)*65+'ms');observer.observe(el);});});cards.observe(grid,{childList:true});}
 })();
