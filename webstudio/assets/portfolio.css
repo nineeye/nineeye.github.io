@@ -12,3 +12,10 @@
 @media(max-width:700px){.wrap{width:min(100% - 32px,1180px)}.pf-nav{min-height:66px}.pf-links{display:none}.pf-hero{padding:65px 0 62px}.pf-hero p{font-size:14px}.pf-diagram{padding:24px}.pf-intro{padding-top:58px}.pf-grid{grid-template-columns:1fr}.pf-visual{min-height:190px}.pf-body{padding:21px}.pf-stepgrid{grid-template-columns:1fr 1fr}.pf-close .wrap{flex-direction:column;align-items:flex-start}.pf-footer .wrap{flex-direction:column;align-items:flex-start}.pf-search{width:100%}.pf-search input{flex:1;width:100%}.pf-selection{bottom:6px;gap:6px;padding:10px;border-radius:12px}.pf-selection strong{width:100%}.pf-selection button,.pf-selection a{flex:1;text-align:center;padding:9px 7px;font-size:11px}}
 @media(max-width:400px){.pf-stepgrid{grid-template-columns:1fr}.pf-hero h1{font-size:37px}.pf-diagram h2{font-size:23px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.pf-btn,.pf-case{transition:none!important}.pf-case:hover,.pf-btn:hover{transform:none!important}}
+
+
+/* Focus visibility and nonvisual status updates. */
+.sr-only{position:absolute!important;width:1px!important;height:1px!important;padding:0!important;overflow:hidden!important;clip:rect(0,0,0,0)!important;white-space:nowrap!important;border:0!important}
+.pf-search:focus-within{outline:3px solid #25a98c;outline-offset:3px}
+.pf-search input:focus-visible{outline:none}
+.pf-case:focus-within{box-shadow:0 0 0 3px #65c3a7,0 18px 40px #173d3017}
