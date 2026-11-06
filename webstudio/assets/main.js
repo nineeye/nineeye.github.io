@@ -118,6 +118,16 @@
     try {await copyText(quoteText());info.textContent='견적 내용이 복사되었습니다. 상담 접수는 아직 연결되지 않았습니다.';}
     catch {info.textContent='자동 복사가 불가능한 환경입니다. HTTPS로 접속하여 다시 시도해 주세요.';}
   });
+
+  root.getElementById('download-estimate').addEventListener('click',()=>{
+    const brief = quoteText() + '\n\n[상담 준비 메모]\n제작 목적: \n필요한 페이지: \n원하는 일정: \n참고 사이트: \n';
+    const blob = new Blob(['\uFEFF',brief],{type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(blob);
+    const a = node('a'); a.href=url; a.download='allfileone_website_brief.txt';
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),1000);
+    root.getElementById('copy-feedback').textContent='구성서를 저장했습니다. 서버로 정보가 전송되지는 않습니다.';
+  });
   const email=(window.WEBSTUDIO_CONFIG?.contactEmail||'').trim();
   const mailLink=root.getElementById('mail-estimate');
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){
