@@ -1,0 +1,10 @@
+/* V33: clear next step from illustrative pricing to visitor-controlled project brief */
+.estimate-actions .v33-estimate-cta{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:13px 18px;border-radius:4px;background:#d6eee1;color:#173b30;border:1px solid #74b29a;text-decoration:none;font-size:13px;font-weight:850;line-height:1.45}
+.estimate-actions .v33-estimate-cta:hover{background:#bbebd2}
+.estimate-actions .v33-estimate-cta:focus-visible{outline:3px solid #217b59;outline-offset:3px}
+.estimate-panel .v33-help{margin:12px 0 0;color:#526f60;font-size:12px;line-height:1.7}
+.v33-imported-quote{padding:15px 16px;margin:14px 0 18px;border-radius:8px;background:#e8f5ec;color:#174333;border-left:4px solid #397c5d;line-height:1.8;font-size:13px;overflow-wrap:anywhere}
+.v33-imported-quote strong{display:block;font-size:14px;line-height:1.7}
+.v33-imported-quote p{margin:6px 0 0;font-size:12px}
+.v33-imported-quote[hidden]{display:none!important}
+@media(max-width:640px){.estimate-actions .v33-estimate-cta{width:100%;min-height:48px}.v33-imported-quote{padding:12px 13px}}
