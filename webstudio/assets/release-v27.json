@@ -1,0 +1,37 @@
+{
+  "product": "AllFileOne WebStudio",
+  "release_id": "WEBSTUDIO-V27-20261107",
+  "version": "V27",
+  "release_date": "2026-11-07",
+  "github_repo": "nineeye/nineeye.github.io",
+  "release_scope": [
+    "contact.html",
+    "index.html",
+    "site-check.html",
+    "assets/demo.js",
+    "assets/v27-demo-bridge.js",
+    "assets/v27-conversion.css",
+    "assets/v27-contact-context.js",
+    "assets/v27-contact-context.css",
+    "assets/v25-audit.js",
+    "assets/release-v27.json"
+  ],
+  "preserved": [
+    "12 industries × 3 styles",
+    "V26 client-side project brief",
+    "V25 public-file self-test",
+    "V24 mock result exports",
+    "V23 demo workflows",
+    "V22 landing page",
+    "free builder",
+    "modules"
+  ],
+  "contact_mode": "allowlisted static demo identifiers -> client-side brief -> mailto user-confirmed send",
+  "not_included": [
+    "real server inquiry receipt",
+    "automatic email sending",
+    "real order or payment",
+    "guaranteed deployment"
+  ],
+  "deployment": "not_attested_by_manifest"
+}
