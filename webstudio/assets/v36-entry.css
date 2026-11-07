@@ -1,0 +1,8 @@
+/* V36: lightweight entry point to the independently tested 1-minute fit checker. */
+.v36-fit-link{display:inline-flex;align-items:center;flex-wrap:wrap;gap:12px;max-width:100%;border:1px solid rgba(194,245,187,.55);border-radius:8px;padding:13px 17px;margin:20px 0 2px;color:#f1fff2;background:rgba(184,246,180,.09);font-size:13px;font-weight:800;text-decoration:none;transition:background .2s,border-color .2s,transform .2s}
+.v36-fit-link .v36-fit-new{font-size:10px;letter-spacing:.1em;background:#c7f2b7;color:#153b2d;border-radius:3px;padding:4px 7px;white-space:nowrap}
+.v36-fit-link b{font-size:16px;margin-left:auto}
+.v36-fit-link:hover{background:rgba(184,246,180,.18);border-color:#c4f7b9;transform:translateY(-1px)}
+.v36-fit-link:focus-visible{outline:3px solid #b7efad;outline-offset:3px}
+@media(max-width:560px){.v36-fit-link{width:100%;gap:7px;font-size:12px;padding:12px}.v36-fit-link .v36-fit-new{font-size:9px}}
+@media(prefers-reduced-motion:reduce){.v36-fit-link{transition:none}}

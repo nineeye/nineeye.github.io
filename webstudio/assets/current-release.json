@@ -1,11 +1,14 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V35",
-  "release_id": "WEBSTUDIO-V35-20261107",
-  "release_date": "2026-11-07",
+  "version": "V36",
+  "release_id": "WEBSTUDIO-V36-20261108",
+  "release_date": "2026-11-08",
   "function_count": 48,
   "demo_count": 36,
-  "release_note": "V35 publishes original 3-tier scope transparency comparison and allowlisted V33 quotation-to-client-brief handoff, no server submission, 102/102 isolated browser checks",
-  "verification": "PUBLIC_FILE_PRESENCE_ONLY",
+  "fit_check_industry_count": 12,
+  "fit_check_goal_count": 4,
+  "fit_check_style_count": 3,
+  "release_note": "V36 adds original 1-minute 12-industry/4-goal/3-style website planning aid, 36 existing live HTML demos handoff and contact brief; isolated browser QA 107/107, Cloudflare deployment unverified",
+  "verification": "ISOLATED_BROWSER_PASS_LIVE_PENDING",
   "archive_reuse_industry_count": 3
 }

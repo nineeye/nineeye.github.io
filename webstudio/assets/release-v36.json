@@ -1,0 +1,14 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V36",
+  "release_id": "WEBSTUDIO-V36-20261108",
+  "release_date": "2026-11-08",
+  "function_count": 48,
+  "demo_count": 36,
+  "fit_check_industry_count": 12,
+  "fit_check_goal_count": 4,
+  "fit_check_style_count": 3,
+  "release_note": "V36 adds original 1-minute sector/goal/style fit checker with 12x4x3 deterministic planning combinations, 36 real demo links and consultation handoff; no backend or data collection",
+  "verification": "ISOLATED_BROWSER_PASS_LIVE_PENDING",
+  "archive_reuse_industry_count": 3
+}
