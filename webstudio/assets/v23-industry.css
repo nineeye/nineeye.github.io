@@ -78,3 +78,13 @@
 @media(max-width:1000px){.v23-hero-shell,.v23-hero--manufacturing .v23-hero-shell,.v23-hero--professional .v23-hero-shell,.v23-hero--clinic .v23-hero-shell,.v23-hero--franchise .v23-hero-shell,.v23-hero--event .v23-hero-shell,.v23-hero--interior .v23-hero-shell,.v23-hero--stay .v23-hero-shell,.v23-hero--academy .v23-hero-shell,.v23-hero--association .v23-hero-shell,.v23-style--editorial.v23-hero .v23-hero-shell{grid-template-columns:1fr}.v23-hero--event .v23-hero-copy{order:0}.v23-hero--event .v23-hero-visual{order:0}.v23-hero-copy{padding:55px 7vw 40px}.v23-hero-visual{min-height:490px}.v23-hero--academy .v23-hero-visual,.v23-hero--association .v23-hero-visual{margin:0;min-height:420px}.v23-workflow-header{align-items:start;flex-direction:column}}
 @media(max-width:600px){.v23-hero h1{font-size:clamp(38px,9.4vw,56px)!important}.v23-hero-copy{padding:41px 23px 35px}.v23-hero-visual{min-height:340px}.v23-bottom-rail{padding:15px 23px;font-size:8px}.v23-bp-drawing{min-height:250px}.v23-blueprint{padding:22px}.v23-clinic{padding:28px}.v23-clinic-row{grid-template-columns:1fr auto;gap:5px}.v23-clinic-row span{display:none}.v23-interior-pane{min-height:320px}.v23-commerce{padding:20px}.v23-commerce-object{transform:scale(.75)}.v23-corp-type{font-size:clamp(58px,13vw,80px)}.v23-corp{padding:35px 20px}.v23-academy h3{font-size:72px}.v23-franchise-main{font-size:65px}.v23-event strong{font-size:clamp(62px,15vw,90px)}.v23-workflow-inner{width:calc(100% - 34px)}.v23-workflow-chip{white-space:normal}.v23-fields{padding:18px}.v23-field{flex-basis:100%}.v23-run,.v23-clear{width:100%}.v23-workflow-header{margin-bottom:18px}.v23-workflow{padding:50px 0}.v23-result{padding:16px}}
 @media(prefers-reduced-motion:reduce){.v23-hero-cta{transition:none}}
+
+/* V24: result export controls. The workflow remains usable without export. */
+.v24-result-tools{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:13px}
+.v24-result-tools[hidden]{display:none!important}
+.v24-export{min-height:42px;padding:10px 16px;border:1px solid #386756;background:#fff;color:#234d40;font:800 12px system-ui,'Malgun Gothic',sans-serif;cursor:pointer}
+.v24-export:hover{background:#e6f1e9}
+.v24-export:focus-visible{outline:3px solid #d18a39;outline-offset:3px}
+.v24-privacy{font-size:11px;color:#5f776b}
+.v24-export-status{min-height:18px;margin:10px 0 0;color:#416a5b;font-size:12px;line-height:1.6}
+@media(max-width:600px){.v24-result-tools{align-items:stretch}.v24-export{flex:1 1 130px}}
