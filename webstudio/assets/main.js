@@ -26,6 +26,8 @@
     if (text !== undefined) el.textContent = text;
     return el;
   }
+  // Only feature indices are remembered in this browser tab; no personal data.
+  const selectedByIndustry = new Map();
   function makeCard(item, index) {
     const article = node('article','gallery-card');
     article.style.setProperty('--card-accent',item.accent);
@@ -66,7 +68,9 @@
     const proof = node('section','v30-proof');
     proof.setAttribute('aria-label',item.name+' 실제 작동하는 시연 기능');
     const proofHeading = node('h4','v30-proof-title','직접 체험할 기능 4가지');
+    const proofHint = node('p','v31-proof-hint','기능을 체험하거나 필요한 항목을 체크해 상담서에 담아보세요.');
     const proofList = node('ol','v30-proof-list');
+    const selected = selectedByIndustry.get(item.id) || new Set();
     const actualFunctions = window.ALLFILEONE_V28_CATALOG?.[item.id]?.features;
     if (Array.isArray(actualFunctions) && actualFunctions.length === 4) {
       actualFunctions.forEach((feature, featureIndex) => {
@@ -74,10 +78,26 @@
         const link = node('a','v30-proof-link',feature.title+' ↗');
         link.href = `demo/${item.id}/${styleSelect.value}/index.html?feature=${featureIndex}#v28-tools`;
         link.setAttribute('aria-label',item.name+' '+feature.title+' 기능 직접 체험하기');
-        li.append(link);
+        const pickLabel = node('label','v31-pick');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'v31-pick-input';
+        checkbox.value = String(featureIndex);
+        checkbox.checked = selected.has(featureIndex);
+        checkbox.setAttribute('aria-label',item.name+' '+feature.title+' 상담 기능으로 선택');
+        const pickCaption = node('span','v31-pick-caption','담기');
+        pickLabel.append(checkbox,pickCaption);
+        checkbox.addEventListener('change',()=>{
+          const set = selectedByIndustry.get(item.id) || new Set();
+          if (checkbox.checked) set.add(featureIndex);
+          else set.delete(featureIndex);
+          selectedByIndustry.set(item.id,set);
+          updateConsult();
+        });
+        li.append(link,pickLabel);
         proofList.append(li);
       });
-      proof.append(proofHeading,proofList);
+      proof.append(proofHeading,proofHint,proofList);
     } else {
       // Fail closed rather than advertising nonexistent working features.
       proof.append(node('p','v30-proof-missing','기능 목록을 불러오지 못했습니다. 샘플 페이지에서 확인해 주세요.'));
@@ -93,8 +113,15 @@
       root.getElementById('estimate').scrollIntoView({behavior:'smooth'});
     });
     const consult = node('a','card-consult','이 시안으로 상담 ↗');
-    consult.href = `contact.html?industry=${encodeURIComponent(item.id)}&theme=${encodeURIComponent(styleSelect.value)}`;
-    consult.setAttribute('aria-label',`${item.name} ${styleSelect.selectedOptions[0].textContent} 디자인으로 제작 상담 준비하기`);
+    function updateConsult() {
+      const picked = [...(selectedByIndustry.get(item.id) || [])].filter(n=>Number.isInteger(n) && n>=0 && n<4).sort((a,b)=>a-b);
+      const query = new URLSearchParams({industry:item.id,theme:styleSelect.value,source:'gallery'});
+      if (picked.length) query.set('selected',picked.join(','));
+      consult.href = 'contact.html?' + query.toString();
+      consult.textContent = picked.length ? picked.length+'개 기능을 담아 상담하기 ↗' : '이 시안으로 상담 ↗';
+      consult.setAttribute('aria-label',item.name+' '+styleSelect.selectedOptions[0].textContent+' 디자인'+(picked.length?' / '+picked.length+'개 선택 기능':'')+' 제작 상담 준비하기');
+    }
+    updateConsult();
     footer.append(link,quote,consult);
     bottom.append(top,title,description,proof,footer);
     article.append(art,bottom);
