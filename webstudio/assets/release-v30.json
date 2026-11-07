@@ -1,0 +1,28 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V30",
+  "release_id": "WEBSTUDIO-V30-20261107",
+  "release_date": "2026-11-07",
+  "industry_count": 12,
+  "demo_count": 36,
+  "industry_feature_count": 48,
+  "direct_feature_links": 144,
+  "changes": [
+    "Homepage reads the existing real V28 function catalog before main.js",
+    "Each of twelve industry cards lists four actual demo features, linked to the selected style and selected tab",
+    "Safe query parameter feature=0..3 activates the requested demo tab after asynchronous content insertion",
+    "Mobile-friendly feature cards with keyboard focus states",
+    "Current release pointer and static HTML badge updated to V30"
+  ],
+  "preserves": [
+    "V29 genuine screenshot portfolio",
+    "V28 calculations, filtering, comparison and exports",
+    "V27 lead handoff",
+    "V26 consultation form",
+    "free builder and 36 demo pages"
+  ],
+  "real_bookings": false,
+  "real_payments": false,
+  "backend_data_collection": false,
+  "deployment": "NOT_ATTESTED_BY_MANIFEST"
+}
