@@ -1,0 +1,12 @@
+{
+  "product": "AllFileOne WebStudio",
+  "release_id": "WEBSTUDIO-V26-20261107",
+  "version": "V26",
+  "release_date": "2026-11-07",
+  "github_repo": "nineeye/nineeye.github.io",
+  "release_scope": ["contact.html", "assets/v26-contact.css", "assets/v26-contact.js", "assets/release-v26.json"],
+  "preserved": ["V25 site-check", "V24 export", "V23 industry demos", "V22 homepage", "builder", "modules", "36 design samples"],
+  "contact_mode": "local browser preview + mailto user-confirmed send + clipboard or TXT fallback",
+  "not_supported": ["server-side inquiry receipt", "automatic email sending", "guaranteed delivery", "online payment"],
+  "deployment": "not_attested"
+}
