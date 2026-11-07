@@ -1,0 +1,72 @@
+/* AllFileOne WebStudio V29 — genuine demo screenshots in the main gallery.
+ * Screenshots are of our own fictional demo sites; not delivered client work.
+ * No external images, fonts, tracking, or additional dependencies.
+ */
+.gallery-card .v29-shot-stage{
+  display:block;
+  grid-template-columns:none;
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  background:#edf0ed;
+  border:1px solid #d6e2dc;
+}
+.gallery-card .v29-real-shot{
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+  transition:transform .32s ease;
+}
+.gallery-card .card-visual:is(:hover,:focus-visible) .v29-real-shot{
+  transform:scale(1.045);
+}
+.gallery-card .v29-shot-tag{
+  position:absolute;
+  left:10px;
+  bottom:10px;
+  padding:6px 9px;
+  background:#16312ce8;
+  color:#f6fff9;
+  font-size:10px;
+  line-height:1.4;
+  font-weight:800;
+  border-radius:4px;
+  pointer-events:none;
+}
+.gallery-card .card-footer{
+  flex-wrap:wrap;
+  gap:12px 8px;
+}
+.gallery-card .card-consult{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  flex-basis:100%;
+  min-height:41px;
+  padding:11px 13px;
+  border:1px solid #b6d5c5;
+  background:#eaf5ee;
+  border-radius:7px;
+  color:#1b5549;
+  font-size:12px;
+  line-height:1.5;
+  font-weight:800;
+}
+.gallery-card .card-consult:hover{
+  background:#d5eee1;
+  border-color:#77b79a;
+}
+.gallery-card .card-consult:focus-visible{
+  outline:3px solid #287a63;
+  outline-offset:3px;
+}
+@media(max-width:740px){
+  .gallery-card .v29-real-shot{object-fit:cover;}
+  .gallery-card .card-consult{min-height:44px;}
+}
+@media(prefers-reduced-motion:reduce){
+  .gallery-card .v29-real-shot{transition:none;}
+  .gallery-card .card-visual:is(:hover,:focus-visible) .v29-real-shot{transform:none;}
+}
