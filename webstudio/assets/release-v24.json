@@ -1,0 +1,10 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V24",
+  "release_id": "WEBSTUDIO-V24-20261107",
+  "release_date": "2026-11-07",
+  "scope": "client-only industry demo enhancements",
+  "features": ["12 unique industry demos", "36 demo pages preserved", "client-side TXT result export", "clipboard action with clear fallback", "keyboard Enter activation", "stay check-in no earlier than today"],
+  "not_included": ["real orders or payments", "real booking confirmation", "server-side inquiry collection"],
+  "deployment": "not-attested-by-this-file"
+}
