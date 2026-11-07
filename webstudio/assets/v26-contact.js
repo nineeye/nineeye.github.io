@@ -28,13 +28,30 @@
   const safe = (object, key, empty = '선택하지 않음') => Object.prototype.hasOwnProperty.call(object,key) ? object[key] : empty;
   const chosenFeatures = () => [...form.querySelectorAll('input[name="feature"]:checked')]
     .map(input => safe(data.features, input.value, '')).filter(Boolean);
+  // V31: the URL conveys at most four numeric feature indices; names are read
+  // from our own trusted local catalog, never copied from untrusted query text.
+  const galleryChoice = (() => {
+    const query = new URLSearchParams(window.location.search);
+    const industry = query.get('industry');
+    const raw = query.get('selected') || '';
+    if (query.get('source') !== 'gallery' ||
+        !Object.prototype.hasOwnProperty.call(data.industries,industry) ||
+        !/^[0-3](?:,[0-3]){0,3}$/.test(raw)) return {industry:'',titles:[]};
+    const features = window.ALLFILEONE_V28_CATALOG?.[industry]?.features;
+    if (!Array.isArray(features) || features.length !== 4) return {industry:'',titles:[]};
+    const titles = [...new Set(raw.split(',').map(Number))]
+      .map(n => features[n]?.title).filter(t => typeof t === 'string' && t.length <= 80);
+    return {industry,titles};
+  })();
+  const importedTitles = () => get('industry') === galleryChoice.industry ? galleryChoice.titles : [];
   function briefLines() {
     return [
       '[올파일원 웹스튜디오 · 홈페이지 제작 상담 준비서]',
       '업종: ' + safe(data.industries, get('industry')),
       '디자인: ' + safe(data.themes, get('theme')),
       '목표: ' + safe(data.goals, get('goal')),
-      '필요 기능: ' + (chosenFeatures().join(', ') || '미정'),
+      '필요 기능: ' + (chosenFeatures().join(', ') || '미정') +
+        (importedTitles().length ? ' / 시연에서 선택한 기능: ' + importedTitles().join(', ') : ''),
       '예산: ' + safe(data.budgets, get('budget'), '미정'),
       '일정: ' + safe(data.timings, get('timing'), '협의 가능'),
       '추가 요청: ' + (get('details').trim() || '없음'),
@@ -49,6 +66,14 @@
     const theme = safe(data.themes, get('theme'));
     headline.textContent = ind + (get('industry') ? ' / ' + theme : '');
     output.textContent = briefLines().join('\n');
+    const selectedInfo = document.getElementById('v31-selected-demo');
+    if (selectedInfo) {
+      const titles = importedTitles();
+      selectedInfo.hidden = titles.length === 0;
+      selectedInfo.textContent = titles.length
+        ? '선택한 시연 기능 '+titles.length+'개: '+titles.join(' · ')+' (실제 예약·구매가 아닌 기능 기획 참고용)'
+        : '';
+    }
   }
   function valid() {
     if (!form.checkValidity()) {
