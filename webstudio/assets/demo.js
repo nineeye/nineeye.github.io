@@ -60,6 +60,28 @@
     bridge27.src = new URL('v27-demo-bridge.js', base).href;
     bridge27.async = true;
     bridge27.dataset.v27Module = 'true';
+    // V28 loads only after V27 is ready: existing demo interactions and
+    // the consultation bridge are preserved even if the new assets fail.
+    bridge27.addEventListener('load', () => {
+      if (document.querySelector('[data-v28-stylesheet]')) return;
+      const css28 = document.createElement('link');
+      css28.rel = 'stylesheet';
+      css28.href = new URL('v28-tools.css', base).href;
+      css28.dataset.v28Stylesheet = 'true';
+      document.head.append(css28);
+      const catalog28 = document.createElement('script');
+      catalog28.src = new URL('v28-catalog.js', base).href;
+      catalog28.async = true;
+      catalog28.dataset.v28Catalog = 'true';
+      catalog28.addEventListener('load', () => {
+        const ui28 = document.createElement('script');
+        ui28.src = new URL('v28-tools.js', base).href;
+        ui28.async = true;
+        ui28.dataset.v28Module = 'true';
+        document.head.append(ui28);
+      }, {once:true});
+      document.head.append(catalog28);
+    }, {once:true});
     document.head.append(bridge27);
   }, {once:true});
   document.head.append(script);
