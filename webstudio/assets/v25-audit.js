@@ -1,4 +1,4 @@
-/* ALLFILEONE WEB STUDIO / V25 — client-side, same-origin deployment audit.
+/* ALLFILEONE WEB STUDIO / V27 — client-side, same-origin deployment audit.
  * Does not transmit any personal information or use external services.
  * A PASS means publicly served file content was observed, not end-to-end booking/payment readiness.
  */
@@ -6,7 +6,7 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const root = new URL('./', window.location.href);
-  const expected = 'WEBSTUDIO-V25-20261107';
+  const expected = 'WEBSTUDIO-V27-20261107';
   const ids = ['manufacturing','corporate','clinic','academy','interior','commerce','professional','association','franchise','stay','realestate','event'];
   const styles = ['modern','premium','editorial'];
   const state = {busy:false, results:[], mode:'핵심', last:''};
@@ -27,13 +27,18 @@
     } finally {window.clearTimeout(timeout);}
   }
   const checks = [
-    {name:'V25 배포 버전',path:'assets/release-v25.json',match:r=>{const d=JSON.parse(r.text);return d.release_id === expected && d.product==='AllFileOne WebStudio' && d.version==='V25';}, detail:'배포 식별 파일의 내용 검증'},
-    {name:'메인 홈페이지',path:'index.html',match:r=>r.text.includes('WEBSTUDIO-V25-20261107')&&r.text.includes('builder.html')&&r.text.includes('design-gallery-v13.html'),detail:'V25 표식 및 핵심 링크 확인'},
-    {name:'업종별 실행 모듈',path:'assets/v23-industry.js',match:r=>r.text.includes('v24-result-tools')&&r.text.includes('workflow.dataset.v24Ready'),detail:'업종별 기능·결과 저장 스크립트'},
-    {name:'공통 데모 연결',path:'assets/demo.js',match:r=>r.text.includes('v23-industry.js'),detail:'36개 데모가 공유하는 실행기'},
-    {name:'무료 시안 제작기',path:'builder.html',match:r=>r.text.includes('<html')&&r.text.includes('WEB STUDIO'),detail:'제작기 페이지 내용 확인'},
-    {name:'기능 조합 설계실',path:'modules.html',match:r=>r.text.includes('<html')&&r.text.includes('WEB STUDIO'),detail:'기능 조합 페이지 내용 확인'},
-    {name:'이메일 문의 페이지',path:'contact.html',match:r=>r.text.includes('mailto:nineeyes@naver.com')&&r.text.includes('<html'),detail:'문의 페이지 및 이메일 연결 확인'}
+    {name:'V27 배포 버전',path:'assets/release-v27.json',match:r=>{const d=JSON.parse(r.text);return d.release_id === expected && d.product==='AllFileOne WebStudio' && d.version==='V27';},detail:'최신 배포 식별 파일 내용 확인'},
+    {name:'메인 홈페이지',path:'index.html',match:r=>r.text.includes('WEBSTUDIO-V27-20261107')&&r.text.includes('builder.html')&&r.text.includes('design-gallery-v13.html'),detail:'V27 표식 및 기존 주요 링크 보존'},
+    {name:'업종별 실행 모듈',path:'assets/v23-industry.js',match:r=>r.text.includes('v24-result-tools')&&r.text.includes('workflow.dataset.v24Ready'),detail:'12업종 전용 기능·결과 저장'},
+    {name:'36개 데모 공통 로더',path:'assets/demo.js',match:r=>r.text.includes('v23-industry.js')&&r.text.includes('v27-demo-bridge.js'),detail:'기존 기능 및 V27 상담 연결'},
+    {name:'샘플→상담 연결 스크립트',path:'assets/v27-demo-bridge.js',match:r=>r.text.includes('data-v27-conversion')||r.text.includes('v27Conversion')&&r.text.includes("source:'demo'"),detail:'가상 샘플에서 업종·스타일 전달'},
+    {name:'새 상담 연결 스타일',path:'assets/v27-conversion.css',match:r=>r.text.includes('.v27-conversion'),detail:'PC·모바일 CTA 레이아웃'},
+    {name:'업종 맞춤 상담 페이지',path:'contact.html',match:r=>r.text.includes('WEBSTUDIO-V27-20261107')&&r.text.includes('v26-contact.js')&&r.text.includes('v27-contact-context.js'),detail:'기존 V26 상담 기능 보존 및 샘플 연결'},
+    {name:'상담 자동선택 스크립트',path:'assets/v27-contact-context.js',match:r=>r.text.includes("source') !== 'demo'")&&r.text.includes('v27ContextReady'),detail:'12개 업종·스타일·추천 기능 연결'},
+    {name:'V26 상담 준비서 스크립트',path:'assets/v26-contact.js',match:r=>r.text.includes('briefLines')&&r.text.includes('mailto:')&&r.text.includes('reportValidity'),detail:'상담서 복사·TXT·이메일 초안 기능 보존'},
+    {name:'V27 상담 연결 스타일',path:'assets/v27-contact-context.css',match:r=>r.text.includes('.v27-context'),detail:'샘플 선택 확인 메시지 반응형 스타일'},
+    {name:'무료 시안 제작기',path:'builder.html',match:r=>r.text.includes('<html')&&r.text.includes('WEB STUDIO'),detail:'기존 제작기 접근성'},
+    {name:'기능 조합 설계실',path:'modules.html',match:r=>r.text.includes('<html')&&r.text.includes('WEB STUDIO'),detail:'기존 모듈 기능 보존'}
   ];
   function setBusy(busy) {
     state.busy=busy;
@@ -93,7 +98,7 @@
     $('run-quick').disabled=false;$('run-all').disabled=false;
   }
   function report() {
-    return ['[ALLFILEONE WEB STUDIO / V25 PUBLIC AUDIT]','사이트: '+root.href,'검사: '+state.mode,'시각: '+state.last,
+    return ['[ALLFILEONE WEB STUDIO / V27 PUBLIC AUDIT]','사이트: '+root.href,'검사: '+state.mode,'시각: '+state.last,
       ...state.results.map(r=>(r.ok?'PASS ':'FAIL ')+r.path+' / '+r.name+(r.error?' / '+r.error:'')),
       '주의: 정적 파일 검사 결과이며 실제 고객 접수·예약·결제 및 Windows 실행 검증은 아닙니다.',
       '개인정보 수집 및 외부 API 전송 없음'].join('\n');
@@ -107,7 +112,7 @@
   $('download-report').addEventListener('click',()=>{
     const blob=new Blob(['\ufeff'+report()],{type:'text/plain;charset=utf-8'});
     const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V25_Live_Check.txt';document.body.append(a);a.click();a.remove();
+    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V27_Live_Check.txt';document.body.append(a);a.click();a.remove();
     window.setTimeout(()=>URL.revokeObjectURL(url),2000);
     $('report-feedback').textContent='TXT 보고서를 저장했습니다.';
   });
