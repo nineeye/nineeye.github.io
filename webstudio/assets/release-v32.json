@@ -1,0 +1,27 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V32",
+  "release_id": "WEBSTUDIO-V32-20261107",
+  "release_date": "2026-11-07",
+  "demo_count": 36,
+  "core_feature_count": 48,
+  "extra_feature_count": 12,
+  "changes": [
+    "optional details-based consulting scope panel",
+    "page count, desired operational model and audience fields",
+    "client-provided logo/photo/text/domain checklist",
+    "15 sector-specific information preparation reminders",
+    "operational dependency notices for booking, online sales and content management",
+    "scope details included in preview, TXT, clipboard and mailto email draft",
+    "long email URI safety fallback without fixed line indices",
+    "source-controlled release indicator and deployment diagnostic"
+  ],
+  "limits": [
+    "no actual server inbox",
+    "no guaranteed booking or payment integration",
+    "not a binding price quote",
+    "Cloudflare public deployment unverified"
+  ],
+  "tracking": false,
+  "paid_api": false
+}
