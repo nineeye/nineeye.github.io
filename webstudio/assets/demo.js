@@ -33,3 +33,20 @@
  section.querySelector('#exp-copy').addEventListener('click',async()=>{if(!chosen.size){feedback.textContent='먼저 관심 항목을 하나 이상 선택해 주세요.';return;}const txt=['[올파일원 웹스튜디오 · '+config.title+']',...config.items.filter(it=>chosen.has(it[0])).map(it=>'• '+it[0]+' — '+it[2]),'※ 가상 브랜드 기능 시연용으로 실제 주문·예약·문의가 아닙니다.'].join('\n');try{if(!navigator.clipboard||!window.isSecureContext)throw Error('clipboard');await navigator.clipboard.writeText(txt);feedback.textContent='선택 목록을 복사했습니다. 실제 제출되지는 않았습니다.';}catch{const a=document.createElement('a');const blob=new Blob(['\ufeff'+txt],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);a.href=url;a.download='allfileone_demo_selection.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000);feedback.textContent='선택 목록을 TXT 파일로 저장했습니다.';}});
  render();
 })();
+
+/* WebStudio V23 — additive loader. Existing demo filters and cards remain unchanged. */
+(() => {
+  const me = document.currentScript || document.querySelector('script[src$="/assets/demo.js"]');
+  if (!me?.src || document.querySelector('[data-v23-stylesheet]')) return;
+  const base = new URL('.', me.src);
+  const css = document.createElement('link');
+  css.rel = 'stylesheet';
+  css.href = new URL('v23-industry.css', base).href;
+  css.dataset.v23Stylesheet = 'true';
+  document.head.append(css);
+  const script = document.createElement('script');
+  script.src = new URL('v23-industry.js', base).href;
+  script.async = true;
+  script.dataset.v23Module = 'true';
+  document.head.append(script);
+})();
