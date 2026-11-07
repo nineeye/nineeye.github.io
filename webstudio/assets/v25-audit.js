@@ -1,4 +1,4 @@
-/* ALLFILEONE WEB STUDIO / V34 — client-side, same-origin deployment audit.
+/* ALLFILEONE WEB STUDIO / V35 — client-side, same-origin deployment audit.
  * Does not transmit any personal information or use external services.
  * A PASS means publicly served file content was observed, not end-to-end booking/payment readiness.
  */
@@ -6,7 +6,7 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const root = new URL('./', window.location.href);
-  const expected = 'WEBSTUDIO-V34-20261107';
+  const expected = 'WEBSTUDIO-V35-20261107';
   const ids = ['manufacturing','corporate','clinic','academy','interior','commerce','professional','association','franchise','stay','realestate','event'];
   const styles = ['modern','premium','editorial'];
   const state = {busy:false, results:[], mode:'핵심', last:''};
@@ -27,7 +27,7 @@
     } finally {window.clearTimeout(timeout);}
   }
   const checks = [
-    {name:'공개 최신 버전 포인터',path:'assets/current-release.json',match:r=>{const d=JSON.parse(r.text);return d.product==='AllFileOne WebStudio'&&d.version==='V34'&&d.release_id==='WEBSTUDIO-V34-20261107';},detail:'Cloudflare가 제공하는 현재 릴리스 버전 선언'},
+    {name:'공개 최신 버전 포인터',path:'assets/current-release.json',match:r=>{const d=JSON.parse(r.text);return d.product==='AllFileOne WebStudio'&&d.version==='V35'&&d.release_id==='WEBSTUDIO-V35-20261107';},detail:'Cloudflare가 제공하는 현재 릴리스 버전 선언'},
     {name:'버전 자동 표시 스크립트',path:'assets/version-badge.js',match:r=>r.text.includes('current-release.json')&&r.text.includes('site-current-version'),detail:'새 버전의 배포 정보를 읽는 별도 스크립트'},
     {name:'V33 배포 버전',path:'assets/release-v33.json',match:r=>{const d=JSON.parse(r.text);return d.release_id==='WEBSTUDIO-V33-20261107' && d.product==='AllFileOne WebStudio' && d.version==='V33' && d.core_feature_count===48 && d.archive_reuse_feature_count===12;},detail:'12업종×4기능 릴리스 파일 확인'},
     {name:'메인 홈페이지',path:'index.html',match:r=>r.text.includes('WEBSTUDIO-V33-20261107')&&r.text.includes('estimate-to-brief')&&r.text.includes('contact.html#scope-options')&&r.text.includes('assets/v31-selection.css')&&r.text.includes('assets/v29-gallery.css')&&r.text.includes('assets/v30-proof.css')&&r.text.includes('reuse-lab.html')&&r.text.includes('builder.html')&&r.text.includes('design-gallery-v13.html'),detail:'V27 표식 및 기존 주요 링크 보존'},
@@ -64,12 +64,19 @@
     {name:'V33 버튼 및 모바일 디자인',path:'assets/v33-estimate.css',match:r=>r.text.includes('.v33-estimate-cta')&&r.text.includes('.v33-imported-quote'),detail:'PC·모바일 상담 연결'}
 
 ,
-    {name:'V34 현재 배포 선언',path:'assets/release-v34.json',match:r=>{const d=JSON.parse(r.text);return d.release_id===expected&&d.version==='V34'&&d.core_feature_count===48&&d.archive_reuse_feature_count===12;},detail:'60개 기능 보존과 PDF 준비서 개선 릴리스'},
+    {name:'V34 현재 배포 선언',path:'assets/release-v34.json',match:r=>{const d=JSON.parse(r.text);return d.release_id==='WEBSTUDIO-V34-20261107'&&d.version==='V34'&&d.core_feature_count===48&&d.archive_reuse_feature_count===12;},detail:'60개 기능 보존과 PDF 준비서 개선 릴리스'},
     {name:'V34 직접 체험 증거 카드',path:'index.html',match:r=>r.text.includes('v34-liveproof')&&r.text.includes('assets/v34-polish.css')&&r.text.includes('WEBSTUDIO-V34-20261107'),detail:'실제 작동하는 업종별 데모와 정직한 시연 고지'},
     {name:'V34 인쇄 상담서 버튼',path:'contact.html',match:r=>r.text.includes('id="brief-print"')&&r.text.includes('assets/v34-brief-print.js')&&r.text.includes('assets/v34-brief-print.css'),detail:'브라우저에서 PDF로 저장 버튼 확인'},
     {name:'V34 인쇄 기능',path:'assets/v34-brief-print.js',match:r=>r.text.includes("window.print()")&&r.text.includes("form.checkValidity()"),detail:'서버로 전송하지 않는 인쇄 기능'},
     {name:'V34 A4 인쇄 전용 스타일',path:'assets/v34-brief-print.css',match:r=>r.text.includes('@media print')&&r.text.includes('#brief-output'),detail:'A4 PDF 전용 준비서 서식'},
     {name:'V34 반응형 실력 증명 디자인',path:'assets/v34-polish.css',match:r=>r.text.includes('.v34-proof-grid')&&r.text.includes('prefers-reduced-motion'),detail:'PC·모바일·접근성 스타일 보존'},
+    {name:'V35 상품 비교 릴리스 선언',path:'assets/release-v35.json',match:r=>{const d=JSON.parse(r.text);return d.product==='AllFileOne WebStudio'&&d.release_id===expected&&d.version==='V35'&&d.core_feature_count===48&&d.archive_reuse_feature_count===12;},detail:'기존 시연 60개 기능 보존 및 상품 비교 출시 선언'},
+    {name:'V35 상품·범위 비교 화면',path:'plan-guide.html',match:r=>r.text.includes('WEBSTUDIO-V35-20261107')&&r.text.includes('id="pg-form"')&&r.text.includes('id="pg-consult"')&&r.text.includes('assets/v35-plan-guide.js')&&r.text.includes('assets/v35-plan-guide.css'),detail:'업종별 3상품 범위 안내와 가격 선택기'},
+    {name:'V35 상품 계산 스크립트',path:'assets/v35-plan-guide.js',match:r=>r.text.includes('model.calculate(')&&r.text.includes("source:'estimate'")&&r.text.includes('URLSearchParams')&&r.text.includes('download'),detail:'V33 가격모델 재사용과 상담 이동·TXT 저장'},
+    {name:'V35 반응형·접근성 상품 CSS',path:'assets/v35-plan-guide.css',match:r=>r.text.includes('.planner-grid')&&r.text.includes('.table-scroll')&&r.text.includes('@media(max-width:580px)')&&r.text.includes('prefers-reduced-motion'),detail:'모바일·태블릿 상품 비교 서식'},
+    {name:'V35 메인 상품 비교 진입점',path:'index.html',match:r=>r.text.includes('WEBSTUDIO-V35-20261107')&&r.text.includes('plan-guide.html')&&r.text.includes('site-current-version'),detail:'메인 가격 섹션·내비게이션에서 연결'},
+    {name:'V35 상담 화면 상품 비교 링크',path:'contact.html',match:r=>r.text.includes('WEBSTUDIO-V35-20261107')&&r.text.includes('plan-guide.html'),detail:'상담 전 상품 범위 확인 연결'},
+    {name:'V35 공개 검색용 링크',path:'sitemap.xml',match:r=>r.text.includes('plan-guide.html'),detail:'신규 비교 페이지 검색 인덱싱용 sitemap 등록'},
     {name:'V29 실물 캡처 갤러리',path:'assets/main.js',match:r=>r.text.includes('assets/v13-shots/')&&r.text.includes('card-consult')&&r.text.includes('contact.html?industry='),detail:'실제 시연 화면 미리보기와 상담 연결'},
     {name:'V29 갤러리 반응형 CSS',path:'assets/v29-gallery.css',match:r=>r.text.includes('.v29-real-shot')&&r.text.includes('.card-consult')&&r.text.includes('@media'),detail:'모바일·PC 디자인·접근성'},
     {name:'원본 데모 화면 캡처',path:'assets/v13-shots/manufacturing-modern.svg',match:r=>r.text.includes('data:image/jpeg;base64,'),detail:'외부 이미지 대신 자체 시연 화면 캡처'}
@@ -146,7 +153,7 @@
   $('download-report').addEventListener('click',()=>{
     const blob=new Blob(['\ufeff'+report()],{type:'text/plain;charset=utf-8'});
     const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V34_Live_Check.txt';document.body.append(a);a.click();a.remove();
+    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V35_Live_Check.txt';document.body.append(a);a.click();a.remove();
     window.setTimeout(()=>URL.revokeObjectURL(url),2000);
     $('report-feedback').textContent='TXT 보고서를 저장했습니다.';
   });

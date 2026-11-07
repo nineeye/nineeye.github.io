@@ -1,11 +1,11 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V34",
-  "release_id": "WEBSTUDIO-V34-20261107",
+  "version": "V35",
+  "release_id": "WEBSTUDIO-V35-20261107",
   "release_date": "2026-11-07",
   "function_count": 48,
   "demo_count": 36,
-  "release_note": "V34 adds truthful interactive demo proof cards on home and print-to-PDF customer-owned consultation brief without automatic upload, while preserving V33 quote bridge and 60 demo features",
+  "release_note": "V35 publishes original 3-tier scope transparency comparison and allowlisted V33 quotation-to-client-brief handoff, no server submission, 102/102 isolated browser checks",
   "verification": "PUBLIC_FILE_PRESENCE_ONLY",
   "archive_reuse_industry_count": 3
 }

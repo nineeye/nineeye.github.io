@@ -1,0 +1,29 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V35",
+  "release_id": "WEBSTUDIO-V35-20261107",
+  "release_date": "2026-11-07",
+  "core_feature_count": 48,
+  "archive_reuse_feature_count": 12,
+  "design_count": 36,
+  "optional_features": 5,
+  "pricing_source": "assets/v33-estimate-model.js",
+  "offer": "planning_examples_only",
+  "automation": "none",
+  "privacy": "client_owned_no_auto_upload",
+  "reused_features": [
+    "main estimate",
+    "contact brief",
+    "12 industry demos",
+    "3 archived industry demos",
+    "V34 print"
+  ],
+  "verification": "ISOLATED_CHROMIUM_102_102_PASS_NOT_LIVE_DEPLOY",
+  "risks": [
+    "Example amounts, not contractual quotes",
+    "VAT, domains, hosting, external services, maintenance excluded",
+    "Real payment, member database, bookings require separate integrations",
+    "Cloudflare public deployment not externally confirmed"
+  ],
+  "extra_paid_apis": 0
+}
