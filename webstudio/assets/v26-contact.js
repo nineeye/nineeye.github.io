@@ -1,0 +1,123 @@
+'use strict';
+/* AllFileOne WebStudio V26 — client-only project brief, zero tracking / zero network uploads. */
+(() => {
+  const form = document.getElementById('brief-form');
+  if (!form) return;
+  const output = document.getElementById('brief-output');
+  const headline = document.getElementById('brief-summary');
+  const feedback = document.getElementById('brief-feedback');
+  const mailButton = document.getElementById('brief-email');
+  const copyButton = document.getElementById('brief-copy');
+  const saveButton = document.getElementById('brief-download');
+  const recipient = 'nineeyes@naver.com';
+  const data = {
+    industries: {
+      manufacturing: '제조 · 도매', corporate: '기업 · 회사소개', clinic: '병원 · 의원', academy: '학원 · 교육',
+      interior: '인테리어 · 시공', commerce: '브랜드 · 쇼핑몰', professional: '법률 · 세무 · 회계',
+      association: '협회 · 단체', franchise: '프랜차이즈 · 창업', stay: '숙박 · 펜션',
+      realestate: '부동산 · 분양', event: '행사 · 캠페인'
+    },
+    themes: {modern: '모던', premium: '프리미엄', editorial: '에디토리얼', undecided: '디자인 추천 요청'},
+    goals: {lead:'견적·상담 문의 늘리기',showcase:'제품·서비스·포트폴리오 소개',booking:'방문·예약 연결',commerce:'상품 판매·외부 구매 연결',information:'공지·자료·행사 안내',brand:'브랜드·회사 신뢰 강화'},
+    budgets: {unknown:'미정',under50:'50만원 미만','50to100':'50~100만원','100to300':'100~300만원',over300:'300만원 이상'},
+    timings: {flexible:'협의 가능','2weeks':'2주 이내','1month':'1개월 이내','3months':'3개월 이내'},
+    features: {catalog:'제품·서비스 검색',quote:'견적 요청·품목 선택',booking:'예약·일정 연결',store:'상품·장바구니',portfolio:'시공·작품 갤러리',calendar:'시간표·행사 일정',cms:'공지·콘텐츠 관리',location:'위치·찾아오는 길'}
+  };
+  const get = key => form.elements.namedItem(key)?.value || '';
+  const safe = (object, key, empty = '선택하지 않음') => Object.prototype.hasOwnProperty.call(object,key) ? object[key] : empty;
+  const chosenFeatures = () => [...form.querySelectorAll('input[name="feature"]:checked')]
+    .map(input => safe(data.features, input.value, '')).filter(Boolean);
+  function briefLines() {
+    return [
+      '[올파일원 웹스튜디오 · 홈페이지 제작 상담 준비서]',
+      '업종: ' + safe(data.industries, get('industry')),
+      '디자인: ' + safe(data.themes, get('theme')),
+      '목표: ' + safe(data.goals, get('goal')),
+      '필요 기능: ' + (chosenFeatures().join(', ') || '미정'),
+      '예산: ' + safe(data.budgets, get('budget'), '미정'),
+      '일정: ' + safe(data.timings, get('timing'), '협의 가능'),
+      '추가 요청: ' + (get('details').trim() || '없음'),
+      '',
+      '※ 위 내용은 가상 사이트 제작 상담을 위한 사전 준비서입니다.',
+      '※ 웹페이지에서 자동 제출되지 않았으며, 이메일 앱에서 직접 전송해야 합니다.',
+      '※ 실제 예약·결제·서버 접수를 의미하지 않습니다.'
+    ];
+  }
+  function render() {
+    const ind = safe(data.industries, get('industry'),'업종을 선택해 주세요');
+    const theme = safe(data.themes, get('theme'));
+    headline.textContent = ind + (get('industry') ? ' / ' + theme : '');
+    output.textContent = briefLines().join('\n');
+  }
+  function valid() {
+    if (!form.checkValidity()) {
+      feedback.textContent = '업종과 제작 목적을 먼저 선택해 주세요.';
+      form.reportValidity();
+      return false;
+    }
+    return true;
+  }
+  function prepareMail() {
+    const subject = `[올파일원 웹스튜디오] ${safe(data.industries,get('industry'))} 홈페이지 제작 문의`;
+    const lines = briefLines();
+    let body = lines.join('\n');
+    let uri = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    let shortened = false;
+    if (uri.length > 1900) {
+      // Many email handlers have URI length limits. Preserve core requirements; full TXT / clipboard remain available.
+      const compressed = lines.slice(0,7).concat('추가 요청: 상세 요청은 별도 텍스트로 붙여 넣겠습니다.','',lines[9],lines[10]);
+      body = compressed.join('\n');
+      uri = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      shortened = true;
+    }
+    if (uri.length > 1900) {
+      body = lines.slice(0,5).concat('상세 요청사항은 복사 또는 TXT 파일로 전달하겠습니다.').join('\n');
+      uri = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      shortened = true;
+    }
+    return {uri, shortened};
+  }
+  function announce(message) { feedback.textContent = message; }
+  form.addEventListener('input',render);
+  form.addEventListener('change',render);
+  form.addEventListener('submit',e=>e.preventDefault());
+  copyButton.addEventListener('click',async()=>{
+    if (!valid()) return;
+    const full = briefLines().join('\n');
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error('not-available');
+      await navigator.clipboard.writeText(full);
+      announce('요청서 전체 내용을 복사했습니다. 메일에 붙여넣어 직접 전송해 주세요.');
+    } catch {
+      announce('이 브라우저에서는 자동 복사가 불가능합니다. 미리보기 텍스트를 직접 선택하거나 TXT 저장을 이용해 주세요.');
+    }
+  });
+  saveButton.addEventListener('click',()=>{
+    if (!valid()) return;
+    const file = new Blob(['\ufeff' + briefLines().join('\n')],{type:'text/plain;charset=utf-8'});
+    const url = URL.createObjectURL(file);
+    const anchor = document.createElement('a');
+    anchor.href = url;
+    anchor.download = 'allfileone_project_brief.txt';
+    document.body.append(anchor);
+    anchor.click();
+    anchor.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),4000);
+    announce('TXT 파일을 저장했습니다. 저장은 상담 접수가 아니며, 파일을 이메일에 첨부하거나 내용을 보내 주세요.');
+  });
+  mailButton.addEventListener('click',()=>{
+    if (!valid()) return;
+    const {uri, shortened} = prepareMail();
+    announce(shortened
+      ? '이메일 앱을 여는 중입니다. 주소 길이 제한으로 요청사항 일부가 생략됐습니다. 전체 내용은 복사하거나 TXT로 저장해 추가해 주세요. 실제 전송은 메일 앱에서 완료해야 합니다.'
+      : '이메일 앱을 여는 중입니다. 메일 앱에서 보내기를 눌러야 실제로 전송됩니다. 창이 열리지 않으면 복사 또는 TXT 저장을 이용해 주세요.');
+    // No HTTP request to our site or third-party services. mailto uses the visitor's own mail app.
+    window.location.href = uri;
+  });
+  const params = new URLSearchParams(location.search);
+  const industry = params.get('industry');
+  const theme = params.get('theme') || params.get('style');
+  if (industry && Object.prototype.hasOwnProperty.call(data.industries,industry)) form.elements.industry.value = industry;
+  if (theme && Object.prototype.hasOwnProperty.call(data.themes,theme)) form.elements.theme.value = theme;
+  render();
+})();
