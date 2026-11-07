@@ -48,5 +48,19 @@
   script.src = new URL('v23-industry.js', base).href;
   script.async = true;
   script.dataset.v23Module = 'true';
+  // V27 deliberately loads AFTER V23 has generated its workflow, avoiding
+  // asynchronous ordering races when the demo is opened from the 36-card gallery.
+  script.addEventListener('load', () => {
+    const css27 = document.createElement('link');
+    css27.rel = 'stylesheet';
+    css27.href = new URL('v27-conversion.css', base).href;
+    css27.dataset.v27Stylesheet = 'true';
+    document.head.append(css27);
+    const bridge27 = document.createElement('script');
+    bridge27.src = new URL('v27-demo-bridge.js', base).href;
+    bridge27.async = true;
+    bridge27.dataset.v27Module = 'true';
+    document.head.append(bridge27);
+  }, {once:true});
   document.head.append(script);
 })();
