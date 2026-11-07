@@ -9,6 +9,7 @@ export async function onRequestPost({request,env}) {
   if(!await verifyTurnstile({token:data.turnstileToken,env,request}))return failure('BOT_CHECK_FAILED',403);
   try {
     const now=Date.now();
+    await purgeExpired(env.INQUIRIES_DB,now);
     if(!await limitSubmission(env.INQUIRIES_DB,request,env,now))return failure('RATE_LIMITED',429);
     const id=crypto.randomUUID();
     const result=await env.INQUIRIES_DB.prepare(`INSERT INTO inquiries
