@@ -5,6 +5,7 @@
   "release_date": "2026-11-07",
   "function_count": 48,
   "demo_count": 36,
-  "release_note": "V30 shows four real interactive functions on every industry portfolio card and deep-links to selected tabs; demo-only client-side functionality",
-  "verification": "PUBLIC_FILE_PRESENCE_ONLY"
+  "release_note": "V30: 12 core industries with 48 functions / 144 deep links, plus 3 recovered industries with 12 independent browser demos; no real booking/order/transport",
+  "verification": "PUBLIC_FILE_PRESENCE_ONLY",
+  "archive_reuse_industry_count": 3
 }
