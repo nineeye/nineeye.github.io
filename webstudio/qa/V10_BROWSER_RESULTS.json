@@ -1,0 +1,159 @@
+{
+  "passed": 38,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "check button exists",
+      "pass": true
+    },
+    {
+      "name": "download disabled before run",
+      "pass": true
+    },
+    {
+      "name": "13 inspections",
+      "pass": true
+    },
+    {
+      "name": "offline test 12 passed",
+      "pass": true
+    },
+    {
+      "name": "offline test 1 warning",
+      "pass": true
+    },
+    {
+      "name": "offline test no false fails",
+      "pass": true
+    },
+    {
+      "name": "not configured refuses to claim ready",
+      "pass": true
+    },
+    {
+      "name": "no credential inputs",
+      "pass": true
+    },
+    {
+      "name": "no forms / personal data collected",
+      "pass": true
+    },
+    {
+      "name": "reports use text-only DOM",
+      "pass": true
+    },
+    {
+      "name": "requests are GET only",
+      "pass": true
+    },
+    {
+      "name": "diagnostics include admin unauth probe",
+      "pass": true
+    },
+    {
+      "name": "diagnostics include method probe",
+      "pass": true
+    },
+    {
+      "name": "no secret exposed",
+      "pass": true
+    },
+    {
+      "name": "download enabled",
+      "pass": true
+    },
+    {
+      "name": "TXT report downloaded",
+      "pass": true
+    },
+    {
+      "name": "TXT contains 13 results",
+      "pass": true
+    },
+    {
+      "name": "TXT omits private keys",
+      "pass": true
+    },
+    {
+      "name": "ops no overflow at 1440px",
+      "pass": true
+    },
+    {
+      "name": "ops no overflow at 1024px",
+      "pass": true
+    },
+    {
+      "name": "ops no overflow at 768px",
+      "pass": true
+    },
+    {
+      "name": "ops no overflow at 390px",
+      "pass": true
+    },
+    {
+      "name": "ops no overflow at 320px",
+      "pass": true
+    },
+    {
+      "name": "ready scenario 13 passes",
+      "pass": true
+    },
+    {
+      "name": "ready scenario still requires real write test",
+      "pass": true
+    },
+    {
+      "name": "unauthenticated HTTP 200 flagged critical",
+      "pass": true
+    },
+    {
+      "name": "missing static builder flagged",
+      "pass": true
+    },
+    {
+      "name": "admin can login with mocked API",
+      "pass": true
+    },
+    {
+      "name": "admin rendered sample in DOM",
+      "pass": true
+    },
+    {
+      "name": "password field cleared after login",
+      "pass": true
+    },
+    {
+      "name": "admin has diagnostics entry",
+      "pass": true
+    },
+    {
+      "name": "admin inactivity locks view",
+      "pass": true
+    },
+    {
+      "name": "PII removed on lock",
+      "pass": true
+    },
+    {
+      "name": "idle notice shown",
+      "pass": true
+    },
+    {
+      "name": "admin no localStorage usage",
+      "pass": true
+    },
+    {
+      "name": "admin no horizontal overflow at 320px",
+      "pass": true
+    },
+    {
+      "name": "admin no horizontal overflow at 390px",
+      "pass": true
+    },
+    {
+      "name": "admin no horizontal overflow at 768px",
+      "pass": true
+    }
+  ],
+  "method": "Chromium DOM + mocked public responses; not actual live Cloudflare URL"
+}
