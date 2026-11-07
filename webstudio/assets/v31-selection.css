@@ -1,0 +1,66 @@
+/* AllFileOne WebStudio V31: transparent function selection → consultation
+ * Own code; no remote assets, trackers, or extra paid services.
+ */
+.gallery-card .v31-proof-hint{
+  margin:0 0 10px;
+  color:#496759;
+  font-size:11px;
+  line-height:1.65;
+}
+.gallery-card .v30-proof-item{
+  display:flex;
+  min-width:0;
+  flex-direction:column;
+  gap:5px;
+}
+.gallery-card .v30-proof-link{
+  flex:1 0 auto;
+  height:auto;
+}
+.gallery-card .v31-pick{
+  display:flex;
+  gap:7px;
+  justify-content:flex-start;
+  align-items:center;
+  background:#fdfefd;
+  color:#245341;
+  padding:9px 10px;
+  border-radius:7px;
+  border:1px solid #b7d6c5;
+  cursor:pointer;
+  min-height:40px;
+  font-size:12px;
+  font-weight:800;
+}
+.gallery-card .v31-pick:has(.v31-pick-input:checked){
+  background:#d2f0df;
+  border-color:#46876a;
+}
+.gallery-card .v31-pick-input{
+  width:17px;
+  height:17px;
+  flex:0 0 17px;
+  margin:0;
+  accent-color:#116448;
+}
+.gallery-card .v31-pick:focus-within{
+  outline:3px solid #218b67;
+  outline-offset:2px;
+}
+.v31-selected-demo{
+  padding:14px 16px;
+  margin:13px 0 18px;
+  border-left:4px solid #287a5c;
+  border-radius:7px;
+  background:#eaf5ef;
+  color:#143d31;
+  font-size:13px;
+  line-height:1.8;
+  overflow-wrap:anywhere;
+  font-weight:700;
+}
+.v31-selected-demo[hidden]{display:none!important}
+@media(max-width:470px){
+  .gallery-card .v31-pick{min-height:44px}
+  .v31-selected-demo{padding:11px 13px}
+}
