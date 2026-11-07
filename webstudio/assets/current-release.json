@@ -1,11 +1,11 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V31",
-  "release_id": "WEBSTUDIO-V31-20261107",
+  "version": "V32",
+  "release_id": "WEBSTUDIO-V32-20261107",
   "release_date": "2026-11-07",
   "function_count": 48,
   "demo_count": 36,
-  "release_note": "V31 visitors select up to four actual demo functions on each of 12 industry cards and import their names into a self-managed contact brief. No personal data transmitted.",
+  "release_note": "V32 extends the visitor-prepared consultation brief with optional delivery model, page scope, available materials and industry-specific preparation advice; no server submission or paid API",
   "verification": "PUBLIC_FILE_PRESENCE_ONLY",
   "archive_reuse_industry_count": 3
 }
