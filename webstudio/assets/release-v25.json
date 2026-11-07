@@ -1,0 +1,11 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V25",
+  "release_id": "WEBSTUDIO-V25-20261107",
+  "release_date": "2026-11-07",
+  "scope": "public site health dashboard and responsive demo CSS correction",
+  "verify_url": "site-check.html",
+  "inherited_features": ["12 original industry concepts", "36 demo pages", "industry-specific interactive modules", "local TXT export", "free visual builder", "function composer"],
+  "not_included": ["verified production deployment", "backend orders", "live bookings", "payment", "server inbox readiness"],
+  "note": "This file proves a V25 marker is served by its hosting origin only when fetched from the origin; it is not proof of operational backend readiness."
+}
