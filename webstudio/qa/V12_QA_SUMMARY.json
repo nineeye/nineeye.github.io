@@ -1,0 +1,14 @@
+{
+  "v12_ui_results.json": {
+    "passed": 207,
+    "failed": 0,
+    "total": 207
+  },
+  "v12_showroom_results.json": {
+    "passed": 56,
+    "failed": 0,
+    "total": 56
+  },
+  "total_passed": 263,
+  "total_failed": 0
+}
