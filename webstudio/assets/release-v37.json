@@ -1,0 +1,29 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V37",
+  "release_id": "WEBSTUDIO-V37-20261108",
+  "release_date": "2026-11-08",
+  "scope": "36 existing demo pages via shared assets/demo-v13.css and assets/demo.js, index version, current release",
+  "features": [
+    "same-industry three-style selector",
+    "consultation with preserved industry/theme",
+    "desktop/tablet/mobile visual polish",
+    "360px min-content overflow protection"
+  ],
+  "qa": {
+    "fixture_browser": "439/439 PASS",
+    "industries": 12,
+    "styles": 3,
+    "widths": [
+      360,
+      390,
+      768,
+      1280
+    ],
+    "scope": "synthetic representative HTML+original V37 CSS/JS",
+    "real_deployed_pages": "NOT_TESTED",
+    "cloudflare": "NOT_CONFIRMED"
+  },
+  "privacy": "no paid API / tracking / storage / external font/image library",
+  "source_only": true
+}
