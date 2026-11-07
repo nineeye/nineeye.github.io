@@ -1,11 +1,11 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V30",
-  "release_id": "WEBSTUDIO-V30-20261107",
+  "version": "V31",
+  "release_id": "WEBSTUDIO-V31-20261107",
   "release_date": "2026-11-07",
   "function_count": 48,
   "demo_count": 36,
-  "release_note": "V30: 12 core industries with 48 functions / 144 deep links, plus 3 recovered industries with 12 independent browser demos; no real booking/order/transport",
+  "release_note": "V31 visitors select up to four actual demo functions on each of 12 industry cards and import their names into a self-managed contact brief. No personal data transmitted.",
   "verification": "PUBLIC_FILE_PRESENCE_ONLY",
   "archive_reuse_industry_count": 3
 }

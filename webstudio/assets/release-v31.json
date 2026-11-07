@@ -1,0 +1,28 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V31",
+  "release_id": "WEBSTUDIO-V31-20261107",
+  "release_date": "2026-11-07",
+  "industry_count": 12,
+  "demo_count": 36,
+  "core_feature_count": 48,
+  "archive_reuse_feature_count": 12,
+  "enhancement": "visitor-controlled function selection per industry card to safely prefill consultation request",
+  "information_transmitted_by_url": "industry ID, style ID, comma-separated 0-3 feature indices only",
+  "allows_personal_data_in_url": false,
+  "changes": [
+    "feature checkboxes based on existing V28 catalog",
+    "session-only feature choices survive switching homepage style",
+    "selected function names shown in contact form and included in TXT, clipboard, mailto draft",
+    "rejected malformed feature query values and mismatched industry",
+    "responsive and accessible checkbox styling",
+    "version badge and live site-check updated"
+  ],
+  "not_real": [
+    "form submission",
+    "payment",
+    "booking",
+    "shipment tracking"
+  ],
+  "deployment": "NOT_ATTESTED_BY_MANIFEST"
+}
