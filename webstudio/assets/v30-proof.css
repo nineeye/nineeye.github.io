@@ -12,3 +12,16 @@
 .gallery-card .v30-proof-missing{margin:0;color:#855e3d;font-size:12px}
 @media(max-width:480px){.gallery-card .v30-proof{padding:12px}.gallery-card .v30-proof-list{gap:6px}.gallery-card .v30-proof-link{padding:8px 7px;min-height:46px;font-size:11px}}
 @media(prefers-reduced-motion:reduce){.gallery-card .v30-proof-link{transition:none}}
+
+/* V30: a small independent link to recovered archive functionality. */
+.v30-archive{background:#e5eee8;color:#173c33;border-top:1px solid #adcbb8;border-bottom:1px solid #adcbb8}
+.v30-archive .v30-archive-inner{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(210px,0.9fr);gap:35px;align-items:center;padding-block:36px}
+.v30-archive-kicker{font-size:10px;font-weight:850;letter-spacing:.13em;color:#4c8870}
+.v30-archive h2{font-size:clamp(25px,3vw,37px);letter-spacing:-.07em;line-height:1.23;margin:10px 0 12px}
+.v30-archive p{font-size:13px;line-height:1.82;margin:0 0 8px;max-width:700px}
+.v30-archive small{color:#557768;font-size:11px}
+.v30-archive-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.v30-archive-actions a{display:block;text-align:center;background:#f5faf6;padding:11px 7px;border:1px solid #b2d0bf;color:#1b5943;font-size:11px;font-weight:800;text-decoration:none}
+.v30-archive-actions .v30-archive-main{grid-column:1/-1;background:#124835;color:#fff;padding:15px;font-size:13px}
+.v30-archive-actions a:is(:hover,:focus-visible){outline:2px solid #398d6e;outline-offset:1px}
+@media(max-width:720px){.v30-archive .v30-archive-inner{grid-template-columns:1fr;gap:20px;padding-block:27px}}
