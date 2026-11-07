@@ -1,0 +1,10 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V29",
+  "release_id": "WEBSTUDIO-V29-20261107",
+  "release_date": "2026-11-07",
+  "function_count": 48,
+  "demo_count": 36,
+  "release_note": "V29 portfolio gallery, screenshots, consultation handoff; status is declared release, not independent functional attestation",
+  "verification": "PUBLIC_FILE_PRESENCE_ONLY"
+}
