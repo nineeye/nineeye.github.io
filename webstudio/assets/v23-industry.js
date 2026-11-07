@@ -1,4 +1,4 @@
-/* ALLFILEONE WEB STUDIO — V23, 2026-11-07
+/* ALLFILEONE WEB STUDIO — V24 extension on V23, 2026-11-07
    Original, offline, no dependencies or tracking. Uses fictional sample data only.
    Every v13 demo shares demo.js, which loads this progressive enhancement. */
 'use strict';
@@ -49,8 +49,16 @@
   workflow.innerHTML = `<div class="v23-workflow-inner"><div class="v23-workflow-header"><div><span class="v23-workflow-kicker">REAL INTERACTION / DEMO ONLY</span><h2 id="v23-workflow-title">${escapeHTML(info.cta)}</h2><p>실제 업종별 서비스 흐름을 브라우저에서 체험합니다. 모든 데이터·가격·일정은 가상 예시입니다.</p></div><span class="v23-workflow-chip">NO ACCOUNT · NO SUBMISSION</span></div><div id="v23-form-root"></div><p class="v23-legal">가상 브랜드 시연이며 실제 예약·주문·진료·가맹 신청·견적 접수는 이루어지지 않습니다. 개인정보는 입력하지 마세요.</p></div>`;
   hero.insertAdjacentElement('afterend',workflow);
   const root = workflow.querySelector('#v23-form-root');
-  const output = (msg) => {const e=root.querySelector('[data-v23-output]'); if(e)e.textContent=String(msg);};
-  const block = (body) => {root.innerHTML=body+`<div class="v23-result" role="status" aria-live="polite" data-v23-output>입력값을 선택하면 여기에서 결과를 확인할 수 있습니다.</div>`;};
+  // V24: keep all demo output entirely in this browser. Never post data to a server.
+  const output = (msg) => {
+    const e=root.querySelector('[data-v23-output]');
+    if(e)e.textContent=String(msg);
+    const tools=root.querySelector('[data-v24-tools]');
+    if(tools)tools.hidden=false;
+    const status=root.querySelector('[data-v24-status]');
+    if(status)status.textContent='';
+  };
+  const block = (body) => {root.innerHTML=body+`<div class="v23-result" role="status" aria-live="polite" data-v23-output>입력값을 선택하면 여기에서 결과를 확인할 수 있습니다.</div><div class="v24-result-tools" data-v24-tools hidden role="group" aria-label="시연 결과 활용"><button type="button" class="v24-export" data-v24-copy>결과 복사</button><button type="button" class="v24-export" data-v24-save>TXT로 저장</button><span class="v24-privacy">가상 결과 · 서버 전송 없음</span></div><p class="v24-export-status" role="status" aria-live="polite" data-v24-status></p>`;};
   const optionList=(items)=>items.map(([value,label])=>`<option value="${escapeHTML(value)}">${escapeHTML(label)}</option>`).join('');
   const field=(label,id,html)=>`<label class="v23-field" for="${id}"><span>${label}</span>${html}</label>`;
   const btn=(label)=>`<button class="v23-run" type="button" data-v23-run>${label} <span aria-hidden="true">↗</span></button>`;
@@ -102,9 +110,12 @@
       const rooms={forest:{label:'포레스트 룸',cap:2,night:130000},garden:{label:'가든 스위트',cap:4,night:220000}};
       const start=new Date();start.setDate(start.getDate()+7);const end=new Date(start);end.setDate(start.getDate()+1);
       const format=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');
-      block(`<div class="v23-fields">${field('객실','v23-room',`<select id="v23-room">${optionList(Object.entries(rooms).map(([id,r])=>[id,`${r.label} / 정원 ${r.cap}명`]))}</select>`)}${field('체크인','v23-checkin',`<input id="v23-checkin" type="date" value="${format(start)}">`)}${field('체크아웃','v23-checkout',`<input id="v23-checkout" type="date" value="${format(end)}">`)}${field('투숙 인원','v23-guests','<input id="v23-guests" type="number" min="1" max="20" step="1" value="2">')}${btn('가상 숙박 요금 계산')}</div>`);
+      block(`<div class="v23-fields">${field('객실','v23-room',`<select id="v23-room">${optionList(Object.entries(rooms).map(([id,r])=>[id,`${r.label} / 정원 ${r.cap}명`]))}</select>`)}${field('체크인','v23-checkin',`<input id="v23-checkin" type="date" min="${format(new Date())}" value="${format(start)}">`)}${field('체크아웃','v23-checkout',`<input id="v23-checkout" type="date" min="${format(new Date())}" value="${format(end)}">`)}${field('투숙 인원','v23-guests','<input id="v23-guests" type="number" min="1" max="20" step="1" value="2">')}${btn('가상 숙박 요금 계산')}</div>`);
       attach(()=>{const r=rooms[get('v23-room').value],g=Number(get('v23-guests').value),a=get('v23-checkin').value,b=get('v23-checkout').value;
-        if(!a||!b)return output('체크인·체크아웃 날짜를 선택해 주세요.');const nights=Math.round((Date.parse(b+'T00:00:00Z')-Date.parse(a+'T00:00:00Z'))/86400000);
+        if(!a||!b)return output('체크인·체크아웃 날짜를 선택해 주세요.');
+        // Date-only UTC arithmetic avoids daylight-saving time distortions.
+        const nights=(Date.parse(b+'T00:00:00Z')-Date.parse(a+'T00:00:00Z'))/86400000;
+        if(a<format(new Date()))return output('체크인 날짜는 오늘 또는 이후 날짜로 입력해 주세요.');
         if(!Number.isSafeInteger(g)||g<1||g>20)return output('투숙 인원은 1~20명으로 입력해 주세요.');if(g>r.cap)return output(`${r.label}의 가상 정원은 ${r.cap}명입니다. 객실 또는 인원을 변경해 주세요.`);
         if(!Number.isInteger(nights)||nights<1||nights>30)return output('체크아웃은 체크인 이후여야 하며 1~30박만 계산합니다.');output(`${r.label} / ${g}명 / ${nights}박 × ${comma(r.night)}원 = ${comma(nights*r.night)}원 (가상 요금, 실제 예약 아님)`);});break;
     }
@@ -124,6 +135,46 @@
       attach(()=>{const p=domains[get('v23-domain').value];output(`${p[0]}: ${p[1]}. 실제 기업 실적이 아닌 서비스 설명 예시입니다.`);});break;
     }
   }
+  // V24: keyboard activation and user-initiated export, shared by all 12 industries.
+  root.addEventListener('keydown', event => {
+    if(event.key==='Enter' && event.target.matches('input:not([type="checkbox"])')) {
+      event.preventDefault();
+      root.querySelector('[data-v23-run]')?.click();
+    }
+  });
+  const exportText=()=>[
+    '[ALLFILEONE WEB STUDIO · 시연 결과]',
+    '업종: '+industry,
+    '스타일: '+style,
+    '작성일: '+new Date().toLocaleDateString('ko-KR'),
+    '',
+    root.querySelector('[data-v23-output]')?.textContent || '',
+    '',
+    '※ 이 정보는 가상 홈페이지 기능 시연용입니다.',
+    '※ 실제 주문·예약·가격·전문 자문·상담 접수에 사용할 수 없습니다.',
+    '※ 파일은 현재 브라우저에서 생성되며 서버로 전송되지 않습니다.'
+  ].join('\n');
+  const status=root.querySelector('[data-v24-status]');
+  root.querySelector('[data-v24-copy]')?.addEventListener('click', async () => {
+    try {
+      if(!navigator.clipboard || !window.isSecureContext) throw Error('clipboard-unavailable');
+      await navigator.clipboard.writeText(exportText());
+      status.textContent='시연 결과를 복사했습니다. 실제 상담이 접수된 것은 아닙니다.';
+    } catch (_) {
+      status.textContent='이 브라우저에서는 복사를 허용하지 않습니다. TXT로 저장 버튼을 이용해 주세요.';
+    }
+  });
+  root.querySelector('[data-v24-save]')?.addEventListener('click', () => {
+    const text=exportText();
+    const blob=new Blob(['\ufeff',text],{type:'text/plain;charset=utf-8'});
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement('a'); a.href=url;
+    a.download='AllFileOne_'+industry+'_Demo_Brief.txt';
+    root.append(a);a.click();a.remove();
+    setTimeout(()=>URL.revokeObjectURL(url),15000);
+    status.textContent='시연 결과 TXT 다운로드를 요청했습니다. 실제 접수는 이루어지지 않습니다.';
+  });
   // Track no analytics, no cookies and no back-end calls.
   workflow.dataset.v23Ready='true';
+  workflow.dataset.v24Ready='true';
 })();
