@@ -1,4 +1,4 @@
-/* ALLFILEONE WEB STUDIO / V29 — client-side, same-origin deployment audit.
+/* ALLFILEONE WEB STUDIO / V30 — client-side, same-origin deployment audit.
  * Does not transmit any personal information or use external services.
  * A PASS means publicly served file content was observed, not end-to-end booking/payment readiness.
  */
@@ -6,7 +6,7 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const root = new URL('./', window.location.href);
-  const expected = 'WEBSTUDIO-V29-20261107';
+  const expected = 'WEBSTUDIO-V30-20261107';
   const ids = ['manufacturing','corporate','clinic','academy','interior','commerce','professional','association','franchise','stay','realestate','event'];
   const styles = ['modern','premium','editorial'];
   const state = {busy:false, results:[], mode:'핵심', last:''};
@@ -27,10 +27,10 @@
     } finally {window.clearTimeout(timeout);}
   }
   const checks = [
-    {name:'공개 최신 버전 포인터',path:'assets/current-release.json',match:r=>{const d=JSON.parse(r.text);return d.product==='AllFileOne WebStudio'&&d.version==='V29'&&d.release_id==='WEBSTUDIO-V29-20261107';},detail:'Cloudflare가 제공하는 현재 릴리스 버전 선언'},
+    {name:'공개 최신 버전 포인터',path:'assets/current-release.json',match:r=>{const d=JSON.parse(r.text);return d.product==='AllFileOne WebStudio'&&d.version==='V30'&&d.release_id==='WEBSTUDIO-V30-20261107';},detail:'Cloudflare가 제공하는 현재 릴리스 버전 선언'},
     {name:'버전 자동 표시 스크립트',path:'assets/version-badge.js',match:r=>r.text.includes('current-release.json')&&r.text.includes('site-current-version'),detail:'새 버전의 배포 정보를 읽는 별도 스크립트'},
-    {name:'V29 배포 버전',path:'assets/release-v29.json',match:r=>{const d=JSON.parse(r.text);return d.release_id===expected && d.product==='AllFileOne WebStudio' && d.version==='V29' && d.industry_feature_count===48;},detail:'12업종×4기능 릴리스 파일 확인'},
-    {name:'메인 홈페이지',path:'index.html',match:r=>r.text.includes('WEBSTUDIO-V29-20261107')&&r.text.includes('assets/v29-gallery.css')&&r.text.includes('builder.html')&&r.text.includes('design-gallery-v13.html'),detail:'V27 표식 및 기존 주요 링크 보존'},
+    {name:'V30 배포 버전',path:'assets/release-v30.json',match:r=>{const d=JSON.parse(r.text);return d.release_id===expected && d.product==='AllFileOne WebStudio' && d.version==='V30' && d.industry_feature_count===48 && d.direct_feature_links===144;},detail:'12업종×4기능 릴리스 파일 확인'},
+    {name:'메인 홈페이지',path:'index.html',match:r=>r.text.includes('WEBSTUDIO-V30-20261107')&&r.text.includes('assets/v29-gallery.css')&&r.text.includes('assets/v30-proof.css')&&r.text.includes('reuse-lab.html')&&r.text.includes('builder.html')&&r.text.includes('design-gallery-v13.html'),detail:'V27 표식 및 기존 주요 링크 보존'},
     {name:'업종별 실행 모듈',path:'assets/v23-industry.js',match:r=>r.text.includes('v24-result-tools')&&r.text.includes('workflow.dataset.v24Ready'),detail:'12업종 전용 기능·결과 저장'},
     {name:'36개 데모 공통 로더',path:'assets/demo.js',match:r=>r.text.includes('v23-industry.js')&&r.text.includes('v27-demo-bridge.js')&&r.text.includes('v28-catalog.js')&&r.text.includes('v28-tools.js'),detail:'기존 V23/V27 기능과 V28 순차 로드'},
     {name:'12업종·48개 기능 데이터',path:'assets/v28-catalog.js',match:r=>r.text.includes('ALLFILEONE_V28_CATALOG')&&ids.every(id=>r.text.includes('\"'+id+'\":'))&&((r.text.match(/\"kind\":/g)||[]).length===48),detail:'업종당 4개 기능 정의 일치'},
@@ -44,6 +44,14 @@
     {name:'V27 상담 연결 스타일',path:'assets/v27-contact-context.css',match:r=>r.text.includes('.v27-context'),detail:'샘플 선택 확인 메시지 반응형 스타일'},
     {name:'무료 시안 제작기',path:'builder.html',match:r=>r.text.includes('<html')&&r.text.includes('WEB STUDIO'),detail:'기존 제작기 접근성'},
     {name:'기능 조합 설계실',path:'modules.html',match:r=>r.text.includes('<html')&&r.text.includes('WEB STUDIO'),detail:'기존 모듈 기능 보존'},
+    {name:'V30 실제 기능 목록',path:'assets/main.js',match:r=>r.text.includes('v30-proof-list')&&r.text.includes('featureIndex')&&r.text.includes('contact.html?industry='),detail:'12업종마다 4개 실행 가능한 기능 목록'},
+    {name:'V30 기능 직접 이동',path:'assets/v28-tools.js',match:r=>r.text.includes('selectedFeature')&&r.text.includes('selectTab(initialTab)')&&r.text.includes('scrollIntoView'),detail:'0~3 탭 선택 및 입력 반례'},
+    {name:'V30 기능 카드 스타일',path:'assets/v30-proof.css',match:r=>r.text.includes('.v30-proof-list')&&r.text.includes('.v30-archive'),detail:'PC·모바일 업종 기능 증명과 추가 3업종 안내'},
+    {name:'과거 프로젝트 3업종 체험실',path:'reuse-lab.html',match:r=>r.text.includes('reuse-lab.js')&&r.text.includes('restaurant')&&r.text.includes('logistics'),detail:'음식점·뷰티·물류 12개 추가 시연의 진입점'},
+    {name:'과거 기능 재사용 실행기',path:'assets/reuse-lab.js',match:r=>r.text.includes('restaurantMenu')&&r.text.includes('beautyCompare')&&r.text.includes('logisticsVolume'),detail:'세 업종 12개 오프라인 인터랙션 엔진'},
+    {name:'추가 업종 반응형 스타일',path:'assets/reuse-lab.css',match:r=>r.text.includes('.lab-grid')&&r.text.includes('@media'),detail:'작은 화면과 키보드 포커스'},
+    {name:'추가 업종 상담 선택',path:'contact.html',match:r=>r.text.includes('value="restaurant"')&&r.text.includes('value="beauty"')&&r.text.includes('value="logistics"'),detail:'기존 12업종과 3개 추가 업종의 상담서 선택 지원'}
+,
     {name:'V29 실물 캡처 갤러리',path:'assets/main.js',match:r=>r.text.includes('assets/v13-shots/')&&r.text.includes('card-consult')&&r.text.includes('contact.html?industry='),detail:'실제 시연 화면 미리보기와 상담 연결'},
     {name:'V29 갤러리 반응형 CSS',path:'assets/v29-gallery.css',match:r=>r.text.includes('.v29-real-shot')&&r.text.includes('.card-consult')&&r.text.includes('@media'),detail:'모바일·PC 디자인·접근성'},
     {name:'원본 데모 화면 캡처',path:'assets/v13-shots/manufacturing-modern.svg',match:r=>r.text.includes('data:image/jpeg;base64,'),detail:'외부 이미지 대신 자체 시연 화면 캡처'}
@@ -120,7 +128,7 @@
   $('download-report').addEventListener('click',()=>{
     const blob=new Blob(['\ufeff'+report()],{type:'text/plain;charset=utf-8'});
     const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V29_Live_Check.txt';document.body.append(a);a.click();a.remove();
+    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V30_Live_Check.txt';document.body.append(a);a.click();a.remove();
     window.setTimeout(()=>URL.revokeObjectURL(url),2000);
     $('report-feedback').textContent='TXT 보고서를 저장했습니다.';
   });
