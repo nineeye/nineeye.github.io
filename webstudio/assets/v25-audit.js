@@ -35,6 +35,8 @@
     {name:'새 상담 연결 스타일',path:'assets/v27-conversion.css',match:r=>r.text.includes('.v27-conversion'),detail:'PC·모바일 CTA 레이아웃'},
     {name:'업종 맞춤 상담 페이지',path:'contact.html',match:r=>r.text.includes('WEBSTUDIO-V27-20261107')&&r.text.includes('v26-contact.js')&&r.text.includes('v27-contact-context.js'),detail:'기존 V26 상담 기능 보존 및 샘플 연결'},
     {name:'상담 자동선택 스크립트',path:'assets/v27-contact-context.js',match:r=>r.text.includes("source') !== 'demo'")&&r.text.includes('v27ContextReady'),detail:'12개 업종·스타일·추천 기능 연결'},
+    {name:'V26 상담 준비서 스크립트',path:'assets/v26-contact.js',match:r=>r.text.includes('briefLines')&&r.text.includes('mailto:')&&r.text.includes('reportValidity'),detail:'상담서 복사·TXT·이메일 초안 기능 보존'},
+    {name:'V27 상담 연결 스타일',path:'assets/v27-contact-context.css',match:r=>r.text.includes('.v27-context'),detail:'샘플 선택 확인 메시지 반응형 스타일'},
     {name:'무료 시안 제작기',path:'builder.html',match:r=>r.text.includes('<html')&&r.text.includes('WEB STUDIO'),detail:'기존 제작기 접근성'},
     {name:'기능 조합 설계실',path:'modules.html',match:r=>r.text.includes('<html')&&r.text.includes('WEB STUDIO'),detail:'기존 모듈 기능 보존'}
   ];
