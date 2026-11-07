@@ -27,6 +27,8 @@
     } finally {window.clearTimeout(timeout);}
   }
   const checks = [
+    {name:'공개 최신 버전 포인터',path:'assets/current-release.json',match:r=>{const d=JSON.parse(r.text);return d.product==='AllFileOne WebStudio'&&d.version==='V29'&&d.release_id==='WEBSTUDIO-V29-20261107';},detail:'Cloudflare가 제공하는 현재 릴리스 버전 선언'},
+    {name:'버전 자동 표시 스크립트',path:'assets/version-badge.js',match:r=>r.text.includes('current-release.json')&&r.text.includes('site-current-version'),detail:'새 버전의 배포 정보를 읽는 별도 스크립트'},
     {name:'V29 배포 버전',path:'assets/release-v29.json',match:r=>{const d=JSON.parse(r.text);return d.release_id===expected && d.product==='AllFileOne WebStudio' && d.version==='V29' && d.industry_feature_count===48;},detail:'12업종×4기능 릴리스 파일 확인'},
     {name:'메인 홈페이지',path:'index.html',match:r=>r.text.includes('WEBSTUDIO-V29-20261107')&&r.text.includes('assets/v29-gallery.css')&&r.text.includes('builder.html')&&r.text.includes('design-gallery-v13.html'),detail:'V27 표식 및 기존 주요 링크 보존'},
     {name:'업종별 실행 모듈',path:'assets/v23-industry.js',match:r=>r.text.includes('v24-result-tools')&&r.text.includes('workflow.dataset.v24Ready'),detail:'12업종 전용 기능·결과 저장'},
