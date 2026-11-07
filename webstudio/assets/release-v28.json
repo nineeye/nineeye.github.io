@@ -1,0 +1,45 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V28",
+  "release_id": "WEBSTUDIO-V28-20261107",
+  "release_date": "2026-11-07",
+  "industry_count": 12,
+  "demo_count": 36,
+  "industry_feature_count": 48,
+  "engines": [
+    "filter",
+    "calc",
+    "compare",
+    "checklist",
+    "quiz",
+    "timeline",
+    "schedule",
+    "cart",
+    "staycalc",
+    "ics"
+  ],
+  "files": [
+    "assets/v28-catalog.js",
+    "assets/v28-tools.js",
+    "assets/v28-tools.css",
+    "assets/demo.js",
+    "index.html",
+    "site-check.html",
+    "assets/v25-audit.js"
+  ],
+  "preserves": [
+    "V23 industry tools",
+    "V24 offline exports",
+    "V27 demo-to-brief",
+    "V26 lead brief",
+    "V25 release checks",
+    "36 demo pages",
+    "free builder",
+    "modules"
+  ],
+  "scope": "fictional client-side preview only",
+  "real_payment": false,
+  "real_reservations": false,
+  "data_collection": false,
+  "deployment": "NOT_ATTESTED_BY_MANIFEST"
+}
