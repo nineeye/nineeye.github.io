@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow,noarchive"><meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#142f38">
+<meta name="description" content="올파일원 웹스튜디오 운영자용 안전한 배포·접수 준비도 진단 페이지. 암호나 고객정보를 입력하지 않습니다.">
+<title>운영 준비도 진단 | 올파일원 웹스튜디오</title>
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg"><link rel="stylesheet" href="assets/ops-check.css">
+<script src="assets/ops-check.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">본문으로 바로가기</a>
+<header class="top"><div class="wrap topbar"><a class="logo" href="index.html" aria-label="올파일원 웹스튜디오 첫 화면">allfileone<span>.</span><small>WEB STUDIO · OPERATIONS</small></a><nav aria-label="운영 메뉴"><a href="index.html">홈</a><a href="inquiry.html">문의 화면</a><a href="admin-inbox.html">관리자 화면</a></nav></div></header>
+<main id="main">
+<section class="hero"><div class="wrap"><span class="eyebrow">OPERATIONS / SAFE READINESS CHECK</span><h1>사이트는 공개됐나요?<br><em>문의는 안전하게 받고 있나요?</em></h1><p>개발 결과와 실제 Cloudflare 운영 환경을 구분하기 위한 진단 도구입니다. 브라우저에서 공개 페이지 및 인증되지 않은 API 상태만 검사하며 <strong>비밀 키·고객 이름·관리자 암호를 요구하지 않습니다.</strong></p><div class="controls"><button type="button" class="primary" id="run-check">배포·보안 검사 실행 ↗</button><button type="button" id="download-check" disabled>진단 결과 TXT 저장 ↓</button><span id="activity" role="status" aria-live="polite">검사 전 · 서버 요청 없음</span></div></div></section>
+<section class="wrap stats" aria-label="검사 현황"><div><span>검사 항목</span><strong id="stat-total">0</strong></div><div><span>정상</span><strong id="stat-pass">0</strong></div><div><span>확인 필요</span><strong id="stat-warning">0</strong></div><div><span>실패</span><strong id="stat-fail">0</strong></div></section>
+<section class="wrap section" aria-labelledby="check-title"><div class="heading"><div><span class="eyebrow light">AUDIT REPORT</span><h2 id="check-title">사이트·접수·관리자 보안 점검</h2><p>서버 정보는 공개 응답만 사용합니다. 인증되지 않은 상태에서 고객 데이터는 절대 조회하지 않습니다.</p></div><div class="result-summary" id="summary" role="status" aria-live="polite">검사 실행 전입니다.</div></div>
+<div id="check-items" class="check-grid"><p class="placeholder">위의 '배포·보안 검사 실행' 버튼을 누르면 실제 배포 파일과 공개 API 상태를 확인합니다.</p></div>
+<p class="footnote">참고: 이 화면은 자동화된 운영 준비 검사일 뿐, 침투시험·개인정보 처리 적법성 검토·실제 결제 또는 메일 발송 시험을 대체하지 않습니다.</p>
+</section>
+<section class="setup"><div class="wrap"><span class="eyebrow light">ACTIVATION GUIDE</span><h2>실제 접수 활성화를 위한 설정</h2><p class="intro">연결되지 않은 항목을 먼저 준비하고 검증해야 합니다. 안전한 기본값은 자동 접수 비활성화입니다. 계정 설정을 자동으로 변경하거나 비용을 발생시키지 않습니다.</p>
+<div class="steps">
+<article><b>01</b><h3>D1 데이터베이스 만들기</h3><p>Cloudflare에서 D1을 만들고 <code>migrations/0001_inquiries.sql</code> 스키마를 적용합니다.</p><a href="https://developers.cloudflare.com/d1/get-started/" target="_blank" rel="noopener noreferrer">공식 무료 설정 안내 ↗</a></article>
+<article><b>02</b><h3>Pages에 DB 연결</h3><p><code>allfileone-webstudio</code> → Settings → Bindings에서 D1 변수명을 <code>INQUIRIES_DB</code>로 설정합니다. 변경 후 다시 배포합니다.</p><a href="https://developers.cloudflare.com/pages/functions/bindings/" target="_blank" rel="noopener noreferrer">공식 바인딩 방법 ↗</a></article>
+<article><b>03</b><h3>보안 비밀 키 설정</h3><p>Cloudflare 비밀 변수에 <code>STUDIO_ADMIN_TOKEN</code>과 <code>TURNSTILE_SECRET_KEY</code>를 등록하고, 공개 사이트 키 <code>TURNSTILE_SITE_KEY</code>를 설정합니다. 비밀 값은 GitHub에 올리지 않습니다.</p><a href="https://developers.cloudflare.com/turnstile/get-started/" target="_blank" rel="noopener noreferrer">Turnstile 등록 방법 ↗</a></article>
+<article><b>04</b><h3>개인정보 안내 및 최종 승인</h3><p>실제 사업자 정보와 보관·삭제 절차를 확인한 후에만 <code>PRIVACY_POLICY_APPROVED=1</code>, <code>PUBLIC_INBOX_ENABLED=1</code>을 설정합니다. 모두 갖춰지면 실제 서버 연결을 재검증합니다.</p><a href="inquiry.html">고객에게 보일 안내 확인 ↗</a></article>
+</div><div class="safe-message"><strong>비용 0원 우선 안전장치:</strong> Cloudflare 무료 한도와 서비스 약관을 확인하고, 유료 플랜 전환·자동 결제·사용량 초과 과금은 승인 없이 설정하지 않습니다. <strong>Cloudflare Pages → Settings → Runtime의 Fail closed 설정도 점검하세요.</strong> Functions 한도 도달 시 인증을 우회하는 정적 응답이 나오지 않도록 하기 위함입니다. 실제 이메일 발송은 별도 연결되지 않았으므로 접수 완료와 메일 발송을 혼동하지 않습니다.</div>
+</div></section>
+<section class="wrap final"><div><h2>설정 전에 실수부터 줄입니다.</h2><p>실제 가동이 확인되기 전에는 <a href="mailto:nineeyes@naver.com">nineeyes@naver.com</a> 이메일 문의가 기본 채널입니다.</p></div><a class="primary action-link" href="admin-inbox.html">관리자 페이지 열기 ↗</a></section>
+</main>
+<footer><div class="wrap foot"><span>© 2026 ALLFILEONE WEB STUDIO · 운영자용 사전검증</span><span>공개 진단만 수행 · 인증·개인정보 미수집</span></div></footer>
+</body></html>
