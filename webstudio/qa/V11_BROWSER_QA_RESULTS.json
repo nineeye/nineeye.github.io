@@ -1,0 +1,297 @@
+{
+  "passed": 58,
+  "total": 58,
+  "failed": [],
+  "checks": [
+    {
+      "name": "1440px no horizontal overflow",
+      "pass": true,
+      "detail": "doc=1440"
+    },
+    {
+      "name": "1440px title visible",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1440px demo screenshot load",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1440px no script errors",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1440px first demo link",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1440px switch to academy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1440px aria pressed synced",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1440px switch to renovation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1024px no horizontal overflow",
+      "pass": true,
+      "detail": "doc=1024"
+    },
+    {
+      "name": "1024px title visible",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1024px demo screenshot load",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1024px no script errors",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1024px first demo link",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1024px switch to academy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1024px aria pressed synced",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "1024px switch to renovation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px no horizontal overflow",
+      "pass": true,
+      "detail": "doc=768"
+    },
+    {
+      "name": "768px title visible",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px demo screenshot load",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px no script errors",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px first demo link",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px switch to academy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px aria pressed synced",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "768px switch to renovation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px no horizontal overflow",
+      "pass": true,
+      "detail": "doc=390"
+    },
+    {
+      "name": "390px title visible",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px demo screenshot load",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px no script errors",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px first demo link",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px switch to academy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px aria pressed synced",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px switch to renovation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px mobile nav collapsed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px open nav",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "390px escape closes nav",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px no horizontal overflow",
+      "pass": true,
+      "detail": "doc=320"
+    },
+    {
+      "name": "320px title visible",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px demo screenshot load",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px no script errors",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px first demo link",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px switch to academy",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px aria pressed synced",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px switch to renovation",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px mobile nav collapsed",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px open nav",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "320px escape closes nav",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "unique IDs",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "one H1",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "all image alt",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "six original screenshots exist",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "pilot nonindex",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "no fake client testimonials",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "reduced motion",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "no runtime dependencies",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "all working demo targets",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "no external images",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "links to builder, modules, contact",
+      "pass": true,
+      "detail": ""
+    },
+    {
+      "name": "mobile menu ARIA",
+      "pass": true,
+      "detail": ""
+    }
+  ]
+}
