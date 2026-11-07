@@ -28,6 +28,24 @@
   const safe = (object, key, empty = '선택하지 않음') => Object.prototype.hasOwnProperty.call(object,key) ? object[key] : empty;
   const chosenFeatures = () => [...form.querySelectorAll('input[name="feature"]:checked')]
     .map(input => safe(data.features, input.value, '')).filter(Boolean);
+  // V33: only known plan/addon keys arrive from our own example estimator.
+  // The monetary amount is NEVER accepted from a URL: recompute it from the
+  // same local rate card used by the homepage calculator.
+  const estimateModel = window.WEBSTUDIO_ESTIMATE_MODEL;
+  const quotedChoices = estimateModel?.parse(
+    window.location.search,Object.keys(data.industries)) || null;
+  const activeQuote = () => get('industry') === quotedChoices?.industry ? quotedChoices : null;
+  const estimateLines = () => {
+    const quote=activeQuote();
+    if(!quote)return [];
+    const fmt=new Intl.NumberFormat('ko-KR');
+    return [
+      '메인에서 선택한 제작 상품: '+estimateModel.planLabels[quote.plan],
+      '메인에서 선택한 추가 기능: '+(quote.addons.map(k=>estimateModel.addonLabels[k]).join(', ')||'없음'),
+      '예시 계산 금액: '+fmt.format(quote.total)+'원부터 (기획 참고용)',
+      '※ 부가세, 도메인, 외부 서비스, 실제 데이터 연동 및 유지보수는 별도 협의'
+    ];
+  };
   // V32: explicit scope input is optional and stays entirely in the visitor's browser.
   const scopeData = {
     pages:{unknown:'미정 / 추천 요청',small:'1~3페이지',medium:'4~8페이지',large:'9페이지 이상'},
@@ -46,9 +64,9 @@
   function scopeRisks() {
     const selected=new Set([...form.querySelectorAll('input[name="feature"]:checked')].map(i=>i.value));
     const warnings=[];
-    if (get('operation')==='external'||selected.has('booking')||get('goal')==='booking')
+    if (get('operation')==='external'||selected.has('booking')||get('goal')==='booking'||activeQuote()?.addons.includes('reservation'))
       warnings.push('외부 예약·일정 서비스 연동 방식과 요금·계정 소유권 협의 필요');
-    if (get('operation')==='managed'||selected.has('cms'))
+    if (get('operation')==='managed'||selected.has('cms')||activeQuote()?.addons.includes('cms'))
       warnings.push('관리자·콘텐츠 저장·접근권한에 필요한 서버/외부 서비스와 유지보수 협의 필요');
     if (selected.has('store')||get('goal')==='commerce')
       warnings.push('실제 판매는 결제대행·개인정보·배송·환불 정책 별도 검증 필요');
@@ -90,6 +108,7 @@
       '목표: ' + safe(data.goals, get('goal')),
       '필요 기능: ' + (chosenFeatures().join(', ') || '미정') +
         (importedTitles().length ? ' / 시연에서 선택한 기능: ' + importedTitles().join(', ') : ''),
+      ...estimateLines(),
       ...scopeLines(),
       '예산: ' + safe(data.budgets, get('budget'), '미정'),
       '일정: ' + safe(data.timings, get('timing'), '협의 가능'),
@@ -105,6 +124,14 @@
     const theme = safe(data.themes, get('theme'));
     headline.textContent = ind + (get('industry') ? ' / ' + theme : '');
     output.textContent = briefLines().join('\n');
+    const quoted=document.getElementById('v33-quote-summary');
+    if(quoted){
+      const details=estimateLines();
+      quoted.hidden=!details.length;
+      quoted.textContent=details.length
+        ? '메인 홈페이지에서 선택한 참고 견적을 가져왔습니다.\n'+details.join('\n')
+        : '';
+    }
     const guidance = document.getElementById('v32-scope-guidance');
     if (guidance) {
       const base = '준비 참고: '+safe(scopeData.materials,get('industry'),'업종을 선택해 주세요.');
