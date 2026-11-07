@@ -11,8 +11,10 @@
   const galleryCount = root.getElementById('gallery-count');
   const noResults = root.getElementById('no-results');
   const formatter = new Intl.NumberFormat('ko-KR');
-  const plans = {basic:290000, business:590000, advanced:990000};
-  const addOns = {catalog:250000,reservation:120000,languages:200000,cms:350000,seo:100000};
+  // V33 uses the same public example pricing table as the consultation page.
+  const priceModel = window.WEBSTUDIO_ESTIMATE_MODEL;
+  const plans = priceModel?.plans || {basic:290000,business:590000,advanced:990000};
+  const addOns = priceModel?.addons || {catalog:250000,reservation:120000,languages:200000,cms:350000,seo:100000};
   let catalog = [];
   let currentFilter = 'all';
   const qs = new URLSearchParams(window.location.search);
@@ -158,7 +160,7 @@
   form.addEventListener('reset',()=>setTimeout(()=>{calculate();root.getElementById('copy-feedback').textContent='';},0));
   function quoteText() {
     const q=calculate();
-    const labels={catalog:'제품·서비스 카탈로그',reservation:'외부 예약 서비스 연결',languages:'영문 페이지 구성',cms:'콘텐츠 수정 관리 기능',seo:'검색 노출 구조 정리'};
+    const labels=priceModel?.addonLabels || {catalog:'제품·서비스 카탈로그',reservation:'외부 예약 서비스 연결',languages:'영문 페이지 구성',cms:'콘텐츠 수정 관리 기능',seo:'검색 노출 구조 정리'};
     return ['[올파일원 웹스튜디오 참고 견적]',`업종: ${q.industryName}`,`디자인: ${styleSelect.selectedOptions[0].textContent}`,`기본 상품: ${q.planName}`,`추가 기능: ${q.selectedAddons.length?q.selectedAddons.map(x=>labels[x]).join(', '):'없음'}`,`예상 금액: ${formatter.format(q.total)}원부터`,'※ 기획 단계의 예시 금액입니다. 확정 견적이 아니며 부가세·외부 서비스·유지보수 등은 별도입니다.'].join('\n');
   }
   async function copyText(value){
@@ -195,7 +197,9 @@ root.getElementById('download-estimate').addEventListener('click',()=>{
     mailLink.hidden=false;
     mailLink.href=`mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent('[올파일원 웹스튜디오] 홈페이지 제작 문의')}`;
     mailLink.addEventListener('click',()=>{mailLink.href=`mailto:${encodeURIComponent(email)}?subject=${encodeURIComponent('[올파일원 웹스튜디오] 홈페이지 제작 문의')}&body=${encodeURIComponent(quoteText())}`;});
-    root.getElementById('lead-note').textContent='견적 문의는 방문자의 기본 이메일 앱을 통해 작성됩니다. 전송 여부는 이메일 앱에서 확인해야 합니다.';
+    // V33: Do NOT replace the entire lead note; that would delete the V32 scope/consultation link.
+    const noteTitle=root.getElementById('lead-note')?.querySelector('strong');
+    if(noteTitle)noteTitle.textContent='견적 문의는 이메일 앱에서 직접 전송하거나 아래 제작 상담서에서 준비할 수 있습니다.';
   }
   root.querySelectorAll('.price-choose').forEach(btn=>btn.addEventListener('click',()=>{
     planSelect.value=btn.dataset.plan;calculate();root.getElementById('estimate').scrollIntoView({behavior:'smooth'});

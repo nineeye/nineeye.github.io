@@ -1,11 +1,11 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V32",
-  "release_id": "WEBSTUDIO-V32-20261107",
+  "version": "V33",
+  "release_id": "WEBSTUDIO-V33-20261107",
   "release_date": "2026-11-07",
   "function_count": 48,
   "demo_count": 36,
-  "release_note": "V32 extends the visitor-prepared consultation brief with optional delivery model, page scope, available materials and industry-specific preparation advice; no server submission or paid API",
+  "release_note": "V33 carries estimate plan/add-on identifiers into client-owned consultation, recomputes illustrative amount from one shared static rate card, repairs disappearing V32 scope link, no server submission",
   "verification": "PUBLIC_FILE_PRESENCE_ONLY",
   "archive_reuse_industry_count": 3
 }

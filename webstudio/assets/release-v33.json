@@ -1,0 +1,26 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V33",
+  "release_id": "WEBSTUDIO-V33-20261107",
+  "release_date": "2026-11-07",
+  "demo_count": 36,
+  "core_feature_count": 48,
+  "archive_reuse_feature_count": 12,
+  "changes": [
+    "single shared reference pricing model on homepage and consultation",
+    "safe plan/add-ons to client brief handoff using allowlisted URL identifiers",
+    "no amount or personally identifying information in link",
+    "recomputed illustrative reference amount in consultation TXT, clipboard and email draft",
+    "safe fallback without model JS; previously implemented gallery-to-brief unaffected",
+    "preserved V32 scope link when email configured",
+    "V33 static badge/current-release/live diagnostic updated"
+  ],
+  "limitations": [
+    "indicative example pricing is not a binding offer",
+    "VAT, domain, external services and ongoing maintenance require discussion",
+    "no form submission service, booking or payment implementation",
+    "Cloudflare production version not independently verified"
+  ],
+  "paid_api": false,
+  "tracking": false
+}
