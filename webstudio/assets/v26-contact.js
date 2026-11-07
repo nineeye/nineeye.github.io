@@ -15,7 +15,8 @@
       manufacturing: '제조 · 도매', corporate: '기업 · 회사소개', clinic: '병원 · 의원', academy: '학원 · 교육',
       interior: '인테리어 · 시공', commerce: '브랜드 · 쇼핑몰', professional: '법률 · 세무 · 회계',
       association: '협회 · 단체', franchise: '프랜차이즈 · 창업', stay: '숙박 · 펜션',
-      realestate: '부동산 · 분양', event: '행사 · 캠페인'
+      realestate: '부동산 · 분양', event: '행사 · 캠페인',
+      restaurant: '음식점 · 카페 (추가 시연)', beauty: '뷰티 · 미용 (추가 시연)', logistics: '물류 · 운송 (추가 시연)'
     },
     themes: {modern: '모던', premium: '프리미엄', editorial: '에디토리얼', undecided: '디자인 추천 요청'},
     goals: {lead:'견적·상담 문의 늘리기',showcase:'제품·서비스·포트폴리오 소개',booking:'방문·예약 연결',commerce:'상품 판매·외부 구매 연결',information:'공지·자료·행사 안내',brand:'브랜드·회사 신뢰 강화'},
