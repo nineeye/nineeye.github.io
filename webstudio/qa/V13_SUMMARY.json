@@ -1,0 +1,13 @@
+{
+  "version": "V13",
+  "date": "2026-11-07",
+  "browser_checks": 1308,
+  "static_checks": 374,
+  "gallery_browser_checks": 184,
+  "total_passed": 1866,
+  "total_failed": 0,
+  "source_files_changed": 89,
+  "live_cloudflare_status": "NOT_VERIFIED",
+  "actual_backend_status": "V9 D1/Turnstile configuration remains NOT_VERIFIED",
+  "browser_method": "Chromium local set_content with exact CSS/JS + SVG data or intercepted assets (NOT deployed HTTP E2E)"
+}
