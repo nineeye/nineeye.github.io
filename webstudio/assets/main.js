@@ -38,15 +38,22 @@
     const dots = node('span','browser-dots');
     dots.innerHTML = '<i></i><i></i><i></i>';
     visualTop.append(dots,node('span','visual-url',`${item.english.toLowerCase().replaceAll(' ','-')}.example`));
-    const vis = node('div','visual-stage');
-    const words = node('div','visual-words');
-    words.append(node('span','visual-kicker',item.english),node('strong','visual-title',item.brand),node('small','visual-description',item.line),node('span','visual-pill','DISCOVER ↗'));
-    const image = node('img','visual-illustration');
-    image.src = `assets/scene-${item.id}.svg`;
-    image.alt = '';
-    image.loading = index < 3 ? 'eager':'lazy';
-    image.width=720; image.height=480;
-    vis.append(words,image);
+    // V29: Show a real browser capture of this exact industry + style.
+    // These are locally-owned V13 demo captures; never an external stock image.
+    const vis = node('div','visual-stage v29-shot-stage');
+    const image = node('img','v29-real-shot');
+    image.src = `assets/v13-shots/${item.id}-${styleSelect.value}.svg`;
+    image.alt = `${item.name} · ${styleSelect.selectedOptions[0].textContent} 데모의 실제 화면 캡처`;
+    image.loading = index < 3 ? 'eager' : 'lazy';
+    image.decoding = 'async';
+    image.width = 900; image.height = 563;
+    const shotTag = node('span','v29-shot-tag','자체 제작 시연 화면');
+    image.addEventListener('error',() => {
+      image.src = `assets/scene-${item.id}.svg`;
+      image.alt = `${item.name} 업종 설명 일러스트`;
+      shotTag.textContent = '일러스트로 대체 표시';
+    },{once:true});
+    vis.append(image,shotTag);
     const hover = node('span','visual-hover','미리보기 ↗');
     art.append(visualTop,vis,hover);
     const bottom = node('div','card-content');
@@ -64,7 +71,10 @@
       calculate();
       root.getElementById('estimate').scrollIntoView({behavior:'smooth'});
     });
-    footer.append(link,quote);
+    const consult = node('a','card-consult','이 시안으로 상담 ↗');
+    consult.href = `contact.html?industry=${encodeURIComponent(item.id)}&theme=${encodeURIComponent(styleSelect.value)}`;
+    consult.setAttribute('aria-label',`${item.name} ${styleSelect.selectedOptions[0].textContent} 디자인으로 제작 상담 준비하기`);
+    footer.append(link,quote,consult);
     bottom.append(top,title,description,footer);
     article.append(art,bottom);
     return article;
@@ -76,7 +86,7 @@
     const fragment=document.createDocumentFragment();
     matches.forEach((item,i)=>fragment.append(makeCard(item,i)));
     grid.replaceChildren(fragment);
-    galleryCount.textContent=`${matches.length}개 업종을 보여드립니다. 현재 ${styleSelect.selectedOptions[0].textContent} 디자인입니다.`;
+    galleryCount.textContent=`${matches.length}개 업종 · ${styleSelect.selectedOptions[0].textContent} 스타일의 실제 시연 화면입니다. 샘플은 가상 브랜드로 제작되었으며 고객 납품 실적이 아닙니다.`;
     noResults.hidden=matches.length>0;
   }
   filterButtons.forEach(btn=>btn.addEventListener('click',()=>{
