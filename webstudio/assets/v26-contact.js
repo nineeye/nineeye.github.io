@@ -28,6 +28,44 @@
   const safe = (object, key, empty = '선택하지 않음') => Object.prototype.hasOwnProperty.call(object,key) ? object[key] : empty;
   const chosenFeatures = () => [...form.querySelectorAll('input[name="feature"]:checked')]
     .map(input => safe(data.features, input.value, '')).filter(Boolean);
+  // V32: explicit scope input is optional and stays entirely in the visitor's browser.
+  const scopeData = {
+    pages:{unknown:'미정 / 추천 요청',small:'1~3페이지',medium:'4~8페이지',large:'9페이지 이상'},
+    operations:{unknown:'미정 / 추천 요청',static:'소개형 정적 사이트',external:'외부 예약·결제 서비스 연동',managed:'관리자·회원·데이터 처리 기능'},
+    assets:{logo:'로고·브랜드 정보',photos:'제품·서비스 사진',copy:'소개 문구·가격표',domain:'도메인·호스팅 계정'},
+    materials:{
+      manufacturing:'제품 규격표·납기 안내',corporate:'사업 소개·서비스 자료',clinic:'진료시간표·의료진 안내',
+      academy:'강좌 시간표·수강 안내',interior:'시공사례·시공 범위',commerce:'상품 사진·배송·환불 정책',
+      professional:'상담 분야·필요 서류',association:'회원 안내·공지 자료',franchise:'가맹 안내·공식 사업자료',
+      stay:'객실 사진·운영시간·예약 정책',realestate:'매물 자료·표시 허용 범위',event:'프로그램·시간표·참가 안내',
+      restaurant:'메뉴·가격표·영업시간',beauty:'시술 안내·가격·운영시간',logistics:'운송 범위·규격·접수 정책'
+    }
+  };
+  const chosenAssets = () => [...form.querySelectorAll('input[name="asset"]:checked')]
+    .map(input => safe(scopeData.assets,input.value,'')).filter(Boolean);
+  function scopeRisks() {
+    const selected=new Set([...form.querySelectorAll('input[name="feature"]:checked')].map(i=>i.value));
+    const warnings=[];
+    if (get('operation')==='external'||selected.has('booking')||get('goal')==='booking')
+      warnings.push('외부 예약·일정 서비스 연동 방식과 요금·계정 소유권 협의 필요');
+    if (get('operation')==='managed'||selected.has('cms'))
+      warnings.push('관리자·콘텐츠 저장·접근권한에 필요한 서버/외부 서비스와 유지보수 협의 필요');
+    if (selected.has('store')||get('goal')==='commerce')
+      warnings.push('실제 판매는 결제대행·개인정보·배송·환불 정책 별도 검증 필요');
+    if (get('operation')==='static' && warnings.length)
+      warnings.unshift('정적 사이트만으로는 선택한 실운영 기능이 완성되지 않으므로 범위 재확인 필요');
+    return [...new Set(warnings)];
+  }
+  function scopeLines() {
+    return [
+      '예상 페이지 규모: '+safe(scopeData.pages,get('pagecount'),'미정'),
+      '운영 방식: '+safe(scopeData.operations,get('operation'),'미정'),
+      '주요 방문 고객: '+(get('audience').trim()||'협의 필요'),
+      '준비된 자료: '+(chosenAssets().join(', ')||'미정'),
+      '업종별 준비 참고: '+safe(scopeData.materials,get('industry'),'업종별 협의 필요'),
+      '별도 연동·운영 확인: '+(scopeRisks().join(' / ')||'선택사항 및 운영 범위 협의 필요')
+    ];
+  }
   // V31: the URL conveys at most four numeric feature indices; names are read
   // from our own trusted local catalog, never copied from untrusted query text.
   const galleryChoice = (() => {
@@ -52,6 +90,7 @@
       '목표: ' + safe(data.goals, get('goal')),
       '필요 기능: ' + (chosenFeatures().join(', ') || '미정') +
         (importedTitles().length ? ' / 시연에서 선택한 기능: ' + importedTitles().join(', ') : ''),
+      ...scopeLines(),
       '예산: ' + safe(data.budgets, get('budget'), '미정'),
       '일정: ' + safe(data.timings, get('timing'), '협의 가능'),
       '추가 요청: ' + (get('details').trim() || '없음'),
@@ -66,6 +105,13 @@
     const theme = safe(data.themes, get('theme'));
     headline.textContent = ind + (get('industry') ? ' / ' + theme : '');
     output.textContent = briefLines().join('\n');
+    const guidance = document.getElementById('v32-scope-guidance');
+    if (guidance) {
+      const base = '준비 참고: '+safe(scopeData.materials,get('industry'),'업종을 선택해 주세요.');
+      const risks = scopeRisks();
+      guidance.textContent = base + (risks.length ? ' / 추가 확인: '+risks.join(' / ') :
+        ' / 실제 데이터·가격·납품 범위는 상담 후 확정합니다.');
+    }
     const selectedInfo = document.getElementById('v31-selected-demo');
     if (selectedInfo) {
       const titles = importedTitles();
@@ -91,7 +137,9 @@
     let shortened = false;
     if (uri.length > 1900) {
       // Many email handlers have URI length limits. Preserve core requirements; full TXT / clipboard remain available.
-      const compressed = lines.slice(0,7).concat('추가 요청: 상세 요청은 별도 텍스트로 붙여 넣겠습니다.','',lines[9],lines[10]);
+      const compressed = lines.filter(line => /^(업종|디자인|목표|필요 기능|운영 방식|예산|일정):/.test(line))
+        .concat('추가 요청: 상세 내용과 준비 자료는 TXT 파일로 별도 전달하겠습니다.',
+                '※ 이 메일은 사용자 앱에서 직접 전송해야 합니다.');
       body = compressed.join('\n');
       uri = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       shortened = true;

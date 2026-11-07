@@ -1,4 +1,4 @@
-/* ALLFILEONE WEB STUDIO / V31 — client-side, same-origin deployment audit.
+/* ALLFILEONE WEB STUDIO / V32 — client-side, same-origin deployment audit.
  * Does not transmit any personal information or use external services.
  * A PASS means publicly served file content was observed, not end-to-end booking/payment readiness.
  */
@@ -6,7 +6,7 @@
 (() => {
   const $ = (id) => document.getElementById(id);
   const root = new URL('./', window.location.href);
-  const expected = 'WEBSTUDIO-V31-20261107';
+  const expected = 'WEBSTUDIO-V32-20261107';
   const ids = ['manufacturing','corporate','clinic','academy','interior','commerce','professional','association','franchise','stay','realestate','event'];
   const styles = ['modern','premium','editorial'];
   const state = {busy:false, results:[], mode:'핵심', last:''};
@@ -27,10 +27,10 @@
     } finally {window.clearTimeout(timeout);}
   }
   const checks = [
-    {name:'공개 최신 버전 포인터',path:'assets/current-release.json',match:r=>{const d=JSON.parse(r.text);return d.product==='AllFileOne WebStudio'&&d.version==='V31'&&d.release_id==='WEBSTUDIO-V31-20261107';},detail:'Cloudflare가 제공하는 현재 릴리스 버전 선언'},
+    {name:'공개 최신 버전 포인터',path:'assets/current-release.json',match:r=>{const d=JSON.parse(r.text);return d.product==='AllFileOne WebStudio'&&d.version==='V32'&&d.release_id==='WEBSTUDIO-V32-20261107';},detail:'Cloudflare가 제공하는 현재 릴리스 버전 선언'},
     {name:'버전 자동 표시 스크립트',path:'assets/version-badge.js',match:r=>r.text.includes('current-release.json')&&r.text.includes('site-current-version'),detail:'새 버전의 배포 정보를 읽는 별도 스크립트'},
-    {name:'V31 배포 버전',path:'assets/release-v31.json',match:r=>{const d=JSON.parse(r.text);return d.release_id===expected && d.product==='AllFileOne WebStudio' && d.version==='V31' && d.core_feature_count===48 && d.archive_reuse_feature_count===12;},detail:'12업종×4기능 릴리스 파일 확인'},
-    {name:'메인 홈페이지',path:'index.html',match:r=>r.text.includes('WEBSTUDIO-V31-20261107')&&r.text.includes('assets/v31-selection.css')&&r.text.includes('assets/v29-gallery.css')&&r.text.includes('assets/v30-proof.css')&&r.text.includes('reuse-lab.html')&&r.text.includes('builder.html')&&r.text.includes('design-gallery-v13.html'),detail:'V27 표식 및 기존 주요 링크 보존'},
+    {name:'V32 배포 버전',path:'assets/release-v32.json',match:r=>{const d=JSON.parse(r.text);return d.release_id===expected && d.product==='AllFileOne WebStudio' && d.version==='V32' && d.core_feature_count===48 && d.extra_feature_count===12;},detail:'12업종×4기능 릴리스 파일 확인'},
+    {name:'메인 홈페이지',path:'index.html',match:r=>r.text.includes('WEBSTUDIO-V32-20261107')&&r.text.includes('contact.html#scope-options')&&r.text.includes('assets/v31-selection.css')&&r.text.includes('assets/v29-gallery.css')&&r.text.includes('assets/v30-proof.css')&&r.text.includes('reuse-lab.html')&&r.text.includes('builder.html')&&r.text.includes('design-gallery-v13.html'),detail:'V27 표식 및 기존 주요 링크 보존'},
     {name:'업종별 실행 모듈',path:'assets/v23-industry.js',match:r=>r.text.includes('v24-result-tools')&&r.text.includes('workflow.dataset.v24Ready'),detail:'12업종 전용 기능·결과 저장'},
     {name:'36개 데모 공통 로더',path:'assets/demo.js',match:r=>r.text.includes('v23-industry.js')&&r.text.includes('v27-demo-bridge.js')&&r.text.includes('v28-catalog.js')&&r.text.includes('v28-tools.js'),detail:'기존 V23/V27 기능과 V28 순차 로드'},
     {name:'12업종·48개 기능 데이터',path:'assets/v28-catalog.js',match:r=>r.text.includes('ALLFILEONE_V28_CATALOG')&&ids.every(id=>r.text.includes('\"'+id+'\":'))&&((r.text.match(/\"kind\":/g)||[]).length===48),detail:'업종당 4개 기능 정의 일치'},
@@ -54,7 +54,10 @@
     {name:'V31 선택 기능 카드',path:'assets/main.js',match:r=>r.text.includes('v31-pick-input')&&r.text.includes('selectedByIndustry')&&r.text.includes("source:'gallery'"),detail:'업종별 기능 선택·상담 링크'},
     {name:'V31 상담서 기능명 반영',path:'assets/v26-contact.js',match:r=>r.text.includes('galleryChoice')&&r.text.includes('시연에서 선택한 기능:'),detail:'기능 카탈로그의 실제 이름만 전달'},
     {name:'V31 상담 선택 패널',path:'contact.html',match:r=>r.text.includes('id="v31-selected-demo"')&&r.text.includes('assets/v28-catalog.js'),detail:'브라우저 상담서에서 선택 내용 확인'},
-    {name:'V31 기능 선택 스타일',path:'assets/v31-selection.css',match:r=>r.text.includes('.v31-selected-demo')&&r.text.includes('.v31-pick'),detail:'PC·모바일 체크박스 접근성'}
+    {name:'V31 기능 선택 스타일',path:'assets/v31-selection.css',match:r=>r.text.includes('.v31-selected-demo')&&r.text.includes('.v31-pick'),detail:'PC·모바일 체크박스 접근성'},
+    {name:'V32 제작 범위 상담 확장',path:'contact.html',match:r=>r.text.includes('id="scope-options"')&&r.text.includes('name="operation"')&&r.text.includes('name="asset"'),detail:'고객이 선택하는 페이지 범위·운영 방식·자료 준비'},
+    {name:'V32 실제 운영 의존성 안내',path:'assets/v26-contact.js',match:r=>r.text.includes('function scopeRisks()')&&r.text.includes('function scopeLines()')&&r.text.includes('웹페이지에서 자동 제출되지 않았으며'),detail:'예약·결제·관리자 연동 범위, TXT/메일 초안 반영'},
+    {name:'V32 반응형 제작 상담 패널',path:'assets/v32-scope.css',match:r=>r.text.includes('.v32-scope')&&r.text.includes('@media'),detail:'모바일·키보드 지원 및 선택형 입력'}
 ,
     {name:'V29 실물 캡처 갤러리',path:'assets/main.js',match:r=>r.text.includes('assets/v13-shots/')&&r.text.includes('card-consult')&&r.text.includes('contact.html?industry='),detail:'실제 시연 화면 미리보기와 상담 연결'},
     {name:'V29 갤러리 반응형 CSS',path:'assets/v29-gallery.css',match:r=>r.text.includes('.v29-real-shot')&&r.text.includes('.card-consult')&&r.text.includes('@media'),detail:'모바일·PC 디자인·접근성'},
@@ -132,7 +135,7 @@
   $('download-report').addEventListener('click',()=>{
     const blob=new Blob(['\ufeff'+report()],{type:'text/plain;charset=utf-8'});
     const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V31_Live_Check.txt';document.body.append(a);a.click();a.remove();
+    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V32_Live_Check.txt';document.body.append(a);a.click();a.remove();
     window.setTimeout(()=>URL.revokeObjectURL(url),2000);
     $('report-feedback').textContent='TXT 보고서를 저장했습니다.';
   });
