@@ -1,0 +1,235 @@
+{
+  "passed": 57,
+  "failed": 0,
+  "checks": [
+    {
+      "name": "HTML lang ko",
+      "pass": true
+    },
+    {
+      "name": "HTML charset",
+      "pass": true
+    },
+    {
+      "name": "viewport responsive",
+      "pass": true
+    },
+    {
+      "name": "operator page noindex",
+      "pass": true
+    },
+    {
+      "name": "operator page noarchive",
+      "pass": true
+    },
+    {
+      "name": "operator page no referrer",
+      "pass": true
+    },
+    {
+      "name": "no external JS origin",
+      "pass": true
+    },
+    {
+      "name": "no inline script",
+      "pass": true
+    },
+    {
+      "name": "external css local",
+      "pass": true
+    },
+    {
+      "name": "unique IDs",
+      "pass": true
+    },
+    {
+      "name": "skip navigation",
+      "pass": true
+    },
+    {
+      "name": "main element exists",
+      "pass": true
+    },
+    {
+      "name": "status live region",
+      "pass": true
+    },
+    {
+      "name": "summary live region",
+      "pass": true
+    },
+    {
+      "name": "download disabled until checked",
+      "pass": true
+    },
+    {
+      "name": "no public password input",
+      "pass": true
+    },
+    {
+      "name": "no personal data form",
+      "pass": true
+    },
+    {
+      "name": "mailto correct",
+      "pass": true
+    },
+    {
+      "name": "Cloudflare D1 docs linked",
+      "pass": true
+    },
+    {
+      "name": "Cloudflare bindings docs linked",
+      "pass": true
+    },
+    {
+      "name": "Cloudflare Turnstile docs linked",
+      "pass": true
+    },
+    {
+      "name": "external links noopener",
+      "pass": true
+    },
+    {
+      "name": "named D1 binding",
+      "pass": true
+    },
+    {
+      "name": "secret names but no values",
+      "pass": true
+    },
+    {
+      "name": "public flag names",
+      "pass": true
+    },
+    {
+      "name": "no paid SDK linked",
+      "pass": true
+    },
+    {
+      "name": "ops js no innerHTML",
+      "pass": true
+    },
+    {
+      "name": "ops js no eval",
+      "pass": true
+    },
+    {
+      "name": "ops js uses textContent",
+      "pass": true
+    },
+    {
+      "name": "ops js requests GET only",
+      "pass": true
+    },
+    {
+      "name": "no credentials in ops fetch",
+      "pass": true
+    },
+    {
+      "name": "no response body read for admin unauthorized",
+      "pass": true
+    },
+    {
+      "name": "admin auth 200 flagged",
+      "pass": true
+    },
+    {
+      "name": "method 405 checked",
+      "pass": true
+    },
+    {
+      "name": "D1 not configured class warning",
+      "pass": true
+    },
+    {
+      "name": "no claim ready alone is E2E",
+      "pass": true
+    },
+    {
+      "name": "timeout set",
+      "pass": true
+    },
+    {
+      "name": "downloads BOM TXT",
+      "pass": true
+    },
+    {
+      "name": "ops JS no localStorage",
+      "pass": true
+    },
+    {
+      "name": "ops export sanitized",
+      "pass": true
+    },
+    {
+      "name": "ops reduced motion",
+      "pass": true
+    },
+    {
+      "name": "ops mobile 320 support",
+      "pass": true
+    },
+    {
+      "name": "focus visible",
+      "pass": true
+    },
+    {
+      "name": "status badge styles",
+      "pass": true
+    },
+    {
+      "name": "admin noindex",
+      "pass": true
+    },
+    {
+      "name": "admin diagnostics entry",
+      "pass": true
+    },
+    {
+      "name": "admin idle lock notice",
+      "pass": true
+    },
+    {
+      "name": "admin idle 15 minutes",
+      "pass": true
+    },
+    {
+      "name": "admin clears token on lock",
+      "pass": true
+    },
+    {
+      "name": "admin clears PII DOM",
+      "pass": true
+    },
+    {
+      "name": "admin password cleared",
+      "pass": true
+    },
+    {
+      "name": "admin no credentials persisted",
+      "pass": true
+    },
+    {
+      "name": "admin CSV injection protection",
+      "pass": true
+    },
+    {
+      "name": "V9 base routes exact",
+      "pass": true
+    },
+    {
+      "name": "node syntax ops-check.js",
+      "pass": true
+    },
+    {
+      "name": "node syntax admin-inbox.js",
+      "pass": true
+    },
+    {
+      "name": "CSS parser no errors",
+      "pass": true
+    }
+  ],
+  "method": "local static HTML, CSS, JavaScript checks"
+}
