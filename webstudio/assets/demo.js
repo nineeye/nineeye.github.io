@@ -86,3 +86,29 @@
   }, {once:true});
   document.head.append(script);
 })();
+
+/* V37 Original code: all 36 fictional demos; no APIs, storage, or tracking. */
+'use strict';
+(() => {
+ const names = Object.freeze({manufacturing:'제조·도매',corporate:'기업·회사소개',clinic:'병원·의원',academy:'학원·교육',interior:'인테리어·시공',commerce:'쇼핑몰·브랜드',professional:'전문 서비스',association:'협회·단체',franchise:'프랜차이즈',stay:'숙박·펜션',realestate:'부동산·분양',event:'행사·캠페인'});
+ const styles = Object.freeze({modern:'모던',premium:'프리미엄',editorial:'에디토리얼'});
+ const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
+ function init(){
+  const b=document.body, industry=b?.dataset.v13Industry||b?.dataset.industry||'', style=b?.dataset.v13Style||'', main=document.querySelector('main');
+  if(!main||!own(names,industry)||!own(styles,style)||document.getElementById('v37-chooser'))return;
+  const outer=document.createElement('section');outer.id='v37-chooser';outer.className='v37-chooser';outer.setAttribute('aria-label','업종별 디자인 스타일 비교');
+  const inner=document.createElement('div');inner.className='v37-chooser-inner';
+  const intro=document.createElement('div');intro.className='v37-chooser-intro';
+  const kicker=document.createElement('span');kicker.className='v37-kicker';kicker.textContent='DESIGN EDITIONS / 03';
+  const heading=document.createElement('strong');heading.textContent=names[industry]+' · 디자인 비교';
+  const note=document.createElement('small');note.textContent='같은 업종을 세 가지 디자인으로 비교하세요.';
+  intro.append(kicker,heading,note);
+  const nav=document.createElement('nav');nav.className='v37-style-links';nav.setAttribute('aria-label','디자인 스타일 선택');
+  Object.keys(styles).forEach(key=>{const a=document.createElement('a');a.href='../'+key+'/index.html';a.textContent=styles[key];a.dataset.v37Style=key;if(key===style)a.setAttribute('aria-current','page');nav.append(a)});
+  const consult=document.createElement('a');consult.className='v37-consult';consult.textContent='이 디자인으로 상담하기 ↗';
+  consult.href='../../../contact.html?'+new URLSearchParams({source:'demo',industry,theme:style}).toString();
+  const clarity=document.createElement('p');clarity.className='v37-clarity';clarity.textContent='가상 브랜드 시연입니다. 실제 예약·결제·납품 실적을 나타내지 않습니다.';
+  inner.append(intro,nav,consult);outer.append(inner,clarity);main.parentNode.insertBefore(outer,main);b.dataset.v37ChooserReady='true';
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+})();
