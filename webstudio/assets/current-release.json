@@ -1,11 +1,11 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V33",
-  "release_id": "WEBSTUDIO-V33-20261107",
+  "version": "V34",
+  "release_id": "WEBSTUDIO-V34-20261107",
   "release_date": "2026-11-07",
   "function_count": 48,
   "demo_count": 36,
-  "release_note": "V33 carries estimate plan/add-on identifiers into client-owned consultation, recomputes illustrative amount from one shared static rate card, repairs disappearing V32 scope link, no server submission",
+  "release_note": "V34 adds truthful interactive demo proof cards on home and print-to-PDF customer-owned consultation brief without automatic upload, while preserving V33 quote bridge and 60 demo features",
   "verification": "PUBLIC_FILE_PRESENCE_ONLY",
   "archive_reuse_industry_count": 3
 }

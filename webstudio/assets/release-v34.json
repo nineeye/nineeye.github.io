@@ -1,0 +1,22 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V34",
+  "release_id": "WEBSTUDIO-V34-20261107",
+  "release_date": "2026-11-07",
+  "core_feature_count": 48,
+  "archive_reuse_feature_count": 12,
+  "demo_count": 36,
+  "features": [
+    "original-demo-proof-links",
+    "print-to-PDF-client-brief",
+    "mobile-proof-gallery",
+    "same-origin-audit"
+  ],
+  "limitations": [
+    "No automatic submission",
+    "No actual email receipt verification",
+    "Public Cloudflare version must be independently confirmed",
+    "Showcase is original fictional-brand demo, not paid client deliveries"
+  ],
+  "external_cost": 0
+}

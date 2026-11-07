@@ -1,0 +1,18 @@
+/* WebStudio V34: print-only view of customer's own consultation brief. */
+#brief-print{border-color:#9bb9a8}
+#brief-print:hover{border-color:#276c52}
+@media print{
+  @page{size:A4;margin:15mm}
+  html,body{background:#fff!important;color:#152b28!important;min-width:0!important;font-size:11pt!important}
+  .skip,.topline,.site-header,.intro,.closing,footer,.section-heading,.brief-form,.preview-actions,.preview-notice,.direct-email,#brief-feedback{display:none!important}
+  .brief-section,#brief,.brief-section .frame,.workspace{display:block!important;background:#fff!important;color:#152b28!important;margin:0!important;padding:0!important;width:100%!important;max-width:none!important;min-height:0!important;border:0!important;box-shadow:none!important}
+  .preview{position:static!important;display:block!important;width:100%!important;max-width:none!important;min-height:0!important;margin:0!important;padding:0!important;background:#fff!important;color:#152b28!important;border:0!important;border-radius:0!important;box-shadow:none!important;overflow:visible!important}
+  .preview:before{content:'ALLFILEONE WEB STUDIO  /  PROJECT BRIEF';display:block!important;color:#24634a!important;font-size:10pt!important;letter-spacing:.08em!important;font-weight:700!important;border-bottom:1px solid #9fb8a9!important;padding:0 0 10mm!important;margin-bottom:9mm!important}
+  .preview-top{display:none!important}
+  .preview h3{color:#152b28!important;font-size:22pt!important;line-height:1.2!important;margin:0 0 9mm!important}
+  .preview h3 em{color:#29694f!important}
+  .preview-stats{color:#152b28!important;background:#f2f6f2!important;border:1px solid #cedccf!important;break-inside:avoid!important;padding:4mm!important;margin:0 0 8mm!important}
+  .preview-stats strong,.preview-stats span{color:#152b28!important}
+  #brief-output{display:block!important;max-height:none!important;width:100%!important;white-space:pre-wrap!important;overflow:visible!important;overflow-wrap:anywhere!important;word-break:break-word!important;font:10.5pt/1.75 'Malgun Gothic',system-ui,sans-serif!important;color:#152b28!important;background:#fff!important;border:0!important;padding:0!important;margin:0!important;box-shadow:none!important}
+  a{color:inherit!important;text-decoration:none!important}
+}
