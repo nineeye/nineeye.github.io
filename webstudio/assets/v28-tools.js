@@ -175,6 +175,15 @@
     const f=group.features[current];const content=['올파일원 웹스튜디오 · 가상 기능 시연',`업종: ${group.name}`,`기능: ${f.title}`, '',brief,'',note].join('\n');
     download(`allfileone_v28_${industryId}_${current+1}.txt`,content);say('TXT 파일이 생성됐습니다. 서버에 전송되거나 문의가 접수되지는 않습니다.');
   });
-  selectTab(0);
+  // V30: A visitor who clicks a specific function on the homepage lands
+  // on that exact interactive tab. Reject unexpected query values.
+  const selectedFeature = new URLSearchParams(window.location.search).get('feature');
+  const initialTab = /^[0-3]$/.test(selectedFeature || '') ? Number(selectedFeature) : 0;
+  selectTab(initialTab);
   document.body.dataset.v28Ready='true';
+  if (window.location.hash === '#v28-tools') {
+    // The suite is created asynchronously after the original demo loads.
+    // A native hash jump can happen before the target exists.
+    window.requestAnimationFrame(() => section.scrollIntoView({behavior:'auto',block:'start'}));
+  }
 })();
