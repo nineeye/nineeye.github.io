@@ -24,5 +24,19 @@
   "real_bookings": false,
   "real_payments": false,
   "backend_data_collection": false,
-  "deployment": "NOT_ATTESTED_BY_MANIFEST"
+  "deployment": "NOT_ATTESTED_BY_MANIFEST",
+  "archive_reuse_industry_count": 3,
+  "archive_reuse_feature_count": 12,
+  "archive_reuse_industries": [
+    "restaurant",
+    "beauty",
+    "logistics"
+  ],
+  "archive_reuse_paths": [
+    "reuse-lab.html",
+    "assets/reuse-lab.js",
+    "assets/reuse-lab.css",
+    "docs/ARCHIVE_REUSE_AUDIT.md"
+  ],
+  "extra_demos_note": "3 additional sectors / 12 isolated browser features, not part of original 36-page design catalog"
 }
