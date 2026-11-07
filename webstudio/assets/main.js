@@ -61,6 +61,27 @@
     top.append(node('span','card-counter',String(index+1).padStart(2,'0')+' / 12'),node('span','card-category-pill',item.name));
     const title = node('h3','',item.name+' 홈페이지');
     const description = node('p','',item.description);
+    // V30: Show the 4 interactive functions from the very same catalog used
+    // in each demo, rather than maintaining another marketing-only list.
+    const proof = node('section','v30-proof');
+    proof.setAttribute('aria-label',item.name+' 실제 작동하는 시연 기능');
+    const proofHeading = node('h4','v30-proof-title','직접 체험할 기능 4가지');
+    const proofList = node('ol','v30-proof-list');
+    const actualFunctions = window.ALLFILEONE_V28_CATALOG?.[item.id]?.features;
+    if (Array.isArray(actualFunctions) && actualFunctions.length === 4) {
+      actualFunctions.forEach((feature, featureIndex) => {
+        const li = node('li','v30-proof-item');
+        const link = node('a','v30-proof-link',feature.title+' ↗');
+        link.href = `demo/${item.id}/${styleSelect.value}/index.html?feature=${featureIndex}#v28-tools`;
+        link.setAttribute('aria-label',item.name+' '+feature.title+' 기능 직접 체험하기');
+        li.append(link);
+        proofList.append(li);
+      });
+      proof.append(proofHeading,proofList);
+    } else {
+      // Fail closed rather than advertising nonexistent working features.
+      proof.append(node('p','v30-proof-missing','기능 목록을 불러오지 못했습니다. 샘플 페이지에서 확인해 주세요.'));
+    }
     const footer = node('div','card-footer');
     const link = node('a','card-link','샘플 체험하기 ↗');
     link.href=art.href;
@@ -75,7 +96,7 @@
     consult.href = `contact.html?industry=${encodeURIComponent(item.id)}&theme=${encodeURIComponent(styleSelect.value)}`;
     consult.setAttribute('aria-label',`${item.name} ${styleSelect.selectedOptions[0].textContent} 디자인으로 제작 상담 준비하기`);
     footer.append(link,quote,consult);
-    bottom.append(top,title,description,footer);
+    bottom.append(top,title,description,proof,footer);
     article.append(art,bottom);
     return article;
   }
