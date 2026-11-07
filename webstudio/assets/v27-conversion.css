@@ -1,0 +1,16 @@
+/* WebStudio V27 / Industry demo to project brief - progressive enhancement */
+.v27-conversion{box-sizing:border-box;display:flex;gap:clamp(20px,4vw,75px);align-items:center;justify-content:space-between;padding:clamp(35px,5vw,65px) clamp(20px,7vw,100px);background:#173832;color:#f1f8f1;border-top:1px solid #4e8370;position:relative;z-index:1}
+.v27-conversion *{box-sizing:border-box}
+.v27-conversion-copy{flex:1;min-width:0;max-width:700px}
+.v27-conversion-kicker{display:block;font:800 10px/1.5 system-ui,-apple-system,'Malgun Gothic',sans-serif;letter-spacing:.14em;color:#b6e3cb}
+.v27-conversion h2{font-size:clamp(27px,3.5vw,48px);line-height:1.28;letter-spacing:-.06em;margin:15px 0 13px;word-break:keep-all}
+.v27-conversion p{font-size:13px;line-height:1.9;color:#c1dace;word-break:keep-all;margin:0}
+.v27-conversion-actions{display:flex;flex-direction:column;gap:10px;flex:0 0 auto;min-width:260px}
+.v27-conversion-actions a{display:flex;justify-content:space-between;align-items:center;min-height:52px;gap:15px;padding:13px 17px;font-size:12px;line-height:1.4;font-weight:800;text-decoration:none;border:1px solid #83ab99;transition:background .15s}
+.v27-conversion-primary{background:#d2efda;color:#143d2d;border-color:#d2efda!important}
+.v27-conversion-secondary{background:transparent;color:#e1f2e6}
+.v27-conversion-actions a:hover{background:#a8d8bc;color:#163a2b}
+.v27-conversion-actions a:focus-visible{outline:3px solid #ffd87d;outline-offset:3px}
+@media(max-width:850px){.v27-conversion{align-items:stretch;flex-direction:column}.v27-conversion-actions{min-width:0;flex-direction:row;flex-wrap:wrap}.v27-conversion-actions a{flex:1 1 250px}}
+@media(max-width:480px){.v27-conversion-actions{flex-direction:column}.v27-conversion-actions a{width:100%}}
+@media(prefers-reduced-motion:reduce){.v27-conversion-actions a{transition:none}}
