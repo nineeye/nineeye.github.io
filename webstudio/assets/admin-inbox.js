@@ -4,6 +4,8 @@
   const container = $('admin-results');
   const feedback = $('admin-feedback');
   let token = '';
+  const IDLE_LOCK_MS = 15 * 60 * 1000;
+  let lastActivity = Date.now();
   let rows = [];
   let offset = 0;
   let nextOffset = null;
@@ -85,6 +87,7 @@
     token=candidate;input.value='';
     try {
       await call('/api/admin/inquiries?limit=1');
+      lastActivity=Date.now();
       $('login-panel').hidden=true;$('admin-dashboard').hidden=false;
       await load(true);
     }catch{token='';$('login-feedback').textContent='인증되지 않았거나 DB가 준비되지 않았습니다.';}
@@ -92,7 +95,25 @@
   $('admin-status').addEventListener('change',()=>load(true));
   $('admin-refresh').addEventListener('click',()=>load(true));
   $('admin-more').addEventListener('click',()=>{if(nextOffset!==null){offset=nextOffset;load(false);}});
-  $('admin-logout').addEventListener('click',()=>{token='';rows=[];offset=0;container.replaceChildren();$('admin-dashboard').hidden=true;$('login-panel').hidden=false;status('');});
+  function lockAdmin(idle=false) {
+    // Never persist the token or personally identifiable client records.
+    token=''; rows=[]; offset=0; nextOffset=null; container.replaceChildren();
+    $('admin-token').value=''; $('admin-dashboard').hidden=true; $('login-panel').hidden=false;
+    $('admin-more').hidden=true; $('inbox-count').textContent='문의 0건'; status('');
+    $('login-feedback').textContent=idle ? '15분 동안 활동이 없어 자동 잠금됐습니다. 관리자 토큰으로 다시 인증하세요.' : '';
+  }
+  $('admin-logout').addEventListener('click',()=>lockAdmin(false));
+  // Idle lock is only a UI safety measure. Server-side Bearer authentication remains mandatory.
+  for (const eventType of ['pointerdown','keydown']) {
+    document.addEventListener(eventType,()=>{
+      if(token && !document.hidden && Date.now()-lastActivity < IDLE_LOCK_MS) lastActivity=Date.now();
+    },{passive:true});
+  }
+  const autoLockIfIdle=()=>{
+    if(token && Date.now()-lastActivity>=IDLE_LOCK_MS) lockAdmin(true);
+  };
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)autoLockIfIdle();});
+  setInterval(autoLockIfIdle,30*1000);
   function csvSafe(s){
     let v=String(s??'');
     if(/^[\s\u0000-\u001f]*[=+@\-]/.test(v))v="'"+v;
