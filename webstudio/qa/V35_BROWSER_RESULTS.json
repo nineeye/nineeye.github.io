@@ -1,0 +1,519 @@
+{
+  "version": "V35",
+  "scope": "V35 new product guide browser testing with V33 public shared pricing model local QA mirror; not Cloudflare live QA",
+  "total": 102,
+  "pass": 102,
+  "fail": 0,
+  "checks": [
+    {
+      "case": "320-load",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "320-overflow",
+      "status": "PASS",
+      "detail": "320/320"
+    },
+    {
+      "case": "320-price",
+      "status": "PASS",
+      "detail": "590,000원"
+    },
+    {
+      "case": "320-blocked-empty-industry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "320-consult-link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "320-advanced-two-addons",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "320-risk-notices",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "320-allowlisted-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "320-no-errors",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "case": "360-load",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "360-overflow",
+      "status": "PASS",
+      "detail": "360/360"
+    },
+    {
+      "case": "360-price",
+      "status": "PASS",
+      "detail": "590,000원"
+    },
+    {
+      "case": "360-blocked-empty-industry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "360-consult-link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "360-advanced-two-addons",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "360-risk-notices",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "360-allowlisted-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "360-no-errors",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "case": "390-load",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "390-overflow",
+      "status": "PASS",
+      "detail": "390/390"
+    },
+    {
+      "case": "390-price",
+      "status": "PASS",
+      "detail": "590,000원"
+    },
+    {
+      "case": "390-blocked-empty-industry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "390-consult-link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "390-advanced-two-addons",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "390-risk-notices",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "390-allowlisted-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "390-no-errors",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "case": "390-screenshot",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "768-load",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "768-overflow",
+      "status": "PASS",
+      "detail": "768/768"
+    },
+    {
+      "case": "768-price",
+      "status": "PASS",
+      "detail": "590,000원"
+    },
+    {
+      "case": "768-blocked-empty-industry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "768-consult-link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "768-advanced-two-addons",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "768-risk-notices",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "768-allowlisted-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "768-no-errors",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "case": "1024-load",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1024-overflow",
+      "status": "PASS",
+      "detail": "1024/1024"
+    },
+    {
+      "case": "1024-price",
+      "status": "PASS",
+      "detail": "590,000원"
+    },
+    {
+      "case": "1024-blocked-empty-industry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1024-consult-link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1024-advanced-two-addons",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1024-risk-notices",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1024-allowlisted-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1024-no-errors",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "case": "1280-load",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1280-overflow",
+      "status": "PASS",
+      "detail": "1280/1280"
+    },
+    {
+      "case": "1280-price",
+      "status": "PASS",
+      "detail": "590,000원"
+    },
+    {
+      "case": "1280-blocked-empty-industry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1280-consult-link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1280-advanced-two-addons",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1280-risk-notices",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1280-allowlisted-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1280-no-errors",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "case": "1280-screenshot",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1440-load",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1440-overflow",
+      "status": "PASS",
+      "detail": "1440/1440"
+    },
+    {
+      "case": "1440-price",
+      "status": "PASS",
+      "detail": "590,000원"
+    },
+    {
+      "case": "1440-blocked-empty-industry",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1440-consult-link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1440-advanced-two-addons",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1440-risk-notices",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1440-allowlisted-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "1440-no-errors",
+      "status": "PASS",
+      "detail": "[]"
+    },
+    {
+      "case": "valid-query-import",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "txt-name",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "txt-content",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "html-input-labels",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "query-injection-rejected",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "no-script-injection",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "max-addon-total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "form-reset",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "missing-industry-focus",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "missing-industry-feedback",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "deep-plan-card-link",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-manufacturing-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-corporate-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-clinic-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-academy-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-interior-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-commerce-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-professional-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-association-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-franchise-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-stay-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-realestate-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-event-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-restaurant-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-beauty-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "industry-logistics-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "plan-basic-total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "plan-business-total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "plan-advanced-total",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "theme-modern-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "theme-premium-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "theme-editorial-handoff",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "link-presence-index.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "link-presence-contact.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "link-presence-design-gallery-v13.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "link-presence-portfolio.html",
+      "status": "PASS",
+      "detail": ""
+    },
+    {
+      "case": "link-presence-site-check.html",
+      "status": "PASS",
+      "detail": ""
+    }
+  ]
+}
