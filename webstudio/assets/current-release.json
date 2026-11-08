@@ -9,7 +9,7 @@
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
   "release_note": "Better real inquiry conversion: Naver and Gmail webmail links, independently copy recipient/subject/body, preserve full draft and TXT, accessible fallback for denied clipboard, honest manual send guide. No automatic transmission, paid API, storage or external tracking. Previous six sectors and all demos preserved.",
-  "verification": "V62_ISOLATED_CHROMIUM_SOURCE_84_PASS; V62_GITHUB_SOURCE_AUDIT_PENDING; V62_CLOUDFLARE_CI_PENDING; LIVE_HTTP_UNVERIFIED; EMAIL_RECEIPT_UNVERIFIED",
+  "verification": "V62_ISOLATED_CHROMIUM_SOURCE_84_PASS; V62_GITHUB_SOURCE_AUDIT_110_PASS; V62_NEGATIVE_7_PASS; NEW_ASSET_GIT_SHA_MATCH_2_PASS; V62_CLOUDFLARE_CHECK_PENDING_MERGE; PUBLIC_HTTP_UNVERIFIED; REAL_EMAIL_UNVERIFIED; 0_PAID_API",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 6,
