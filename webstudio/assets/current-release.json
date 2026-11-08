@@ -9,7 +9,7 @@
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
   "release_note": "A six-industry differentiated scope/acceptance worksheet with 42 industry checks, 8 delivery/operations terms, TXT/copy/print, one-time 15-minute sanitized consultation handoff; linked from all six sales pages, homepage, prices and delivery guide.",
-  "verification": "V60_ISOLATED_CHROMIUM_SOURCE_79_PASS; GITHUB_AUDIT_90_PENDING; V60_CLOUDFLARE_CHECK_PENDING; PUBLIC_LIVE_HTTP_UNVERIFIED; EMAIL_RECEIPT_UNVERIFIED; NO_PII_URL_OR_PAID_API",
+  "verification": "V60_ISOLATED_CHROMIUM_79_PASS; V60_GITHUB_SOURCE_PREDICATES_90_PASS; FIVE_NEW_GIT_BLOBS_SHA_MATCH; V60_CLOUDFLARE_CI_PENDING; PUBLIC_LIVE_HTTP_UNVERIFIED; REAL_EMAIL_UNVERIFIED; NO_PAID_API",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 6,
