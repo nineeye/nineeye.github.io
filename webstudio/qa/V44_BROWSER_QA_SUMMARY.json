@@ -1,0 +1,21 @@
+{
+  "tested": "V44 source files under /mnt/data/WebStudio_V44/source/webstudio",
+  "automated_check_count": 291,
+  "pass": 291,
+  "fail": 0,
+  "failures": [],
+  "viewports": [
+    320,
+    360,
+    390,
+    768,
+    1280,
+    1440
+  ],
+  "industries": [
+    "manufacturing",
+    "academy",
+    "interior"
+  ],
+  "scope": "Actual V44 HTML/CSS/JS in isolated Chromium via set_content and inline injection; original file:// access was blocked. No production HTTP, index, live email, or sales claims tested."
+}
