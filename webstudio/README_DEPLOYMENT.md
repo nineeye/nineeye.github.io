@@ -1,4 +1,4 @@
-# AllFileOne WebStudio — deployment and commercial readiness (V59)
+# AllFileOne WebStudio — deployment and commercial readiness (V60)
 
 > **Source of truth:** `main/webstudio/` in `nineeye/nineeye.github.io`.
 > This document is a technical handoff, **not** a guarantee of live operation, contractual pricing, search ranking, or customer sales.
@@ -7,7 +7,7 @@
 
 - Six industry-specific sales pages: manufacturing, academy, interior, restaurant, beauty, logistics.
 - 36 existing design demos plus separate offline fictional functionality demos. Demo companies, menus, prices, appointments and testimonials are not real customer work.
-- A six-sector quick-inquiry form, an optional detailed project brief, and a six-sector ten-item launch kit. Customer inputs are not automatically sent. Email drafts must be explicitly sent from the visitor's mail app/webmail.
+- A six-sector quick-inquiry form, an optional detailed project brief, a six-sector ten-item launch kit, and an optional six-sector delivery/acceptance scope worksheet. Customer inputs are not automatically sent. Email drafts must be explicitly sent from the visitor's mail app/webmail.
 - Read-only owner checks at `/site-check.html` and `/owner-launch.html`.
 - A separately provisioned optional Cloudflare D1/Turnstile intake implementation exists in the repository but **must not** be described as active without verifying privacy approval, environment bindings, and live functionality. Its default state is not a verified public inbox.
 
@@ -30,16 +30,25 @@ For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the
 - Do not enable D1, paid services, automated email, customer data collection, or new secrets without explicit permission, appropriate privacy documents, and a verified test plan.
 - Before a paid engagement, determine actual scope, price including VAT policy, customer-provided content rights, paid third-party services, source/domain ownership, revision count, schedule, acceptance criteria, cancellation/refund terms, and post-launch support **in a mutually approved written agreement**. Current examples do not constitute a binding offer.
 
+## V60 buyer-facing scope worksheet
+
+- /delivery-scope.html: six industries x seven differentiated feature decisions, plus eight delivery/ownership/maintenance terms. All defaults are **review needed**, not a contractual promise.
+- Each of six industry sales pages links with a public industry ID only. /guide.html, /plan-guide.html and the home page link to the worksheet.
+- Draft export: TXT, copy, print/PDF. No account, analytics, payment, form server submission, paid API or automatic email.
+- Optional same-tab, 15-minute, one-time sessionStorage handoff into /contact.html. The receiving page strictly allowlists industry, seven feature IDs, statuses and eight term IDs and deletes the temporary item before validation. The URL has no personal details.
+- Source-backed isolated Chromium checks: 79/79. GitHub source QA predicates: 90/90. Neither demonstrates public Cloudflare HTTP, real email arrival or contract signing.
+- Previous GitHub Cloudflare Pages check for V59 merge commit 82888fa33b82f8d5f4b201b85f8953a3280b269d reported success on 2026-11-08; this does not certify V60 until its own check completes.
+
 ## Operator links
 
 - Site: https://allfileone-webstudio.pages.dev/
 - GitHub workflow/check history: https://github.com/nineeye/nineeye.github.io/actions
 - Cloudflare technical docs: https://developers.cloudflare.com/pages/
 - Customer-facing production guidance: `/guide.html` and `/plan-guide.html`
-- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner
+- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner (historical, change expected release to verify V60)
 
 ## Known holds
 
 - The assistant's public browsing environment did not independently open the Cloudflare URL on 2026-11-08. This is not evidence that the site is down.
-- GitHub Cloudflare Pages check for V58 commit `3f1d7ddfb0c122bcef0f4333d002a4561894a1ea` reported `success` on 2026-11-08. This is **historical**, not a forward-looking claim for V59 or later.
+- GitHub Cloudflare Pages check for V59 commit `82888fa33b82f8d5f4b201b85f8953a3280b269d` reported `success` on 2026-11-08. This is historical; it does not prove current V60 public behavior.
 - Live end-to-end email receipt, website analytics conversion, customer engagements, and search indexation are unverified.
