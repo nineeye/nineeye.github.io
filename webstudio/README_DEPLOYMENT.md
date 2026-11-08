@@ -1,4 +1,4 @@
-# AllFileOne WebStudio — deployment and commercial readiness (V61)
+# AllFileOne WebStudio — deployment and commercial readiness (V62)
 
 > **Source of truth:** `main/webstudio/` in `nineeye/nineeye.github.io`.
 > This document is a technical handoff, **not** a guarantee of live operation, contractual pricing, search ranking, or customer sales.
@@ -46,16 +46,25 @@ For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the
 - Source-only GitHub tree checks: 77 HTML files; 913 static href/src references; 0 missing static targets (JavaScript-generated URLs are NOT covered). 31/31 tool unittests PASS; industry preselection fake-DOM tests 10/10 PASS.
 - V60 Cloudflare Pages GitHub check for commit 40eb06ccaa2de510aade8da15850243c22b2469f reported success 2026-11-08. This is **historical** and not V61 live navigation, email receipt, or current CI proof.
 
+## V62: manual email submission without desktop mail-app dependency
+
+- On /quick-inquiry.html, the six industry choices and V49 draft builder remain unchanged.
+- The visitor can copy a recipient, subject and body separately, or continue using the preexisting full-copy and TXT export. Naver webmail and Gmail are ordinary outbound navigation links only, never automatic send actions.
+- New assets: assets/v62-webmail.js (read-only draft parser, clipboard write only, selectable textarea fallback on denial), assets/v62-webmail.css (responsive guide).
+- **Safety:** no customer input is stored or sent by V62, no new forms submit to a backend, no mail credential access or paid API. Browser clipboard permission may be unavailable; an explicit manual-copy fallback remains.
+- **Testing:** isolated local Chromium source tests 84/84 (three viewport widths, six representative industry drafts, malformed text, recipient mismatch, denied clipboard); GitHub branch source rule checks 110/110; stale/altered-source negatives 7/7. These are NOT end-to-end tests of the deployed public site or real email receipt.
+- V62 Cloudflare Pages check must be read independently after merging the V62 commit. Previous V61 CI success cannot be reused as V62 evidence.
+
 ## Operator links
 
 - Site: https://allfileone-webstudio.pages.dev/
 - GitHub workflow/check history: https://github.com/nineeye/nineeye.github.io/actions
 - Cloudflare technical docs: https://developers.cloudflare.com/pages/
 - Customer-facing production guidance: `/guide.html` and `/plan-guide.html`
-- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner (historical, change expected release to verify V61)
+- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner (historical, change expected release to verify V62)
 
 ## Known holds
 
 - The assistant's public browsing environment did not independently open the Cloudflare URL on 2026-11-08. This is not evidence that the site is down.
-- GitHub Cloudflare Pages check for V60 commit `40eb06ccaa2de510aade8da15850243c22b2469f` reported `success` on 2026-11-08. This is historical; it does not prove V61 public behavior.
+- V61 merged code has Cloudflare check success on 2026-11-08. That is historical and does not prove V62 public HTTP behavior.
 - Live end-to-end email receipt, website analytics conversion, customer engagements, and search indexation are unverified.

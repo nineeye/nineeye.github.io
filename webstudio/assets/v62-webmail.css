@@ -1,0 +1,10 @@
+/* V62 additive mobile-first webmail guidance. Preserve V49 layout and controls. */
+.v62-send-guide{background:#edf6ef;border:1px solid #c2d9c8;border-radius:9px;padding:14px 17px;margin:11px 0 19px;color:#264938;font-size:12px;line-height:1.75}
+.v62-send-guide strong{display:block;font-size:13px;margin:0 0 7px;color:#184a33}
+.v62-send-guide ol{padding-left:20px;margin:0 0 8px}
+.v62-send-guide li{padding:1px 0}
+.v62-send-guide p{margin:0;color:#70542c;font-size:11px}
+.v62-manual-copy{display:block;box-sizing:border-box;width:100%;min-height:115px;margin:8px 0 17px;padding:12px;background:#fff;border:2px solid #376c52;border-radius:7px;color:#183d2e;font:12px/1.75 ui-monospace,Consolas,'Malgun Gothic',monospace;resize:vertical}
+.v62-manual-copy:focus-visible{outline:3px solid #eab959;outline-offset:3px}
+.result-actions [id^='v62-']{overflow-wrap:anywhere}
+@media(max-width:590px){.v62-send-guide{padding:13px 12px}.result-actions [id^='v62-']{min-height:48px}}
