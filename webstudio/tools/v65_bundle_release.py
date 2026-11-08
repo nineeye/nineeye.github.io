@@ -68,6 +68,9 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     archive = out / BASENAME
     files = choose_files(source)
+    workflow = source.parent / ".github" / "workflows" / "webstudio-v64-public-browser.yml"
+    if workflow.is_file():
+        files.append((workflow, "CI/webstudio-public-browser.yml"))
     for name in EVIDENCE_NAMES:
         f = evidence / name
         if f.is_file():
