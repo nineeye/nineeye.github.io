@@ -1,0 +1,8 @@
+/* V39 — respectful, readable customer brief import notice. No third party assets. */
+.v39-sector-handoff{display:flex;flex-wrap:wrap;align-items:center;gap:12px 22px;margin:0 0 24px;padding:18px 22px;background:#eef6ee;border:1px solid #b8d7c4;border-left:4px solid #2c795a;color:#173d30;border-radius:9px;overflow-wrap:anywhere}
+.v39-sector-handoff strong{font-size:16px;font-weight:850;line-height:1.4}
+.v39-sector-handoff p{flex:1 1 290px;margin:0;font-size:13px;line-height:1.7;color:#365e4b}
+.v39-sector-handoff a{color:#17543f;font-size:13px;text-decoration:underline;text-underline-offset:3px;font-weight:850;min-height:44px;display:inline-flex;align-items:center}
+.v39-sector-handoff :focus-visible{outline:3px solid #1e7a58;outline-offset:3px}
+@media(max-width:560px){.v39-sector-handoff{padding:15px 16px;gap:8px}.v39-sector-handoff p{flex-basis:100%}.v39-sector-handoff a{width:100%}}
+@media(prefers-reduced-motion:reduce){.v39-sector-handoff *{transition:none!important}}
