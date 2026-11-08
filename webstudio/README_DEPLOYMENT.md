@@ -1,4 +1,4 @@
-# AllFileOne WebStudio — deployment and commercial readiness (V64)
+# AllFileOne WebStudio — deployment and commercial readiness (V65)
 
 > **Source of truth:** `main/webstudio/` in `nineeye/nineeye.github.io`.
 > This document is a technical handoff, **not** a guarantee of live operation, contractual pricing, search ranking, or customer sales.
@@ -79,13 +79,23 @@ For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the
 - Source workflow: https://github.com/nineeye/nineeye.github.io/blob/main/.github/workflows/webstudio-v64-public-browser.yml
 - Windows standalone alternative: `/RUN_V64_EDGE_LIVE_QA.cmd` in the repository `webstudio/` folder, or the same CMD at the V64 ZIP root. It writes TXT, JSON, PNG and ZIP to Windows Downloads and never changes global PowerShell policy.
 
+## V65: repair failures found by real Windows CI
+
+- V64 GitHub-hosted Windows Edge *did* run against the publicly deployed Cloudflare website. Result: 80/140 positive checks, 60 fail, correctly flagged HOLD. The Cloudflare version manifest itself was visible.
+- Live evidence: https://github.com/nineeye/nineeye.github.io/actions/runs/42494462279/artifacts/13623206795 (one-day retention) and job https://github.com/nineeye/nineeye.github.io/actions/runs/42494462279/job/128773634376.
+- A real customer-path problem was found: the detailed contact page omitted `assets/v55-sector-expansion.js` ahead of `assets/v51-quick-handoff.js`, so new restaurant/beauty/logistics fast-inquiry selections were not imported, unlike older three sectors. The V65 source restores correct deferred script dependency order.
+- The live site canonicalized `/for-restaurant.html`, `/quick-inquiry.html`, `/contact.html` to extensionless pretty URLs. V64 wrongly required the literal `.html` in the final browser/HTTP URL, generating false negatives. V65 uses strict same-origin normalization plus the exact query parameter and real HTTP document 2xx check, so wrong paths/domains, 404 or altered industries remain HOLD.
+- V65 additionally verifies the handoff panel, imported detailed brief text and the one-time sessionStorage deletion. No real customer PII, POST or email sending is involved. New source-backed offline protocol tests: 32/32 PASS including Cloudflare pretty path simulations and negative cases.
+- **One stable workflow** `.github/workflows/webstudio-v64-public-browser.yml` is updated to call V65, so it does not create a duplicate scheduled job or double-run older V64 tests. It is run only on relevant main pushes and explicit manual dispatch.
+- Full V65 public browser PASS must come from the V65 merged commit's GitHub Actions Windows job/artifacts; V64 failure and V65 fixture success cannot be considered proof of the live fix. Email receipt and contracts remain NOT_TESTED.
+
 ## Operator links
 
 - Site: https://allfileone-webstudio.pages.dev/
 - GitHub workflow/check history: https://github.com/nineeye/nineeye.github.io/actions
 - Cloudflare technical docs: https://developers.cloudflare.com/pages/
 - Customer-facing production guidance: `/guide.html` and `/plan-guide.html`
-- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner (historical, change expected release to verify V64)
+- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner (historical, change expected release to verify V65)
 
 ## Known holds
 
