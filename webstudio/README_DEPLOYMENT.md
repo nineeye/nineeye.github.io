@@ -1,4 +1,4 @@
-# AllFileOne WebStudio — deployment and commercial readiness (V63)
+# AllFileOne WebStudio — deployment and commercial readiness (V64)
 
 > **Source of truth:** `main/webstudio/` in `nineeye/nineeye.github.io`.
 > This document is a technical handoff, **not** a guarantee of live operation, contractual pricing, search ranking, or customer sales.
@@ -63,16 +63,32 @@ For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the
 - Synthetic browser program does not submit forms, send emails or access credentials. PASS_PUBLIC_BROWSER_SMOKE_ONLY does not certify receipt, customer data persistence, SEO, payment or contracts.
 - Offline Chromium CDP protocol/source tests: 22/22 PASS. In this assistant container even local HTTP browser navigation is blocked by administrator, so real public domain PASS could not be established. User Windows run is still required for real proof.
 
+## V64 public GitHub Actions Windows browser evidence (no paid API)
+
+- GitHub repository nineeye/nineeye.github.io is public. Official GitHub documentation says **standard GitHub-hosted runners in public repositories are free**; this workflow uses only windows-2025, not a larger runner. No external metered APIs, Codex, AI credits, API tokens, extra services, cron or self-hosted runners.
+- Workflow `.github/workflows/webstudio-v64-public-browser.yml` runs on pushes to main that modify webstudio/ (and can be explicitly manually dispatched). GitHub permissions: contents read; checkout persists no token; concurrency cancels superseded runs. No automatic recurring schedule.
+- `tools/v64_edge_live_qa.py` is source-derived from V63 and expanded to test all six quick inquiry categories on both 390px mobile and 1280px desktop. Each sector's detailed handoff must show the same industry, an imported panel and an actual HTTP 2xx HTML document. The version must be exactly V64.
+- Before running the browser, an 18-attempt public-release probe checks V64 manifest propagation; browser checks still run and fail closed if that preflight cannot confirm publication. **Never** interpret workflow success from GitHub build alone as a public-page pass.
+- The workflow runs Python stdlib `tools/test_v64_edge_protocol.py` (28 isolated fixture tests), then a read-only public browser smoke test; a failing test exits nonzero, and uploads a 1-day retained proof ZIP+Korean TXT/JSON/PNG+SHA in workflow artifacts (no user-input PII).
+- **Two separate truth gates:** V64 Cloudflare Pages deployment check (provider/CI) and separate V64 `Windows Edge public site and six-sector inquiry` job (user-visible public page). Neither proves actual email receipt, indexing, account registration or contract acceptance. If GitHub permission prevents the job from running, state HOLD.
+- No customer form POST, mailto send, analytics, credentials, purchases or real reservations. Fixture unit tests are **not** counted as live public browser success.
+
+## V64 operating links
+
+- CI and manual run access: https://github.com/nineeye/nineeye.github.io/actions/workflows/webstudio-v64-public-browser.yml
+- Source workflow: https://github.com/nineeye/nineeye.github.io/blob/main/.github/workflows/webstudio-v64-public-browser.yml
+- Windows standalone alternative: `/RUN_V64_EDGE_LIVE_QA.cmd` in the repository `webstudio/` folder, or the same CMD at the V64 ZIP root. It writes TXT, JSON, PNG and ZIP to Windows Downloads and never changes global PowerShell policy.
+
 ## Operator links
 
 - Site: https://allfileone-webstudio.pages.dev/
 - GitHub workflow/check history: https://github.com/nineeye/nineeye.github.io/actions
 - Cloudflare technical docs: https://developers.cloudflare.com/pages/
 - Customer-facing production guidance: `/guide.html` and `/plan-guide.html`
-- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner (historical, change expected release to verify V63)
+- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner (historical, change expected release to verify V64)
 
 ## Known holds
 
 - The assistant's public browsing environment did not independently open the Cloudflare URL on 2026-11-08. This is not evidence that the site is down.
-- V62 merged code has Cloudflare Pages check success on 2026-11-08. That is historical and does not prove V63 public HTTP behavior.
+- V63 merged code has Cloudflare Pages check success on 2026-11-08. That is historical and does not prove V64 public HTTP behavior.
 - Live end-to-end email receipt, website analytics conversion, customer engagements, and search indexation are unverified.
