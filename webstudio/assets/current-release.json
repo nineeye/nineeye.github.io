@@ -9,7 +9,7 @@
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
   "release_note": "All six flagship industries now have tailored 10-item zero-cost launch kits and explicit one-shot same-tab consultation handoff. New restaurant/beauty/logistics prep CTA links; responsive sector selector; 31 owner and 35 sales same-origin public checks.",
-  "verification": "V58_SOURCE_CHECKS_PENDING; LOCAL_BROWSER_PENDING; LIVE_CLOUDFLARE_UNVERIFIED; LIVE_EMAIL_UNVERIFIED; NO_PAID_API",
+  "verification": "V58_GITHUB_SOURCE_PUBLIC_RULES_66_PASS; ACTUAL_V45_ENGINE_MOCK_29_PASS; ACTUAL_V46_HANDOFF_MOCK_10_PASS; ISOLATED_CHROMIUM_DATA_VISUAL_10_PASS; NEGATIVE_AND_SYNTAX_CHECKS_9_PASS; FULL_LIVE_BROWSER_UNVERIFIED; CLOUDFLARE_UNVERIFIED; REAL_EMAIL_UNVERIFIED",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 6,
