@@ -50,7 +50,7 @@
   );
   // V60: scope/acceptance tool and six industry-specific direct sales links.
   RULES.push(
-    ['scope-page','6업종 납품 범위·검수 협의표','delivery-scope.html',t=>t.includes('id="v60-form"')&&t.includes('v60-delivery-scope.js')&&t.includes('v60-preview')&&t.includes('rel="canonical"')&&t.includes('계약·견적')],
+    ['scope-page','6업종 납품 범위·검수 협의표','delivery-scope.html',t=>t.includes('id="v60-form"')&&t.includes('v60-delivery-scope.js')&&t.includes('v60-preview')&&t.includes('rel="canonical"')&&t.includes('협의용 초안')],
     ['scope-js','포함·제외·TXT·상담 기능','assets/v60-delivery-scope.js',t=>['manufacturing','academy','interior','restaurant','beauty','logistics'].every(id=>t.includes(id+':{label:'))&&t.includes('v60-save')&&t.includes('v60-to-contact')&&!t.includes('fetch(')],
     ['scope-css','범위표 반응형 화면','assets/v60-delivery-scope.css',t=>t.includes('.sectors')&&t.includes('max-width:620px')&&t.includes('.result pre')],
     ['scope-handoff','15분 1회 상담서 인계','assets/v60-scope-handoff.js',t=>t.includes('sessionStorage.removeItem(KEY)')&&t.includes('15*60*1000')&&t.includes('c.industry!==q.get')&&!t.includes('innerHTML')],
