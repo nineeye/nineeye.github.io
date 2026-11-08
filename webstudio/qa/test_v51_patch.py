@@ -12,7 +12,11 @@ def ok(label,p):
  if not p:print('FAIL',label)
 with tempfile.TemporaryDirectory(prefix='afo_v51_') as d:
  repo=Path(d);w=repo/'webstudio';(w/'assets').mkdir(parents=True)
- src=Path('/mnt/data/afo_v49/webstudio');shutil.copyfile(src/'quick-inquiry.html',w/'quick-inquiry.html')
+ src=WEB if (WEB/'quick-inquiry.html').is_file() else Path('/mnt/data/afo_v49/webstudio')
+ quick=(src/'quick-inquiry.html').read_text('utf-8')
+ # On an already upgraded checkout reconstruct the pre-V51 integration marker.
+ quick=quick.replace('<link rel="stylesheet" href="./assets/v51-quick-handoff.css">\n<script defer src="./assets/v51-quick-handoff.js"></script>\n<meta name="webstudio-release-v51" content="WEBSTUDIO-V51-20261108">\n','')
+ (w/'quick-inquiry.html').write_text(quick,'utf-8')
  for f in ['v49-quick-inquiry.js','v49-quick-inquiry.css']:
   shutil.copyfile(src/'assets'/f,w/'assets'/f)
  (w/'assets/v50-owner-launch.js').write_text('/* V50 marker */','utf-8')

@@ -7,7 +7,7 @@ import sys,json,re
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 ROOT=Path(__file__).resolve().parents[2];WEB=ROOT/'webstudio'
-PREV=Path('/mnt/data/afo_v49/webstudio')
+PREV=WEB if (WEB/'quick-inquiry.html').is_file() else Path('/mnt/data/afo_v49/webstudio')
 html=(PREV/'quick-inquiry.html').read_text('utf-8')
 css=(PREV/'assets/v49-quick-inquiry.css').read_text('utf-8')
 js=(PREV/'assets/v49-quick-inquiry.js').read_text('utf-8')
