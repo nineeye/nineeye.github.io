@@ -1,6 +1,6 @@
 {
-  "browser_checks": 897,
-  "github_source_cross_checks": 21,
+  "browser_checks": 945,
+  "github_source_cross_checks": 23,
   "synthetic_html": true,
   "real_cloudflare_access": "NOT_VERIFIED",
   "real_email_receipt": "NOT_TESTED",
