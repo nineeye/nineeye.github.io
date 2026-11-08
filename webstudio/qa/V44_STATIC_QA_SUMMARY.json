@@ -1,0 +1,212 @@
+{
+  "checks": 50,
+  "pass": 50,
+  "fail": 0,
+  "hold": 1,
+  "messages": [
+    {
+      "passed": true,
+      "item": "unique title present manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "description present manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "canonical matches deployed current host manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "single structured data block manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "WebPage and Service fact-aligned manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "no unsupported rich result claim manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "four visible FAQs manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "native accessible summary manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "in-page FAQ jump manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "FAQ has labeled heading manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "shared CSS linked manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "V43 live-demo retained manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "V38 planner retained manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "V39 approved CTA retained manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "no automated email claim manufacturing"
+    },
+    {
+      "passed": true,
+      "item": "unique title present academy"
+    },
+    {
+      "passed": true,
+      "item": "description present academy"
+    },
+    {
+      "passed": true,
+      "item": "canonical matches deployed current host academy"
+    },
+    {
+      "passed": true,
+      "item": "single structured data block academy"
+    },
+    {
+      "passed": true,
+      "item": "WebPage and Service fact-aligned academy"
+    },
+    {
+      "passed": true,
+      "item": "no unsupported rich result claim academy"
+    },
+    {
+      "passed": true,
+      "item": "four visible FAQs academy"
+    },
+    {
+      "passed": true,
+      "item": "native accessible summary academy"
+    },
+    {
+      "passed": true,
+      "item": "in-page FAQ jump academy"
+    },
+    {
+      "passed": true,
+      "item": "FAQ has labeled heading academy"
+    },
+    {
+      "passed": true,
+      "item": "shared CSS linked academy"
+    },
+    {
+      "passed": true,
+      "item": "V43 live-demo retained academy"
+    },
+    {
+      "passed": true,
+      "item": "V38 planner retained academy"
+    },
+    {
+      "passed": true,
+      "item": "V39 approved CTA retained academy"
+    },
+    {
+      "passed": true,
+      "item": "no automated email claim academy"
+    },
+    {
+      "passed": true,
+      "item": "unique title present interior"
+    },
+    {
+      "passed": true,
+      "item": "description present interior"
+    },
+    {
+      "passed": true,
+      "item": "canonical matches deployed current host interior"
+    },
+    {
+      "passed": true,
+      "item": "single structured data block interior"
+    },
+    {
+      "passed": true,
+      "item": "WebPage and Service fact-aligned interior"
+    },
+    {
+      "passed": true,
+      "item": "no unsupported rich result claim interior"
+    },
+    {
+      "passed": true,
+      "item": "four visible FAQs interior"
+    },
+    {
+      "passed": true,
+      "item": "native accessible summary interior"
+    },
+    {
+      "passed": true,
+      "item": "in-page FAQ jump interior"
+    },
+    {
+      "passed": true,
+      "item": "FAQ has labeled heading interior"
+    },
+    {
+      "passed": true,
+      "item": "shared CSS linked interior"
+    },
+    {
+      "passed": true,
+      "item": "V43 live-demo retained interior"
+    },
+    {
+      "passed": true,
+      "item": "V38 planner retained interior"
+    },
+    {
+      "passed": true,
+      "item": "V39 approved CTA retained interior"
+    },
+    {
+      "passed": true,
+      "item": "no automated email claim interior"
+    },
+    {
+      "passed": true,
+      "item": "distinct titles for 3 sectors"
+    },
+    {
+      "passed": true,
+      "item": "distinct description for 3 sectors"
+    },
+    {
+      "passed": true,
+      "item": "V44 stylesheet exists"
+    },
+    {
+      "passed": true,
+      "item": "V38 planner JavaScript available"
+    },
+    {
+      "passed": true,
+      "item": "V43 demo JavaScript available"
+    },
+    {
+      "passed": null,
+      "item": "repository-wide robots and sitemap verification skipped (partial overlay); check in full checkout"
+    }
+  ]
+}
