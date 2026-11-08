@@ -1,0 +1,264 @@
+{
+  "version": "V51",
+  "total": 64,
+  "passed": 64,
+  "failed": 0,
+  "results": [
+    {
+      "name": "source exists assets/v51-quick-handoff.js",
+      "pass": true
+    },
+    {
+      "name": "source exists assets/v51-quick-handoff.css",
+      "pass": true
+    },
+    {
+      "name": "source exists tools/apply_v51.py",
+      "pass": true
+    },
+    {
+      "name": "source exists qa/test_v51.py",
+      "pass": true
+    },
+    {
+      "name": "sector manufacturing",
+      "pass": true
+    },
+    {
+      "name": "sector academy",
+      "pass": true
+    },
+    {
+      "name": "sector interior",
+      "pass": true
+    },
+    {
+      "name": "feature catalog",
+      "pass": true
+    },
+    {
+      "name": "feature quote",
+      "pass": true
+    },
+    {
+      "name": "feature docs",
+      "pass": true
+    },
+    {
+      "name": "feature intro",
+      "pass": true
+    },
+    {
+      "name": "feature course",
+      "pass": true
+    },
+    {
+      "name": "feature schedule",
+      "pass": true
+    },
+    {
+      "name": "feature consult",
+      "pass": true
+    },
+    {
+      "name": "feature notice",
+      "pass": true
+    },
+    {
+      "name": "feature portfolio",
+      "pass": true
+    },
+    {
+      "name": "feature process",
+      "pass": true
+    },
+    {
+      "name": "scope small",
+      "pass": true
+    },
+    {
+      "name": "scope medium",
+      "pass": true
+    },
+    {
+      "name": "scope large",
+      "pass": true
+    },
+    {
+      "name": "scope unknown",
+      "pass": true
+    },
+    {
+      "name": "selected choices 50만원 미만 검토",
+      "pass": true
+    },
+    {
+      "name": "selected choices 100~300만원 검토",
+      "pass": true
+    },
+    {
+      "name": "selected choices 1개월 내 협의",
+      "pass": true
+    },
+    {
+      "name": "selected choices 3개월 이후",
+      "pass": true
+    },
+    {
+      "name": "guard/feature v51-to-detail",
+      "pass": true
+    },
+    {
+      "name": "guard/feature v51-import",
+      "pass": true
+    },
+    {
+      "name": "guard/feature sessionStorage.removeItem(KEY)",
+      "pass": true
+    },
+    {
+      "name": "guard/feature MAX_AGE_MS",
+      "pass": true
+    },
+    {
+      "name": "guard/feature TTL",
+      "pass": true
+    },
+    {
+      "name": "guard/feature URLSearchParams",
+      "pass": true
+    },
+    {
+      "name": "guard/feature encodeURIComponent",
+      "pass": true
+    },
+    {
+      "name": "guard/feature aria-live",
+      "pass": true
+    },
+    {
+      "name": "guard/feature reportValidity",
+      "pass": true
+    },
+    {
+      "name": "guard/feature textContent",
+      "pass": true
+    },
+    {
+      "name": "guard/feature maxlength",
+      "pass": true
+    },
+    {
+      "name": "guard/feature MAX",
+      "pass": true
+    },
+    {
+      "name": "no externally active fetch(",
+      "pass": true
+    },
+    {
+      "name": "no externally active XMLHttpRequest",
+      "pass": true
+    },
+    {
+      "name": "no externally active sendBeacon",
+      "pass": true
+    },
+    {
+      "name": "no externally active localStorage",
+      "pass": true
+    },
+    {
+      "name": "no externally active innerHTML",
+      "pass": true
+    },
+    {
+      "name": "no externally active eval(",
+      "pass": true
+    },
+    {
+      "name": "no externally active new Function(",
+      "pass": true
+    },
+    {
+      "name": "no externally active document.cookie",
+      "pass": true
+    },
+    {
+      "name": "no externally active http://",
+      "pass": true
+    },
+    {
+      "name": "no externally active https://",
+      "pass": true
+    },
+    {
+      "name": "patch guard --target-root",
+      "pass": true
+    },
+    {
+      "name": "patch guard --package-root",
+      "pass": true
+    },
+    {
+      "name": "patch guard --apply",
+      "pass": true
+    },
+    {
+      "name": "patch guard V50",
+      "pass": true
+    },
+    {
+      "name": "patch guard V51",
+      "pass": true
+    },
+    {
+      "name": "patch guard refuse",
+      "pass": true
+    },
+    {
+      "name": "patch guard Refusing",
+      "pass": true
+    },
+    {
+      "name": "patch guard quick-inquiry.html",
+      "pass": true
+    },
+    {
+      "name": "patch guard contact.html",
+      "pass": true
+    },
+    {
+      "name": "patch guard current-release.json",
+      "pass": true
+    },
+    {
+      "name": "CSS readability @media(max-width:600px)",
+      "pass": true
+    },
+    {
+      "name": "CSS readability @media print",
+      "pass": true
+    },
+    {
+      "name": "CSS readability focus-visible",
+      "pass": true
+    },
+    {
+      "name": "CSS readability min-height:46px",
+      "pass": true
+    },
+    {
+      "name": "CSS readability overflow-wrap:anywhere",
+      "pass": true
+    },
+    {
+      "name": "node syntax",
+      "pass": true
+    },
+    {
+      "name": "python syntax",
+      "pass": true
+    }
+  ]
+}
