@@ -1,0 +1,377 @@
+{
+  "release": "V46",
+  "source": "V45 genuine launch HTML/CSS/JS + V46 overlay; contact V26-shaped isolated fixture",
+  "browser": "Chromium set_content; sessionStorage shim because browser navigation is blocked by sandbox",
+  "total": 91,
+  "passed": 91,
+  "failed": 0,
+  "real_same_origin_navigation_verified": false,
+  "real_production_email_verified": false,
+  "official_cloudflare_verified": false,
+  "results": [
+    {
+      "test": "V46 patch expected files",
+      "pass": true
+    },
+    {
+      "test": "idempotent source integration",
+      "pass": true
+    },
+    {
+      "test": "V45 script retained",
+      "pass": true
+    },
+    {
+      "test": "V46 script both pages",
+      "pass": true
+    },
+    {
+      "test": "V46 style in contact",
+      "pass": true
+    },
+    {
+      "test": "privacy explanation",
+      "pass": true
+    },
+    {
+      "test": "manifest version",
+      "pass": true
+    },
+    {
+      "test": "no fetch(",
+      "pass": true
+    },
+    {
+      "test": "no XMLHttpRequest",
+      "pass": true
+    },
+    {
+      "test": "no sendBeacon",
+      "pass": true
+    },
+    {
+      "test": "no localStorage",
+      "pass": true
+    },
+    {
+      "test": "no innerHTML=",
+      "pass": true
+    },
+    {
+      "test": "no https://api.",
+      "pass": true
+    },
+    {
+      "test": "360 no initial JS errors",
+      "pass": true
+    },
+    {
+      "test": "360 academy initial state",
+      "pass": true
+    },
+    {
+      "test": "360 handoff CTA visible",
+      "pass": true
+    },
+    {
+      "test": "360 storage empty before click",
+      "pass": true
+    },
+    {
+      "test": "360 launch no overflow",
+      "pass": true
+    },
+    {
+      "test": "360 stored 2/10 count",
+      "pass": true
+    },
+    {
+      "test": "360 sensitive data omitted URL",
+      "pass": true
+    },
+    {
+      "test": "360 stored project and memo",
+      "pass": true
+    },
+    {
+      "test": "360 click-only storage",
+      "pass": true
+    },
+    {
+      "test": "360 one-use data deleted on contact",
+      "pass": true
+    },
+    {
+      "test": "360 summary panel shown",
+      "pass": true
+    },
+    {
+      "test": "360 selected industry",
+      "pass": true
+    },
+    {
+      "test": "360 goal prefilled",
+      "pass": true
+    },
+    {
+      "test": "360 project appears in details",
+      "pass": true
+    },
+    {
+      "test": "360 memo preserved",
+      "pass": true
+    },
+    {
+      "test": "360 generated preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "360 HTML escaping safe",
+      "pass": true
+    },
+    {
+      "test": "360 full summary contains 8 missing",
+      "pass": true
+    },
+    {
+      "test": "360 contact textarea <=700",
+      "pass": true
+    },
+    {
+      "test": "360 contact no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "360 no repeated import",
+      "pass": true
+    },
+    {
+      "test": "360 no page errors",
+      "pass": true
+    },
+    {
+      "test": "768 no initial JS errors",
+      "pass": true
+    },
+    {
+      "test": "768 academy initial state",
+      "pass": true
+    },
+    {
+      "test": "768 handoff CTA visible",
+      "pass": true
+    },
+    {
+      "test": "768 storage empty before click",
+      "pass": true
+    },
+    {
+      "test": "768 launch no overflow",
+      "pass": true
+    },
+    {
+      "test": "768 stored 2/10 count",
+      "pass": true
+    },
+    {
+      "test": "768 sensitive data omitted URL",
+      "pass": true
+    },
+    {
+      "test": "768 stored project and memo",
+      "pass": true
+    },
+    {
+      "test": "768 click-only storage",
+      "pass": true
+    },
+    {
+      "test": "768 one-use data deleted on contact",
+      "pass": true
+    },
+    {
+      "test": "768 summary panel shown",
+      "pass": true
+    },
+    {
+      "test": "768 selected industry",
+      "pass": true
+    },
+    {
+      "test": "768 goal prefilled",
+      "pass": true
+    },
+    {
+      "test": "768 project appears in details",
+      "pass": true
+    },
+    {
+      "test": "768 memo preserved",
+      "pass": true
+    },
+    {
+      "test": "768 generated preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "768 HTML escaping safe",
+      "pass": true
+    },
+    {
+      "test": "768 full summary contains 8 missing",
+      "pass": true
+    },
+    {
+      "test": "768 contact textarea <=700",
+      "pass": true
+    },
+    {
+      "test": "768 contact no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "768 no repeated import",
+      "pass": true
+    },
+    {
+      "test": "768 no page errors",
+      "pass": true
+    },
+    {
+      "test": "1440 no initial JS errors",
+      "pass": true
+    },
+    {
+      "test": "1440 academy initial state",
+      "pass": true
+    },
+    {
+      "test": "1440 handoff CTA visible",
+      "pass": true
+    },
+    {
+      "test": "1440 storage empty before click",
+      "pass": true
+    },
+    {
+      "test": "1440 launch no overflow",
+      "pass": true
+    },
+    {
+      "test": "1440 stored 2/10 count",
+      "pass": true
+    },
+    {
+      "test": "1440 sensitive data omitted URL",
+      "pass": true
+    },
+    {
+      "test": "1440 stored project and memo",
+      "pass": true
+    },
+    {
+      "test": "1440 click-only storage",
+      "pass": true
+    },
+    {
+      "test": "1440 one-use data deleted on contact",
+      "pass": true
+    },
+    {
+      "test": "1440 summary panel shown",
+      "pass": true
+    },
+    {
+      "test": "1440 selected industry",
+      "pass": true
+    },
+    {
+      "test": "1440 goal prefilled",
+      "pass": true
+    },
+    {
+      "test": "1440 project appears in details",
+      "pass": true
+    },
+    {
+      "test": "1440 memo preserved",
+      "pass": true
+    },
+    {
+      "test": "1440 generated preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "1440 HTML escaping safe",
+      "pass": true
+    },
+    {
+      "test": "1440 full summary contains 8 missing",
+      "pass": true
+    },
+    {
+      "test": "1440 contact textarea <=700",
+      "pass": true
+    },
+    {
+      "test": "1440 contact no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "1440 no repeated import",
+      "pass": true
+    },
+    {
+      "test": "1440 no page errors",
+      "pass": true
+    },
+    {
+      "test": "expired rejected",
+      "pass": true
+    },
+    {
+      "test": "expired cleared",
+      "pass": true
+    },
+    {
+      "test": "wrong sector rejected",
+      "pass": true
+    },
+    {
+      "test": "wrong sector cleared",
+      "pass": true
+    },
+    {
+      "test": "wrong version rejected",
+      "pass": true
+    },
+    {
+      "test": "wrong version cleared",
+      "pass": true
+    },
+    {
+      "test": "invalid list rejected",
+      "pass": true
+    },
+    {
+      "test": "invalid list cleared",
+      "pass": true
+    },
+    {
+      "test": "oversized user memo rejected",
+      "pass": true
+    },
+    {
+      "test": "oversized user memo cleared",
+      "pass": true
+    },
+    {
+      "test": "future timestamp rejected",
+      "pass": true
+    },
+    {
+      "test": "future timestamp cleared",
+      "pass": true
+    }
+  ]
+}
