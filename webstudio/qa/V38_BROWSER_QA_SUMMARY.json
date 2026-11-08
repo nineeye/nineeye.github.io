@@ -1,0 +1,32 @@
+{
+  "isolated_real_html_css_js_chromium": {
+    "pass": 179,
+    "fail": 0,
+    "widths": [
+      360,
+      390,
+      768,
+      1280,
+      1440
+    ]
+  },
+  "new_home_component_chromium": {
+    "pass": 26,
+    "fail": 0,
+    "widths": [
+      320,
+      360,
+      390,
+      600,
+      768,
+      1280,
+      1440
+    ]
+  },
+  "github_branch_source_checks": {
+    "pass": 28,
+    "fail": 0
+  },
+  "total_independent_checks": 233,
+  "scope_note": "Offline isolated Chromium actual V38 HTML/CSS/JS and Github file cross-checks, not deployed website E2E"
+}

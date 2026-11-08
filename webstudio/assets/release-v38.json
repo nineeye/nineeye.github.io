@@ -1,0 +1,60 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V38",
+  "release_id": "WEBSTUDIO-V38-20261108",
+  "release_date": "2026-11-08",
+  "focus": "actual customer acquisition via 3 industry-specific sales pages",
+  "pages": [
+    "for-manufacturing.html",
+    "for-academy.html",
+    "for-interior.html"
+  ],
+  "implementation": [
+    "original 3 sales landing HTML",
+    "shared zero-dependency responsive CSS/JS",
+    "4-function interactive client-only scope picker per industry",
+    "TXT/copy actions",
+    "homepage offer cards",
+    "3 sitemap URLs",
+    "existing 36 demo and consultation links retained"
+  ],
+  "qa": {
+    "isolated_real_html_css_js_chromium": {
+      "pass": 179,
+      "fail": 0,
+      "widths": [
+        360,
+        390,
+        768,
+        1280,
+        1440
+      ]
+    },
+    "new_home_component_chromium": {
+      "pass": 26,
+      "fail": 0,
+      "widths": [
+        320,
+        360,
+        390,
+        600,
+        768,
+        1280,
+        1440
+      ]
+    },
+    "github_branch_source_checks": {
+      "pass": 28,
+      "fail": 0
+    },
+    "total_independent_checks": 233,
+    "scope_note": "Offline isolated Chromium actual V38 HTML/CSS/JS and Github file cross-checks, not deployed website E2E"
+  },
+  "boundaries": {
+    "cloudflare_production": "NOT_VERIFIED",
+    "real_inquiry_receipt": "NOT_VERIFIED",
+    "existing_36_demos_full_regression": "NOT_TESTED",
+    "payment_booking_server": "NOT_INCLUDED"
+  },
+  "cost": "No additional paid APIs; no third-party libraries added"
+}

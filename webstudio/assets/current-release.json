@@ -1,15 +1,16 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V37",
-  "release_id": "WEBSTUDIO-V37-20261108",
+  "version": "V38",
+  "release_id": "WEBSTUDIO-V38-20261108",
   "release_date": "2026-11-08",
   "function_count": 48,
   "demo_count": 36,
   "fit_check_industry_count": 12,
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
-  "release_note": "V37 adds original visual polish and three-style/consultation switcher across the existing 36 demo pages; 439/439 isolated fixture checks, 12 industries x 3 styles x 4 widths; Cloudflare production not verified",
-  "verification": "GITHUB_SOURCE_WITH_ISOLATED_FIXTURE_QA; CLOUDFLARE_LIVE_NOT_VERIFIED",
+  "release_note": "V38 adds original sales landing pages for manufacturing, academy and interior, 4-module local scope planner per page and 3-entry homepage navigation, 205 isolated browser/DOM checks PASS; Cloudflare live deployment NOT verified",
+  "verification": "GITHUB_SOURCE_AND_ISOLATED_CHROMIUM_QA; LIVE_CLOUDFLARE_NOT_VERIFIED",
   "archive_reuse_industry_count": 3,
-  "design_edition_switcher_count": 36
+  "design_edition_switcher_count": 36,
+  "sales_industry_pages": 3
 }

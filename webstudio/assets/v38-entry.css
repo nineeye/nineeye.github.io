@@ -1,0 +1,26 @@
+/* V38 three sector-specific services entry points. Original CSS, no external dependencies. */
+.v38-entry{background:#f4f5f0;color:#1b342f;border-top:1px solid #d8e5db;border-bottom:1px solid #d8e5db;padding:clamp(64px,7vw,112px) 0}
+.v38-entry .v38-wrap{width:min(1280px,calc(100% - 52px));margin:auto}
+.v38-eyebrow{display:inline-flex;align-items:center;gap:13px;color:#39775d;font-size:10px;font-weight:900;letter-spacing:.16em}.v38-eyebrow:before{content:'';width:28px;height:2px;background:#39775d}
+.v38-entry-head{display:flex;align-items:end;justify-content:space-between;gap:25px;margin-bottom:31px}
+.v38-entry h2{font-size:clamp(34px,3.7vw,56px);line-height:1.19;letter-spacing:-.07em;margin:15px 0 8px;font-weight:850;word-break:keep-all}
+.v38-entry-head>p{max-width:370px;color:#546b5f;font-size:14px;line-height:1.85;margin:0;word-break:keep-all}
+.v38-offers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.v38-offer{min-width:0;display:flex;flex-direction:column;background:#fff;border:1px solid #d6e0d9;overflow:hidden;box-shadow:0 8px 24px #163c2a0b;transition:transform .2s,box-shadow .2s}
+.v38-offer:hover{transform:translateY(-3px);box-shadow:0 24px 40px #163c2a17}
+.v38-offer:focus-within{outline:2px solid #246c52;outline-offset:3px}
+.v38-offer-art{height:155px;position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;padding:20px;color:#eafdf8;background:#10333f}
+.v38-offer-art:before{content:'';position:absolute;width:250px;height:250px;border-radius:50%;border:22px solid #82d5c833;top:-125px;right:-60px}
+.v38-offer-art strong{font-size:13px;letter-spacing:.15em;position:relative}.v38-offer-art span{font-size:43px;line-height:1;font-weight:950;letter-spacing:-.06em;position:relative}
+.v38-offer--academy .v38-offer-art{background:#544474}.v38-offer--academy .v38-offer-art:before{border-color:#d6b5ee42}
+.v38-offer--interior .v38-offer-art{background:#625243}.v38-offer--interior .v38-offer-art:before{border-color:#ead2ad38}
+.v38-offer-body{padding:26px 24px 25px;display:flex;flex-direction:column;flex:1}
+.v38-offer-body>small{font-size:10px;letter-spacing:.14em;font-weight:900;color:#447c68}
+.v38-offer-body h3{font-size:clamp(20px,2vw,25px);line-height:1.35;letter-spacing:-.06em;margin:15px 0 12px;word-break:keep-all}
+.v38-offer-body p{font-size:13px;line-height:1.8;color:#61746a;flex:1;word-break:keep-all}
+.v38-offer-body a{display:flex;align-items:center;justify-content:space-between;gap:9px;min-height:47px;padding:13px 16px;background:#183a34;color:#fff;font-size:12px;font-weight:850;margin-top:17px}
+.v38-offer-body a:hover{background:#296650}.v38-offer-body a:focus-visible{outline:3px solid #6dba92;outline-offset:3px}
+.v38-footnote{color:#6c7c72;font-size:11px;margin:19px 0 0;line-height:1.6}
+@media(max-width:900px){.v38-entry-head{flex-direction:column;align-items:start}.v38-offers{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){.v38-entry .v38-wrap{width:min(100% - 32px,1280px)}.v38-offers{grid-template-columns:1fr}.v38-offer-art{height:115px}.v38-offer-art span{font-size:32px}.v38-offer-body{padding:22px 20px}.v38-entry h2{font-size:clamp(31px,8vw,43px)}.v38-entry-head>p{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.v38-offer{transition:none}}
