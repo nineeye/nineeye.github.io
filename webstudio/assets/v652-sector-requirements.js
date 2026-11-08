@@ -106,6 +106,11 @@ function demo() {
   bottom.append(form,preview,actions,status,explanation);
   frame.append(top,badges,cards,bottom);section.append(frame);
   (document.getElementById('v28-tools')||document.getElementById('v23-workflow')||main.querySelector('.services')||main.lastElementChild).insertAdjacentElement('afterend',section);
+  const nav=document.getElementById('demo-nav');
+  if(nav&&!nav.querySelector('a[href="#v652-demand"]')){
+    const link=document.createElement('a');link.href='#v652-demand';link.textContent='필수 기능·제작 문의';
+    nav.insertBefore(link,nav.querySelector('a[href="#contact"]'));
+  }
   b.dataset.v652Ready='true';preview.tabIndex=0;render();
 }
 function contact() {
