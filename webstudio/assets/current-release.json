@@ -9,7 +9,7 @@
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
   "release_note": "Read-only publication proof for six-sector public site: exact GitHub commit and Cloudflare Pages check-run, independent eleven-page live HTTP proof, and explicit email/indexing HOLD; Windows Downloads report and updated deployment handoff.",
-  "verification": "V59_PYTHON_OFFLINE_FIXTURE_TESTS_15_PASS; SOURCE_GITHUB_CROSSCHECK_PENDING; CLOUDFLARE_V59_CI_PENDING; LIVE_HTTP_UNVERIFIED; REAL_EMAIL_UNVERIFIED",
+  "verification": "V59_LOCAL_SYNTHETIC_15_PASS; V59_GITHUB_SOURCE_AUDIT_66_PASS; FOUR_NEW_FILES_GIT_SHA_MATCH; V59_CLOUDFLARE_CI_PENDING_MERGE; LIVE_PUBLIC_HTTP_UNVERIFIED; REAL_MAIL_UNVERIFIED; FULL_BROWSER_REGRESSION_NOT_RUN",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 6,
