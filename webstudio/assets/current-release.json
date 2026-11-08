@@ -1,15 +1,15 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V44",
-  "release_id": "WEBSTUDIO-V44-20261108",
+  "version": "V45",
+  "release_id": "WEBSTUDIO-V45-20261108",
   "release_date": "2026-11-08",
   "function_count": 48,
   "demo_count": 36,
   "fit_check_industry_count": 12,
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
-  "release_note": "V44 adds 4 visible buyer FAQs each on three flagship industry sales pages (12 total) plus minimal fact-aligned WebPage/Service structured data and schema validation. Original canonical, robots and sitemap kept. Isolated Chromium 291/291 pass; stdlib audit 50/50 pass, full repo SEO baseline independently 5/5 verified. V43 Cloudflare success; V44 must be checked after merge.",
-  "verification": "V43_CLOUDFLARE_OFFICIAL_SUCCESS; V44_ISOLATED_BROWSER_291_PASS; V44_STATIC_50_PASS; V44_CLOUDFLARE_PENDING; SEARCH_INDEX_NOT_VERIFIED",
+  "release_note": "V45 preserves V44 buyer-facing SEO/FAQs and adds three local-only client preparation checklists (10 items each), progress, TXT export/copy and browser print; linked from flagship pages and home.",
+  "verification": "V44_SEO_FAQ_MERGED; V45_LAUNCH_KIT_ISOLATED_CHROMIUM_64_PASS; V45_OFFICIAL_CLOUDFLARE_PENDING; REAL_EMAIL_RECEIPT_NOT_TESTED",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 3,
@@ -20,5 +20,11 @@
   "flagship_sample_records": 24,
   "flagship_sample_scope": "fictional_offline_no_server",
   "sector_visible_faq_count": 12,
-  "sector_structured_data": "WebPage+Service_no_FAQPage"
+  "sector_structured_data": "WebPage+Service_no_FAQPage",
+  "previous_release": "V44",
+  "previous_release_note": "V44 adds 4 visible buyer FAQs each on three flagship industry sales pages (12 total) plus minimal fact-aligned WebPage/Service structured data and schema validation. Original canonical, robots and sitemap kept. Isolated Chromium 291/291 pass; stdlib audit 50/50 pass, full repo SEO baseline independently 5/5 verified. V43 Cloudflare success; V44 must be checked after merge.",
+  "launch_kit_industries": 3,
+  "launch_kit_items_per_industry": 10,
+  "launch_kit_url": "/launch-kit.html",
+  "launch_kit_server_submission": false
 }
