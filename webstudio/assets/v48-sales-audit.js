@@ -58,7 +58,7 @@
   );
   // V60: validate real source links; never equate static file presence with mail receipt.
   RULES.push(
-    {id:'scope-page',path:'delivery-scope.html',label:'6업종 납품 범위 협의표',test:t=>t.includes('id="v60-form"')&&t.includes('v60-delivery-scope.js')&&t.includes('v60-preview')&&t.includes('rel="canonical"')&&t.includes('계약·견적')},
+    {id:'scope-page',path:'delivery-scope.html',label:'6업종 납품 범위 협의표',test:t=>t.includes('id="v60-form"')&&t.includes('v60-delivery-scope.js')&&t.includes('v60-preview')&&t.includes('rel="canonical"')&&t.includes('협의용 초안')},
     {id:'scope-js',path:'assets/v60-delivery-scope.js',label:'포함·제외·TXT·상담 동작 코드',test:t=>['manufacturing','academy','interior','restaurant','beauty','logistics'].every(id=>t.includes(id+':{label:'))&&t.includes('v60-save')&&t.includes('v60-to-contact')&&!t.includes('fetch(')},
     {id:'scope-css',path:'assets/v60-delivery-scope.css',label:'범위표 반응형 스타일',test:t=>t.includes('.sectors')&&t.includes('max-width:620px')&&t.includes('.result pre')},
     {id:'scope-handoff',path:'assets/v60-scope-handoff.js',label:'15분 1회 상세 상담 인계',test:t=>t.includes('sessionStorage.removeItem(KEY)')&&t.includes('15*60*1000')&&t.includes('c.industry!==q.get')&&!t.includes('innerHTML')},
