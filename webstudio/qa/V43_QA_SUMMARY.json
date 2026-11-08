@@ -1,0 +1,44 @@
+{
+  "version": "V43",
+  "date": "2026-11-08",
+  "goal": "Make three flagship sector sales pages actually demonstrable, rather than multiplying static mockups",
+  "static_reuse": {
+    "industries": 3,
+    "fictional_records_per_industry": 8,
+    "fictional_records_total": 24
+  },
+  "browser_qa": {
+    "passes": 360,
+    "failures": 0,
+    "method": "Actual V41 sales HTML with V43 additions + existing V38 CSS/JS + new V43 CSS/JS, isolated Linux Chromium with no production HTTP",
+    "viewports": [
+      320,
+      360,
+      390,
+      768,
+      1280,
+      1440
+    ],
+    "topics": [
+      "rendering and mobile horizontal overflow",
+      "filter and 2 facets",
+      "choose/remove/reset samples",
+      "copy and TXT download",
+      "existing V38 approved scope activation and contact links",
+      "empty states and script errors"
+    ]
+  },
+  "security": {
+    "network_calls": "none in V43 source",
+    "data_storage": "none",
+    "send_email": "none",
+    "third_party_dependencies": "none",
+    "licenses": "original code"
+  },
+  "limitations": [
+    "24 records are fiction, not real inventory, schedule or customer work",
+    "Exact picked sample details are kept local; only a corresponding preapproved feature category is passed to consultation",
+    "No live Cloudflare HTTP/browser or real email receipt verified by these tests"
+  ],
+  "snapshot_baseline": "V42 ZIP retained byte-for-byte"
+}
