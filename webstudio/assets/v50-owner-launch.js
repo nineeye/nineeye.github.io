@@ -108,5 +108,7 @@
   $('report-copy').addEventListener('click',async()=>{const x=report();try{if(typeof navigator.clipboard?.writeText!=='function')throw Error('clipboard blocked');await navigator.clipboard.writeText(x);message('점검 기록을 복사했습니다. 자동 업로드되지 않습니다.')}catch(_){const pre=$('report-text');pre.textContent=x;pre.hidden=false;message('자동 복사가 차단되었습니다. 아래 내용을 선택해 복사하거나 TXT를 저장하세요.');}});
   $('report-download').addEventListener('click',()=>{const blob=new Blob(['\ufeff',report()],{type:'text/plain;charset=utf-8'});const href=URL.createObjectURL(blob);const a=document.createElement('a');a.href=href;a.download='AllFileOne_V56_Owner_Readiness.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),2500);message('TXT를 저장했습니다. 이것은 자체 확인 기록이며 외부 전송·접수가 아닙니다.');});
   run.addEventListener('click',execute);
+  // Auto-run only public-file checks; owner/manual decisions remain explicitly manual.
+  execute();
   // Deliberately do not persist owner's checked state or automatically claim checks passed.
 })();
