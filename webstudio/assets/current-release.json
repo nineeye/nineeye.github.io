@@ -9,7 +9,7 @@
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
   "release_note": "Fix optional intake missing restaurant/beauty/logistics sector choices, add quick/manual contact fallback when Cloudflare intake is not configured, safe public ID industry preselection, and add zero-cost 77-page local static integrity audit/Windows Downloads reporting.",
-  "verification": "V61_REPO_77_HTML_913_STATIC_REFS_ZERO_MISSING; LOCAL_PY_UNIT_31_PASS; V61_GITHUB_CONVERSION_MOCK_10_PASS; V61_SOURCE_AUDIT_PENDING; V61_CLOUDFLARE_CI_PENDING; LIVE_SITE_AND_EMAIL_NOT_VERIFIED",
+  "verification": "V61_GITHUB_102_SOURCE_RULES_PASS; V61_LOCAL_PYTHON_31_UNIT_PASS; V61_OPTIONAL_INQUIRY_MOCK_DOM_10_PASS; V61_V60_MAIN_77_HTML_913_STATIC_LINKS_ZERO_MISSING; V61_CLOUDFLARE_CI_PENDING; PUBLIC_SITE_HTTP_AND_EMAIL_RECEIPT_UNVERIFIED",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 6,
@@ -144,5 +144,15 @@
   "v61_live_http_verified": false,
   "v61_email_receipt_verified": false,
   "v60_cloudflare_ci_success_historical": true,
-  "v61_cloudflare_ci_success_verified": false
+  "v61_cloudflare_ci_success_verified": false,
+  "v61_release_quality_gates": {
+    "github_source_predicates_pass": 102,
+    "python_unittests_pass": 31,
+    "optional_inquiry_mock_dom_pass": 10,
+    "html_files_inspected": 77,
+    "static_links_checked": 913,
+    "static_missing_links": 0,
+    "live_cloudflare_http_verified": false,
+    "real_email_receipt_verified": false
+  }
 }
