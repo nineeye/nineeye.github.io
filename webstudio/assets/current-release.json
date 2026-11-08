@@ -9,7 +9,7 @@
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
   "release_note": "Zero-paid-API Windows Edge/Chromium real public browser smoke QA uses standard-library Chrome DevTools Protocol to validate six industry seller pages, mobile/desktop overflow and quick-to-detailed consultation, saving truthful TXT/JSON/PNG/SHA/ZIP evidence in Downloads. Does NOT send mail or claim live success without browser proof.",
-  "verification": "V63_OFFLINE_CDP_PROTOCOL_22_PASS; SOURCE_GITHUB_QA_PENDING; REAL_WINDOWS_PUBLIC_BROWSER_HOLD; REAL_EMAIL_RECEIPT_UNVERIFIED; CLOUDFLARE_V63_CI_PENDING; NO_PAID_API",
+  "verification": "V63_OFFLINE_CDP_PROTOCOL_22_PASS; V63_GITHUB_SOURCE_AUDIT_118_PASS; V63_NEGATIVE_6_PASS; NEW_SOURCE_GIT_BLOBS_4_EXACT; LIVE_WINDOWS_BROWSER_NOT_RUN; PUBLIC_CLOUDFLARE_HTML_NOT_READ; REAL_EMAIL_NOT_RECEIVED_VERIFIED; CLOUDFLARE_V63_CI_PENDING",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 6,
