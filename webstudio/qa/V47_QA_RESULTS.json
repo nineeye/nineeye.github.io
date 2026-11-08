@@ -1,0 +1,307 @@
+{
+  "release": "V47",
+  "type": "isolated Chromium with real HTML/JS/CSS widget and synthetic V26+V46 fixture",
+  "passed": 74,
+  "failed": 0,
+  "total": 74,
+  "live_site_tested": false,
+  "real_email_receipt_tested": false,
+  "results": [
+    {
+      "name": "does not use fetch(",
+      "pass": true
+    },
+    {
+      "name": "does not use XMLHttpRequest",
+      "pass": true
+    },
+    {
+      "name": "does not use sendBeacon",
+      "pass": true
+    },
+    {
+      "name": "does not use localStorage",
+      "pass": true
+    },
+    {
+      "name": "does not use innerHTML",
+      "pass": true
+    },
+    {
+      "name": "does not use https://api.",
+      "pass": true
+    },
+    {
+      "name": "does not use eval(",
+      "pass": true
+    },
+    {
+      "name": "required token v47-copy-all",
+      "pass": true
+    },
+    {
+      "name": "required token v47-download-all",
+      "pass": true
+    },
+    {
+      "name": "required token v47-show-all",
+      "pass": true
+    },
+    {
+      "name": "required token v46-full-report",
+      "pass": true
+    },
+    {
+      "name": "required token brief-output",
+      "pass": true
+    },
+    {
+      "name": "required token brief-form",
+      "pass": true
+    },
+    {
+      "name": "required token aria-live",
+      "pass": true
+    },
+    {
+      "name": "required token checkValidity",
+      "pass": true
+    },
+    {
+      "name": "360 panel created",
+      "pass": true
+    },
+    {
+      "name": "360 4 actions",
+      "pass": true
+    },
+    {
+      "name": "360 initial no overflow",
+      "pass": true
+    },
+    {
+      "name": "360 external link safe",
+      "pass": true
+    },
+    {
+      "name": "360 no errors",
+      "pass": true
+    },
+    {
+      "name": "360 required check",
+      "pass": true
+    },
+    {
+      "name": "360 preview visible",
+      "pass": true
+    },
+    {
+      "name": "360 correct recipient",
+      "pass": true
+    },
+    {
+      "name": "360 correct subject",
+      "pass": true
+    },
+    {
+      "name": "360 consultation body",
+      "pass": true
+    },
+    {
+      "name": "360 V46 original preserved",
+      "pass": true
+    },
+    {
+      "name": "360 no HTML injection",
+      "pass": true
+    },
+    {
+      "name": "360 preview closes",
+      "pass": true
+    },
+    {
+      "name": "360 download name",
+      "pass": true
+    },
+    {
+      "name": "360 downloaded whole packet",
+      "pass": true
+    },
+    {
+      "name": "360 no auto submission",
+      "pass": true
+    },
+    {
+      "name": "360 stale preview hides",
+      "pass": true
+    },
+    {
+      "name": "360 repeated script idempotent",
+      "pass": true
+    },
+    {
+      "name": "360 final no overflow",
+      "pass": true
+    },
+    {
+      "name": "768 panel created",
+      "pass": true
+    },
+    {
+      "name": "768 4 actions",
+      "pass": true
+    },
+    {
+      "name": "768 initial no overflow",
+      "pass": true
+    },
+    {
+      "name": "768 external link safe",
+      "pass": true
+    },
+    {
+      "name": "768 no errors",
+      "pass": true
+    },
+    {
+      "name": "768 required check",
+      "pass": true
+    },
+    {
+      "name": "768 preview visible",
+      "pass": true
+    },
+    {
+      "name": "768 correct recipient",
+      "pass": true
+    },
+    {
+      "name": "768 correct subject",
+      "pass": true
+    },
+    {
+      "name": "768 consultation body",
+      "pass": true
+    },
+    {
+      "name": "768 V46 original preserved",
+      "pass": true
+    },
+    {
+      "name": "768 no HTML injection",
+      "pass": true
+    },
+    {
+      "name": "768 preview closes",
+      "pass": true
+    },
+    {
+      "name": "768 download name",
+      "pass": true
+    },
+    {
+      "name": "768 downloaded whole packet",
+      "pass": true
+    },
+    {
+      "name": "768 no auto submission",
+      "pass": true
+    },
+    {
+      "name": "768 stale preview hides",
+      "pass": true
+    },
+    {
+      "name": "768 repeated script idempotent",
+      "pass": true
+    },
+    {
+      "name": "768 final no overflow",
+      "pass": true
+    },
+    {
+      "name": "1440 panel created",
+      "pass": true
+    },
+    {
+      "name": "1440 4 actions",
+      "pass": true
+    },
+    {
+      "name": "1440 initial no overflow",
+      "pass": true
+    },
+    {
+      "name": "1440 external link safe",
+      "pass": true
+    },
+    {
+      "name": "1440 no errors",
+      "pass": true
+    },
+    {
+      "name": "1440 required check",
+      "pass": true
+    },
+    {
+      "name": "1440 preview visible",
+      "pass": true
+    },
+    {
+      "name": "1440 correct recipient",
+      "pass": true
+    },
+    {
+      "name": "1440 correct subject",
+      "pass": true
+    },
+    {
+      "name": "1440 consultation body",
+      "pass": true
+    },
+    {
+      "name": "1440 V46 original preserved",
+      "pass": true
+    },
+    {
+      "name": "1440 no HTML injection",
+      "pass": true
+    },
+    {
+      "name": "1440 preview closes",
+      "pass": true
+    },
+    {
+      "name": "1440 download name",
+      "pass": true
+    },
+    {
+      "name": "1440 downloaded whole packet",
+      "pass": true
+    },
+    {
+      "name": "1440 no auto submission",
+      "pass": true
+    },
+    {
+      "name": "1440 stale preview hides",
+      "pass": true
+    },
+    {
+      "name": "1440 repeated script idempotent",
+      "pass": true
+    },
+    {
+      "name": "1440 final no overflow",
+      "pass": true
+    },
+    {
+      "name": "no V46 report graceful",
+      "pass": true
+    },
+    {
+      "name": "no V46 report no error",
+      "pass": true
+    }
+  ]
+}
