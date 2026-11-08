@@ -1,0 +1,165 @@
+{
+  "release": "V49",
+  "total": 39,
+  "passed": 39,
+  "failed": 0,
+  "results": [
+    {
+      "name": "doctype",
+      "pass": true
+    },
+    {
+      "name": "lang ko",
+      "pass": true
+    },
+    {
+      "name": "viewport",
+      "pass": true
+    },
+    {
+      "name": "correct canonical",
+      "pass": true
+    },
+    {
+      "name": "sensible title",
+      "pass": true
+    },
+    {
+      "name": "SEO description",
+      "pass": true
+    },
+    {
+      "name": "no duplicate HTML IDs",
+      "pass": true
+    },
+    {
+      "name": "required main",
+      "pass": true
+    },
+    {
+      "name": "main heading",
+      "pass": true
+    },
+    {
+      "name": "no html form external submit",
+      "pass": true
+    },
+    {
+      "name": "CSS local",
+      "pass": true
+    },
+    {
+      "name": "JS local",
+      "pass": true
+    },
+    {
+      "name": "three known industries",
+      "pass": true
+    },
+    {
+      "name": "one checked by default",
+      "pass": true
+    },
+    {
+      "name": "note capped",
+      "pass": true
+    },
+    {
+      "name": "input labeling",
+      "pass": true
+    },
+    {
+      "name": "real-email disclaimer",
+      "pass": true
+    },
+    {
+      "name": "copier has button",
+      "pass": true
+    },
+    {
+      "name": "save has button",
+      "pass": true
+    },
+    {
+      "name": "mailto has button",
+      "pass": true
+    },
+    {
+      "name": "webmail uses noopener",
+      "pass": true
+    },
+    {
+      "name": "receipt not fabricated",
+      "pass": true
+    },
+    {
+      "name": "JS no network",
+      "pass": true
+    },
+    {
+      "name": "JS no persistent storage",
+      "pass": true
+    },
+    {
+      "name": "JS no eval/innerHTML",
+      "pass": true
+    },
+    {
+      "name": "JS safe DOM text",
+      "pass": true
+    },
+    {
+      "name": "JS safe URL allowlist",
+      "pass": true
+    },
+    {
+      "name": "JS native validity",
+      "pass": true
+    },
+    {
+      "name": "JS email URI cap",
+      "pass": true
+    },
+    {
+      "name": "JS download and BOM",
+      "pass": true
+    },
+    {
+      "name": "JS manual send statement",
+      "pass": true
+    },
+    {
+      "name": "No third party stylesheet",
+      "pass": true
+    },
+    {
+      "name": "No remote font load",
+      "pass": true
+    },
+    {
+      "name": "CSS focus styles",
+      "pass": true
+    },
+    {
+      "name": "CSS mobile layout",
+      "pass": true
+    },
+    {
+      "name": "CSS reduced motion",
+      "pass": true
+    },
+    {
+      "name": "Entry CSS mobile CTA",
+      "pass": true
+    },
+    {
+      "name": "Entry CSS focus style",
+      "pass": true
+    },
+    {
+      "name": "No outside images",
+      "pass": true
+    }
+  ],
+  "scope": "Python stdlib static code/markup checks only"
+}
