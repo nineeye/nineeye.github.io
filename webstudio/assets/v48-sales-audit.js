@@ -13,7 +13,7 @@
   const sectorPaths = ['manufacturing', 'academy', 'interior'];
   const RULES = [
     {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V57'&&x.release_id==='WEBSTUDIO-V57-20261108'&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
-    {id:'home',path:'index.html',label:'메인에서 3업종 이동',test:text=>sectorPaths.every(id=>text.includes('for-'+id+'.html'))},
+    {id:'home',path:'index.html',label:'메인에서 6업종 이동',test:text=>[...sectorPaths,'restaurant','beauty','logistics'].every(id=>text.includes('for-'+id+'.html'))},
     {id:'manufacturing',path:'for-manufacturing.html',label:'제조·도매 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
     {id:'academy',path:'for-academy.html',label:'학원·교육 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
     {id:'interior',path:'for-interior.html',label:'인테리어 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
@@ -24,7 +24,7 @@
     {id:'contact',path:'contact.html',label:'상담서·메일 패키지 연결',test:t=>t.includes('id="brief-form"')&&t.includes('v26-contact.js')&&t.includes('v46-handoff.js')&&t.includes('v47-mail-packet.js')},
     {id:'packet',path:'assets/v47-mail-packet.js',label:'전체 문의 메일 수동 발송 준비',test:t=>t.includes('v46-full-report')&&t.includes('v47-download-all')&&t.includes('nineeyes@naver.com')&&!t.includes('fetch(')},
     {id:'webmail',path:'assets/v42-webmail-guide.js',label:'웹메일 수동 전송 안내',test:t=>t.includes('https://mail.naver.com/')&&t.includes('v42-copy-complete')},
-    {id:'sitemap',path:'sitemap.xml',label:'사이트맵의 3업종·시작키트',test:t=>[...sectorPaths.map(x=>'for-'+x+'.html'),'launch-kit.html'].every(x=>t.includes(x))},
+    {id:'sitemap',path:'sitemap.xml',label:'사이트맵의 6업종·시작키트',test:t=>[...sectorPaths,'restaurant','beauty','logistics'].map(x=>'for-'+x+'.html').concat('launch-kit.html').every(x=>t.includes(x))},
     {id:'robots',path:'robots.txt',label:'검색 로봇·사이트맵 안내',test:t=>/Sitemap:\s*https:\/\/allfileone-webstudio\.pages\.dev\/sitemap\.xml/.test(t)&&t.includes('Disallow: /demo/')},
     {id:'plans',path:'plan-guide.html',label:'제작 상품·비용 고지',test:t=>t.includes('29')&&t.includes('59')&&t.includes('99')&&t.includes('확정 견적')},
     {id:'designs',path:'design-gallery-v13.html',label:'36개 디자인 선택 화면',test:t=>t.includes('gallery-v13')&&t.includes('demo')}
