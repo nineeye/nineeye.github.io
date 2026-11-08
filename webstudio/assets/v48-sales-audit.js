@@ -12,7 +12,7 @@
   const base = path => new URL(path, root);
   const sectorPaths = ['manufacturing', 'academy', 'interior'];
   const RULES = [
-    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V59'&&x.release_id==='WEBSTUDIO-V59-20261108'&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
+    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V60'&&x.release_id==='WEBSTUDIO-V60-20261108'&&x.scope_planner_industries===6&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
     {id:'home',path:'index.html',label:'메인에서 6업종 이동',test:text=>[...sectorPaths,'restaurant','beauty','logistics'].every(id=>text.includes('for-'+id+'.html'))},
     {id:'manufacturing',path:'for-manufacturing.html',label:'제조·도매 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
     {id:'academy',path:'for-academy.html',label:'학원·교육 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
@@ -56,9 +56,19 @@
     {id:'kit-handoff-six',path:'assets/v46-handoff.js',label:'상세 상담 인계 업종 확장',test:t=>['restaurant','beauty','logistics'].every(x=>t.includes(x+":'"))&&t.includes('sessionStorage.removeItem(KEY)')},
     ...['restaurant','beauty','logistics'].map(x=>({id:'kit-'+x,path:'for-'+x+'.html',label:x+' 제작자료 CTA',test:t=>t.includes('launch-kit.html?industry='+x)}))
   );
+  // V60: validate real source links; never equate static file presence with mail receipt.
+  RULES.push(
+    {id:'scope-page',path:'delivery-scope.html',label:'6업종 납품 범위 협의표',test:t=>t.includes('id="v60-form"')&&t.includes('v60-delivery-scope.js')&&t.includes('v60-preview')&&t.includes('rel="canonical"')&&t.includes('협의용 초안')},
+    {id:'scope-js',path:'assets/v60-delivery-scope.js',label:'포함·제외·TXT·상담 동작 코드',test:t=>['manufacturing','academy','interior','restaurant','beauty','logistics'].every(id=>t.includes(id+':{label:'))&&t.includes('v60-save')&&t.includes('v60-to-contact')&&!t.includes('fetch(')},
+    {id:'scope-css',path:'assets/v60-delivery-scope.css',label:'범위표 반응형 스타일',test:t=>t.includes('.sectors')&&t.includes('max-width:620px')&&t.includes('.result pre')},
+    {id:'scope-handoff',path:'assets/v60-scope-handoff.js',label:'15분 1회 상세 상담 인계',test:t=>t.includes('sessionStorage.removeItem(KEY)')&&t.includes('15*60*1000')&&t.includes('c.industry!==q.get')&&!t.includes('innerHTML')},
+    {id:'scope-contact',path:'contact.html',label:'상담서 V60 인계 연결',test:t=>t.includes('v60-scope-handoff.js')&&t.includes('v60-import.css')&&t.includes('id="brief-form"')},
+    {id:'scope-sitemap',path:'sitemap.xml',label:'범위 협의표 사이트맵',test:t=>t.includes('/delivery-scope.html')},
+    ...['manufacturing','academy','interior','restaurant','beauty','logistics'].map(id=>({id:'scope-'+id,path:'for-'+id+'.html',label:id+' 범위 협의 전환',test:t=>t.includes('delivery-scope.html?industry='+id)}))
+  );
   const state={running:false,records:[],completed:'',version:''};
   const renderHead=(name,text)=>{const el=document.createElement(name);el.textContent=text;return el;};
-  const title=renderHead('h3','V59 · 준비키트 포함 6업종 판매 동선 자동 점검');
+  const title=renderHead('h3','V60 · 6업종 납품 범위 포함 판매 동선 자동 점검');
   const lead=renderHead('p','이 브라우저가 연결된 서버의 공개 파일을 확인합니다. 네이버·Google 색인, 실제 상담 메일 수신, 실거래·계약 완료 여부는 확인하지 못합니다.');
   const toolbar=document.createElement('div');toolbar.className='v48-toolbar';
   const start=document.createElement('button');start.type='button';start.id='v48-run';start.textContent='판매 동선 다시 검사';
@@ -112,7 +122,7 @@
     }finally{start.disabled=false;state.running=false;}
   }
   function report(){return [
-    '올파일원 웹스튜디오 / V59 공개 판매 동선 점검',
+    '올파일원 웹스튜디오 / V60 공개 판매 동선 점검',
     '검사 출처: '+root.href,'서버 표시 버전: '+(state.version||'미확인'),
     '검사 시각: '+state.completed,
     '공개 파일: '+state.records.filter(x=>x.pass).length+'/'+RULES.length+' 통과',
@@ -122,7 +132,7 @@
   start.addEventListener('click',run);
   save.addEventListener('click',()=>{
     const blob=new Blob(['\ufeff',report()],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V59_Sales_Audit.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V60_Sales_Audit.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
   });
   copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(report());status.textContent+=' · 보고서를 복사했습니다.'}catch(_){status.textContent+=' · 클립보드가 차단되어 TXT 저장을 이용하세요.'}});
   run();

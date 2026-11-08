@@ -1,0 +1,5 @@
+/* AllFileOne WebStudio V60: scoped handoff panel only; no global form/theme changes. */
+.v60-import{box-sizing:border-box;margin:0 auto 20px;max-width:1140px;border:1px solid #a5cdb3;border-left:5px solid #347e5d;background:#f2f9f2;padding:20px;border-radius:8px;color:#183e2b;overflow-wrap:anywhere}
+.v60-import *{box-sizing:border-box}.v60-import strong{display:block;font-size:20px;color:#165337}.v60-import p{font-size:12px;line-height:1.8}.v60-import pre{font:12px/1.85 ui-monospace,Consolas,'Malgun Gothic',monospace;background:white;border:1px solid #cde2d1;padding:15px;white-space:pre-wrap;overflow-wrap:anywhere;max-height:270px;overflow:auto}.v60-import button{border:0;background:#17563e;color:white;padding:12px 17px;font-weight:800;cursor:pointer;border-radius:5px;min-height:45px}.v60-import button:focus-visible{outline:3px solid #d7a040;outline-offset:3px}
+@media(max-width:640px){.v60-import{margin:0 12px 18px;padding:15px}.v60-import button{width:100%}}
+@media print{.v60-import pre{max-height:none;overflow:visible}.v60-import button{display:none}}
