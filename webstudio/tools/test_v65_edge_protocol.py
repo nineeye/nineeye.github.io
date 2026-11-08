@@ -129,9 +129,9 @@ class FailClosed(unittest.TestCase):
 class PublicSmokeSimulation(unittest.TestCase):
     """Deterministic CDP protocol simulation; NEVER proof of live site access."""
     class FakeCDP:
-        def __init__(self,status=200,version='WEBSTUDIO-V65-20261108',cta=True,import_ok=True,pretty=False):
+        def __init__(self,status=200,version='WEBSTUDIO-V65-20261108',cta=True,import_ok=True,pretty=False,delayed_dom=False):
             self.events=[];self.status=status;self.version=version
-            self.cta=cta;self.import_ok=import_ok;self.pretty=pretty;self.current='';self.sector='';self.width=0
+            self.cta=cta;self.import_ok=import_ok;self.pretty=pretty;self.delayed_dom=delayed_dom;self.handoff_polls=0;self.current='';self.sector='';self.width=0
         def call(self,cmd,params=None,**kwargs):
             params=params or {}
             if cmd=='Emulation.setDeviceMetricsOverride': self.width=params['width']
@@ -154,9 +154,13 @@ class PublicSmokeSimulation(unittest.TestCase):
                 return {'industry':self.sector,'preview':'업종: '+self.sector,'subject':True,'body':True,'provider':True,'detail':True}
             if 'v51-to-detail' in expr and '.click()' in expr:
                 self.current=mod.BASE+('contact' if self.pretty else 'contact.html')
+                self.handoff_polls=0
                 return True
             if expr.startswith('({path:location.pathname'):
-                return {'path':'/contact' if self.pretty else '/contact.html','industry':self.sector if self.import_ok else 'wrong','imported':self.import_ok,'notes':'[1분 빠른 문의에서 이어쓰기]' if self.import_ok else '', 'cleared':True}
+                self.handoff_polls+=1
+                if self.delayed_dom and self.handoff_polls==1:
+                    return {'path':'/contact' if self.pretty else '/contact.html','ready':'loading','industry':'','imported':False,'notes':'','cleared':False}
+                return {'path':'/contact' if self.pretty else '/contact.html','ready':'complete','industry':self.sector if self.import_ok else 'wrong','imported':self.import_ok,'notes':'[1분 빠른 문의에서 이어쓰기]' if self.import_ok else '', 'cleared':True}
             raise AssertionError('Unrecognized stub CDP expression: '+expr[:100])
 
     def simulate(self,**kwargs):
@@ -182,6 +186,13 @@ class PublicSmokeSimulation(unittest.TestCase):
         checks=[r for r in rows if r['check'].startswith('6업종 빠른 문의 초기선택')]
         self.assertEqual(len(checks),12)
         self.assertTrue(all(r['pass'] for r in checks))
+    def test_deferred_contact_document_initialization_is_not_false_failure(self):
+        # Regression for real V65 GitHub Windows Edge: the /contact route appeared
+        # while document.readyState was loading; 12/140 false HOLDs followed.
+        rows,_=self.simulate(pretty=True,delayed_dom=True)
+        handoffs=[r for r in rows if r['check'].startswith('빠른 문의 → 상세 상담 1회 인계')]
+        self.assertEqual(len(handoffs),12)
+        self.assertTrue(all(r['pass'] for r in handoffs),handoffs)
     def test_six_handoffs_both_viewports(self):
         rows,_=self.simulate()
         checks=[r for r in rows if r['check'].startswith('빠른 문의 → 상세 상담 1회 인계')]

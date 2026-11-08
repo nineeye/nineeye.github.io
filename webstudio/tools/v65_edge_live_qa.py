@@ -258,8 +258,10 @@ def smoke(cdp,base,output_dir,do_screenshots=True):
                 cdp.evaluate("document.getElementById('v51-to-detail').click()")
                 end=time.monotonic()+TIMEOUT_SECONDS;import_state={};ok=False
                 while time.monotonic()<end:
-                    import_state=cdp.evaluate("({path:location.pathname,industry:document.querySelector('#brief-form select[name=industry]')?.value||'',imported:!!document.querySelector('#v51-import'),notes:document.querySelector('#brief-form textarea[name=details]')?.value||'',cleared:sessionStorage.getItem('afo.webstudio.v51.quickbrief')===null})")
-                    if import_state['path'] in ('/contact','/contact.html'):
+                    import_state=cdp.evaluate("({path:location.pathname,ready:document.readyState,industry:document.querySelector('#brief-form select[name=industry]')?.value||'',imported:!!document.querySelector('#v51-import'),notes:document.querySelector('#brief-form textarea[name=details]')?.value||'',cleared:sessionStorage.getItem('afo.webstudio.v51.quickbrief')===null})")
+                    # A URL can switch to /contact while deferred scripts are still loading.
+                    # Do not reject the one-time brief before DOMContentLoaded completes.
+                    if import_state['path'] in ('/contact','/contact.html') and import_state['ready']=='complete':
                         ok=(import_state['industry']==sector and import_state['imported']
                             and '[1분 빠른 문의에서 이어쓰기]' in import_state['notes']
                             and import_state['cleared'])

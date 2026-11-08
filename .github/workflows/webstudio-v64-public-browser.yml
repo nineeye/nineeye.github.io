@@ -63,6 +63,15 @@ jobs:
           python webstudio/tools/v65_edge_live_qa.py --output "$out"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: Package full deployable site source plus QA evidence even on HOLD
+        if: always()
+        shell: pwsh
+        run: |
+          $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
+          New-Item -ItemType Directory -Path $out -Force | Out-Null
+          python webstudio/tools/v65_bundle_release.py --source webstudio --evidence-dir "$out" --out-dir "$out"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Attach public-page evidence even on HOLD
         if: always()
         uses: actions/upload-artifact@v4
