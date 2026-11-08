@@ -1,0 +1,29 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V41",
+  "release_id": "WEBSTUDIO-V41-20261108",
+  "release_date": "2026-11-08",
+  "goal": "Sales trust and accurate contract preparation, not more demos or premature deployment claims",
+  "changes": [
+    "Corrected stale assertion on three sector sales pages that selected functions would not transfer; V39 scope selection is preserved in customer brief.",
+    "Corrected V5 guide's 29/59/99만원부터 wording to clearly marked illustrative price, not binding offer.",
+    "Expanded pre-contract clarification list to 6 dimensions, including fees and deliverables.",
+    "Linked each sector landing and home delivery section to guide#handoff; use current contact.html instead of outdated start.html."
+  ],
+  "QA": {
+    "isolated_chromium_735_of_735": "PASS",
+    "github_file_readback_35_of_35": "PASS",
+    "source_character_for_character_three_landing_pages": "verified_by_git_blob_sha",
+    "production_http_e2e": "NOT_TESTED",
+    "customer_email_receipt": "NOT_TESTED"
+  },
+  "prior_cloudflare": {
+    "version": "V40",
+    "commit": "eda8bc4af5e3c91a1609225220dd79c6fa5f679d",
+    "cloudflare_check": "success",
+    "check_url": "https://github.com/nineeye/nineeye.github.io/runs/128629307994"
+  },
+  "v41_cloudflare": "PENDING_PR_MERGE_AND_OFFICIAL_CHECK",
+  "cost": "Zero extra API/AI fees",
+  "vendor_changes": "None"
+}
