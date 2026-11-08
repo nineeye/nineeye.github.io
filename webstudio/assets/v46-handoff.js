@@ -6,7 +6,7 @@
   'use strict';
   const KEY = 'afo.webstudio.v46.handoff';
   const MAX_AGE_MS = 15 * 60 * 1000;
-  const SECTORS = Object.freeze({manufacturing:'제조 · 도매',academy:'학원 · 교육',interior:'인테리어 · 시공'});
+  const SECTORS = Object.freeze({manufacturing:'제조 · 도매',academy:'학원 · 교육',interior:'인테리어 · 시공',restaurant:'음식점 · 카페',beauty:'뷰티 · 미용',logistics:'물류 · 운송'});
   const GOALS = Object.freeze({'신규 상담·견적 문의':'lead','상품·서비스 소개':'showcase','예약·방문 안내':'booking','신뢰·브랜드 강화':'brand'});
   const has = (obj,key) => Object.prototype.hasOwnProperty.call(obj,key);
   const txt = (s,max=300) => String(s == null ? '' : s).replace(/[\u0000-\u001f\u007f]/g,' ').trim().slice(0,max);
