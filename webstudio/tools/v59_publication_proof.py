@@ -4,9 +4,9 @@
 """Check source release, official Cloudflare CI, and independent public site reads."""
 import argparse
 import base64
+import binascii
 from datetime import datetime, timezone
 import json
-import os
 from pathlib import Path
 import re
 import sys
@@ -48,7 +48,7 @@ def analyze(fetch=get):
     report = {'checked_at_utc':datetime.now(timezone.utc).isoformat(timespec='seconds'),
               'source':'official GitHub API + independent Cloudflare Pages HTTP',
               'repository':REPO, 'cloudflare_url':LIVE,
-              'commit_sha':None, 'release':None, 'ci':{'status':'HOLD','detail':'미확인'},
+              'commit_sha':None, 'release':None, 'release_id':None, 'ci':{'status':'HOLD','detail':'미확인'},
               'live':{'status':'HOLD','checks':[]},
               'real_mail':'NOT_TESTED', 'search_index':'NOT_TESTED',
               'technical_status':'HOLD', 'notes':[]}
@@ -65,10 +65,11 @@ def analyze(fetch=get):
         data = json_read(API + '/contents/webstudio/assets/current-release.json?ref='+sha)
         if data.get('encoding') != 'base64' or not isinstance(data.get('content'),str):
             raise ValueError('릴리스 파일 응답 형식이 다릅니다')
-        release = json.loads(base64.b64decode(data['content'],validate=False).decode('utf-8-sig'))
+        release = json.loads(base64.b64decode(''.join(data['content'].split()),validate=True).decode('utf-8-sig'))
         if release.get('product') != 'AllFileOne WebStudio' or not re.fullmatch(r'V\d+',str(release.get('version',''))):
             raise ValueError('제품 릴리스 데이터 불일치')
         report['release'] = release['version']
+        report['release_id'] = str(release.get('release_id',''))
         checks = json_read(API+'/commits/'+sha+'/check-runs?per_page=100').get('check_runs',[])
         cfs = [x for x in checks if x.get('name') == 'Cloudflare Pages' and x.get('head_sha',sha) == sha]
         if cfs and any(x.get('status')=='completed' and x.get('conclusion')=='success' for x in cfs):
@@ -78,12 +79,12 @@ def analyze(fetch=get):
             report['ci']={'status':'HOLD','detail':'Cloudflare Pages check-run exists but not successful: '+str(cfs[0].get('conclusion'))}
         else:
             report['ci']={'status':'HOLD','detail':'해당 커밋의 Cloudflare Pages 검사 기록 없음'}
-    except (HTTPError, URLError, OSError, ValueError, KeyError, TypeError, json.JSONDecodeError) as exc:
+    except (HTTPError, URLError, OSError, ValueError, KeyError, TypeError, UnicodeError, binascii.Error, json.JSONDecodeError) as exc:
         fail('GitHub 소스·공식 배포',exc)
     if report['release']:
         paths=[('assets/current-release.json',lambda t: json.loads(t).get('version')==report['release']),
-               ('index.html',lambda t:'site-current-version' in t and 'quick-inquiry.html' in t),
-               ('quick-inquiry.html',lambda t:all('value="'+s+'"' in t for s in SECTORS)),
+               ('index.html',lambda t:'site-current-version' in t and 'quick-inquiry.html' in t and str(report['release_id']) in t),
+               ('quick-inquiry.html',lambda t:all('name="industry" value="'+s+'"' in t for s in SECTORS)),
                ('launch-kit.html',lambda t:all('data-sector="'+s+'"' in t for s in SECTORS)),
                ('contact.html',lambda t:'id="brief-form"' in t)]
         for s in SECTORS:
