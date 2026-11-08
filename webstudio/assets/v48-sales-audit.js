@@ -12,7 +12,7 @@
   const base = path => new URL(path, root);
   const sectorPaths = ['manufacturing', 'academy', 'interior'];
   const RULES = [
-    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V58'&&x.release_id==='WEBSTUDIO-V58-20261108'&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
+    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V59'&&x.release_id==='WEBSTUDIO-V59-20261108'&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
     {id:'home',path:'index.html',label:'메인에서 6업종 이동',test:text=>[...sectorPaths,'restaurant','beauty','logistics'].every(id=>text.includes('for-'+id+'.html'))},
     {id:'manufacturing',path:'for-manufacturing.html',label:'제조·도매 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
     {id:'academy',path:'for-academy.html',label:'학원·교육 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
@@ -58,7 +58,7 @@
   );
   const state={running:false,records:[],completed:'',version:''};
   const renderHead=(name,text)=>{const el=document.createElement(name);el.textContent=text;return el;};
-  const title=renderHead('h3','V58 · 준비키트 포함 6업종 판매 동선 자동 점검');
+  const title=renderHead('h3','V59 · 준비키트 포함 6업종 판매 동선 자동 점검');
   const lead=renderHead('p','이 브라우저가 연결된 서버의 공개 파일을 확인합니다. 네이버·Google 색인, 실제 상담 메일 수신, 실거래·계약 완료 여부는 확인하지 못합니다.');
   const toolbar=document.createElement('div');toolbar.className='v48-toolbar';
   const start=document.createElement('button');start.type='button';start.id='v48-run';start.textContent='판매 동선 다시 검사';
@@ -112,7 +112,7 @@
     }finally{start.disabled=false;state.running=false;}
   }
   function report(){return [
-    '올파일원 웹스튜디오 / V58 공개 판매 동선 점검',
+    '올파일원 웹스튜디오 / V59 공개 판매 동선 점검',
     '검사 출처: '+root.href,'서버 표시 버전: '+(state.version||'미확인'),
     '검사 시각: '+state.completed,
     '공개 파일: '+state.records.filter(x=>x.pass).length+'/'+RULES.length+' 통과',
@@ -122,7 +122,7 @@
   start.addEventListener('click',run);
   save.addEventListener('click',()=>{
     const blob=new Blob(['\ufeff',report()],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V58_Sales_Audit.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V59_Sales_Audit.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
   });
   copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(report());status.textContent+=' · 보고서를 복사했습니다.'}catch(_){status.textContent+=' · 클립보드가 차단되어 TXT 저장을 이용하세요.'}});
   run();

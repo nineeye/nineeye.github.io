@@ -1,5 +1,45 @@
-# ALLFILEONE WEB STUDIO V1
+# AllFileOne WebStudio — deployment and commercial readiness (V59)
 
-This directory contains an independent static 12-industry/36-demo showroom.
+> **Source of truth:** `main/webstudio/` in `nineeye/nineeye.github.io`.
+> This document is a technical handoff, **not** a guarantee of live operation, contractual pricing, search ranking, or customer sales.
 
-Deployment note: the parent repository's existing root remains unchanged. The showcase is a prelaunch demo; the contact form is not connected.
+## What exists
+
+- Six industry-specific sales pages: manufacturing, academy, interior, restaurant, beauty, logistics.
+- 36 existing design demos plus separate offline fictional functionality demos. Demo companies, menus, prices, appointments and testimonials are not real customer work.
+- A six-sector quick-inquiry form, an optional detailed project brief, and a six-sector ten-item launch kit. Customer inputs are not automatically sent. Email drafts must be explicitly sent from the visitor's mail app/webmail.
+- Read-only owner checks at `/site-check.html` and `/owner-launch.html`.
+- A separately provisioned optional Cloudflare D1/Turnstile intake implementation exists in the repository but **must not** be described as active without verifying privacy approval, environment bindings, and live functionality. Its default state is not a verified public inbox.
+
+## Distinguish evidence sources
+
+1. **GitHub source SHA:** proves only which code is merged to `main`.
+2. **Cloudflare Pages check-run:** `Cloudflare Pages = success` against the **same SHA** proves the provider's deployment check reported success. It does not prove that a user can navigate the public domain.
+3. **Live HTTP page checks:** prove the browser/computer could read each expected public HTML/manifest response. Generic `200 OK` alone is insufficient: the file must contain expected content.
+4. **Actual inquiry receipt:** requires an authorized end-to-end sent-and-received test in the intended mailbox, including spam folder. Neither an opened mail draft nor generated TXT proves receipt.
+5. **Search indexing:** verified in Naver Search Advisor and Google Search Console separately; sitemap submission is not proof of indexing.
+
+For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the standalone V59 ZIP) on Windows. It writes Korean TXT and JSON reports to `Downloads`, with no API keys and no additional paid services. Equivalent source: `tools/v59_publication_proof.py`. If GitHub API or Pages is inaccessible, the result is `HOLD`, not a fabricated `PASS`.
+
+## Safe deployment checks
+
+- Verify Cloudflare Pages project build settings and output directory **in the Cloudflare dashboard**; do not infer them from GitHub Pages' separate deployment.
+- Check the deployment SHA and official GitHub Check Runs for the exact `main` commit.
+- Open `/assets/current-release.json` on the public domain and compare `version` and `release_id` to the source.
+- Check `/index.html`, `/quick-inquiry.html`, `/launch-kit.html`, `/contact.html`, and `for-*.html` for the six flagship industries. Verify interactions and mobile layout on a real browser separately.
+- Do not enable D1, paid services, automated email, customer data collection, or new secrets without explicit permission, appropriate privacy documents, and a verified test plan.
+- Before a paid engagement, determine actual scope, price including VAT policy, customer-provided content rights, paid third-party services, source/domain ownership, revision count, schedule, acceptance criteria, cancellation/refund terms, and post-launch support **in a mutually approved written agreement**. Current examples do not constitute a binding offer.
+
+## Operator links
+
+- Site: https://allfileone-webstudio.pages.dev/
+- GitHub workflow/check history: https://github.com/nineeye/nineeye.github.io/actions
+- Cloudflare technical docs: https://developers.cloudflare.com/pages/
+- Customer-facing production guidance: `/guide.html` and `/plan-guide.html`
+- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner
+
+## Known holds
+
+- The assistant's public browsing environment did not independently open the Cloudflare URL on 2026-11-08. This is not evidence that the site is down.
+- GitHub Cloudflare Pages check for V58 commit `3f1d7ddfb0c122bcef0f4333d002a4561894a1ea` reported `success` on 2026-11-08. This is **historical**, not a forward-looking claim for V59 or later.
+- Live end-to-end email receipt, website analytics conversion, customer engagements, and search indexation are unverified.
