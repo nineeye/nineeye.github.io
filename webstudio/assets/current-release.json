@@ -1,16 +1,17 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V38",
-  "release_id": "WEBSTUDIO-V38-20261108",
+  "version": "V39",
+  "release_id": "WEBSTUDIO-V39-20261108",
   "release_date": "2026-11-08",
   "function_count": 48,
   "demo_count": 36,
   "fit_check_industry_count": 12,
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
-  "release_note": "V38 adds original sales landing pages for manufacturing, academy and interior, 4-module local scope planner per page and 3-entry homepage navigation, 205 isolated browser/DOM checks PASS; Cloudflare live deployment NOT verified",
-  "verification": "GITHUB_SOURCE_AND_ISOLATED_CHROMIUM_QA; LIVE_CLOUDFLARE_NOT_VERIFIED",
+  "release_note": "V39 passes selected product functions from three sector sales pages into existing customer brief, TXT and email draft; 897/897 isolated Chromium checks and 21/21 Github source cross-checks; live Cloudflare and email receipt NOT verified",
+  "verification": "GITHUB_CODE_VERIFIED; ISOLATED_CHROMIUM_QA_PASS; CLOUDFLARE_NOT_VERIFIED; EMAIL_NOT_SENT",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
-  "sales_industry_pages": 3
+  "sales_industry_pages": 3,
+  "sales_scope_handoff_industries": 3
 }
