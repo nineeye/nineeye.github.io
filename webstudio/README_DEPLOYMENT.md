@@ -77,7 +77,7 @@ For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the
 
 - CI and manual run access: https://github.com/nineeye/nineeye.github.io/actions/workflows/webstudio-v64-public-browser.yml
 - Source workflow: https://github.com/nineeye/nineeye.github.io/blob/main/.github/workflows/webstudio-v64-public-browser.yml
-- Windows stand-alone alternative: `/tools/v64_edge_live_qa.py` and `RUN_V63_EDGE_LIVE_QA.cmd` from V63 ZIP (V63 script expects older version; use V64 CLI directly).
+- Windows standalone alternative: `/RUN_V64_EDGE_LIVE_QA.cmd` in the repository `webstudio/` folder, or the same CMD at the V64 ZIP root. It writes TXT, JSON, PNG and ZIP to Windows Downloads and never changes global PowerShell policy.
 
 ## Operator links
 
