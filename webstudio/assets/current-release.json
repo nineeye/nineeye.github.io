@@ -9,7 +9,7 @@
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
   "release_note": "Three independent, SEO-readable and differentiated buyer-facing industry sales pages for restaurant, beauty and B2B logistics, integrated with existing six-sector quick consultation and demos; six sales cards; owner 24 + sales 28 exact-version public checks.",
-  "verification": "V57_LOCAL_ISOLATED_CHROMIUM_69_PASS; V57_STATIC_34_PASS; GITHUB_SOURCE_SHA_FOUR_MATCH; LIVE_CLOUDFLARE_PENDING; EMAIL_RECEIPT_NOT_VERIFIED; FULL_REPO_BROWSER_NOT_RUN",
+  "verification": "V57_LOCAL_ISOLATED_CHROMIUM_69_PASS; V57_OFFLINE_STATIC_34_PASS; GITHUB_SOURCE_RULES_52_PASS; NEGATIVE_8_PASS; GITHUB_SHA_NEW_FILES_4_MATCH; LIVE_CLOUDFLARE_PENDING; REAL_EMAIL_NOT_VERIFIED; FULL_SITE_BROWSER_NOT_RUN",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 6,
