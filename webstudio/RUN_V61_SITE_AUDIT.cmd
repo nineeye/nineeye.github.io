@@ -1,5 +1,6 @@
 @echo off
 setlocal EnableExtensions DisableDelayedExpansion
+chcp 65001 >nul
 rem AllFileOne WebStudio V61 - public GitHub source QA, no paid API and no PowerShell policy bypass.
 set "DOWNLOADS=%USERPROFILE%\Downloads"
 if not exist "%DOWNLOADS%" mkdir "%DOWNLOADS%" >nul 2>&1
