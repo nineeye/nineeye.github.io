@@ -1,0 +1,89 @@
+{
+  "release": "V50",
+  "scope": "synthetic V49 fixture, patch idempotence and guards",
+  "total": 20,
+  "pass": 20,
+  "fail": 0,
+  "results": [
+    {
+      "name": "updated 5 paths",
+      "pass": true
+    },
+    {
+      "name": "no duplicate v50 anchor",
+      "pass": true
+    },
+    {
+      "name": "preserved older V48 site-check content",
+      "pass": true
+    },
+    {
+      "name": "preserved older website footer",
+      "pass": true
+    },
+    {
+      "name": "owner link exists",
+      "pass": true
+    },
+    {
+      "name": "new release is V50",
+      "pass": true
+    },
+    {
+      "name": "old demo_count preserved",
+      "pass": true
+    },
+    {
+      "name": "old V48 audit preserved",
+      "pass": true
+    },
+    {
+      "name": "no real email claim",
+      "pass": true
+    },
+    {
+      "name": "no search index claim",
+      "pass": true
+    },
+    {
+      "name": "11 auto checks",
+      "pass": true
+    },
+    {
+      "name": "10 manual checks",
+      "pass": true
+    },
+    {
+      "name": "idempotent second apply",
+      "pass": true
+    },
+    {
+      "name": "owner page exists",
+      "pass": true
+    },
+    {
+      "name": "new js present",
+      "pass": true
+    },
+    {
+      "name": "new css present",
+      "pass": true
+    },
+    {
+      "name": "manifest parses clean",
+      "pass": true
+    },
+    {
+      "name": "all returned SHA matches",
+      "pass": true
+    },
+    {
+      "name": "unrelated version rejected",
+      "pass": true
+    },
+    {
+      "name": "rejection did not mutate source",
+      "pass": true
+    }
+  ]
+}

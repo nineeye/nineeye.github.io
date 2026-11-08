@@ -1,0 +1,213 @@
+{
+  "version": "V50",
+  "scope": "static source audit, NOT real production",
+  "tests": 51,
+  "pass": 51,
+  "fail": 0,
+  "results": [
+    {
+      "name": "exists owner-launch.html",
+      "pass": true
+    },
+    {
+      "name": "exists v50-owner-launch.js",
+      "pass": true
+    },
+    {
+      "name": "exists v50-owner-launch.css",
+      "pass": true
+    },
+    {
+      "name": "exists apply_v50.py",
+      "pass": true
+    },
+    {
+      "name": "HTML parser",
+      "pass": true
+    },
+    {
+      "name": "no duplicate element ids",
+      "pass": true
+    },
+    {
+      "name": "needed id auto-run",
+      "pass": true
+    },
+    {
+      "name": "needed id auto-count",
+      "pass": true
+    },
+    {
+      "name": "needed id auto-results",
+      "pass": true
+    },
+    {
+      "name": "needed id manual-list",
+      "pass": true
+    },
+    {
+      "name": "needed id manual-count",
+      "pass": true
+    },
+    {
+      "name": "needed id report-preview",
+      "pass": true
+    },
+    {
+      "name": "needed id report-copy",
+      "pass": true
+    },
+    {
+      "name": "needed id report-download",
+      "pass": true
+    },
+    {
+      "name": "needed id report-status",
+      "pass": true
+    },
+    {
+      "name": "needed id report-text",
+      "pass": true
+    },
+    {
+      "name": "10 manual owner checks",
+      "pass": true
+    },
+    {
+      "name": "manual inputs checkbox only",
+      "pass": true
+    },
+    {
+      "name": "owner page noindex",
+      "pass": true
+    },
+    {
+      "name": "HTML no external scripts",
+      "pass": true
+    },
+    {
+      "name": "HTML no external styles",
+      "pass": true
+    },
+    {
+      "name": "local assets linked",
+      "pass": true
+    },
+    {
+      "name": "expected check file site-check.html",
+      "pass": true
+    },
+    {
+      "name": "expected check file quick-inquiry.html",
+      "pass": true
+    },
+    {
+      "name": "expected check file sitemap.xml",
+      "pass": true
+    },
+    {
+      "name": "expected check file robots.txt",
+      "pass": true
+    },
+    {
+      "name": "expected check file assets/current-release.json",
+      "pass": true
+    },
+    {
+      "name": "safe JS no localStorage",
+      "pass": true
+    },
+    {
+      "name": "safe JS no sessionStorage",
+      "pass": true
+    },
+    {
+      "name": "safe JS no document.cookie",
+      "pass": true
+    },
+    {
+      "name": "safe JS no sendBeacon",
+      "pass": true
+    },
+    {
+      "name": "safe JS no XMLHttpRequest",
+      "pass": true
+    },
+    {
+      "name": "safe JS no /api/inquiries",
+      "pass": true
+    },
+    {
+      "name": "safe JS no innerHTML",
+      "pass": true
+    },
+    {
+      "name": "safe JS no eval(",
+      "pass": true
+    },
+    {
+      "name": "only GET-ish public fetch",
+      "pass": true
+    },
+    {
+      "name": "guard origin",
+      "pass": true
+    },
+    {
+      "name": "bounded response size",
+      "pass": true
+    },
+    {
+      "name": "timeout and abort",
+      "pass": true
+    },
+    {
+      "name": "rule source count",
+      "pass": true
+    },
+    {
+      "name": "report separates manual checks",
+      "pass": true
+    },
+    {
+      "name": "no pretend receipt",
+      "pass": true
+    },
+    {
+      "name": "links to official sources",
+      "pass": true
+    },
+    {
+      "name": "responsive small screens",
+      "pass": true
+    },
+    {
+      "name": "focus-visible styles",
+      "pass": true
+    },
+    {
+      "name": "reduced motion",
+      "pass": true
+    },
+    {
+      "name": "patch anchored before main",
+      "pass": true
+    },
+    {
+      "name": "patch idempotent",
+      "pass": true
+    },
+    {
+      "name": "manifest guard",
+      "pass": true
+    },
+    {
+      "name": "patch no paid network",
+      "pass": true
+    },
+    {
+      "name": "nothing stored in browser",
+      "pass": true
+    }
+  ]
+}

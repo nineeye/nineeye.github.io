@@ -1,0 +1,433 @@
+{
+  "release": "V50",
+  "scope": "Isolated Chromium with simulated same-origin responses: NOT real Cloudflare/email/search",
+  "tests": 106,
+  "pass": 106,
+  "fail": 0,
+  "results": [
+    {
+      "label": "320px page title",
+      "pass": true
+    },
+    {
+      "label": "320px no JS errors",
+      "pass": true
+    },
+    {
+      "label": "320px no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "320px 10 checkboxes",
+      "pass": true
+    },
+    {
+      "label": "320px none checked initially",
+      "pass": true
+    },
+    {
+      "label": "320px no auto success before click",
+      "pass": true
+    },
+    {
+      "label": "320px 11 verified fixtures",
+      "pass": true
+    },
+    {
+      "label": "320px 11 ordered results",
+      "pass": true
+    },
+    {
+      "label": "320px no actual email claim",
+      "pass": true
+    },
+    {
+      "label": "320px only GET static fetch",
+      "pass": true
+    },
+    {
+      "label": "320px manual count separate",
+      "pass": true
+    },
+    {
+      "label": "320px report includes correct verified status",
+      "pass": true
+    },
+    {
+      "label": "320px report manual disclosed",
+      "pass": true
+    },
+    {
+      "label": "320px no send claim",
+      "pass": true
+    },
+    {
+      "label": "320px expected filename",
+      "pass": true
+    },
+    {
+      "label": "320px TXT content",
+      "pass": true
+    },
+    {
+      "label": "320px no storage writes",
+      "pass": true
+    },
+    {
+      "label": "360px page title",
+      "pass": true
+    },
+    {
+      "label": "360px no JS errors",
+      "pass": true
+    },
+    {
+      "label": "360px no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "360px 10 checkboxes",
+      "pass": true
+    },
+    {
+      "label": "360px none checked initially",
+      "pass": true
+    },
+    {
+      "label": "360px no auto success before click",
+      "pass": true
+    },
+    {
+      "label": "360px 11 verified fixtures",
+      "pass": true
+    },
+    {
+      "label": "360px 11 ordered results",
+      "pass": true
+    },
+    {
+      "label": "360px no actual email claim",
+      "pass": true
+    },
+    {
+      "label": "360px only GET static fetch",
+      "pass": true
+    },
+    {
+      "label": "360px manual count separate",
+      "pass": true
+    },
+    {
+      "label": "360px report includes correct verified status",
+      "pass": true
+    },
+    {
+      "label": "360px report manual disclosed",
+      "pass": true
+    },
+    {
+      "label": "360px no send claim",
+      "pass": true
+    },
+    {
+      "label": "360px expected filename",
+      "pass": true
+    },
+    {
+      "label": "360px TXT content",
+      "pass": true
+    },
+    {
+      "label": "360px no storage writes",
+      "pass": true
+    },
+    {
+      "label": "390px page title",
+      "pass": true
+    },
+    {
+      "label": "390px no JS errors",
+      "pass": true
+    },
+    {
+      "label": "390px no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "390px 10 checkboxes",
+      "pass": true
+    },
+    {
+      "label": "390px none checked initially",
+      "pass": true
+    },
+    {
+      "label": "390px no auto success before click",
+      "pass": true
+    },
+    {
+      "label": "390px 11 verified fixtures",
+      "pass": true
+    },
+    {
+      "label": "390px 11 ordered results",
+      "pass": true
+    },
+    {
+      "label": "390px no actual email claim",
+      "pass": true
+    },
+    {
+      "label": "390px only GET static fetch",
+      "pass": true
+    },
+    {
+      "label": "390px manual count separate",
+      "pass": true
+    },
+    {
+      "label": "390px report includes correct verified status",
+      "pass": true
+    },
+    {
+      "label": "390px report manual disclosed",
+      "pass": true
+    },
+    {
+      "label": "390px no send claim",
+      "pass": true
+    },
+    {
+      "label": "390px expected filename",
+      "pass": true
+    },
+    {
+      "label": "390px TXT content",
+      "pass": true
+    },
+    {
+      "label": "390px no storage writes",
+      "pass": true
+    },
+    {
+      "label": "768px page title",
+      "pass": true
+    },
+    {
+      "label": "768px no JS errors",
+      "pass": true
+    },
+    {
+      "label": "768px no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "768px 10 checkboxes",
+      "pass": true
+    },
+    {
+      "label": "768px none checked initially",
+      "pass": true
+    },
+    {
+      "label": "768px no auto success before click",
+      "pass": true
+    },
+    {
+      "label": "768px 11 verified fixtures",
+      "pass": true
+    },
+    {
+      "label": "768px 11 ordered results",
+      "pass": true
+    },
+    {
+      "label": "768px no actual email claim",
+      "pass": true
+    },
+    {
+      "label": "768px only GET static fetch",
+      "pass": true
+    },
+    {
+      "label": "768px manual count separate",
+      "pass": true
+    },
+    {
+      "label": "768px report includes correct verified status",
+      "pass": true
+    },
+    {
+      "label": "768px report manual disclosed",
+      "pass": true
+    },
+    {
+      "label": "768px no send claim",
+      "pass": true
+    },
+    {
+      "label": "768px expected filename",
+      "pass": true
+    },
+    {
+      "label": "768px TXT content",
+      "pass": true
+    },
+    {
+      "label": "768px no storage writes",
+      "pass": true
+    },
+    {
+      "label": "1024px page title",
+      "pass": true
+    },
+    {
+      "label": "1024px no JS errors",
+      "pass": true
+    },
+    {
+      "label": "1024px no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "1024px 10 checkboxes",
+      "pass": true
+    },
+    {
+      "label": "1024px none checked initially",
+      "pass": true
+    },
+    {
+      "label": "1024px no auto success before click",
+      "pass": true
+    },
+    {
+      "label": "1024px 11 verified fixtures",
+      "pass": true
+    },
+    {
+      "label": "1024px 11 ordered results",
+      "pass": true
+    },
+    {
+      "label": "1024px no actual email claim",
+      "pass": true
+    },
+    {
+      "label": "1024px only GET static fetch",
+      "pass": true
+    },
+    {
+      "label": "1024px manual count separate",
+      "pass": true
+    },
+    {
+      "label": "1024px report includes correct verified status",
+      "pass": true
+    },
+    {
+      "label": "1024px report manual disclosed",
+      "pass": true
+    },
+    {
+      "label": "1024px no send claim",
+      "pass": true
+    },
+    {
+      "label": "1024px expected filename",
+      "pass": true
+    },
+    {
+      "label": "1024px TXT content",
+      "pass": true
+    },
+    {
+      "label": "1024px no storage writes",
+      "pass": true
+    },
+    {
+      "label": "1440px page title",
+      "pass": true
+    },
+    {
+      "label": "1440px no JS errors",
+      "pass": true
+    },
+    {
+      "label": "1440px no horizontal overflow",
+      "pass": true
+    },
+    {
+      "label": "1440px 10 checkboxes",
+      "pass": true
+    },
+    {
+      "label": "1440px none checked initially",
+      "pass": true
+    },
+    {
+      "label": "1440px no auto success before click",
+      "pass": true
+    },
+    {
+      "label": "1440px 11 verified fixtures",
+      "pass": true
+    },
+    {
+      "label": "1440px 11 ordered results",
+      "pass": true
+    },
+    {
+      "label": "1440px no actual email claim",
+      "pass": true
+    },
+    {
+      "label": "1440px only GET static fetch",
+      "pass": true
+    },
+    {
+      "label": "1440px manual count separate",
+      "pass": true
+    },
+    {
+      "label": "1440px report includes correct verified status",
+      "pass": true
+    },
+    {
+      "label": "1440px report manual disclosed",
+      "pass": true
+    },
+    {
+      "label": "1440px no send claim",
+      "pass": true
+    },
+    {
+      "label": "1440px expected filename",
+      "pass": true
+    },
+    {
+      "label": "1440px TXT content",
+      "pass": true
+    },
+    {
+      "label": "1440px no storage writes",
+      "pass": true
+    },
+    {
+      "label": "404 causes 10/11 not green",
+      "pass": true
+    },
+    {
+      "label": "404 row HOLD visible",
+      "pass": true
+    },
+    {
+      "label": "404 detailed reason",
+      "pass": true
+    },
+    {
+      "label": "no JS errors under 404",
+      "pass": true
+    }
+  ]
+}
