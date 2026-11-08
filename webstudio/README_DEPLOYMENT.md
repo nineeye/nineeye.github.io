@@ -1,4 +1,4 @@
-# AllFileOne WebStudio — deployment and commercial readiness (V62)
+# AllFileOne WebStudio — deployment and commercial readiness (V63)
 
 > **Source of truth:** `main/webstudio/` in `nineeye/nineeye.github.io`.
 > This document is a technical handoff, **not** a guarantee of live operation, contractual pricing, search ranking, or customer sales.
@@ -55,16 +55,24 @@ For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the
 - **Testing:** isolated local Chromium source tests 84/84 (three viewport widths, six representative industry drafts, malformed text, recipient mismatch, denied clipboard); GitHub branch source rule checks 110/110; stale/altered-source negatives 7/7. These are NOT end-to-end tests of the deployed public site or real email receipt.
 - V62 Cloudflare Pages check must be read independently after merging the V62 commit. Previous V61 CI success cannot be reused as V62 evidence.
 
+## V63 local Windows Edge live-browser evidence
+
+- New original Python standard-library tools/v63_edge_live_qa.py and Windows RUN_V63_EDGE_LIVE_QA.cmd; no pip install, added paid APIs or remote administration. Existing browser profiles are never reused. The user launches the tool on their Windows PC after approving a new script.
+- Test target is the public https://allfileone-webstudio.pages.dev/ only; test-only fixture overrides accept localhost, never another remote domain. Checks actual HTTP 2xx document responses via Chromium DevTools, 390/1280 responsive widths, six seller pages, 1-minute inquiry, V62 manual webmail controls and same-tab one-time detailed consultation handoff.
+- Reports are saved to Windows Downloads as Korean TXT, JSON, per-file SHA manifest, screenshots and CRC-valid ZIP. On any missing Edge, blocked browser network, bad HTTP, bad UI or timed-out handoff it explicitly reports HOLD_BROWSER_OR_NETWORK, never PASS.
+- Synthetic browser program does not submit forms, send emails or access credentials. PASS_PUBLIC_BROWSER_SMOKE_ONLY does not certify receipt, customer data persistence, SEO, payment or contracts.
+- Offline Chromium CDP protocol/source tests: 22/22 PASS. In this assistant container even local HTTP browser navigation is blocked by administrator, so real public domain PASS could not be established. User Windows run is still required for real proof.
+
 ## Operator links
 
 - Site: https://allfileone-webstudio.pages.dev/
 - GitHub workflow/check history: https://github.com/nineeye/nineeye.github.io/actions
 - Cloudflare technical docs: https://developers.cloudflare.com/pages/
 - Customer-facing production guidance: `/guide.html` and `/plan-guide.html`
-- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner (historical, change expected release to verify V62)
+- Local release proof: `tools/v59_publication_proof.py` and V59 ZIP runner (historical, change expected release to verify V63)
 
 ## Known holds
 
 - The assistant's public browsing environment did not independently open the Cloudflare URL on 2026-11-08. This is not evidence that the site is down.
-- V61 merged code has Cloudflare check success on 2026-11-08. That is historical and does not prove V62 public HTTP behavior.
+- V62 merged code has Cloudflare Pages check success on 2026-11-08. That is historical and does not prove V63 public HTTP behavior.
 - Live end-to-end email receipt, website analytics conversion, customer engagements, and search indexation are unverified.
