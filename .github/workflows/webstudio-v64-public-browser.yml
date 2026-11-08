@@ -1,0 +1,73 @@
+name: WebStudio V64 Public Browser QA
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'webstudio/**'
+      - '.github/workflows/webstudio-v64-public-browser.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: webstudio-public-browser-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  real-public-browser:
+    name: Windows Edge public site and six-sector inquiry
+    runs-on: windows-2025
+    timeout-minutes: 12
+    env:
+      PYTHONUTF8: '1'
+      PYTHONIOENCODING: utf-8
+    steps:
+      - name: Read-only source checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Verify six-sector CDP and fail-closed protocol
+        shell: pwsh
+        run: |
+          python -m unittest discover -s webstudio/tools -p test_v64_edge_protocol.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Allow V64 release to propagate without assuming success
+        shell: pwsh
+        run: |
+          $target = 'https://allfileone-webstudio.pages.dev/assets/current-release.json'
+          $ready = $false
+          for ($i=0; $i -lt 18; $i++) {
+            try {
+              $release = Invoke-RestMethod -Uri $target -TimeoutSec 8 -Headers @{ 'Cache-Control'='no-cache' }
+              if ($release.version -eq 'V64' -and $release.release_id -eq 'WEBSTUDIO-V64-20261108') {
+                Write-Host 'V64 manifest visible at public Cloudflare origin.'
+                $ready = $true
+                break
+              }
+              Write-Host 'Manifest exists but is not yet the exact V64 release.'
+            } catch { Write-Host 'Public origin or network not yet reachable; no success claimed.' }
+            Start-Sleep -Seconds 10
+          }
+          if (-not $ready) { Write-Warning 'Release propagation not proven by preflight. Browser step will fail closed.' }
+
+      - name: Read-only real Edge browser smoke (PC and mobile, six industries)
+        shell: pwsh
+        run: |
+          $out = Join-Path $env:RUNNER_TEMP 'AFO_V64_PUBLIC_BROWSER_QA'
+          New-Item -ItemType Directory -Path $out -Force | Out-Null
+          python webstudio/tools/v64_edge_live_qa.py --output "$out"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Attach public-page evidence even on HOLD
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: AllFileOne_WebStudio_V64_Public_Browser_Evidence
+          path: ${{ runner.temp }}/AFO_V64_PUBLIC_BROWSER_QA/
+          if-no-files-found: warn
+          retention-days: 1
