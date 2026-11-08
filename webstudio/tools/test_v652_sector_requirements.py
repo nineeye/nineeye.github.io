@@ -62,7 +62,7 @@ class WebStudioSectorAcceptance(unittest.TestCase):
         self.assertNotIn("localStorage",SOURCE)
         self.assertNotIn("innerHTML=",SOURCE)
     def test_means_and_accessibility(self):
-        for token in ["role','status","aria-live','polite","data-v652-item",
+        for token in ["role','status","aria-live','polite","v652Item",
                       "v652-tag-ops","'v652-full-brief'","'v652-preview'",
                       "min-height:47px","@media(max-width:560px)"]:
             with self.subTest(token=token):
