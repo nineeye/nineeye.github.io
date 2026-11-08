@@ -1,0 +1,266 @@
+{
+  "release": "V45",
+  "source": "isolated Chromium with inline local assets (navigation restricted)",
+  "browser": "/usr/bin/chromium",
+  "total": 64,
+  "pass": 64,
+  "fail": 0,
+  "results": [
+    {
+      "name": "exists launch-kit.html",
+      "pass": true
+    },
+    {
+      "name": "exists v45-launch-kit.css",
+      "pass": true
+    },
+    {
+      "name": "exists v45-launch-kit.js",
+      "pass": true
+    },
+    {
+      "name": "html references assets/v45-launch-kit.css",
+      "pass": true
+    },
+    {
+      "name": "html references assets/v45-launch-kit.js",
+      "pass": true
+    },
+    {
+      "name": "html content https://allfileone-webstudio.pages.",
+      "pass": true
+    },
+    {
+      "name": "html content <meta name=\"description\"",
+      "pass": true
+    },
+    {
+      "name": "html content aria-live",
+      "pass": true
+    },
+    {
+      "name": "html content id=\"checklist\"",
+      "pass": true
+    },
+    {
+      "name": "html content id=\"downloadTxt\"",
+      "pass": true
+    },
+    {
+      "name": "no external asset dependencies",
+      "pass": true
+    },
+    {
+      "name": "no fetch/ajax",
+      "pass": true
+    },
+    {
+      "name": "360px no JS errors",
+      "pass": true
+    },
+    {
+      "name": "360px title",
+      "pass": true
+    },
+    {
+      "name": "360px no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "360px 10 initial checks",
+      "pass": true
+    },
+    {
+      "name": "360px initial count",
+      "pass": true
+    },
+    {
+      "name": "360px progress updates",
+      "pass": true
+    },
+    {
+      "name": "360px missing 8",
+      "pass": true
+    },
+    {
+      "name": "360px change academy",
+      "pass": true
+    },
+    {
+      "name": "360px sector isolated",
+      "pass": true
+    },
+    {
+      "name": "360px correct inquiry handoff",
+      "pass": true
+    },
+    {
+      "name": "360px retain manufacturer state",
+      "pass": true
+    },
+    {
+      "name": "360px filename",
+      "pass": true
+    },
+    {
+      "name": "360px text includes raw input",
+      "pass": true
+    },
+    {
+      "name": "360px correct section",
+      "pass": true
+    },
+    {
+      "name": "360px no HTML injection",
+      "pass": true
+    },
+    {
+      "name": "360px cleared",
+      "pass": true
+    },
+    {
+      "name": "768px no JS errors",
+      "pass": true
+    },
+    {
+      "name": "768px title",
+      "pass": true
+    },
+    {
+      "name": "768px no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "768px 10 initial checks",
+      "pass": true
+    },
+    {
+      "name": "768px initial count",
+      "pass": true
+    },
+    {
+      "name": "768px progress updates",
+      "pass": true
+    },
+    {
+      "name": "768px missing 8",
+      "pass": true
+    },
+    {
+      "name": "768px change academy",
+      "pass": true
+    },
+    {
+      "name": "768px sector isolated",
+      "pass": true
+    },
+    {
+      "name": "768px correct inquiry handoff",
+      "pass": true
+    },
+    {
+      "name": "768px retain manufacturer state",
+      "pass": true
+    },
+    {
+      "name": "768px filename",
+      "pass": true
+    },
+    {
+      "name": "768px text includes raw input",
+      "pass": true
+    },
+    {
+      "name": "768px correct section",
+      "pass": true
+    },
+    {
+      "name": "768px no HTML injection",
+      "pass": true
+    },
+    {
+      "name": "768px cleared",
+      "pass": true
+    },
+    {
+      "name": "1440px no JS errors",
+      "pass": true
+    },
+    {
+      "name": "1440px title",
+      "pass": true
+    },
+    {
+      "name": "1440px no horizontal overflow",
+      "pass": true
+    },
+    {
+      "name": "1440px 10 initial checks",
+      "pass": true
+    },
+    {
+      "name": "1440px initial count",
+      "pass": true
+    },
+    {
+      "name": "1440px progress updates",
+      "pass": true
+    },
+    {
+      "name": "1440px missing 8",
+      "pass": true
+    },
+    {
+      "name": "1440px change academy",
+      "pass": true
+    },
+    {
+      "name": "1440px sector isolated",
+      "pass": true
+    },
+    {
+      "name": "1440px correct inquiry handoff",
+      "pass": true
+    },
+    {
+      "name": "1440px retain manufacturer state",
+      "pass": true
+    },
+    {
+      "name": "1440px filename",
+      "pass": true
+    },
+    {
+      "name": "1440px text includes raw input",
+      "pass": true
+    },
+    {
+      "name": "1440px correct section",
+      "pass": true
+    },
+    {
+      "name": "1440px no HTML injection",
+      "pass": true
+    },
+    {
+      "name": "1440px cleared",
+      "pass": true
+    },
+    {
+      "name": "interior selector valid",
+      "pass": true
+    },
+    {
+      "name": "100 percent after all checks",
+      "pass": true
+    },
+    {
+      "name": "all done note visible",
+      "pass": true
+    },
+    {
+      "name": "no missing list when complete",
+      "pass": true
+    }
+  ]
+}
