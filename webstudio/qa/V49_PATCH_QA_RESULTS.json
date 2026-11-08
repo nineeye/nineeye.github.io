@@ -1,0 +1,121 @@
+{
+  "version": "V49",
+  "total": 28,
+  "passed": 28,
+  "failed": 0,
+  "test_scope": "stdlib V48-shaped fixture patch safety / idempotence",
+  "results": [
+    {
+      "name": "check mode lists at least 10 affected paths",
+      "pass": true
+    },
+    {
+      "name": "preflight leaves source untouched",
+      "pass": true
+    },
+    {
+      "name": "apply actually changes files",
+      "pass": true
+    },
+    {
+      "name": "V49 four source artifacts copied",
+      "pass": true
+    },
+    {
+      "name": "new page HTML title",
+      "pass": true
+    },
+    {
+      "name": "home CTA inserted once",
+      "pass": true
+    },
+    {
+      "name": "manufacturing quick route correct",
+      "pass": true
+    },
+    {
+      "name": "manufacturing original link retained",
+      "pass": true
+    },
+    {
+      "name": "manufacturing one new CTA",
+      "pass": true
+    },
+    {
+      "name": "academy quick route correct",
+      "pass": true
+    },
+    {
+      "name": "academy original link retained",
+      "pass": true
+    },
+    {
+      "name": "academy one new CTA",
+      "pass": true
+    },
+    {
+      "name": "interior quick route correct",
+      "pass": true
+    },
+    {
+      "name": "interior original link retained",
+      "pass": true
+    },
+    {
+      "name": "interior one new CTA",
+      "pass": true
+    },
+    {
+      "name": "contact existing form preserved",
+      "pass": true
+    },
+    {
+      "name": "contact quick route",
+      "pass": true
+    },
+    {
+      "name": "sitemap quick route",
+      "pass": true
+    },
+    {
+      "name": "release version updated",
+      "pass": true
+    },
+    {
+      "name": "legacy data retained",
+      "pass": true
+    },
+    {
+      "name": "no customer data server submission declared",
+      "pass": true
+    },
+    {
+      "name": "reapply does nothing",
+      "pass": true
+    },
+    {
+      "name": "reapply output identical",
+      "pass": true
+    },
+    {
+      "name": "V48 sales audit retained",
+      "pass": true
+    },
+    {
+      "name": "wrong base release blocked",
+      "pass": true
+    },
+    {
+      "name": "wrong base never writes new page",
+      "pass": true
+    },
+    {
+      "name": "missing anchor blocked",
+      "pass": true
+    },
+    {
+      "name": "missing anchor never writes new page",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,649 @@
+{
+  "version": "V49",
+  "verified_scope": "real V49 HTML/CSS/JS injected into isolated Chromium about:blank; NO real public site, live email or SEO index verification",
+  "total": 160,
+  "passed": 160,
+  "failed": 0,
+  "results": [
+    {
+      "test": "new asset exists quick-inquiry.html",
+      "pass": true
+    },
+    {
+      "test": "new asset exists assets/v49-quick-inquiry.css",
+      "pass": true
+    },
+    {
+      "test": "new asset exists assets/v49-quick-inquiry.js",
+      "pass": true
+    },
+    {
+      "test": "new asset exists assets/v49-entry.css",
+      "pass": true
+    },
+    {
+      "test": "html canonical",
+      "pass": true
+    },
+    {
+      "test": "html no extra network dependencies",
+      "pass": true
+    },
+    {
+      "test": "no fetch(",
+      "pass": true
+    },
+    {
+      "test": "no XMLHttpRequest",
+      "pass": true
+    },
+    {
+      "test": "no sendBeacon",
+      "pass": true
+    },
+    {
+      "test": "no localStorage",
+      "pass": true
+    },
+    {
+      "test": "no sessionStorage",
+      "pass": true
+    },
+    {
+      "test": "no innerHTML",
+      "pass": true
+    },
+    {
+      "test": "no eval(",
+      "pass": true
+    },
+    {
+      "test": "no https://api.",
+      "pass": true
+    },
+    {
+      "test": "static disclosure actual send",
+      "pass": true
+    },
+    {
+      "test": "no fake success claim",
+      "pass": true
+    },
+    {
+      "test": "320px no js errors initial",
+      "pass": true
+    },
+    {
+      "test": "320px title",
+      "pass": true
+    },
+    {
+      "test": "320px no horizontal overflow initial",
+      "pass": true
+    },
+    {
+      "test": "320px default sector",
+      "pass": true
+    },
+    {
+      "test": "320px initial message manufacturer",
+      "pass": true
+    },
+    {
+      "test": "320px initial feature 4",
+      "pass": true
+    },
+    {
+      "test": "320px initial scope 4",
+      "pass": true
+    },
+    {
+      "test": "320px academy message",
+      "pass": true
+    },
+    {
+      "test": "320px academy options",
+      "pass": true
+    },
+    {
+      "test": "320px interior message",
+      "pass": true
+    },
+    {
+      "test": "320px interior options",
+      "pass": true
+    },
+    {
+      "test": "320px manufacturing message",
+      "pass": true
+    },
+    {
+      "test": "320px manufacturing options",
+      "pass": true
+    },
+    {
+      "test": "320px appropriate feature quote",
+      "pass": true
+    },
+    {
+      "test": "320px scope medium",
+      "pass": true
+    },
+    {
+      "test": "320px HTML injection escaped",
+      "pass": true
+    },
+    {
+      "test": "320px no horizontal overflow filled",
+      "pass": true
+    },
+    {
+      "test": "320px download filename",
+      "pass": true
+    },
+    {
+      "test": "320px file contains details",
+      "pass": true
+    },
+    {
+      "test": "320px file includes recipient",
+      "pass": true
+    },
+    {
+      "test": "320px file no sent claim",
+      "pass": true
+    },
+    {
+      "test": "320px download explicitly not sent",
+      "pass": true
+    },
+    {
+      "test": "320px blocked clipboard fallback",
+      "pass": true
+    },
+    {
+      "test": "320px preserved no JS errors",
+      "pass": true
+    },
+    {
+      "test": "360px no js errors initial",
+      "pass": true
+    },
+    {
+      "test": "360px title",
+      "pass": true
+    },
+    {
+      "test": "360px no horizontal overflow initial",
+      "pass": true
+    },
+    {
+      "test": "360px default sector",
+      "pass": true
+    },
+    {
+      "test": "360px initial message manufacturer",
+      "pass": true
+    },
+    {
+      "test": "360px initial feature 4",
+      "pass": true
+    },
+    {
+      "test": "360px initial scope 4",
+      "pass": true
+    },
+    {
+      "test": "360px academy message",
+      "pass": true
+    },
+    {
+      "test": "360px academy options",
+      "pass": true
+    },
+    {
+      "test": "360px interior message",
+      "pass": true
+    },
+    {
+      "test": "360px interior options",
+      "pass": true
+    },
+    {
+      "test": "360px manufacturing message",
+      "pass": true
+    },
+    {
+      "test": "360px manufacturing options",
+      "pass": true
+    },
+    {
+      "test": "360px appropriate feature quote",
+      "pass": true
+    },
+    {
+      "test": "360px scope medium",
+      "pass": true
+    },
+    {
+      "test": "360px HTML injection escaped",
+      "pass": true
+    },
+    {
+      "test": "360px no horizontal overflow filled",
+      "pass": true
+    },
+    {
+      "test": "360px download filename",
+      "pass": true
+    },
+    {
+      "test": "360px file contains details",
+      "pass": true
+    },
+    {
+      "test": "360px file includes recipient",
+      "pass": true
+    },
+    {
+      "test": "360px file no sent claim",
+      "pass": true
+    },
+    {
+      "test": "360px download explicitly not sent",
+      "pass": true
+    },
+    {
+      "test": "360px blocked clipboard fallback",
+      "pass": true
+    },
+    {
+      "test": "360px preserved no JS errors",
+      "pass": true
+    },
+    {
+      "test": "390px no js errors initial",
+      "pass": true
+    },
+    {
+      "test": "390px title",
+      "pass": true
+    },
+    {
+      "test": "390px no horizontal overflow initial",
+      "pass": true
+    },
+    {
+      "test": "390px default sector",
+      "pass": true
+    },
+    {
+      "test": "390px initial message manufacturer",
+      "pass": true
+    },
+    {
+      "test": "390px initial feature 4",
+      "pass": true
+    },
+    {
+      "test": "390px initial scope 4",
+      "pass": true
+    },
+    {
+      "test": "390px academy message",
+      "pass": true
+    },
+    {
+      "test": "390px academy options",
+      "pass": true
+    },
+    {
+      "test": "390px interior message",
+      "pass": true
+    },
+    {
+      "test": "390px interior options",
+      "pass": true
+    },
+    {
+      "test": "390px manufacturing message",
+      "pass": true
+    },
+    {
+      "test": "390px manufacturing options",
+      "pass": true
+    },
+    {
+      "test": "390px appropriate feature quote",
+      "pass": true
+    },
+    {
+      "test": "390px scope medium",
+      "pass": true
+    },
+    {
+      "test": "390px HTML injection escaped",
+      "pass": true
+    },
+    {
+      "test": "390px no horizontal overflow filled",
+      "pass": true
+    },
+    {
+      "test": "390px download filename",
+      "pass": true
+    },
+    {
+      "test": "390px file contains details",
+      "pass": true
+    },
+    {
+      "test": "390px file includes recipient",
+      "pass": true
+    },
+    {
+      "test": "390px file no sent claim",
+      "pass": true
+    },
+    {
+      "test": "390px download explicitly not sent",
+      "pass": true
+    },
+    {
+      "test": "390px blocked clipboard fallback",
+      "pass": true
+    },
+    {
+      "test": "390px preserved no JS errors",
+      "pass": true
+    },
+    {
+      "test": "768px no js errors initial",
+      "pass": true
+    },
+    {
+      "test": "768px title",
+      "pass": true
+    },
+    {
+      "test": "768px no horizontal overflow initial",
+      "pass": true
+    },
+    {
+      "test": "768px default sector",
+      "pass": true
+    },
+    {
+      "test": "768px initial message manufacturer",
+      "pass": true
+    },
+    {
+      "test": "768px initial feature 4",
+      "pass": true
+    },
+    {
+      "test": "768px initial scope 4",
+      "pass": true
+    },
+    {
+      "test": "768px academy message",
+      "pass": true
+    },
+    {
+      "test": "768px academy options",
+      "pass": true
+    },
+    {
+      "test": "768px interior message",
+      "pass": true
+    },
+    {
+      "test": "768px interior options",
+      "pass": true
+    },
+    {
+      "test": "768px manufacturing message",
+      "pass": true
+    },
+    {
+      "test": "768px manufacturing options",
+      "pass": true
+    },
+    {
+      "test": "768px appropriate feature quote",
+      "pass": true
+    },
+    {
+      "test": "768px scope medium",
+      "pass": true
+    },
+    {
+      "test": "768px HTML injection escaped",
+      "pass": true
+    },
+    {
+      "test": "768px no horizontal overflow filled",
+      "pass": true
+    },
+    {
+      "test": "768px download filename",
+      "pass": true
+    },
+    {
+      "test": "768px file contains details",
+      "pass": true
+    },
+    {
+      "test": "768px file includes recipient",
+      "pass": true
+    },
+    {
+      "test": "768px file no sent claim",
+      "pass": true
+    },
+    {
+      "test": "768px download explicitly not sent",
+      "pass": true
+    },
+    {
+      "test": "768px blocked clipboard fallback",
+      "pass": true
+    },
+    {
+      "test": "768px preserved no JS errors",
+      "pass": true
+    },
+    {
+      "test": "1024px no js errors initial",
+      "pass": true
+    },
+    {
+      "test": "1024px title",
+      "pass": true
+    },
+    {
+      "test": "1024px no horizontal overflow initial",
+      "pass": true
+    },
+    {
+      "test": "1024px default sector",
+      "pass": true
+    },
+    {
+      "test": "1024px initial message manufacturer",
+      "pass": true
+    },
+    {
+      "test": "1024px initial feature 4",
+      "pass": true
+    },
+    {
+      "test": "1024px initial scope 4",
+      "pass": true
+    },
+    {
+      "test": "1024px academy message",
+      "pass": true
+    },
+    {
+      "test": "1024px academy options",
+      "pass": true
+    },
+    {
+      "test": "1024px interior message",
+      "pass": true
+    },
+    {
+      "test": "1024px interior options",
+      "pass": true
+    },
+    {
+      "test": "1024px manufacturing message",
+      "pass": true
+    },
+    {
+      "test": "1024px manufacturing options",
+      "pass": true
+    },
+    {
+      "test": "1024px appropriate feature quote",
+      "pass": true
+    },
+    {
+      "test": "1024px scope medium",
+      "pass": true
+    },
+    {
+      "test": "1024px HTML injection escaped",
+      "pass": true
+    },
+    {
+      "test": "1024px no horizontal overflow filled",
+      "pass": true
+    },
+    {
+      "test": "1024px download filename",
+      "pass": true
+    },
+    {
+      "test": "1024px file contains details",
+      "pass": true
+    },
+    {
+      "test": "1024px file includes recipient",
+      "pass": true
+    },
+    {
+      "test": "1024px file no sent claim",
+      "pass": true
+    },
+    {
+      "test": "1024px download explicitly not sent",
+      "pass": true
+    },
+    {
+      "test": "1024px blocked clipboard fallback",
+      "pass": true
+    },
+    {
+      "test": "1024px preserved no JS errors",
+      "pass": true
+    },
+    {
+      "test": "1440px no js errors initial",
+      "pass": true
+    },
+    {
+      "test": "1440px title",
+      "pass": true
+    },
+    {
+      "test": "1440px no horizontal overflow initial",
+      "pass": true
+    },
+    {
+      "test": "1440px default sector",
+      "pass": true
+    },
+    {
+      "test": "1440px initial message manufacturer",
+      "pass": true
+    },
+    {
+      "test": "1440px initial feature 4",
+      "pass": true
+    },
+    {
+      "test": "1440px initial scope 4",
+      "pass": true
+    },
+    {
+      "test": "1440px academy message",
+      "pass": true
+    },
+    {
+      "test": "1440px academy options",
+      "pass": true
+    },
+    {
+      "test": "1440px interior message",
+      "pass": true
+    },
+    {
+      "test": "1440px interior options",
+      "pass": true
+    },
+    {
+      "test": "1440px manufacturing message",
+      "pass": true
+    },
+    {
+      "test": "1440px manufacturing options",
+      "pass": true
+    },
+    {
+      "test": "1440px appropriate feature quote",
+      "pass": true
+    },
+    {
+      "test": "1440px scope medium",
+      "pass": true
+    },
+    {
+      "test": "1440px HTML injection escaped",
+      "pass": true
+    },
+    {
+      "test": "1440px no horizontal overflow filled",
+      "pass": true
+    },
+    {
+      "test": "1440px download filename",
+      "pass": true
+    },
+    {
+      "test": "1440px file contains details",
+      "pass": true
+    },
+    {
+      "test": "1440px file includes recipient",
+      "pass": true
+    },
+    {
+      "test": "1440px file no sent claim",
+      "pass": true
+    },
+    {
+      "test": "1440px download explicitly not sent",
+      "pass": true
+    },
+    {
+      "test": "1440px blocked clipboard fallback",
+      "pass": true
+    },
+    {
+      "test": "1440px preserved no JS errors",
+      "pass": true
+    }
+  ]
+}
