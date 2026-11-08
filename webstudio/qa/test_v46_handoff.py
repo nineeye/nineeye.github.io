@@ -3,7 +3,7 @@
 The sandbox blocks all page navigation; real origin/sessionStorage and Cloudflare remain HOLD.
 """
 from __future__ import annotations
-import json,re,sys, tempfile,zipfile
+import json,re,sys, tempfile,zipfile,shutil
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 SOURCE=Path(__file__).resolve().parents[2];ROOT=SOURCE/'webstudio'
@@ -31,12 +31,17 @@ MOCK_JS='''() => {
 }'''
 with tempfile.TemporaryDirectory(prefix='afo-v46-') as temp:
     root=Path(temp);w=root/'webstudio';(w/'assets').mkdir(parents=True)
-    with zipfile.ZipFile(ZIP) as z:
-        for name in ('webstudio/launch-kit.html','webstudio/assets/v45-launch-kit.js','webstudio/assets/v45-launch-kit.css'):
-            (root/name).write_bytes(z.read(name))
+    selected=('webstudio/launch-kit.html','webstudio/assets/v45-launch-kit.js','webstudio/assets/v45-launch-kit.css')
+    if all((SOURCE/name).is_file() for name in selected):
+        for name in selected: shutil.copyfile(SOURCE/name,root/name)
+    elif ZIP.is_file():
+        with zipfile.ZipFile(ZIP) as z:
+            for name in selected: (root/name).write_bytes(z.read(name))
+    else:
+        raise RuntimeError('V45+ repository source or V45 package not found. Test cannot start.')
     (w/'contact.html').write_text(CONTACT,encoding='utf-8')
     (w/'assets/current-release.json').write_text('{"version":"V45","demo_count":36}',encoding='utf-8')
-    sys.path.insert(0,str(SOURCE));from apply_v46 import patch
+    sys.path.insert(0,str(ROOT/'tools'));sys.path.insert(0,str(SOURCE));from apply_v46 import patch
     metadata=patch(root)
     ok('V46 patch expected files',len(metadata['files'])==5)
     originals={p:p.read_bytes() for p in (w/'contact.html',w/'launch-kit.html',w/'assets/current-release.json')}
