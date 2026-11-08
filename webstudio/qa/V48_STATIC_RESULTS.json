@@ -1,0 +1,153 @@
+{
+  "release": "V48",
+  "suite": "offline stdlib static, idempotency, negative tests",
+  "passed": 36,
+  "failed": 0,
+  "total": 36,
+  "cases": [
+    {
+      "name": "source present assets/v48-sales-audit.js",
+      "pass": true
+    },
+    {
+      "name": "source present assets/v48-sales-audit.css",
+      "pass": true
+    },
+    {
+      "name": "source present docs/V48_SALES_FFUNNEL_QA_KO.md",
+      "pass": true
+    },
+    {
+      "name": "source present qa/test_v48_sales_audit.py",
+      "pass": true
+    },
+    {
+      "name": "source present qa/test_v48_static.py",
+      "pass": true
+    },
+    {
+      "name": "source present qa/V48_QA_RESULTS.json",
+      "pass": true
+    },
+    {
+      "name": "safe source credentials:'omit'",
+      "pass": true
+    },
+    {
+      "name": "safe source cache:'no-store'",
+      "pass": true
+    },
+    {
+      "name": "safe source url.origin!==root.origin",
+      "pass": true
+    },
+    {
+      "name": "safe source fetch(url.href",
+      "pass": true
+    },
+    {
+      "name": "safe source 16",
+      "pass": true
+    },
+    {
+      "name": "safe source AbortController",
+      "pass": true
+    },
+    {
+      "name": "safe source response.ok",
+      "pass": true
+    },
+    {
+      "name": "safe source no-store",
+      "pass": true
+    },
+    {
+      "name": "safe source RULES",
+      "pass": true
+    },
+    {
+      "name": "safe source v48-save",
+      "pass": true
+    },
+    {
+      "name": "safe source v48-copy",
+      "pass": true
+    },
+    {
+      "name": "reject sessionStorage.getItem",
+      "pass": true
+    },
+    {
+      "name": "reject localStorage.setItem",
+      "pass": true
+    },
+    {
+      "name": "reject navigator.sendBeacon",
+      "pass": true
+    },
+    {
+      "name": "reject eval(",
+      "pass": true
+    },
+    {
+      "name": "reject innerHTML",
+      "pass": true
+    },
+    {
+      "name": "reject mailto:",
+      "pass": true
+    },
+    {
+      "name": "CSS responsive",
+      "pass": true
+    },
+    {
+      "name": "patch has release",
+      "pass": true
+    },
+    {
+      "name": "patch inject <link rel=\"stylesheet\" href=\"a",
+      "pass": true
+    },
+    {
+      "name": "patch inject <script defer src=\"assets/v48-",
+      "pass": true
+    },
+    {
+      "name": "patch inject <meta name=\"webstudio-release-",
+      "pass": true
+    },
+    {
+      "name": "patch inject <section class=\"body-section\" ",
+      "pass": true
+    },
+    {
+      "name": "V47 demo count retained",
+      "pass": true
+    },
+    {
+      "name": "manifest V48",
+      "pass": true
+    },
+    {
+      "name": "V48 release json same",
+      "pass": true
+    },
+    {
+      "name": "second patch idempotent",
+      "pass": true
+    },
+    {
+      "name": "patch one widget",
+      "pass": true
+    },
+    {
+      "name": "refuses unsupported base version",
+      "pass": true
+    },
+    {
+      "name": "rejected version leaves page unchanged",
+      "pass": true
+    }
+  ]
+}

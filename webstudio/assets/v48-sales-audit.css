@@ -1,0 +1,19 @@
+/* V48 supplementary read-only sales funnel diagnostics on existing site-check page. */
+#v48-sales-audit{margin:42px auto 0;padding:clamp(20px,4vw,34px);max-width:1100px;background:#f4f7f1;border:1px solid #c5d7ce;color:#173e35;border-radius:15px;box-sizing:border-box;overflow-wrap:anywhere}
+#v48-sales-audit *{box-sizing:border-box}
+#v48-sales-audit h3{font-size:clamp(23px,3vw,32px);letter-spacing:-.05em;margin:0 0 13px}
+#v48-sales-audit p{font-size:14px;line-height:1.75;color:#395b4f}
+.v48-toolbar{display:flex;flex-wrap:wrap;gap:9px;margin:20px 0}
+.v48-toolbar button{cursor:pointer;background:#183d34;color:#fff;padding:12px 16px;font-size:13px;font-weight:800;border:1px solid #204c3c;border-radius:8px;min-height:46px}
+.v48-toolbar button:disabled{background:#a2b0a9;color:#233c32;cursor:wait}
+#v48-status{font-weight:750!important;color:#225340!important;min-height:25px}
+.v48-results{display:grid;gap:8px;list-style:none;margin:18px 0;padding:0}
+.v48-results li{display:flex;gap:12px;align-items:center;padding:13px;background:#fff;border:1px solid #d4e1d9;border-radius:10px;min-width:0}
+.v48-results li>span{flex:1;min-width:0}.v48-results b{display:block;font-size:14px}.v48-results small{display:block;font-size:11px;color:#587264;margin-top:5px;line-height:1.5;overflow-wrap:anywhere}
+.v48-results a{font-size:12px;color:#17573e;white-space:nowrap;text-decoration:underline;text-underline-offset:3px}
+.v48-mark{flex:0 0 auto;min-width:68px;text-align:center;font-size:12px;border-radius:5px;padding:7px 8px;background:#e0f5e9;color:#20623f}
+.v48-hold .v48-mark{background:#fff0d9;color:#8d4b13}
+.v48-providers{display:flex;gap:14px;flex-wrap:wrap}.v48-providers a{color:#155e42;text-decoration:underline;text-underline-offset:4px;font-weight:750}
+#v48-sales-audit :is(button,a):focus-visible{outline:3px solid #d49432;outline-offset:3px}
+@media(max-width:600px){.v48-toolbar button{width:100%}.v48-results li{align-items:flex-start;flex-wrap:wrap}.v48-results a{margin-left:auto}}
+@media print{.v48-toolbar{display:none}}
