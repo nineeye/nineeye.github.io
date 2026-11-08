@@ -1,0 +1,11 @@
+/* V51: seamless optional quick inquiry → detailed consultation transition; no external assets. */
+.v51-to-detail{box-sizing:border-box;display:flex;align-items:center;justify-content:center;text-align:center;min-height:52px;margin:12px 0 4px;padding:13px 16px;border:2px solid #1e634a;background:#e5f2e7;color:#12432e;border-radius:8px;font-size:13px;font-weight:850;line-height:1.55;text-decoration:none;overflow-wrap:anywhere}
+.v51-to-detail:hover{background:#d4e9d8}.v51-to-detail:focus-visible,.v51-import button:focus-visible{outline:3px solid #cb9c36;outline-offset:3px}
+.v51-help,.v51-status{font-size:12px;line-height:1.75;color:#547362;margin:8px 0;overflow-wrap:anywhere}.v51-status{font-weight:800;color:#895321}
+.v51-import{box-sizing:border-box;max-width:1180px;margin:0 auto 22px;padding:clamp(16px,3vw,24px);background:#f1f8f0;border:1px solid #a9cbbb;border-left:5px solid #26664e;border-radius:12px;color:#194632;overflow-wrap:anywhere}
+.v51-import *{box-sizing:border-box}.v51-import strong{display:block;font-size:clamp(18px,2.2vw,23px);line-height:1.35}.v51-import p{font-size:13px;line-height:1.8;margin:10px 0}
+.v51-import pre{font:13px/1.85 ui-monospace,Consolas,monospace;white-space:pre-wrap;overflow-wrap:anywhere;max-height:240px;overflow:auto;border:1px solid #c7decf;border-radius:7px;background:#fff;padding:13px}
+.v51-import button{min-height:46px;border:0;border-radius:7px;padding:12px 18px;font-size:13px;font-weight:800;color:white;background:#1a5840;cursor:pointer}
+.v51-import .v51-warning{color:#884919;font-weight:800}
+@media(max-width:600px){.v51-import{margin:0 14px 18px}.v51-import button{width:100%}}
+@media print{.v51-to-detail,.v51-help,.v51-import button{display:none!important}.v51-import pre{max-height:none;overflow:visible}}

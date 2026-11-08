@@ -1,0 +1,1387 @@
+{
+  "release": "V51",
+  "source": "V49 full quick HTML+CSS+JS; isolated contact fixture and same-document sessionStorage shim, NOT live navigation",
+  "total": 344,
+  "passed": 344,
+  "failed": 0,
+  "results": [
+    {
+      "test": "320 manufacturing CTA visible",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing no JS errors",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing read-once removed",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing receipt panel",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing selected industry",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing mapped feature",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing budget",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing timing",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing note preserved",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing import not repeated",
+      "pass": true
+    },
+    {
+      "test": "320 manufacturing no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "320 academy CTA visible",
+      "pass": true
+    },
+    {
+      "test": "320 academy no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "320 academy no JS errors",
+      "pass": true
+    },
+    {
+      "test": "320 academy storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "320 academy handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "320 academy no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "320 academy read-once removed",
+      "pass": true
+    },
+    {
+      "test": "320 academy receipt panel",
+      "pass": true
+    },
+    {
+      "test": "320 academy selected industry",
+      "pass": true
+    },
+    {
+      "test": "320 academy mapped feature",
+      "pass": true
+    },
+    {
+      "test": "320 academy budget",
+      "pass": true
+    },
+    {
+      "test": "320 academy timing",
+      "pass": true
+    },
+    {
+      "test": "320 academy note preserved",
+      "pass": true
+    },
+    {
+      "test": "320 academy HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "320 academy contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "320 academy no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "320 academy import not repeated",
+      "pass": true
+    },
+    {
+      "test": "320 academy no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "320 interior CTA visible",
+      "pass": true
+    },
+    {
+      "test": "320 interior no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "320 interior no JS errors",
+      "pass": true
+    },
+    {
+      "test": "320 interior storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "320 interior handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "320 interior no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "320 interior read-once removed",
+      "pass": true
+    },
+    {
+      "test": "320 interior receipt panel",
+      "pass": true
+    },
+    {
+      "test": "320 interior selected industry",
+      "pass": true
+    },
+    {
+      "test": "320 interior mapped feature",
+      "pass": true
+    },
+    {
+      "test": "320 interior budget",
+      "pass": true
+    },
+    {
+      "test": "320 interior timing",
+      "pass": true
+    },
+    {
+      "test": "320 interior note preserved",
+      "pass": true
+    },
+    {
+      "test": "320 interior HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "320 interior contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "320 interior no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "320 interior import not repeated",
+      "pass": true
+    },
+    {
+      "test": "320 interior no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing CTA visible",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing no JS errors",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing read-once removed",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing receipt panel",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing selected industry",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing mapped feature",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing budget",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing timing",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing note preserved",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing import not repeated",
+      "pass": true
+    },
+    {
+      "test": "360 manufacturing no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "360 academy CTA visible",
+      "pass": true
+    },
+    {
+      "test": "360 academy no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "360 academy no JS errors",
+      "pass": true
+    },
+    {
+      "test": "360 academy storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "360 academy handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "360 academy no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "360 academy read-once removed",
+      "pass": true
+    },
+    {
+      "test": "360 academy receipt panel",
+      "pass": true
+    },
+    {
+      "test": "360 academy selected industry",
+      "pass": true
+    },
+    {
+      "test": "360 academy mapped feature",
+      "pass": true
+    },
+    {
+      "test": "360 academy budget",
+      "pass": true
+    },
+    {
+      "test": "360 academy timing",
+      "pass": true
+    },
+    {
+      "test": "360 academy note preserved",
+      "pass": true
+    },
+    {
+      "test": "360 academy HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "360 academy contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "360 academy no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "360 academy import not repeated",
+      "pass": true
+    },
+    {
+      "test": "360 academy no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "360 interior CTA visible",
+      "pass": true
+    },
+    {
+      "test": "360 interior no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "360 interior no JS errors",
+      "pass": true
+    },
+    {
+      "test": "360 interior storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "360 interior handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "360 interior no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "360 interior read-once removed",
+      "pass": true
+    },
+    {
+      "test": "360 interior receipt panel",
+      "pass": true
+    },
+    {
+      "test": "360 interior selected industry",
+      "pass": true
+    },
+    {
+      "test": "360 interior mapped feature",
+      "pass": true
+    },
+    {
+      "test": "360 interior budget",
+      "pass": true
+    },
+    {
+      "test": "360 interior timing",
+      "pass": true
+    },
+    {
+      "test": "360 interior note preserved",
+      "pass": true
+    },
+    {
+      "test": "360 interior HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "360 interior contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "360 interior no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "360 interior import not repeated",
+      "pass": true
+    },
+    {
+      "test": "360 interior no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing CTA visible",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing no JS errors",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing read-once removed",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing receipt panel",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing selected industry",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing mapped feature",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing budget",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing timing",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing note preserved",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing import not repeated",
+      "pass": true
+    },
+    {
+      "test": "390 manufacturing no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "390 academy CTA visible",
+      "pass": true
+    },
+    {
+      "test": "390 academy no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "390 academy no JS errors",
+      "pass": true
+    },
+    {
+      "test": "390 academy storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "390 academy handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "390 academy no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "390 academy read-once removed",
+      "pass": true
+    },
+    {
+      "test": "390 academy receipt panel",
+      "pass": true
+    },
+    {
+      "test": "390 academy selected industry",
+      "pass": true
+    },
+    {
+      "test": "390 academy mapped feature",
+      "pass": true
+    },
+    {
+      "test": "390 academy budget",
+      "pass": true
+    },
+    {
+      "test": "390 academy timing",
+      "pass": true
+    },
+    {
+      "test": "390 academy note preserved",
+      "pass": true
+    },
+    {
+      "test": "390 academy HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "390 academy contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "390 academy no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "390 academy import not repeated",
+      "pass": true
+    },
+    {
+      "test": "390 academy no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "390 interior CTA visible",
+      "pass": true
+    },
+    {
+      "test": "390 interior no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "390 interior no JS errors",
+      "pass": true
+    },
+    {
+      "test": "390 interior storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "390 interior handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "390 interior no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "390 interior read-once removed",
+      "pass": true
+    },
+    {
+      "test": "390 interior receipt panel",
+      "pass": true
+    },
+    {
+      "test": "390 interior selected industry",
+      "pass": true
+    },
+    {
+      "test": "390 interior mapped feature",
+      "pass": true
+    },
+    {
+      "test": "390 interior budget",
+      "pass": true
+    },
+    {
+      "test": "390 interior timing",
+      "pass": true
+    },
+    {
+      "test": "390 interior note preserved",
+      "pass": true
+    },
+    {
+      "test": "390 interior HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "390 interior contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "390 interior no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "390 interior import not repeated",
+      "pass": true
+    },
+    {
+      "test": "390 interior no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing CTA visible",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing no JS errors",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing read-once removed",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing receipt panel",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing selected industry",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing mapped feature",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing budget",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing timing",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing note preserved",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing import not repeated",
+      "pass": true
+    },
+    {
+      "test": "768 manufacturing no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "768 academy CTA visible",
+      "pass": true
+    },
+    {
+      "test": "768 academy no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "768 academy no JS errors",
+      "pass": true
+    },
+    {
+      "test": "768 academy storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "768 academy handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "768 academy no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "768 academy read-once removed",
+      "pass": true
+    },
+    {
+      "test": "768 academy receipt panel",
+      "pass": true
+    },
+    {
+      "test": "768 academy selected industry",
+      "pass": true
+    },
+    {
+      "test": "768 academy mapped feature",
+      "pass": true
+    },
+    {
+      "test": "768 academy budget",
+      "pass": true
+    },
+    {
+      "test": "768 academy timing",
+      "pass": true
+    },
+    {
+      "test": "768 academy note preserved",
+      "pass": true
+    },
+    {
+      "test": "768 academy HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "768 academy contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "768 academy no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "768 academy import not repeated",
+      "pass": true
+    },
+    {
+      "test": "768 academy no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "768 interior CTA visible",
+      "pass": true
+    },
+    {
+      "test": "768 interior no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "768 interior no JS errors",
+      "pass": true
+    },
+    {
+      "test": "768 interior storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "768 interior handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "768 interior no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "768 interior read-once removed",
+      "pass": true
+    },
+    {
+      "test": "768 interior receipt panel",
+      "pass": true
+    },
+    {
+      "test": "768 interior selected industry",
+      "pass": true
+    },
+    {
+      "test": "768 interior mapped feature",
+      "pass": true
+    },
+    {
+      "test": "768 interior budget",
+      "pass": true
+    },
+    {
+      "test": "768 interior timing",
+      "pass": true
+    },
+    {
+      "test": "768 interior note preserved",
+      "pass": true
+    },
+    {
+      "test": "768 interior HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "768 interior contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "768 interior no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "768 interior import not repeated",
+      "pass": true
+    },
+    {
+      "test": "768 interior no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing CTA visible",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing no JS errors",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing read-once removed",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing receipt panel",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing selected industry",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing mapped feature",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing budget",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing timing",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing note preserved",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing import not repeated",
+      "pass": true
+    },
+    {
+      "test": "1280 manufacturing no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "1280 academy CTA visible",
+      "pass": true
+    },
+    {
+      "test": "1280 academy no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "1280 academy no JS errors",
+      "pass": true
+    },
+    {
+      "test": "1280 academy storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "1280 academy handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "1280 academy no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "1280 academy read-once removed",
+      "pass": true
+    },
+    {
+      "test": "1280 academy receipt panel",
+      "pass": true
+    },
+    {
+      "test": "1280 academy selected industry",
+      "pass": true
+    },
+    {
+      "test": "1280 academy mapped feature",
+      "pass": true
+    },
+    {
+      "test": "1280 academy budget",
+      "pass": true
+    },
+    {
+      "test": "1280 academy timing",
+      "pass": true
+    },
+    {
+      "test": "1280 academy note preserved",
+      "pass": true
+    },
+    {
+      "test": "1280 academy HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "1280 academy contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "1280 academy no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "1280 academy import not repeated",
+      "pass": true
+    },
+    {
+      "test": "1280 academy no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "1280 interior CTA visible",
+      "pass": true
+    },
+    {
+      "test": "1280 interior no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "1280 interior no JS errors",
+      "pass": true
+    },
+    {
+      "test": "1280 interior storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "1280 interior handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "1280 interior no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "1280 interior read-once removed",
+      "pass": true
+    },
+    {
+      "test": "1280 interior receipt panel",
+      "pass": true
+    },
+    {
+      "test": "1280 interior selected industry",
+      "pass": true
+    },
+    {
+      "test": "1280 interior mapped feature",
+      "pass": true
+    },
+    {
+      "test": "1280 interior budget",
+      "pass": true
+    },
+    {
+      "test": "1280 interior timing",
+      "pass": true
+    },
+    {
+      "test": "1280 interior note preserved",
+      "pass": true
+    },
+    {
+      "test": "1280 interior HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "1280 interior contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "1280 interior no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "1280 interior import not repeated",
+      "pass": true
+    },
+    {
+      "test": "1280 interior no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing CTA visible",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing no JS errors",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing read-once removed",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing receipt panel",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing selected industry",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing mapped feature",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing budget",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing timing",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing note preserved",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing import not repeated",
+      "pass": true
+    },
+    {
+      "test": "1440 manufacturing no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "1440 academy CTA visible",
+      "pass": true
+    },
+    {
+      "test": "1440 academy no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "1440 academy no JS errors",
+      "pass": true
+    },
+    {
+      "test": "1440 academy storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "1440 academy handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "1440 academy no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "1440 academy read-once removed",
+      "pass": true
+    },
+    {
+      "test": "1440 academy receipt panel",
+      "pass": true
+    },
+    {
+      "test": "1440 academy selected industry",
+      "pass": true
+    },
+    {
+      "test": "1440 academy mapped feature",
+      "pass": true
+    },
+    {
+      "test": "1440 academy budget",
+      "pass": true
+    },
+    {
+      "test": "1440 academy timing",
+      "pass": true
+    },
+    {
+      "test": "1440 academy note preserved",
+      "pass": true
+    },
+    {
+      "test": "1440 academy HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "1440 academy contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "1440 academy no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "1440 academy import not repeated",
+      "pass": true
+    },
+    {
+      "test": "1440 academy no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "1440 interior CTA visible",
+      "pass": true
+    },
+    {
+      "test": "1440 interior no horizontal overflow",
+      "pass": true
+    },
+    {
+      "test": "1440 interior no JS errors",
+      "pass": true
+    },
+    {
+      "test": "1440 interior storage initially empty",
+      "pass": true
+    },
+    {
+      "test": "1440 interior handoff exact selection",
+      "pass": true
+    },
+    {
+      "test": "1440 interior no personal text in url",
+      "pass": true
+    },
+    {
+      "test": "1440 interior read-once removed",
+      "pass": true
+    },
+    {
+      "test": "1440 interior receipt panel",
+      "pass": true
+    },
+    {
+      "test": "1440 interior selected industry",
+      "pass": true
+    },
+    {
+      "test": "1440 interior mapped feature",
+      "pass": true
+    },
+    {
+      "test": "1440 interior budget",
+      "pass": true
+    },
+    {
+      "test": "1440 interior timing",
+      "pass": true
+    },
+    {
+      "test": "1440 interior note preserved",
+      "pass": true
+    },
+    {
+      "test": "1440 interior HTML escaped",
+      "pass": true
+    },
+    {
+      "test": "1440 interior contact preview refreshed",
+      "pass": true
+    },
+    {
+      "test": "1440 interior no overflow panel",
+      "pass": true
+    },
+    {
+      "test": "1440 interior import not repeated",
+      "pass": true
+    },
+    {
+      "test": "1440 interior no errors after contact",
+      "pass": true
+    },
+    {
+      "test": "expired accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "expired storage cleared",
+      "pass": true
+    },
+    {
+      "test": "future accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "future storage cleared",
+      "pass": true
+    },
+    {
+      "test": "wrong sector accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "wrong sector storage cleared",
+      "pass": true
+    },
+    {
+      "test": "invalid budget accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "invalid budget storage cleared",
+      "pass": true
+    },
+    {
+      "test": "invalid feature accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "invalid feature storage cleared",
+      "pass": true
+    },
+    {
+      "test": "long note accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "long note storage cleared",
+      "pass": true
+    },
+    {
+      "test": "bad version accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "bad version storage cleared",
+      "pass": true
+    },
+    {
+      "test": "invalid scope accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "invalid scope storage cleared",
+      "pass": true
+    },
+    {
+      "test": "control chars accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "control chars storage cleared",
+      "pass": true
+    },
+    {
+      "test": "valid accepted correctly",
+      "pass": true
+    },
+    {
+      "test": "valid storage cleared",
+      "pass": true
+    }
+  ],
+  "real_live_navigation_verified": false,
+  "real_email_receipt_verified": false
+}

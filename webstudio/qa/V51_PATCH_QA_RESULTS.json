@@ -1,0 +1,68 @@
+{
+  "version": "V51",
+  "total": 15,
+  "passed": 15,
+  "failed": 0,
+  "results": [
+    {
+      "name": "check mode detects 5 modifications",
+      "pass": true
+    },
+    {
+      "name": "check mode is read-only",
+      "pass": true
+    },
+    {
+      "name": "applied 5 files",
+      "pass": true
+    },
+    {
+      "name": "actual script to quick",
+      "pass": true
+    },
+    {
+      "name": "actual script to contact",
+      "pass": true
+    },
+    {
+      "name": "manifest V51",
+      "pass": true
+    },
+    {
+      "name": "existing V49 script preserved",
+      "pass": true
+    },
+    {
+      "name": "existing V50 file preserved",
+      "pass": true
+    },
+    {
+      "name": "repeat does nothing",
+      "pass": true
+    },
+    {
+      "name": "script not duplicated",
+      "pass": true
+    },
+    {
+      "name": "contact not duplicated",
+      "pass": true
+    },
+    {
+      "name": "36 demo declaration unchanged",
+      "pass": true
+    },
+    {
+      "name": "wrong version refused",
+      "pass": true
+    },
+    {
+      "name": "modified V51 source refused",
+      "pass": true
+    },
+    {
+      "name": "missing V49 prerequisite refused",
+      "pass": true
+    }
+  ]
+}
