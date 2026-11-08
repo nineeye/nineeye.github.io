@@ -1,15 +1,15 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V54",
-  "release_id": "WEBSTUDIO-V54-20261108",
+  "version": "V55",
+  "release_id": "WEBSTUDIO-V55-20261108",
   "release_date": "2026-11-08",
   "function_count": 48,
   "demo_count": 36,
   "fit_check_industry_count": 12,
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
-  "release_note": "New independent food, hair salon, logistics functional websites: local menu/visit preparation, style-service duration/pricing calculator, parcel volumetric weight/dispatch documents; V53 offline release guard included.",
-  "verification": "V54_ISOLATED_CHROMIUM_25_PASS; V54_STATIC_83_PASS; FULL_REPO_NOT_TESTED; CLOUDFLARE_PENDING; LIVE_EMAIL_NOT_TESTED",
+  "release_note": "Six-sector 1-minute inquiry conversion: food, beauty and logistics with distinct features and scopes, safe mapping into detailed consultation, links from V54 demos, no paid services.",
+  "verification": "V55_ISOLATED_SECTOR_DATA_BROWSER_24_PASS; V55_GITHUB_SOURCE_STATIC_CROSSFILE_26_PASS; FULL_REPO_BROWSER_NOT_TESTED; CLOUDFLARE_PENDING; REAL_EMAIL_NOT_TESTED",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 3,
@@ -21,8 +21,8 @@
   "flagship_sample_scope": "fictional_offline_no_server",
   "sector_visible_faq_count": 12,
   "sector_structured_data": "WebPage+Service_no_FAQPage",
-  "previous_release": "V52",
-  "previous_release_note": "Three entirely new, truly industry-specific fictional flagship demos: B2B spec/MOQ/RFQ, education courses/weekly schedules/conflicts, interior concept portfolio/before-after/spatial brief. Existing 36 demos preserved.",
+  "previous_release": "V54",
+  "previous_release_note": "New independent food, hair salon, logistics functional websites: local menu/visit preparation, style-service duration/pricing calculator, parcel volumetric weight/dispatch documents; V53 offline release guard included.",
   "launch_kit_industries": 3,
   "launch_kit_items_per_industry": 10,
   "launch_kit_url": "/launch-kit.html",
@@ -35,7 +35,7 @@
   "sales_audit_public_checks": 16,
   "sales_audit_no_auth_or_personal_data": true,
   "quick_inquiry_url": "/quick-inquiry.html",
-  "quick_inquiry_industries": 3,
+  "quick_inquiry_industries": 6,
   "quick_inquiry_server_submission": false,
   "quick_inquiry_external_paid_apis": 0,
   "owner_readiness_url": "/owner-launch.html",
@@ -47,7 +47,7 @@
   "quick_to_detailed_no_personal_query": true,
   "quick_to_detailed_ttl_minutes": 15,
   "quick_to_detailed_server_submission": false,
-  "quick_to_detailed_industries": 3,
+  "quick_to_detailed_industries": 6,
   "quick_to_detailed_live_navigation_verified": false,
   "flagship_independent_site_count": 6,
   "flagship_names": [
@@ -69,5 +69,19 @@
     "/experiences/route18-logistics.html"
   ],
   "v54_industry_demos_noindex": true,
-  "v54_booking_payment_fulfillment": false
+  "v54_booking_payment_fulfillment": false,
+  "v55_added_inquiry_industries": [
+    "restaurant",
+    "beauty",
+    "logistics"
+  ],
+  "v55_legacy_inquiry_industries_preserved": [
+    "manufacturing",
+    "academy",
+    "interior"
+  ],
+  "v55_live_email_receipt_verified": false,
+  "v55_live_cloudflare_verified": false,
+  "v55_personal_query_params": false,
+  "v55_server_submission": false
 }
