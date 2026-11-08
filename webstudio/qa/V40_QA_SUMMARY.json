@@ -1,0 +1,7 @@
+{
+  "isolated_chromium_pass": 73,
+  "official_checker_unit_tests_pass": 12,
+  "github_source_cross_checks_pass": 22,
+  "real_public_url_e2e": "NOT_PERFORMED",
+  "real_email_receipt": "NOT_PERFORMED"
+}
