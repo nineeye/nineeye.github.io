@@ -1,0 +1,200 @@
+{
+  "release": "V48",
+  "kind": "isolated Chromium set_content with mocked same-origin fetch (navigation blocked)",
+  "checks": 47,
+  "passed": 47,
+  "failed": 0,
+  "public_cloudflare_verified": false,
+  "real_email_receipt_verified": false,
+  "search_engine_index_verified": false,
+  "results": [
+    {
+      "name": "no unsafe localStorage",
+      "passed": true
+    },
+    {
+      "name": "no unsafe navigator.sendBeacon",
+      "passed": true
+    },
+    {
+      "name": "no unsafe mailto:",
+      "passed": true
+    },
+    {
+      "name": "no unsafe eval(",
+      "passed": true
+    },
+    {
+      "name": "no unsafe innerHTML",
+      "passed": true
+    },
+    {
+      "name": "has v48-sales-audit",
+      "passed": true
+    },
+    {
+      "name": "has credentials:'omit'",
+      "passed": true
+    },
+    {
+      "name": "has cache:'no-store'",
+      "passed": true
+    },
+    {
+      "name": "has document.baseURI",
+      "passed": true
+    },
+    {
+      "name": "has AbortController",
+      "passed": true
+    },
+    {
+      "name": "has RULES",
+      "passed": true
+    },
+    {
+      "name": "has download",
+      "passed": true
+    },
+    {
+      "name": "styles contain small screen rule",
+      "passed": true
+    },
+    {
+      "name": "360 16/16 initial",
+      "passed": true
+    },
+    {
+      "name": "360 sixteen rows",
+      "passed": true
+    },
+    {
+      "name": "360 no JS errors",
+      "passed": true
+    },
+    {
+      "name": "360 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "360 no customer input",
+      "passed": true
+    },
+    {
+      "name": "360 no send action",
+      "passed": true
+    },
+    {
+      "name": "360 provider links external and safe",
+      "passed": true
+    },
+    {
+      "name": "360 TXT download",
+      "passed": true
+    },
+    {
+      "name": "360 report mock origin",
+      "passed": true
+    },
+    {
+      "name": "360 truthful scope",
+      "passed": true
+    },
+    {
+      "name": "768 16/16 initial",
+      "passed": true
+    },
+    {
+      "name": "768 sixteen rows",
+      "passed": true
+    },
+    {
+      "name": "768 no JS errors",
+      "passed": true
+    },
+    {
+      "name": "768 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "768 no customer input",
+      "passed": true
+    },
+    {
+      "name": "768 no send action",
+      "passed": true
+    },
+    {
+      "name": "768 provider links external and safe",
+      "passed": true
+    },
+    {
+      "name": "768 TXT download",
+      "passed": true
+    },
+    {
+      "name": "768 report mock origin",
+      "passed": true
+    },
+    {
+      "name": "768 truthful scope",
+      "passed": true
+    },
+    {
+      "name": "1440 16/16 initial",
+      "passed": true
+    },
+    {
+      "name": "1440 sixteen rows",
+      "passed": true
+    },
+    {
+      "name": "1440 no JS errors",
+      "passed": true
+    },
+    {
+      "name": "1440 no horizontal overflow",
+      "passed": true
+    },
+    {
+      "name": "1440 no customer input",
+      "passed": true
+    },
+    {
+      "name": "1440 no send action",
+      "passed": true
+    },
+    {
+      "name": "1440 provider links external and safe",
+      "passed": true
+    },
+    {
+      "name": "1440 TXT download",
+      "passed": true
+    },
+    {
+      "name": "1440 report mock origin",
+      "passed": true
+    },
+    {
+      "name": "1440 truthful scope",
+      "passed": true
+    },
+    {
+      "name": "broken contact yields hold",
+      "passed": true
+    },
+    {
+      "name": "broken contact marked HOLD",
+      "passed": true
+    },
+    {
+      "name": "broken contact label",
+      "passed": true
+    },
+    {
+      "name": "rerun after repair",
+      "passed": true
+    }
+  ]
+}
