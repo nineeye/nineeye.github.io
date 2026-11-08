@@ -9,7 +9,7 @@
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
   "release_note": "Standard free GitHub-hosted Windows Edge Actions real-public-site CI on main updates. Exact V64 HTTP 2xx, desktop/mobile, all six sales categories, all six quick inquiries and 15-minute one-time consultation handoff. No paid APIs, no auto-email, read-only, short-lived GitHub artifact with truthful PASS/HOLD and Korean QA reports.",
-  "verification": "V64_SOURCE_OFFLINE_CDP_28_PASS; V64_GITHUB_122_CHECKS_PENDING; WORKFLOW_CREATED_NOT_RUN; LIVE_PUBLIC_BROWSER_HOLD; EMAIL_RECEIPT_UNVERIFIED; NO_PAID_API",
+  "verification": "V64_ISOLATED_CDP_28_PASS; GITHUB_SOURCE_PREDICATES_126_PASS; NEGATIVE_SOURCE_8_PASS; GITHUB_WORKFLOW_REGISTERED_BRANCH_NOT_EXECUTED; GH_WINDOWS_PUBLIC_BROWSER_NOT_RUN; CLOUDFLARE_V64_CI_PENDING; REAL_EMAIL_NOT_TESTED; NO_PAID_API",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 6,
@@ -195,5 +195,7 @@
   "v64_paid_api_cost": 0,
   "v64_real_public_browser_verified": false,
   "v64_actual_email_receipt_verified": false,
-  "v63_cloudflare_ci_success_historical": true
+  "v63_cloudflare_ci_success_historical": true,
+  "v64_source_regression_predicates": 126,
+  "v64_source_negative_tests": 8
 }
