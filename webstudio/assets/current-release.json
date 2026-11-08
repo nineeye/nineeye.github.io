@@ -1,15 +1,15 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V43",
-  "release_id": "WEBSTUDIO-V43-20261108",
+  "version": "V44",
+  "release_id": "WEBSTUDIO-V44-20261108",
   "release_date": "2026-11-08",
   "function_count": 48,
   "demo_count": 36,
   "fit_check_industry_count": 12,
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
-  "release_note": "V43 showcases 3 genuinely interactive flagship industry sales experiences (manufacturing part filters, academy timetable choices, interior portfolio concept filters), 24 clearly fictional sample records; real V38/V39 consultation module selection preserved. Isolated Chromium 360/360 PASS. V43 official Cloudflare check requires verification.",
-  "verification": "V42_CLOUDFLARE_OFFICIAL_SUCCESS; V43_ISOLATED_BROWSER_QA_PASS; V43_OFFICIAL_CLOUDFLARE_PENDING; REAL_EMAIL_RECEIPT_NOT_TESTED",
+  "release_note": "V44 adds 4 visible buyer FAQs each on three flagship industry sales pages (12 total) plus minimal fact-aligned WebPage/Service structured data and schema validation. Original canonical, robots and sitemap kept. Isolated Chromium 291/291 pass; stdlib audit 50/50 pass, full repo SEO baseline independently 5/5 verified. V43 Cloudflare success; V44 must be checked after merge.",
+  "verification": "V43_CLOUDFLARE_OFFICIAL_SUCCESS; V44_ISOLATED_BROWSER_291_PASS; V44_STATIC_50_PASS; V44_CLOUDFLARE_PENDING; SEARCH_INDEX_NOT_VERIFIED",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 3,
@@ -18,5 +18,7 @@
   "mailto_alternative": "copy recipient and request then manually send from any webmail",
   "flagship_interactive_industries": 3,
   "flagship_sample_records": 24,
-  "flagship_sample_scope": "fictional_offline_no_server"
+  "flagship_sample_scope": "fictional_offline_no_server",
+  "sector_visible_faq_count": 12,
+  "sector_structured_data": "WebPage+Service_no_FAQPage"
 }
