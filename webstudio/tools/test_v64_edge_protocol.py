@@ -31,12 +31,12 @@ class ProtocolFixture(unittest.TestCase):
     def tearDownClass(cls):
         cls.cdp.close();cls.proc.terminate();cls.proc.wait(timeout=5);cls.log.close()
         # Chromium may briefly flush its isolated profile after its parent exits.
-        for attempt in range(5):
+        for attempt in range(20):
             try:
                 cls.tmp.cleanup()
                 break
             except OSError:
-                if attempt == 4: raise
+                if attempt == 19: raise
                 time.sleep(0.25)
     def setUp(self):
         html='''<!doctype html><html lang="ko"><head><meta name="viewport" content="width=device-width,initial-scale=1"></head><body style="margin:0;padding:12px;box-sizing:border-box;font-family:system-ui"><h1>테스트 전용 · 실제 공개 사이트 아님</h1><form id="v49-form"><label><input type="radio" name="industry" value="manufacturing">제조</label><label><input type="radio" name="industry" value="academy">학원</label><label><input type="radio" name="industry" value="interior">인테리어</label><label><input type="radio" name="industry" value="restaurant">음식점</label><label><input type="radio" name="industry" value="beauty">뷰티</label><label><input type="radio" name="industry" value="logistics">물류</label></form><pre id="v49-output" style="overflow-wrap:anywhere;white-space:pre-wrap"></pre><button type="button" id="v62-subject">제목 복사</button><button type="button" id="v62-body">본문 복사</button><p role="status" id="v49-status"></p></body></html>'''
