@@ -1,0 +1,505 @@
+{
+  "release": "V52",
+  "scope": "isolated Chromium with real new HTML/CSS/JS; no live Cloudflare navigation, sales, or email tests",
+  "total": 124,
+  "passed": 124,
+  "failed": 0,
+  "results": [
+    {
+      "name": "manufacturing/320 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 eight products",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 product group filter",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 material filter",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 RFQ selection count",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 quantity min",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 RFQ TXT save",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/320 clear RFQ",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 eight products",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 product group filter",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 material filter",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 RFQ selection count",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 quantity min",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 RFQ TXT save",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/390 clear RFQ",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 eight products",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 product group filter",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 material filter",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 RFQ selection count",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 quantity min",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 RFQ TXT save",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/768 clear RFQ",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 eight products",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 product group filter",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 material filter",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 RFQ selection count",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 quantity min",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 RFQ TXT save",
+      "pass": true
+    },
+    {
+      "name": "manufacturing/1440 clear RFQ",
+      "pass": true
+    },
+    {
+      "name": "academy/320 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "academy/320 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "academy/320 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "academy/320 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "academy/320 8 courses",
+      "pass": true
+    },
+    {
+      "name": "academy/320 high school only",
+      "pass": true
+    },
+    {
+      "name": "academy/320 selected 2",
+      "pass": true
+    },
+    {
+      "name": "academy/320 detects schedule conflict",
+      "pass": true
+    },
+    {
+      "name": "academy/320 interest TXT save",
+      "pass": true
+    },
+    {
+      "name": "academy/320 reset courses",
+      "pass": true
+    },
+    {
+      "name": "academy/390 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "academy/390 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "academy/390 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "academy/390 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "academy/390 8 courses",
+      "pass": true
+    },
+    {
+      "name": "academy/390 high school only",
+      "pass": true
+    },
+    {
+      "name": "academy/390 selected 2",
+      "pass": true
+    },
+    {
+      "name": "academy/390 detects schedule conflict",
+      "pass": true
+    },
+    {
+      "name": "academy/390 interest TXT save",
+      "pass": true
+    },
+    {
+      "name": "academy/390 reset courses",
+      "pass": true
+    },
+    {
+      "name": "academy/768 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "academy/768 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "academy/768 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "academy/768 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "academy/768 8 courses",
+      "pass": true
+    },
+    {
+      "name": "academy/768 high school only",
+      "pass": true
+    },
+    {
+      "name": "academy/768 selected 2",
+      "pass": true
+    },
+    {
+      "name": "academy/768 detects schedule conflict",
+      "pass": true
+    },
+    {
+      "name": "academy/768 interest TXT save",
+      "pass": true
+    },
+    {
+      "name": "academy/768 reset courses",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 8 courses",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 high school only",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 selected 2",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 detects schedule conflict",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 interest TXT save",
+      "pass": true
+    },
+    {
+      "name": "academy/1440 reset courses",
+      "pass": true
+    },
+    {
+      "name": "interior/320 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "interior/320 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "interior/320 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "interior/320 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "interior/320 six illustrated portfolio projects",
+      "pass": true
+    },
+    {
+      "name": "interior/320 office filter",
+      "pass": true
+    },
+    {
+      "name": "interior/320 before/after slider",
+      "pass": true
+    },
+    {
+      "name": "interior/320 brief updated",
+      "pass": true
+    },
+    {
+      "name": "interior/320 space TXT save",
+      "pass": true
+    },
+    {
+      "name": "interior/320 reject invalid area",
+      "pass": true
+    },
+    {
+      "name": "interior/390 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "interior/390 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "interior/390 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "interior/390 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "interior/390 six illustrated portfolio projects",
+      "pass": true
+    },
+    {
+      "name": "interior/390 office filter",
+      "pass": true
+    },
+    {
+      "name": "interior/390 before/after slider",
+      "pass": true
+    },
+    {
+      "name": "interior/390 brief updated",
+      "pass": true
+    },
+    {
+      "name": "interior/390 space TXT save",
+      "pass": true
+    },
+    {
+      "name": "interior/390 reject invalid area",
+      "pass": true
+    },
+    {
+      "name": "interior/768 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "interior/768 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "interior/768 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "interior/768 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "interior/768 six illustrated portfolio projects",
+      "pass": true
+    },
+    {
+      "name": "interior/768 office filter",
+      "pass": true
+    },
+    {
+      "name": "interior/768 before/after slider",
+      "pass": true
+    },
+    {
+      "name": "interior/768 brief updated",
+      "pass": true
+    },
+    {
+      "name": "interior/768 space TXT save",
+      "pass": true
+    },
+    {
+      "name": "interior/768 reject invalid area",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 page no JS errors",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 viewport overflow",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 disclaimer",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 return to real studio",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 six illustrated portfolio projects",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 office filter",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 before/after slider",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 brief updated",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 space TXT save",
+      "pass": true
+    },
+    {
+      "name": "interior/1440 reject invalid area",
+      "pass": true
+    }
+  ]
+}

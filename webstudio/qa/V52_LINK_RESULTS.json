@@ -1,0 +1,92 @@
+{
+  "release": "V52",
+  "total": 21,
+  "passed": 21,
+  "failed": 0,
+  "results": [
+    {
+      "name": "manufacturing link ../assets/favicon.svg",
+      "pass": true
+    },
+    {
+      "name": "manufacturing link ../assets/v52-flagship.css",
+      "pass": true
+    },
+    {
+      "name": "manufacturing script ../assets/v52-manufacturing.js",
+      "pass": true
+    },
+    {
+      "name": "manufacturing a ../for-manufacturing.html",
+      "pass": true
+    },
+    {
+      "name": "manufacturing a ../quick-inquiry.html",
+      "pass": true
+    },
+    {
+      "name": "manufacturing a ../quick-inquiry.html",
+      "pass": true
+    },
+    {
+      "name": "manufacturing a ../for-manufacturing.html",
+      "pass": true
+    },
+    {
+      "name": "academy link ../assets/favicon.svg",
+      "pass": true
+    },
+    {
+      "name": "academy link ../assets/v52-flagship.css",
+      "pass": true
+    },
+    {
+      "name": "academy script ../assets/v52-academy.js",
+      "pass": true
+    },
+    {
+      "name": "academy a ../for-academy.html",
+      "pass": true
+    },
+    {
+      "name": "academy a ../quick-inquiry.html",
+      "pass": true
+    },
+    {
+      "name": "academy a ../quick-inquiry.html",
+      "pass": true
+    },
+    {
+      "name": "academy a ../for-academy.html",
+      "pass": true
+    },
+    {
+      "name": "interior link ../assets/favicon.svg",
+      "pass": true
+    },
+    {
+      "name": "interior link ../assets/v52-flagship.css",
+      "pass": true
+    },
+    {
+      "name": "interior script ../assets/v52-interior.js",
+      "pass": true
+    },
+    {
+      "name": "interior a ../for-interior.html",
+      "pass": true
+    },
+    {
+      "name": "interior a ../quick-inquiry.html",
+      "pass": true
+    },
+    {
+      "name": "interior a ../quick-inquiry.html",
+      "pass": true
+    },
+    {
+      "name": "interior a ../for-interior.html",
+      "pass": true
+    }
+  ]
+}

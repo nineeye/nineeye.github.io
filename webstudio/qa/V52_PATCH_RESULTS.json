@@ -1,0 +1,65 @@
+{
+  "release": "V52",
+  "scope": "synthetic V51-shaped source fixture for patch safety, idempotence, old links retained",
+  "total": 14,
+  "passed": 14,
+  "failed": 0,
+  "results": [
+    {
+      "name": "patch applied",
+      "pass": true
+    },
+    {
+      "name": "eight files copied",
+      "pass": true
+    },
+    {
+      "name": "manufacturing flagship CTA",
+      "pass": true
+    },
+    {
+      "name": "manufacturing older style link preserved",
+      "pass": true
+    },
+    {
+      "name": "academy flagship CTA",
+      "pass": true
+    },
+    {
+      "name": "academy older style link preserved",
+      "pass": true
+    },
+    {
+      "name": "interior flagship CTA",
+      "pass": true
+    },
+    {
+      "name": "interior older style link preserved",
+      "pass": true
+    },
+    {
+      "name": "gallery CTA before old compare",
+      "pass": true
+    },
+    {
+      "name": "gallery three links",
+      "pass": true
+    },
+    {
+      "name": "gallery 36 cards marker retained",
+      "pass": true
+    },
+    {
+      "name": "manifest V52",
+      "pass": true
+    },
+    {
+      "name": "idempotent",
+      "pass": true
+    },
+    {
+      "name": "older release rejected",
+      "pass": true
+    }
+  ]
+}
