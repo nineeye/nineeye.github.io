@@ -9,7 +9,7 @@
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
   "release_note": "Existing V50 owner readiness and V48 sales audits upgraded to strict V56 six-sector live-path checks, preventing stale release false-pass. Owner 21 checks, sales 25 checks, no paid service.",
-  "verification": "V56_GITHUB_JS_PARSE_2_PASS; V56_SOURCE_CONTRACT_PENDING; LOCAL_BROWSER_PENDING; CLOUDFLARE_PENDING; EMAIL_SEARCH_MANUAL_HOLD",
+  "verification": "V56_GITHUB_SOURCE_PUBLIC_RULES_46_PASS; NEGATIVE_5_PASS; JS_SYNTAX_2_PASS; LOCAL_BROWSER_NOT_RUN; CLOUDFLARE_PENDING; EMAIL_SEARCH_MANUAL_HOLD",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 3,
