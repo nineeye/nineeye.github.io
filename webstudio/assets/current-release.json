@@ -8,7 +8,7 @@
   "fit_check_industry_count": 12,
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
-  "release_note": "V39 passes selected product functions from three sector sales pages into existing customer brief, TXT and email draft; 897/897 isolated Chromium checks and 21/21 Github source cross-checks; live Cloudflare and email receipt NOT verified",
+  "release_note": "V39 preserves exact selected functions from 3 sector sales pages into the consultation preview, TXT and full/shortened mailto drafts; 945 isolated Chromium assertions plus 23 Github source checks PASS; public Cloudflare and actual email delivery NOT verified",
   "verification": "GITHUB_CODE_VERIFIED; ISOLATED_CHROMIUM_QA_PASS; CLOUDFLARE_NOT_VERIFIED; EMAIL_NOT_SENT",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
