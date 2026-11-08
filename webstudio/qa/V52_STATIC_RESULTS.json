@@ -1,0 +1,269 @@
+{
+  "release": "V52",
+  "scope": "three independent sample sites, explicit fake-data, preserved gallery integration done via patch",
+  "total": 65,
+  "passed": 65,
+  "failed": 0,
+  "results": [
+    {
+      "name": "manufacturing HTML parsed",
+      "pass": true
+    },
+    {
+      "name": "manufacturing unique title",
+      "pass": true
+    },
+    {
+      "name": "manufacturing noindex truthful",
+      "pass": true
+    },
+    {
+      "name": "manufacturing own JS loaded",
+      "pass": true
+    },
+    {
+      "name": "manufacturing no external script",
+      "pass": true
+    },
+    {
+      "name": "manufacturing no external image",
+      "pass": true
+    },
+    {
+      "name": "manufacturing no form with server action",
+      "pass": true
+    },
+    {
+      "name": "manufacturing user-facing fictional disclosure",
+      "pass": true
+    },
+    {
+      "name": "manufacturing back link",
+      "pass": true
+    },
+    {
+      "name": "manufacturing studio inquiry",
+      "pass": true
+    },
+    {
+      "name": "manufacturing single body",
+      "pass": true
+    },
+    {
+      "name": "manufacturing unique IDs",
+      "pass": true
+    },
+    {
+      "name": "manufacturing no network APIs",
+      "pass": true
+    },
+    {
+      "name": "manufacturing no embedded mail recipient",
+      "pass": true
+    },
+    {
+      "name": "manufacturing Node syntax",
+      "pass": true
+    },
+    {
+      "name": "academy HTML parsed",
+      "pass": true
+    },
+    {
+      "name": "academy unique title",
+      "pass": true
+    },
+    {
+      "name": "academy noindex truthful",
+      "pass": true
+    },
+    {
+      "name": "academy own JS loaded",
+      "pass": true
+    },
+    {
+      "name": "academy no external script",
+      "pass": true
+    },
+    {
+      "name": "academy no external image",
+      "pass": true
+    },
+    {
+      "name": "academy no form with server action",
+      "pass": true
+    },
+    {
+      "name": "academy user-facing fictional disclosure",
+      "pass": true
+    },
+    {
+      "name": "academy back link",
+      "pass": true
+    },
+    {
+      "name": "academy studio inquiry",
+      "pass": true
+    },
+    {
+      "name": "academy single body",
+      "pass": true
+    },
+    {
+      "name": "academy unique IDs",
+      "pass": true
+    },
+    {
+      "name": "academy no network APIs",
+      "pass": true
+    },
+    {
+      "name": "academy no embedded mail recipient",
+      "pass": true
+    },
+    {
+      "name": "academy Node syntax",
+      "pass": true
+    },
+    {
+      "name": "interior HTML parsed",
+      "pass": true
+    },
+    {
+      "name": "interior unique title",
+      "pass": true
+    },
+    {
+      "name": "interior noindex truthful",
+      "pass": true
+    },
+    {
+      "name": "interior own JS loaded",
+      "pass": true
+    },
+    {
+      "name": "interior no external script",
+      "pass": true
+    },
+    {
+      "name": "interior no external image",
+      "pass": true
+    },
+    {
+      "name": "interior no form with server action",
+      "pass": true
+    },
+    {
+      "name": "interior user-facing fictional disclosure",
+      "pass": true
+    },
+    {
+      "name": "interior back link",
+      "pass": true
+    },
+    {
+      "name": "interior studio inquiry",
+      "pass": true
+    },
+    {
+      "name": "interior single body",
+      "pass": true
+    },
+    {
+      "name": "interior unique IDs",
+      "pass": true
+    },
+    {
+      "name": "interior no network APIs",
+      "pass": true
+    },
+    {
+      "name": "interior no embedded mail recipient",
+      "pass": true
+    },
+    {
+      "name": "interior Node syntax",
+      "pass": true
+    },
+    {
+      "name": "v52-flagship.css nonempty",
+      "pass": true
+    },
+    {
+      "name": "v52-flagship.css no external imports",
+      "pass": true
+    },
+    {
+      "name": "v52-showcase-entry.css nonempty",
+      "pass": true
+    },
+    {
+      "name": "v52-showcase-entry.css no external imports",
+      "pass": true
+    },
+    {
+      "name": "distinct CSS .manufacturing",
+      "pass": true
+    },
+    {
+      "name": "distinct CSS .academy",
+      "pass": true
+    },
+    {
+      "name": "distinct CSS .interior",
+      "pass": true
+    },
+    {
+      "name": "distinct CSS .m-product",
+      "pass": true
+    },
+    {
+      "name": "distinct CSS .a-course",
+      "pass": true
+    },
+    {
+      "name": "distinct CSS .i-compare-art",
+      "pass": true
+    },
+    {
+      "name": "distinct CSS @media(max-width:480px)",
+      "pass": true
+    },
+    {
+      "name": "manufacturing distinct m-group",
+      "pass": true
+    },
+    {
+      "name": "manufacturing distinct m-material",
+      "pass": true
+    },
+    {
+      "name": "manufacturing distinct m-selected",
+      "pass": true
+    },
+    {
+      "name": "academy distinct a-course-grid",
+      "pass": true
+    },
+    {
+      "name": "academy distinct a-day-list",
+      "pass": true
+    },
+    {
+      "name": "academy distinct a-conflicts",
+      "pass": true
+    },
+    {
+      "name": "interior distinct i-projects",
+      "pass": true
+    },
+    {
+      "name": "interior distinct i-range",
+      "pass": true
+    },
+    {
+      "name": "interior distinct i-form",
+      "pass": true
+    }
+  ]
+}

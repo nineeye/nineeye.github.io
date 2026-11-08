@@ -1,15 +1,15 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V51",
-  "release_id": "WEBSTUDIO-V51-20261108",
+  "version": "V52",
+  "release_id": "WEBSTUDIO-V52-20261108",
   "release_date": "2026-11-08",
   "function_count": 48,
   "demo_count": 36,
   "fit_check_industry_count": 12,
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
-  "release_note": "V51 one-time explicit V49 quick inquiry to V26/V47 detailed consultation handoff. No personal notes in URLs. Strict field validation, 15-minute expiry, consumption on read; older demos preserved.",
-  "verification": "V51_ISOLATED_CHROMIUM_344_PASS; STATIC_64_PASS; SAFE_PATCH_15_PASS; V51_OFFICIAL_CLOUDFLARE_PENDING; LIVE_NAVIGATION_AND_EMAIL_NOT_VERIFIED",
+  "release_note": "Three entirely new, truly industry-specific fictional flagship demos: B2B spec/MOQ/RFQ, education courses/weekly schedules/conflicts, interior concept portfolio/before-after/spatial brief. Existing 36 demos preserved.",
+  "verification": "V52_ISOLATED_BROWSER_124_PASS; STATIC_65_PASS; PATCH_14_PASS; LINKS_21_PASS; V52_OFFICIAL_CLOUDFLARE_PENDING; LIVE_EMAIL_INDEX_SALES_NOT_VERIFIED",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 3,
@@ -21,7 +21,7 @@
   "flagship_sample_scope": "fictional_offline_no_server",
   "sector_visible_faq_count": 12,
   "sector_structured_data": "WebPage+Service_no_FAQPage",
-  "previous_release": "V50",
+  "previous_release": "V51",
   "previous_release_note": "V44 adds 4 visible buyer FAQs each on three flagship industry sales pages (12 total) plus minimal fact-aligned WebPage/Service structured data and schema validation. Original canonical, robots and sitemap kept. Isolated Chromium 291/291 pass; stdlib audit 50/50 pass, full repo SEO baseline independently 5/5 verified. V43 Cloudflare success; V44 must be checked after merge.",
   "launch_kit_industries": 3,
   "launch_kit_items_per_industry": 10,
@@ -48,5 +48,14 @@
   "quick_to_detailed_ttl_minutes": 15,
   "quick_to_detailed_server_submission": false,
   "quick_to_detailed_industries": 3,
-  "quick_to_detailed_live_navigation_verified": false
+  "quick_to_detailed_live_navigation_verified": false,
+  "flagship_independent_site_count": 3,
+  "flagship_names": [
+    "manufacturing",
+    "academy",
+    "interior"
+  ],
+  "flagship_noindex": true,
+  "flagship_demo_no_backend": true,
+  "flagship_existing_36_preserved": true
 }
