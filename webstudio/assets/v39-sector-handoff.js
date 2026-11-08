@@ -31,6 +31,8 @@
   const ids=scope ? scope.split(',') : [];
   if (new Set(ids).size !== ids.length || ids.some(id=>!has(config.modules,id))) return;
   const selected=ids.map(id=>config.modules[id][0]);
+  // Existing V26 brief builder reads this safe list when generating full AND short email drafts.
+  window.ALLFILEONE_SECTOR_SCOPE = Object.freeze({industry,labels:Object.freeze(selected.slice())});
   const note=selected.length ?
     '[업종별 제작 상품에서 선택한 관심 기능]\n'+selected.map(label=>'- '+label).join('\n')+
     '\n※ 실제 구현 및 운영 비용은 상담으로 확정합니다.' : '';
