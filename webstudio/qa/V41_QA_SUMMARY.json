@@ -1,0 +1,19 @@
+{
+  "version": "V41",
+  "chromium": {
+    "total": 735,
+    "pass": 735,
+    "fail": 0,
+    "scope": "Actual three V41 sale HTML files plus existing V38 CSS and V39 JavaScript injected into isolated Chromium; no production HTTP"
+  },
+  "github_source": {
+    "total": 35,
+    "pass": 35,
+    "fail": 0
+  },
+  "blob_sha1": {
+    "webstudio/for-manufacturing.html": "2b1ae511dc8c383a4f7c5f7c853f581e5c766a76",
+    "webstudio/for-academy.html": "245cac326cba1c81002999e9cf39fefa2163dee3",
+    "webstudio/for-interior.html": "ad35ee64f159f67b13f1c0b1764f0bbdf3e56be3"
+  }
+}
