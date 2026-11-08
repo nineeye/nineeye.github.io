@@ -13,6 +13,7 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from datetime import datetime
 import v65_edge_live_qa as base
+from test_v652_sector_requirements import DATA as REQUIREMENT_DATA
 
 ORIGIN=base.BASE
 SECTORS=("manufacturing","corporate","clinic","academy","interior","commerce",
@@ -88,7 +89,8 @@ def accept(cdp,output):
                         tab=evaluate('''(()=>{const x=document.querySelectorAll('.v652-try')[1];x.click();
                          return {active:document.getElementById('v28-tools')?.dataset.v28Active,
                          text:document.getElementById('v28-title')?.textContent||''}})()''')
-                        mark("관련 업종 기능 탭 연결 "+label,bool(tab and tab.get("active")=="1" and tab.get("text")),str(tab))
+                        expected_tool=REQUIREMENT_DATA[sector]["items"][1][3]
+                        mark("관련 업종 기능 탭 연결 "+label,bool(tab and tab.get("active")==expected_tool and tab.get("text")),str(tab)+" expected="+expected_tool)
                         # Choose two features and a non-default size and timing, then real same-tab transfer.
                         action=evaluate('''(()=>{const box=document.querySelector('#v652-demand input[data-v652-item="1"]');
                             if(!box)return 'no second option';
