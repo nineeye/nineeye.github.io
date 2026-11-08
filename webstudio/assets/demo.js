@@ -112,3 +112,18 @@
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
+
+
+/* WebStudio V65.2: a single industry-specific requirement workflow shared by all 36 demos.
+   Keep every existing V23/V27/V28/V37 interactive feature intact. */
+(() => {
+ const current=document.currentScript||document.querySelector('script[src$="/assets/demo.js"]');
+ if(!current?.src||document.querySelector('script[data-v652-script]'))return;
+ const base=new URL('.',current.src);
+ const style=document.createElement('link');
+ style.rel='stylesheet';style.href=new URL('v652-sector-requirements.css',base).href;
+ style.dataset.v652Stylesheet='true';document.head.append(style);
+ const script=document.createElement('script');
+ script.src=new URL('v652-sector-requirements.js',base).href;
+ script.async=true;script.dataset.v652Script='true';document.head.append(script);
+})();
