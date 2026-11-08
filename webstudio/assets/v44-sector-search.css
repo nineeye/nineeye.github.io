@@ -1,0 +1,19 @@
+/* AllFileOne WebStudio V44: sector-specific helpful-content FAQs; original, no external deps. */
+.v44-faq{padding:clamp(48px,7vw,92px) 0;background:var(--paper);border-top:1px solid var(--line)}
+.v44-faq .v44-faq-head{max-width:740px;margin-bottom:26px}
+.v44-faq .v44-kicker{color:var(--accent);font-size:12px;font-weight:800;letter-spacing:.13em}
+.v44-faq h2{font-size:clamp(26px,4vw,42px);line-height:1.25;margin:10px 0 12px;letter-spacing:-.045em}
+.v44-faq .v44-faq-intro{max-width:670px;font-size:15px;line-height:1.9;color:var(--muted);margin:0}
+.v44-faq-list{display:grid;gap:11px;min-width:0}
+.v44-faq-item{min-width:0;border:1px solid var(--line);background:var(--surface);border-radius:14px;overflow:hidden}
+.v44-faq-item summary{display:flex;align-items:center;justify-content:space-between;gap:16px;cursor:pointer;list-style:none;padding:20px 22px;font-weight:800;font-size:clamp(14px,1.4vw,17px);line-height:1.5;word-break:keep-all}
+.v44-faq-item summary::-webkit-details-marker{display:none}
+.v44-faq-item summary:after{content:'+';font-size:24px;line-height:1;color:var(--accent);flex-shrink:0}
+.v44-faq-item[open] summary:after{content:'−'}
+.v44-faq-item summary:focus-visible{outline:3px solid var(--focus);outline-offset:-4px}
+.v44-faq-item p{margin:0;padding:0 22px 24px;color:var(--muted);font-size:14px;line-height:1.9;word-break:keep-all}
+.v44-faq-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-top:26px}
+.v44-faq-actions a{border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:13px;font-weight:800;min-height:44px;display:inline-flex;align-items:center}
+.v44-faq-actions a:first-child{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+.v44-faq-actions a:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+@media(max-width:600px){.v44-faq-item summary{padding:17px 15px}.v44-faq-item p{padding:0 15px 19px}.v44-faq-actions a{width:100%;justify-content:center}}
