@@ -10,13 +10,13 @@
   const industries = ['manufacturing','academy','interior'];
   const RULES = [
     ['release','릴리스 식별','assets/current-release.json',t=>{const j=JSON.parse(t);return j.product==='AllFileOne WebStudio'&&j.version==='V57'&&j.release_id==='WEBSTUDIO-V57-20261108'&&j.sales_industry_pages===6&&j.quick_inquiry_industries===6&&j.quick_to_detailed_industries===6;}],
-    ['home','메인 업종 이동','index.html',t=>industries.every(x=>t.includes('for-'+x+'.html'))],
+    ['home','메인 6업종 이동','index.html',t=>[...industries,'restaurant','beauty','logistics'].every(x=>t.includes('for-'+x+'.html'))],
     ...industries.map(x=>[x,x==='manufacturing'?'제조·도매 판매':x==='academy'?'학원·교육 판매':'인테리어·시공 판매','for-'+x+'.html',t=>t.includes('launch-kit.html')&&t.includes('quick-inquiry.html')&&t.includes('rel="canonical"')]),
     ['quick','1분 문의 화면','quick-inquiry.html',t=>t.includes('id="v49-form"')&&t.includes('v49-quick-inquiry.js')&&t.includes('v49-mailto')],
     ['quickjs','문의 문안 작성 코드','assets/v49-quick-inquiry.js',t=>t.includes('v49-download')&&t.includes('mailto:')&&!t.includes('fetch(')],
     ['contact','상세 상담서','contact.html',t=>t.includes('id="brief-form"')&&t.includes('v47-mail-packet.js')],
     ['kit','제작 준비키트','launch-kit.html',t=>t.includes('v46-handoff.js')&&t.includes('id="checklist"')],
-    ['sitemap','판매 페이지 사이트맵','sitemap.xml',t=>[...industries.map(x=>'for-'+x+'.html'),'quick-inquiry.html'].every(x=>t.includes(x))],
+    ['sitemap','6업종 판매 페이지 사이트맵','sitemap.xml',t=>[...industries,'restaurant','beauty','logistics'].map(x=>'for-'+x+'.html').concat('quick-inquiry.html').every(x=>t.includes(x))],
     ['robots','검색 로봇 안내','robots.txt',t=>/Sitemap:\s*https:\/\//.test(t)&&t.includes('/sitemap.xml')]
   ];
   // V56: actual six-sector sales routes; avoid false-positive checks of older releases.
