@@ -100,6 +100,19 @@ For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the
 - Expected output is attached under the same GitHub run artifact even if public QA stays HOLD; consult `V65_LIVE_BROWSER_RESULT_KO.txt` rather than assuming the archive name means PASS.
 - Real customer mail reception, personal-data handling, payment, search indexing, contracted delivery and legal compliance remain **NOT_VERIFIED**. The current customer inquiry flow requires the visitor to send email manually.
 
+## V65.2 — 36 industry samples to real requirements to consultation (2026-11-09)
+
+- Goal: 12 industries x 3 visual treatments = 36 HTML demos. Existing V23/V27/V28/V37 interaction and 48 industry tools remain unchanged; this is not a generic shared booking form.
+- Adds 48 buyer requirement choices, four distinct needs per industry. Clearly labels browser-only demo capabilities versus production backend/integration requirements. These 48 requirements are NOT additional 48 production-ready software modules.
+- Industries covered: manufacturing spec/MOQ/RFQ, corporate projects/news/multilingual, clinic hours/visit/booking, academy classes/timetable/fees, interior portfolio/area/material/visits, commerce catalog/cart/shipping/checkout, professional consultation/secure documents, association notices/events/membership, franchise sites/startup costs, stay rooms/dates/availability, real estate listings/visits, event sessions/ICS/tickets.
+- A first-party module assets/v652-sector-requirements.js and original CSS are loaded via the shared demo.js for all 36 HTML pages. Four configurable requirement checkboxes, industry-scoped scale and time, current V28 related-demo tabs, copy/TXT and a detailed consultation brief are active.
+- One-time same-origin sessionStorage record stores only industry, style, four boolean feature IDs, scope and timing (no personal details) for at most 15 minutes, then deletes before validating against a closed allowlist and matching query. On failure, visitors can use the manual copy/TXT route.
+- All example brands, prices and schedules are fictitious. Production payment, patient booking, member accounts, customer record storage, stock, room inventory, CRM, upload and mail receipt are NOT implemented. Separate scope, accessibility, security and privacy reviews are required for real orders and legal compliance.
+- The existing free Windows-2025 GitHub workflow validates JavaScript syntax, source tests for all 36 variants, live Edge 390px/1280px UI for 36 demos, related tool navigation and 12 same-tab consultation transfers. A test failure stays HOLD.
+- Release ZIP: AllFileOne_WebStudio_V65_2_AllInOne_LATEST.zip, complete source plus actual Windows browser evidence, inner SHA256 and ZIP CRC recheck and outer SHA256. Read EVIDENCE/V652_Demo_Acceptance_KO.txt for actual PASS/HOLD status.
+- Site release remains V65 for prior live smoke compatibility; .2 denotes a source and acceptance patch, not proof of new customer orders or contracts.
+
+
 ## Operator links
 
 - Site: https://allfileone-webstudio.pages.dev/

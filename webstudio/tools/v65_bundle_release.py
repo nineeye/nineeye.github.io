@@ -10,7 +10,7 @@ import stat
 import sys
 import zipfile
 
-BASENAME = "AllFileOne_WebStudio_V65_1_AllInOne_LATEST.zip"
+BASENAME = "AllFileOne_WebStudio_V65_2_AllInOne_LATEST.zip"
 BANNED = {".git", "__pycache__", ".env", ".env.local", "node_modules", ".venv", "venv"}
 BANNED_EXTENSIONS = {".pyc", ".pfx", ".p12", ".pem", ".key"}
 EVIDENCE_NAMES = (
@@ -19,6 +19,8 @@ EVIDENCE_NAMES = (
     "HOME_MOBILE_390.png",
     "HOME_PC_1280.png",
     "V65_SHA256_MANIFEST.json",
+    "V652_Demo_Acceptance.json",
+    "V652_Demo_Acceptance_KO.txt",
 )
 MAX_FILE = 25_000_000
 MAX_TOTAL = 500_000_000
@@ -78,18 +80,18 @@ def main():
     manifest = {
         "product": "AllFileOne WebStudio",
         "site_release": "V65",
-        "package": "V65.1 Windows Edge proof race correction",
+        "package": "V65.2 36 demo requirements and same-tab consultation",
         "packaging_scope": "complete webstudio source + available actual public browser evidence",
         "customer_mail_receipt": "NOT_VERIFIED",
         "public_browser_status": "READ_INCLUDED_EVIDENCE_NOT_A_SALE_CLAIM",
         "files": {}
     }
     how_to = (
-        "ALLFILEONE WEB STUDIO V65.1 - COMPLETE SOURCE / PUBLIC-BROWSER QA\n"
+        "ALLFILEONE WEB STUDIO V65.2 - COMPLETE SOURCE / PUBLIC-BROWSER QA\n"
         "Deploy the 'webstudio' folder contents as Cloudflare Pages static files.\n"
         "The site demo data and client inquiries are NOT real orders.\n"
-        "Read EVIDENCE/V65_LIVE_BROWSER_RESULT_KO.txt for actual pass/hold results.\n"
-        "The exact V65 site release is preserved; V65.1 fixes the QA wait race.\n"
+        "Read EVIDENCE/V65_LIVE_BROWSER_RESULT_KO.txt and V652_Demo_Acceptance_KO.txt for real results.\n"
+        "The V65 site release remains; V65.2 adds 48 tailored requirements to 36 sample pages.\n"
         "No paid API, Codex, or installer required. No form/email is auto-sent.\n"
     ).encode("utf-8")
     def add(z, name, data):
@@ -114,7 +116,7 @@ def main():
     checksum = digest(archive.read_bytes())
     (out / (BASENAME + ".sha256")).write_text(checksum + "  " + BASENAME + "\n", encoding="utf-8")
     (out / "V65_1_ALLINONE_RESULT_KO.txt").write_text(
-        "올파일원 웹스튜디오 V65.1 소스 통합 ZIP 검사: PASS\n"
+        "올파일원 웹스튜디오 V65.2 소스 통합 ZIP 검사: PASS\n"
         "원본 전체 소스 + 공개 브라우저 검사 증거 묶음\n"
         "원본 파일 수: " + str(len(files)) + "\n"
         "ZIP CRC: PASS / ZIP 내부 SHA256: PASS\n"
