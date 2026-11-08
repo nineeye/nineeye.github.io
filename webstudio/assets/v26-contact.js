@@ -100,6 +100,12 @@
     return {industry,titles};
   })();
   const importedTitles = () => get('industry') === galleryChoice.industry ? galleryChoice.titles : [];
+  // V39: only trusted module titles from our own sector page helper, never raw query strings.
+  const sectorTitles = () => {
+    const state = window.ALLFILEONE_SECTOR_SCOPE;
+    return state && state.industry === get('industry') && Array.isArray(state.labels)
+      ? state.labels.filter(value => typeof value === 'string' && value.length <= 32).slice(0,4) : [];
+  };
   function briefLines() {
     return [
       '[올파일원 웹스튜디오 · 홈페이지 제작 상담 준비서]',
@@ -107,7 +113,8 @@
       '디자인: ' + safe(data.themes, get('theme')),
       '목표: ' + safe(data.goals, get('goal')),
       '필요 기능: ' + (chosenFeatures().join(', ') || '미정') +
-        (importedTitles().length ? ' / 시연에서 선택한 기능: ' + importedTitles().join(', ') : ''),
+        (importedTitles().length ? ' / 시연에서 선택한 기능: ' + importedTitles().join(', ') : '') +
+        (sectorTitles().length ? ' / 업종 상품에서 고른 기능: ' + sectorTitles().join(', ') : ''),
       ...estimateLines(),
       ...scopeLines(),
       '예산: ' + safe(data.budgets, get('budget'), '미정'),

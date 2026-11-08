@@ -7,6 +7,8 @@
   const industry = document.body.dataset.v38Industry;
   if (!Object.prototype.hasOwnProperty.call(known,industry)) return;
   const checkboxes = [...root.querySelectorAll('input[name="module"]')];
+  const idsByIndustry = Object.freeze({manufacturing:['catalog','quote','docs','crm'],academy:['timetable','course','inquiry','notice'],interior:['portfolio','beforeafter','process','inquiry']});
+  const contactLinks = [...document.querySelectorAll('a[href*="contact.html?source=sector"]')];
   const count = document.getElementById('v38-count');
   const list = document.getElementById('v38-selected');
   const feedback = document.getElementById('v38-feedback');
@@ -30,6 +32,16 @@
     list.replaceChildren();
     for(const item of items){ const li = document.createElement('li');li.textContent=item.name;list.append(li); }
     if (!items.length){const li=document.createElement('li');li.textContent='원하는 기능을 선택해 주세요.';list.append(li);}
+    // Keep every consultation CTA consistent with the visitor's active 4-item choice.
+    const ids = checkboxes.filter(c => c.checked && idsByIndustry[industry].includes(c.value)).map(c=>c.value);
+    for (const anchor of contactLinks) {
+      const href = anchor.getAttribute('href');
+      const index = href.indexOf('?');
+      if (index<0) continue;
+      const params = new URLSearchParams(href.slice(index+1));
+      if (ids.length) params.set('scope',ids.join(',')); else params.delete('scope');
+      anchor.setAttribute('href',href.slice(0,index)+'?'+params.toString());
+    }
     feedback.textContent='';
   };
   checkboxes.forEach(c=>c.addEventListener('change',render));
