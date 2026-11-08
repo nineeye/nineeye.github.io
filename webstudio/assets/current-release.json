@@ -1,19 +1,22 @@
 {
   "product": "AllFileOne WebStudio",
-  "version": "V42",
-  "release_id": "WEBSTUDIO-V42-20261108",
+  "version": "V43",
+  "release_id": "WEBSTUDIO-V43-20261108",
   "release_date": "2026-11-08",
   "function_count": 48,
   "demo_count": 36,
   "fit_check_industry_count": 12,
   "fit_check_goal_count": 4,
   "fit_check_style_count": 3,
-  "release_note": "V42 adds an explicit no-auto-send webmail copy workflow on the customer brief plus a dependency-free local 57-page static-link audit tool; 59/59 isolated browser and scanner tests. V41 Cloudflare official deployment succeeded; V42 deployment must be separately confirmed.",
-  "verification": "V41_CLOUDFLARE_OFFICIAL_SUCCESS; V42_ISOLATED_QA_PASS; V42_CLOUDFLARE_PENDING; REAL_EMAIL_NOT_TESTED",
+  "release_note": "V43 showcases 3 genuinely interactive flagship industry sales experiences (manufacturing part filters, academy timetable choices, interior portfolio concept filters), 24 clearly fictional sample records; real V38/V39 consultation module selection preserved. Isolated Chromium 360/360 PASS. V43 official Cloudflare check requires verification.",
+  "verification": "V42_CLOUDFLARE_OFFICIAL_SUCCESS; V43_ISOLATED_BROWSER_QA_PASS; V43_OFFICIAL_CLOUDFLARE_PENDING; REAL_EMAIL_RECEIPT_NOT_TESTED",
   "archive_reuse_industry_count": 3,
   "design_edition_switcher_count": 36,
   "sales_industry_pages": 3,
   "sales_scope_handoff_industries": 3,
   "public_audit_version_min": 40,
-  "mailto_alternative": "copy recipient and request then manually send from any webmail"
+  "mailto_alternative": "copy recipient and request then manually send from any webmail",
+  "flagship_interactive_industries": 3,
+  "flagship_sample_records": 24,
+  "flagship_sample_scope": "fictional_offline_no_server"
 }

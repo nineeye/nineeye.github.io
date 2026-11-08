@@ -1,0 +1,11 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V43",
+  "release_id": "WEBSTUDIO-V43-20261108",
+  "new_flagship_labs": 3,
+  "fictional_samples": 24,
+  "qa_pass": 360,
+  "live_check": "PENDING_ON_MERGE",
+  "customer_email_test": "NOT_RUN",
+  "user_cost": "0 extra"
+}
