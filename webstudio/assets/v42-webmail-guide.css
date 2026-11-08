@@ -1,0 +1,13 @@
+/* V42: no external fonts/assets. The original V40 fallback remains the main panel. */
+.v42-webmail-guide{margin-top:17px;padding-top:17px;border-top:1px solid #bfd9c7;min-width:0}
+.v42-webmail-guide .v42-webmail-heading{font-size:14px;line-height:1.5;color:#193d31}
+.v42-webmail-guide p{font-size:12px;line-height:1.8;overflow-wrap:anywhere}
+.v42-webmail-controls{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px;align-items:stretch}
+.v42-webmail-controls button,.v42-webmail-controls a{display:inline-flex;justify-content:center;align-items:center;min-height:48px;padding:11px 14px;border:1px solid #1c684a;border-radius:7px;font:800 12px/1.5 system-ui,'Malgun Gothic',sans-serif;word-break:keep-all;text-align:center;text-decoration:none;cursor:pointer}
+.v42-copy-complete{background:#153f30;color:white}
+.v42-open-webmail{background:white;color:#1e6348}
+.v42-webmail-controls button:focus-visible,.v42-webmail-controls a:focus-visible{outline:3px solid #c9a647;outline-offset:2px}
+.v42-webmail-guide .v42-copy-feedback{min-height:21px;color:#136448;font-weight:800}
+.v42-webmail-guide .v42-webmail-disclaimer{font-size:11px;color:#4c645a}
+@media(max-width:390px){.v42-webmail-controls{flex-direction:column}.v42-webmail-controls>*{width:100%}}
+@media(prefers-reduced-motion:reduce){.v42-webmail-controls button,.v42-webmail-controls a{transition:none}}
