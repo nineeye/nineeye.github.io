@@ -89,6 +89,17 @@ For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the
 - **One stable workflow** `.github/workflows/webstudio-v64-public-browser.yml` is updated to call V65, so it does not create a duplicate scheduled job or double-run older V64 tests. It is run only on relevant main pushes and explicit manual dispatch.
 - Full V65 public browser PASS must come from the V65 merged commit's GitHub Actions Windows job/artifacts; V64 failure and V65 fixture success cannot be considered proof of the live fix. Email receipt and contracts remain NOT_TESTED.
 
+
+## V65.1 public-browser DOM readiness hotfix + complete source handoff (2026-11-09)
+
+- Official GitHub-hosted Windows Edge V65 real-site test (run 42496153897) reached Cloudflare V65 origin and passed **128/140 checks**. The 12 HOLD checks all concerned quick inquiry -> detailed contact import, across six industries and two viewports. The job and original downloadable artifact are archived at https://github.com/nineeye/nineeye.github.io/actions/runs/42496153897.
+- The V65 monitor stopped checking at the first `/contact` path, even if the next document was still `loading` before deferred `v51-quick-handoff.js` executed. This is an identified **race in the QA monitor**, not proof the site lost user-entered information. V65.1 waits for `document.readyState === 'complete'` before evaluating the imported brief; failures after completion still produce HOLD, never optimistic PASS.
+- Added a synthetic delayed-DOM regression covering **6 sectors x 2 viewports**. Unit fixtures are not presented as real deployed evidence.
+- The existing Windows-2025 public GitHub workflow now bundles the **complete deployable `webstudio/` source tree** together with actual public QA evidence inside `AllFileOne_WebStudio_V65_1_AllInOne_LATEST.zip`. The packager creates a full per-file SHA256 manifest and independently checks ZIP CRC, inner SHA256 and final ZIP SHA256.
+- The site version deliberately remains V65: this is a **test/handoff packaging hotfix**, not a new customer-facing version. No additional paid API, Codex, external library or new scheduled workflow was added.
+- Expected output is attached under the same GitHub run artifact even if public QA stays HOLD; consult `V65_LIVE_BROWSER_RESULT_KO.txt` rather than assuming the archive name means PASS.
+- Real customer mail reception, personal-data handling, payment, search indexing, contracted delivery and legal compliance remain **NOT_VERIFIED**. The current customer inquiry flow requires the visitor to send email manually.
+
 ## Operator links
 
 - Site: https://allfileone-webstudio.pages.dev/
