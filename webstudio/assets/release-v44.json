@@ -1,0 +1,41 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V44",
+  "release_id": "WEBSTUDIO-V44-20261108",
+  "released_on": "2026-11-08",
+  "goal": "Make three flagship sales pages useful to real Korean prospects and search crawlers without chasing artificial rankings",
+  "content": {
+    "sectors": [
+      "manufacturing",
+      "academy",
+      "interior"
+    ],
+    "buyer_faqs_per_sector": 4,
+    "total_visible_questions": 12,
+    "interactive_component": "native <details> and <summary>",
+    "business_claims": "no invented reviews, prices, address, phone, actual demos or guaranteed outcomes"
+  },
+  "structured_data": {
+    "types": [
+      "WebPage",
+      "Service"
+    ],
+    "FAQPage": false,
+    "reason": "Google 2026 FAQ rich result retirement; use visible user-oriented content, not FAQ result manipulation"
+  },
+  "seo_baseline": {
+    "robots": "Already exists, allows sales pages and intentionally excludes fictional /demo/ paths",
+    "sitemap": "Existing 3 sales URLs verified, not changed",
+    "canonical": "3 pages already had unique canonical URLs, kept"
+  },
+  "qa": {
+    "isolated_chromium": "291/291 PASS",
+    "stdlib_static": "50/50 PASS and 1 partial-overlay HOLD for whole-repository robots+sitemap",
+    "github_branch_crosscheck": "41/41 PASS",
+    "source_git_blobs_verified": true,
+    "cloudflare_v44": "NOT_YET_CHECKED",
+    "search_indexing": "NOT_VERIFIED"
+  },
+  "licensing": "Only original CSS/HTML and Python stdlib QA, no third-party new assets/API",
+  "baseline": "V43 retained as nested byte-identical ZIP in final V44 archive"
+}
