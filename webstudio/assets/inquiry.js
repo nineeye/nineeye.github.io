@@ -12,6 +12,18 @@
   let token = '';
   let widgetId = null;
   let submitting = false;
+  // V61: public industry ID only, no customer data in the URL.
+  // The server-side API remains disabled until the owner configures its safeguards.
+  const industryLabels = Object.freeze({
+    manufacturing:'제조·도매', academy:'학원·교육', interior:'인테리어·시공',
+    restaurant:'음식점·카페', beauty:'뷰티·미용', logistics:'물류·운송'
+  });
+  const requestedIndustry = new URLSearchParams(window.location.search).get('industry');
+  if (Object.prototype.hasOwnProperty.call(industryLabels, requestedIndustry)) {
+    const field = form.elements.namedItem('industry');
+    const label = industryLabels[requestedIndustry];
+    if (field && [...field.options].some(option => option.value === label)) field.value = label;
+  }
 
   function updateSubmit() {
     button.disabled = submitting || !siteKey || !token || !form.elements.consent.checked;

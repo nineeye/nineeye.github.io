@@ -9,7 +9,7 @@
   const origin = new URL('./', document.baseURI);
   const industries = ['manufacturing','academy','interior'];
   const RULES = [
-    ['release','릴리스 식별','assets/current-release.json',t=>{const j=JSON.parse(t);return j.product==='AllFileOne WebStudio'&&j.version==='V60'&&j.release_id==='WEBSTUDIO-V60-20261108'&&j.scope_planner_industries===6&&j.launch_kit_industries===6&&j.sales_industry_pages===6&&j.quick_inquiry_industries===6&&j.quick_to_detailed_industries===6;}],
+    ['release','릴리스 식별','assets/current-release.json',t=>{const j=JSON.parse(t);return j.product==='AllFileOne WebStudio'&&j.version==='V61'&&j.release_id==='WEBSTUDIO-V61-20261108'&&j.inquiry_flagship_sectors===6&&j.scope_planner_industries===6&&j.launch_kit_industries===6&&j.sales_industry_pages===6&&j.quick_inquiry_industries===6&&j.quick_to_detailed_industries===6;}],
     ['home','메인 6업종 이동','index.html',t=>[...industries,'restaurant','beauty','logistics'].every(x=>t.includes('for-'+x+'.html'))],
     ...industries.map(x=>[x,x==='manufacturing'?'제조·도매 판매':x==='academy'?'학원·교육 판매':'인테리어·시공 판매','for-'+x+'.html',t=>t.includes('launch-kit.html')&&t.includes('quick-inquiry.html')&&t.includes('rel="canonical"')]),
     ['quick','1분 문의 화면','quick-inquiry.html',t=>t.includes('id="v49-form"')&&t.includes('v49-quick-inquiry.js')&&t.includes('v49-mailto')],
@@ -57,6 +57,15 @@
     ['scope-contact','상세 상담서 입력·인계','contact.html',t=>t.includes('v60-scope-handoff.js')&&t.includes('v60-import.css')&&t.includes('id="brief-form"')],
     ['scope-sitemap','범위 협의 공개 페이지 검색 경로','sitemap.xml',t=>t.includes('/delivery-scope.html')],
     ...['manufacturing','academy','interior','restaurant','beauty','logistics'].map(id=>['scope-'+id,id+' 제작 페이지 범위 안내','for-'+id+'.html',t=>t.includes('delivery-scope.html?industry='+id)])
+  );
+  // V61: prevent missing industry intake, broken manual fallback and absent release tooling.
+  RULES.push(
+    ['inquiry-six','선택적 접수 업종 6개 정확 표시','inquiry.html',t=>['제조·도매','학원·교육','인테리어·시공','음식점·카페','뷰티·미용','물류·운송'].every(x=>t.includes('<option>'+x+'</option>'))],
+    ['inquiry-fallback','서버 비활성 시 이메일 대체 문의','inquiry.html',t=>t.includes('id="manual-inquiry-alternatives"')&&t.includes('href="quick-inquiry.html"')&&t.includes('href="contact.html"')&&t.includes('inbox-disabled')],
+    ['inquiry-js','6업종 공개 ID 사전선택·비활성 안전','assets/inquiry.js',t=>t.includes('industryLabels')&&t.includes('Object.prototype.hasOwnProperty.call')&&t.includes('/api/inbox-status')&&!t.includes('localStorage')],
+    ['audit-tool','무료 정적 소스 품질 감사기','tools/v61_site_integrity.py',t=>t.includes('class SourceParser')&&t.includes('BROKEN_FRAGMENT')&&t.includes('MISSING_STATIC_FILE')&&t.includes('STALE_MANIFEST')],
+    ['audit-run','Windows Downloads 자동 결과','RUN_V61_SITE_AUDIT.cmd',t=>t.includes('git -c credential.interactive=never clone')&&t.includes('v61_site_integrity.py')&&t.includes('--expected-version V61')&&t.includes('Downloads')],
+    ['audit-tests','정적 감사기 반례·회귀 시험','tools/test_v61_site_integrity.py',t=>t.includes('unittest.TestCase')&&t.includes('test_stale_manifest')&&t.includes('test_missing_html_link')]
   );
   const state = {ran:false,busy:false,records:[],when:'',release:'미확인'};
   const manual = [...document.querySelectorAll('#manual-list input[data-check]')];
@@ -117,7 +126,7 @@
   function report(){
     const done=manual.filter(x=>x.checked).length;
     return [
-      '올파일원 웹스튜디오 / V60 첫 고객 수주 준비도 자체 점검',
+      '올파일원 웹스튜디오 / V61 첫 고객 수주 준비도 자체 점검',
       '검사 사이트: '+origin.href,'검사 시각: '+(state.when||'미실시'),
       '공개 파일 확인: '+(state.ran?state.records.filter(x=>x.pass).length+'/'+RULES.length:'미실시'),
       '공개 릴리스: '+state.release,
@@ -131,7 +140,7 @@
   function message(t){$('report-status').textContent=t;}
   $('report-preview').addEventListener('click',()=>{const x=$('report-text');x.textContent=report();x.hidden=!x.hidden;$('report-preview').textContent=x.hidden?'보고서 미리보기':'미리보기 닫기';message(x.hidden?'미리보기를 닫았습니다.':'브라우저 화면에만 보고서를 표시합니다.');});
   $('report-copy').addEventListener('click',async()=>{const x=report();try{if(typeof navigator.clipboard?.writeText!=='function')throw Error('clipboard blocked');await navigator.clipboard.writeText(x);message('점검 기록을 복사했습니다. 자동 업로드되지 않습니다.')}catch(_){const pre=$('report-text');pre.textContent=x;pre.hidden=false;message('자동 복사가 차단되었습니다. 아래 내용을 선택해 복사하거나 TXT를 저장하세요.');}});
-  $('report-download').addEventListener('click',()=>{const blob=new Blob(['\ufeff',report()],{type:'text/plain;charset=utf-8'});const href=URL.createObjectURL(blob);const a=document.createElement('a');a.href=href;a.download='AllFileOne_V60_Owner_Readiness.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),2500);message('TXT를 저장했습니다. 이것은 자체 확인 기록이며 외부 전송·접수가 아닙니다.');});
+  $('report-download').addEventListener('click',()=>{const blob=new Blob(['\ufeff',report()],{type:'text/plain;charset=utf-8'});const href=URL.createObjectURL(blob);const a=document.createElement('a');a.href=href;a.download='AllFileOne_V61_Owner_Readiness.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(href),2500);message('TXT를 저장했습니다. 이것은 자체 확인 기록이며 외부 전송·접수가 아닙니다.');});
   run.addEventListener('click',execute);
   // Auto-run only public-file checks; owner/manual decisions remain explicitly manual.
   execute();

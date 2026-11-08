@@ -12,7 +12,7 @@
   const base = path => new URL(path, root);
   const sectorPaths = ['manufacturing', 'academy', 'interior'];
   const RULES = [
-    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V60'&&x.release_id==='WEBSTUDIO-V60-20261108'&&x.scope_planner_industries===6&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
+    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V61'&&x.release_id==='WEBSTUDIO-V61-20261108'&&x.inquiry_flagship_sectors===6&&x.scope_planner_industries===6&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
     {id:'home',path:'index.html',label:'메인에서 6업종 이동',test:text=>[...sectorPaths,'restaurant','beauty','logistics'].every(id=>text.includes('for-'+id+'.html'))},
     {id:'manufacturing',path:'for-manufacturing.html',label:'제조·도매 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
     {id:'academy',path:'for-academy.html',label:'학원·교육 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
@@ -66,9 +66,18 @@
     {id:'scope-sitemap',path:'sitemap.xml',label:'범위 협의표 사이트맵',test:t=>t.includes('/delivery-scope.html')},
     ...['manufacturing','academy','interior','restaurant','beauty','logistics'].map(id=>({id:'scope-'+id,path:'for-'+id+'.html',label:id+' 범위 협의 전환',test:t=>t.includes('delivery-scope.html?industry='+id)}))
   );
+  // V61 source-based sales continuity: fail closed if the new fallback pathway disappears.
+  RULES.push(
+    {id:'inquiry-six',path:'inquiry.html',label:'선택적 실제 문의 업종 6개',test:t=>['제조·도매','학원·교육','인테리어·시공','음식점·카페','뷰티·미용','물류·운송'].every(x=>t.includes('<option>'+x+'</option>'))},
+    {id:'inquiry-fallback',path:'inquiry.html',label:'미설정 시 1분/상세 상담 우회로',test:t=>t.includes('id="manual-inquiry-alternatives"')&&t.includes('href="quick-inquiry.html"')&&t.includes('href="contact.html"')&&t.includes('inbox-disabled')},
+    {id:'inquiry-js',path:'assets/inquiry.js',label:'무료·안전한 업종 프리셋',test:t=>t.includes('industryLabels')&&t.includes('Object.prototype.hasOwnProperty.call')&&t.includes('/api/inbox-status')&&!t.includes('localStorage')},
+    {id:'audit-tool',path:'tools/v61_site_integrity.py',label:'링크·앵커·사이트맵 정적 점검',test:t=>t.includes('class SourceParser')&&t.includes('BROKEN_FRAGMENT')&&t.includes('MISSING_STATIC_FILE')&&t.includes('STALE_MANIFEST')},
+    {id:'audit-run',path:'RUN_V61_SITE_AUDIT.cmd',label:'Windows Downloads 자동 점검기',test:t=>t.includes('git -c credential.interactive=never clone')&&t.includes('v61_site_integrity.py')&&t.includes('--expected-version V61')&&t.includes('Downloads')},
+    {id:'audit-tests',path:'tools/test_v61_site_integrity.py',label:'정적 품질 회귀시험',test:t=>t.includes('unittest.TestCase')&&t.includes('test_stale_manifest')&&t.includes('test_missing_html_link')}
+  );
   const state={running:false,records:[],completed:'',version:''};
   const renderHead=(name,text)=>{const el=document.createElement(name);el.textContent=text;return el;};
-  const title=renderHead('h3','V60 · 6업종 납품 범위 포함 판매 동선 자동 점검');
+  const title=renderHead('h3','V61 · 6업종 실문의 및 정적 링크 품질 판매 동선 자동 점검');
   const lead=renderHead('p','이 브라우저가 연결된 서버의 공개 파일을 확인합니다. 네이버·Google 색인, 실제 상담 메일 수신, 실거래·계약 완료 여부는 확인하지 못합니다.');
   const toolbar=document.createElement('div');toolbar.className='v48-toolbar';
   const start=document.createElement('button');start.type='button';start.id='v48-run';start.textContent='판매 동선 다시 검사';
@@ -122,7 +131,7 @@
     }finally{start.disabled=false;state.running=false;}
   }
   function report(){return [
-    '올파일원 웹스튜디오 / V60 공개 판매 동선 점검',
+    '올파일원 웹스튜디오 / V61 공개 판매 동선 점검',
     '검사 출처: '+root.href,'서버 표시 버전: '+(state.version||'미확인'),
     '검사 시각: '+state.completed,
     '공개 파일: '+state.records.filter(x=>x.pass).length+'/'+RULES.length+' 통과',
@@ -132,7 +141,7 @@
   start.addEventListener('click',run);
   save.addEventListener('click',()=>{
     const blob=new Blob(['\ufeff',report()],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V60_Sales_Audit.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V61_Sales_Audit.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
   });
   copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(report());status.textContent+=' · 보고서를 복사했습니다.'}catch(_){status.textContent+=' · 클립보드가 차단되어 TXT 저장을 이용하세요.'}});
   run();
