@@ -5,11 +5,13 @@
 (()=>{'use strict';
 const KEY='afo.webstudio.v51.quickbrief', TTL=15*60*1000;
 const SECTORS=Object.freeze({
+ ...window.AFO_V55_HANDOFF_SECTORS,
  manufacturing:Object.freeze({catalog:['제품·규격 검색 중심','catalog','showcase'],quote:['품목별 견적 문의 중심','quote','lead'],docs:['카탈로그·도면 자료실 중심',null,'information'],intro:['회사·제품 소개 중심',null,'showcase']}),
  academy:Object.freeze({course:['과정·강좌 소개 중심','catalog','showcase'],schedule:['반별 시간표 안내 중심','calendar','information'],consult:['학부모·학생 상담 안내 중심',null,'lead'],notice:['공지·교육 자료 제공 중심','cms','information']}),
  interior:Object.freeze({portfolio:['시공 사례·포트폴리오 중심','portfolio','showcase'],quote:['지역·면적별 견적 문의 중심','quote','lead'],process:['시공 진행 과정 안내 중심',null,'showcase'],intro:['시공 서비스 소개 중심',null,'showcase']})
 });
-const SCOPES=Object.freeze({manufacturing:{small:'대표 제품 1~20종',medium:'제품 21~100종',large:'제품 101종 이상',unknown:'품목 수 미정'},academy:{small:'강좌 1~5개',medium:'강좌 6~20개',large:'강좌 21개 이상',unknown:'강좌 수 미정'},interior:{small:'사례 1~10건',medium:'사례 11~30건',large:'사례 31건 이상',unknown:'사례 수 미정'}});
+const SCOPES=Object.freeze({
+ ...window.AFO_V55_HANDOFF_SCOPES,manufacturing:{small:'대표 제품 1~20종',medium:'제품 21~100종',large:'제품 101종 이상',unknown:'품목 수 미정'},academy:{small:'강좌 1~5개',medium:'강좌 6~20개',large:'강좌 21개 이상',unknown:'강좌 수 미정'},interior:{small:'사례 1~10건',medium:'사례 11~30건',large:'사례 31건 이상',unknown:'사례 수 미정'}});
 const TIMES=Object.freeze({'미정·협의':'flexible','1개월 내 협의':'1month','1~3개월 내 협의':'3months','3개월 이후':'flexible'});
 const BUDGETS=Object.freeze({'미정·협의':'unknown','50만원 미만 검토':'under50','50~100만원 검토':'50to100','100~300만원 검토':'100to300','300만원 이상 검토':'over300'});
 const has=(o,k)=>Object.prototype.hasOwnProperty.call(o,k), clean=(v,n)=>String(v==null?'':v).replace(/[\u0000-\u001f\u007f]/g,' ').trim().slice(0,n);

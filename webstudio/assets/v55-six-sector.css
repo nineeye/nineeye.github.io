@@ -1,0 +1,8 @@
+/* V55 only: keep the original 3 industry tiles and add 3 distinct conversion routes. */
+@media (min-width: 641px) {
+  .sector-grid {grid-template-columns:repeat(3,minmax(0,1fr));}
+}
+.v55-sector-info {margin:10px 0 0;color:#5c7466;font-size:12px;line-height:1.75;}
+.v55-demo-cta {display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid #387856;border-radius:7px;background:#e8f3e9;color:#194f35;text-decoration:none;min-height:44px;padding:11px 15px;font-size:12px;font-weight:850}
+.v55-demo-cta:hover {background:#d7ebda}
+.v55-demo-cta:focus-visible {outline:3px solid #d5a13e;outline-offset:3px}

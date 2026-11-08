@@ -5,6 +5,7 @@
   'use strict';
   const RECIPIENT = 'nineeyes@naver.com';
   const DATA = Object.freeze({
+    ...window.AFO_V55_QUICK_DATA,
     manufacturing: {name:'제조 · 도매',features:[['catalog','제품·규격 검색 중심'],['quote','품목별 견적 문의 중심'],['docs','카탈로그·도면 자료실 중심'],['intro','회사·제품 소개 중심']],scopes:[['small','대표 제품 1~20종'],['medium','제품 21~100종'],['large','제품 101종 이상'],['unknown','품목 수 미정']]},
     academy: {name:'학원 · 교육',features:[['course','과정·강좌 소개 중심'],['schedule','반별 시간표 안내 중심'],['consult','학부모·학생 상담 안내 중심'],['notice','공지·교육 자료 제공 중심']],scopes:[['small','강좌 1~5개'],['medium','강좌 6~20개'],['large','강좌 21개 이상'],['unknown','강좌 수 미정']]},
     interior: {name:'인테리어 · 시공',features:[['portfolio','시공 사례·포트폴리오 중심'],['quote','지역·면적별 견적 문의 중심'],['process','시공 진행 과정 안내 중심'],['intro','시공 서비스 소개 중심']],scopes:[['small','사례 1~10건'],['medium','사례 11~30건'],['large','사례 31건 이상'],['unknown','사례 수 미정']]}
