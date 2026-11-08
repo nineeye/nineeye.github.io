@@ -1,0 +1,13 @@
+/* WebStudio V40 — zero-dependency email alternative on the consultation form. */
+.v40-mail-fallback{margin:17px 0 0;padding:19px 18px;background:#f3f9f4;border:1px solid #b3d4c0;border-left:4px solid #347b5d;border-radius:9px;color:#183d31;max-width:100%;overflow-wrap:anywhere}
+.v40-mail-fallback strong{display:block;font-size:15px;line-height:1.5;letter-spacing:-.035em}
+.v40-mail-fallback p{margin:9px 0;font-size:12px;line-height:1.85;color:#3d6253}
+.v40-mail-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:13px}
+.v40-mail-controls input{flex:1 1 190px;min-width:0;font:700 13px/1.4 system-ui,'Malgun Gothic',sans-serif;background:#fff;color:#1c4435;border:1px solid #bad4c4;border-radius:6px;padding:12px 11px}
+.v40-mail-copy{min-height:44px;padding:10px 17px;border:1px solid #19593f;border-radius:6px;background:#19593f;color:white;font-size:12px;font-weight:850;cursor:pointer}
+.v40-mail-copy:hover{background:#0e402c}
+.v40-mail-copy:focus-visible,.v40-mail-controls input:focus-visible{outline:3px solid #d3a340;outline-offset:2px}
+.v40-mail-fallback .v40-mail-status{min-height:20px;font-weight:750;color:#156041;margin:7px 0}
+.v40-mail-fallback .v40-mail-note{font-size:11px;color:#516d5d;margin-top:9px}
+@media(max-width:390px){.v40-mail-fallback{padding:14px}.v40-mail-copy{width:100%}}
+@media(prefers-reduced-motion:reduce){.v40-mail-copy{transition:none}}
