@@ -1,0 +1,12 @@
+/* V46: quiet, legible, accessible imported consultation panel. */
+.v46-import{max-width:1180px;margin:0 auto 22px;padding:22px 24px;border:1px solid #a9c7b8;border-left:5px solid #347d61;background:#f0f7f1;color:#183e34;border-radius:12px;overflow-wrap:anywhere}
+.v46-import strong{display:block;font-size:20px;line-height:1.4;letter-spacing:-.025em}
+.v46-import p{font-size:13px;line-height:1.85;margin:8px 0 12px}
+.v46-import pre{font:13px/1.75 ui-monospace,SFMono-Regular,Consolas,monospace;background:#fff;color:#21392f;border:1px solid #c5d6cc;border-radius:8px;padding:16px;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-word}
+.v46-buttons{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:14px}
+.v46-buttons button{cursor:pointer;min-height:46px;padding:10px 15px;background:#193f35;color:white;border:0;border-radius:6px;font-weight:700}
+.v46-buttons span{font-size:12px;line-height:1.6}
+.v46-import .v46-caution{font-weight:800;color:#87521e}
+.v46-import :is(button,a):focus-visible{outline:3px solid #b2762d;outline-offset:3px}
+@media(max-width:600px){.v46-import{padding:16px;margin:0 14px 18px}.v46-import pre{font-size:12px}.v46-buttons button{width:100%}}
+@media print{.v46-buttons{display:none!important}.v46-import{border:1px solid #333;background:#fff;color:#000}.v46-import pre{max-height:none;overflow:visible}}
