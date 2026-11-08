@@ -12,7 +12,7 @@
   const base = path => new URL(path, root);
   const sectorPaths = ['manufacturing', 'academy', 'interior'];
   const RULES = [
-    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V64'&&x.release_id==='WEBSTUDIO-V64-20261108'&&x.v64_browser_public_target===true&&x.v63_browser_public_target===true&&x.v62_webmail_copy_actions===3&&x.inquiry_flagship_sectors===6&&x.scope_planner_industries===6&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
+    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V65'&&x.release_id==='WEBSTUDIO-V65-20261108'&&x.v65_contact_six_handoff_fix===true&&x.v64_browser_public_target===true&&x.v63_browser_public_target===true&&x.v62_webmail_copy_actions===3&&x.inquiry_flagship_sectors===6&&x.scope_planner_industries===6&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
     {id:'home',path:'index.html',label:'메인에서 6업종 이동',test:text=>[...sectorPaths,'restaurant','beauty','logistics'].every(id=>text.includes('for-'+id+'.html'))},
     {id:'manufacturing',path:'for-manufacturing.html',label:'제조·도매 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
     {id:'academy',path:'for-academy.html',label:'학원·교육 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
@@ -87,7 +87,7 @@
     {id:'edge-tool',path:'tools/v63_edge_live_qa.py',label:'Windows Edge 공개 브라우저 검증 코드',test:t=>t.includes("Network.responseReceived")&&t.includes("PASS_PUBLIC_BROWSER_SMOKE_ONLY")&&t.includes("HOLD_BROWSER_OR_NETWORK")&&t.includes("V63_LIVE_BROWSER_EVIDENCE_LATEST.zip")},
     {id:'edge-run',path:'RUN_V63_EDGE_LIVE_QA.cmd',label:'Windows Downloads 검사 결과 자동 저장',test:t=>t.includes('py -3.14')&&t.includes('V63_LIVE_BROWSER_RESULT_KO.txt')&&t.includes('notepad.exe')},
     {id:'edge-tests',path:'tools/test_v63_edge_protocol.py',label:'브라우저 제어·거부 검증',test:t=>t.includes('unittest.TestCase')&&t.includes('test_report_hold_on_failure')&&t.includes('test_chromium_screen_capture')},
-    {id:'edge-version',path:'index.html',label:'최신 V64 홈페이지 버전 식별',test:t=>t.includes('WEBSTUDIO-V64-20261108')&&t.includes('홈페이지 HTML 버전 V64')}
+    {id:'edge-version',path:'index.html',label:'최신 V64 홈페이지 버전 식별',test:t=>t.includes('WEBSTUDIO-V65-20261108')&&t.includes('홈페이지 HTML 버전 V65')}
   );
   // V64: separate GitHub Windows public browser evidence from seller file availability.
   RULES.push(
@@ -96,9 +96,16 @@
     {id:'v64-ci-cmd',path:'RUN_V64_EDGE_LIVE_QA.cmd',label:'V64 Windows 보고서·증거 ZIP',test:t=>t.includes('py -3.14')&&t.includes('V64_LIVE_BROWSER_RESULT_KO.txt')&&t.includes('notepad.exe')},
     {id:'v64-ci-docs',path:'README_DEPLOYMENT.md',label:'GitHub 무료 자동 공개 QA 안내',test:t=>t.includes('.github/workflows/webstudio-v64-public-browser.yml')&&t.includes('public GitHub Actions Windows')&&t.includes('never')}
   );
+  // V65: new three-industry quick-to-detailed handoff and fail-closed pretty URLs.
+  RULES.push(
+    {id:'v65-contact-six',path:'contact.html',label:'음식점·뷰티·물류 상담 인계',test:t=>t.includes('v55-sector-expansion.js')&&t.indexOf('v55-sector-expansion.js')<t.indexOf('v51-quick-handoff.js')&&t.includes('WEBSTUDIO-V65-20261108')},
+    {id:'v65-pretty',path:'tools/v65_edge_live_qa.py',label:'정상 짧은 URL·HTTP 상태 엄격 판정',test:t=>t.includes('def same_public_route(')&&t.includes('parse_qsl')&&t.includes('Network.responseReceived')&&t.includes("EXPECTED = 'V65'")},
+    {id:'v65-tests',path:'tools/test_v65_edge_protocol.py',label:'Cloudflare 리다이렉트·404 반례',test:t=>t.includes('test_cloudflare_pretty_urls_pass_for_six_sectors')&&t.includes('test_pretty_route_with_404_fails')&&t.includes('test_wrong_imported_industry_pretty_route_fails')},
+    {id:'v65-cmd',path:'RUN_V65_EDGE_LIVE_QA.cmd',label:'Windows V65 실제 검사 실행',test:t=>t.includes('v65_edge_live_qa.py')&&t.includes('V65_LIVE_BROWSER_RESULT_KO.txt')&&t.includes('notepad.exe')}
+  );
   const state={running:false,records:[],completed:'',version:''};
   const renderHead=(name,text)=>{const el=document.createElement(name);el.textContent=text;return el;};
-  const title=renderHead('h3','V64 · 6업종 무료 자동 브라우저 검증·판매 동선 점검');
+  const title=renderHead('h3','V65 · 실문의 인계 복구·공개 브라우저 검증');
   const lead=renderHead('p','이 브라우저가 연결된 서버의 공개 파일을 확인합니다. 네이버·Google 색인, 실제 상담 메일 수신, 실거래·계약 완료 여부는 확인하지 못합니다.');
   const toolbar=document.createElement('div');toolbar.className='v48-toolbar';
   const start=document.createElement('button');start.type='button';start.id='v48-run';start.textContent='판매 동선 다시 검사';
@@ -152,7 +159,7 @@
     }finally{start.disabled=false;state.running=false;}
   }
   function report(){return [
-    '올파일원 웹스튜디오 / V64 공개 판매 동선 점검',
+    '올파일원 웹스튜디오 / V65 공개 판매 동선 점검',
     '검사 출처: '+root.href,'서버 표시 버전: '+(state.version||'미확인'),
     '검사 시각: '+state.completed,
     '공개 파일: '+state.records.filter(x=>x.pass).length+'/'+RULES.length+' 통과',
@@ -162,7 +169,7 @@
   start.addEventListener('click',run);
   save.addEventListener('click',()=>{
     const blob=new Blob(['\ufeff',report()],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V64_Sales_Audit.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
+    const a=document.createElement('a');a.href=url;a.download='AllFileOne_WebStudio_V65_Sales_Audit.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);
   });
   copy.addEventListener('click',async()=>{try{await navigator.clipboard.writeText(report());status.textContent+=' · 보고서를 복사했습니다.'}catch(_){status.textContent+=' · 클립보드가 차단되어 TXT 저장을 이용하세요.'}});
   run();
