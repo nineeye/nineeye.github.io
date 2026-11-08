@@ -1,0 +1,36 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V39",
+  "release_id": "WEBSTUDIO-V39-20261108",
+  "date": "2026-11-08",
+  "focus": "Improve real sales inquiry conversion by preserving exact selected modules from sector product pages",
+  "changes": [
+    "3 sales pages href source=sector",
+    "shared V38 planner propagates approved scope IDs on all 4 consultation CTAs",
+    "new V39 allowlisted import and safe progress banner in existing contact page",
+    "selected function labels included in contact textarea, allowing existing V26 TXT/copy/email draft to include them",
+    "responsive accessible visual notice on contact page",
+    "V39 public version pointer"
+  ],
+  "compatibility": {
+    "prior": "V38",
+    "V36_fit_check": "unchanged",
+    "V37_36_demos": "unchanged",
+    "V38_3_sales_pages": "preserved"
+  },
+  "qa": {
+    "browser_checks": 897,
+    "github_source_cross_checks": 21,
+    "synthetic_html": true,
+    "real_cloudflare_access": "NOT_VERIFIED",
+    "real_email_receipt": "NOT_TESTED",
+    "real_windows_pc": "NOT_RUN"
+  },
+  "risks": {
+    "email": "mailto draft requires visitor to send",
+    "backend": "no server",
+    "payments": "not included",
+    "license": "original code, no new dependencies"
+  },
+  "costs": "0 additional paid APIs"
+}
