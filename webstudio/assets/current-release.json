@@ -211,5 +211,17 @@
     "reason": "Cloudflare extensionless URLs + missing three-sector handoff dictionary"
   },
   "v65_real_public_browser_verified": false,
-  "v65_real_email_received_verified": false
+  "v65_real_email_received_verified": false,
+  "v652_feature_patch_date": "2026-11-09",
+  "v652_demo_pages": 36,
+  "v652_demo_industries": 12,
+  "v652_sector_requirement_choices": 48,
+  "v652_existing_v28_tools_preserved": 48,
+  "v652_one_shot_same_tab_consultation": true,
+  "v652_browser_test_file": "tools/v652_live_demo_qa.py",
+  "v652_origin": "site only; no paid external data API",
+  "v652_real_customer_booking_or_payment": false,
+  "v652_external_service_integration": "NOT_IMPLEMENTED_STATIC_DEMO_ONLY",
+  "v652_medical_advertising_or_legal_compliance": "NOT_VERIFIED",
+  "v652_live_public_acceptance": "PENDING_MAIN_WINDOWS_CI_REAL_BROWSER"
 }
