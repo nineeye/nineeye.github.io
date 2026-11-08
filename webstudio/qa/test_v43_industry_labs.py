@@ -2,18 +2,22 @@ from pathlib import Path
 import json, re, zipfile, hashlib, io, os
 from playwright.sync_api import sync_playwright
 BASE=Path(__file__).resolve().parents[1]
-WEB=BASE/'source/webstudio'
+WEB=BASE/'source/webstudio' if (BASE/'source/webstudio').exists() else BASE
 basezip=BASE/'baseline/AllFileOne_WebStudio_V42_Webmail_LinkAudit_QA_LATEST.zip'
 if basezip.exists():
   with zipfile.ZipFile(basezip) as parent:
     v41=parent.read('BASELINE/V41_LATEST.zip')
   base_stream=io.BytesIO(v41)
+elif (WEB/'assets/v38-solutions.js').exists() and (WEB/'assets/v38-solutions.css').exists():
+  base_stream=None
+  v38css=(WEB/'assets/v38-solutions.css').read_text(encoding='utf-8')
+  v38js=(WEB/'assets/v38-solutions.js').read_text(encoding='utf-8')
 else:
-  basezip=Path('/mnt/data/AllFileOne_WebStudio_V41_Transparent_Sales_QA_LATEST.zip')
-  base_stream=basezip
-with zipfile.ZipFile(base_stream) as z:
-  v38css=z.read('SOURCE/webstudio/v38-solutions.css').decode('utf-8')
-  v38js=z.read('SOURCE/webstudio/v38-solutions.js').decode('utf-8')
+  base_stream=Path('/mnt/data/AllFileOne_WebStudio_V41_Transparent_Sales_QA_LATEST.zip')
+if base_stream is not None:
+  with zipfile.ZipFile(base_stream) as z:
+    v38css=z.read('SOURCE/webstudio/v38-solutions.css').decode('utf-8')
+    v38js=z.read('SOURCE/webstudio/v38-solutions.js').decode('utf-8')
 css=(WEB/'assets/v43-industry-lab.css').read_text()
 js=(WEB/'assets/v43-industry-lab.js').read_text()
 industries=['manufacturing','academy','interior']
