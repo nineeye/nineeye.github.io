@@ -1,0 +1,44 @@
+{
+  "version": "V42",
+  "release_id": "WEBSTUDIO-V42-20261108",
+  "qa": {
+    "product": "AllFileOne WebStudio",
+    "release": "V42",
+    "date": "2026-11-08",
+    "github_link_audit": {
+      "scope": "21 root HTML + 36 industry-style demo HTML",
+      "pages_checked": 57,
+      "missing_relative_file_targets": 0,
+      "note": "Checked static href/src/action attributes against GitHub main tree in separate batches; folder directory targets allowed, no HTTP request made. JS-generated links and CSS assets were not included in this count."
+    },
+    "isolated_qa": {
+      "checks": 59,
+      "pass": 59,
+      "fail": 0,
+      "viewports": [
+        320,
+        360,
+        390,
+        768,
+        1280
+      ],
+      "coverage": "V40 + V42 mail fallback in synthetic DOM, form validation, copy subject/body including sector modules, clipboard blocked, safe external webmail link, non-sending warning, re-injection, local path auditor malicious/missing checks",
+      "scope": "Offline Chromium synthetic fixture, not production email receipt."
+    },
+    "static_source": {
+      "node_syntax": "PASS",
+      "python_syntax": "PASS",
+      "css_parser": "PASS",
+      "github_branch_source_checks": 12
+    },
+    "cloudflare": {
+      "previous_version": "V41",
+      "previous_commit": "8da4952ab798d50bb6966219f926811cba8cc79e",
+      "previous_official_check": "https://github.com/nineeye/nineeye.github.io/runs/128632850234",
+      "v42_deployment": "PENDING_MERGE_VERIFICATION"
+    },
+    "costs": "No new paid API, vendor, server, email sending service or storage."
+  },
+  "scope": "webmail and static-link audit",
+  "live": "PENDING_OFFICIAL_CLOUDFLARE_CHECK"
+}
