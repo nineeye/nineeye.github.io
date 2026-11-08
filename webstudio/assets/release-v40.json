@@ -1,0 +1,31 @@
+{
+  "product": "AllFileOne WebStudio",
+  "version": "V40",
+  "release_id": "WEBSTUDIO-V40-20261108",
+  "release_date": "2026-11-08",
+  "goal": "Inquiries customers can actually send and truthful public-site version checking",
+  "changes": [
+    "replace stale V33/V35 audit with same-origin manifest+11 core paths+36 optional demo checks",
+    "add customer-facing mailto fallback with address copy and explicit user-send instruction",
+    "add read-only public GitHub Cloudflare official check interpreter, no credentials"
+  ],
+  "QA": {
+    "isolated_chromium_pass": 73,
+    "official_checker_unit_tests_pass": 12,
+    "github_source_cross_checks_pass": 22,
+    "real_public_url_e2e": "NOT_PERFORMED",
+    "real_email_receipt": "NOT_PERFORMED"
+  },
+  "v39_official_cloudflare": {
+    "commit": "99bab3557ee6ed31c6da354b714cd5fa8af64072",
+    "provider_check": "Cloudflare Pages",
+    "app": "cloudflare-workers-and-pages",
+    "status": "completed",
+    "conclusion": "success",
+    "evidence_url": "https://github.com/nineeye/nineeye.github.io/runs/128624522505",
+    "deployment_preview_url": "https://fb267a3a.allfileone-webstudio.pages.dev",
+    "scope": "Official deployment check success, not independent proof of production alias HTTP or mail receipt."
+  },
+  "limits": "Cloudflare direct URL cannot be opened by this agent; verify new V40's check after merge and keep status pending until obtained",
+  "cost": "0 additional paid APIs"
+}
