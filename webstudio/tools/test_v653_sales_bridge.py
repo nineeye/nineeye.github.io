@@ -72,7 +72,7 @@ class BuyerSalesBridge(unittest.TestCase):
         workflow=(ROOT.parent/".github/workflows/webstudio-v64-public-browser.yml").read_text(encoding="utf-8")
         self.assertIn("v653_patch_date",workflow)
         self.assertIn("v653_buyers_demo_to_pricing_to_consult",workflow)
-        self.assertTrue(any(marker in workflow for marker in ("EXACT_V65_3_PUBLIC_MANIFEST_AND_BOTH_JAVASCRIPTS_VERIFIED","EXACT_V66_PUBLIC_MANIFEST_THREE_JS_AND_CSS_VERIFIED")))
+        self.assertTrue(any(marker in workflow for marker in ("EXACT_V65_3_PUBLIC_MANIFEST_AND_BOTH_JAVASCRIPTS_VERIFIED","EXACT_V66_PUBLIC_MANIFEST_THREE_JS_AND_CSS_VERIFIED","EXACT_V69_PUBLIC_MANIFEST_AND_DESIGN_ASSETS_VERIFIED","EXACT_V70_PUBLIC_MANIFEST_AND_BUYER_ASSETS_VERIFIED")))
         self.assertIn("v652-sector-requirements.js",workflow)
         self.assertIn("v653-sales-bridge.js",workflow)
         self.assertIn("if (-not $ready) { throw",workflow)
