@@ -223,5 +223,14 @@
   "v652_real_customer_booking_or_payment": false,
   "v652_external_service_integration": "NOT_IMPLEMENTED_STATIC_DEMO_ONLY",
   "v652_medical_advertising_or_legal_compliance": "NOT_VERIFIED",
-  "v652_live_public_acceptance": "PENDING_MAIN_WINDOWS_CI_REAL_BROWSER"
+  "v652_live_public_acceptance": "PENDING_MAIN_WINDOWS_CI_REAL_BROWSER",
+  "v653_patch_date": "2026-11-09",
+  "v653_buyers_demo_to_pricing_to_consult": true,
+  "v653_precontract_review_topics": 8,
+  "v653_price_model": "existing_V33_illustrative_bases_and_addons_only",
+  "v653_sector_operational_backend_cost": "OUT_OF_ESTIMATE_NEGOTIATE_SEPARATELY",
+  "v653_data_transfer": "same_tab_one_time_allowlist_15m_no_PII",
+  "v653_real_live_qa": "tools/v653_live_sales_qa.py",
+  "v653_actual_customer_contract": "NOT_TESTED",
+  "v653_actual_mail_receipt": "NOT_TESTED"
 }
