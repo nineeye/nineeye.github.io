@@ -1,0 +1,18 @@
+{
+  "product": "AllFileOne WebStudio",
+  "release": "V82-20261109",
+  "release_id": "WEBSTUDIO-V82-20261109",
+  "base_release": "V81",
+  "purpose": "actual Cloudflare Pages publish-ready package and current version public proof",
+  "cloudflare_git_branch": "main",
+  "cloudflare_build_output": "webstudio",
+  "build_command": "exit 0",
+  "standalone_site_zip_root_index_html": true,
+  "sectors": 12,
+  "designs": 36,
+  "browser_only_fictional_demos": 84,
+  "customer_live_backends_verified": 0,
+  "public_site_verified": false,
+  "actual_email_received_verified": false,
+  "paid_external_api_calls": 0
+}

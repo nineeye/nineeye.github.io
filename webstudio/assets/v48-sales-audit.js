@@ -12,7 +12,7 @@
   const base = path => new URL(path, root);
   const sectorPaths = ['manufacturing', 'academy', 'interior'];
   const RULES = [
-    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V65'&&x.release_id==='WEBSTUDIO-V65-20261108'&&x.v65_contact_six_handoff_fix===true&&x.v64_browser_public_target===true&&x.v63_browser_public_target===true&&x.v62_webmail_copy_actions===3&&x.inquiry_flagship_sectors===6&&x.scope_planner_industries===6&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
+    {id:'release',path:'assets/current-release.json',label:'최신 릴리스 식별',test:text=>{const x=JSON.parse(text);return x.product==='AllFileOne WebStudio'&&x.version==='V82'&&x.release_id==='WEBSTUDIO-V82-20261109'&&x.v65_contact_six_handoff_fix===true&&x.v64_browser_public_target===true&&x.v63_browser_public_target===true&&x.v62_webmail_copy_actions===3&&x.inquiry_flagship_sectors===6&&x.scope_planner_industries===6&&x.launch_kit_industries===6&&x.sales_industry_pages===6&&x.quick_inquiry_industries===6;}},
     {id:'home',path:'index.html',label:'메인에서 6업종 이동',test:text=>[...sectorPaths,'restaurant','beauty','logistics'].every(id=>text.includes('for-'+id+'.html'))},
     {id:'manufacturing',path:'for-manufacturing.html',label:'제조·도매 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
     {id:'academy',path:'for-academy.html',label:'학원·교육 판매페이지·상담 동선',test:t=>t.includes('v43-industry-lab.js')&&t.includes('launch-kit.html')&&t.includes('contact.html')&&t.includes('rel="canonical"')},
@@ -87,7 +87,7 @@
     {id:'edge-tool',path:'tools/v63_edge_live_qa.py',label:'Windows Edge 공개 브라우저 검증 코드',test:t=>t.includes("Network.responseReceived")&&t.includes("PASS_PUBLIC_BROWSER_SMOKE_ONLY")&&t.includes("HOLD_BROWSER_OR_NETWORK")&&t.includes("V63_LIVE_BROWSER_EVIDENCE_LATEST.zip")},
     {id:'edge-run',path:'RUN_V63_EDGE_LIVE_QA.cmd',label:'Windows Downloads 검사 결과 자동 저장',test:t=>t.includes('py -3.14')&&t.includes('V63_LIVE_BROWSER_RESULT_KO.txt')&&t.includes('notepad.exe')},
     {id:'edge-tests',path:'tools/test_v63_edge_protocol.py',label:'브라우저 제어·거부 검증',test:t=>t.includes('unittest.TestCase')&&t.includes('test_report_hold_on_failure')&&t.includes('test_chromium_screen_capture')},
-    {id:'edge-version',path:'index.html',label:'최신 V64 홈페이지 버전 식별',test:t=>t.includes('WEBSTUDIO-V65-20261108')&&t.includes('홈페이지 HTML 버전 V65')}
+    {id:'edge-version',path:'index.html',label:'최신 V82 홈페이지 버전 식별',test:t=>t.includes('WEBSTUDIO-V65-20261108')&&t.includes('홈페이지 HTML 버전 V82')}
   );
   // V64: separate GitHub Windows public browser evidence from seller file availability.
   RULES.push(

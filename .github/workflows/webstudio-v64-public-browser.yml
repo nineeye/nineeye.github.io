@@ -1,9 +1,8 @@
-name: WebStudio Public Browser QA
+name: WebStudio V82 public release audit (zero-cost standard public runner)
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
       - 'webstudio/**'
       - '.github/workflows/webstudio-v64-public-browser.yml'
@@ -13,408 +12,53 @@ permissions:
   contents: read
 
 concurrency:
-  group: webstudio-public-browser-${{ github.ref }}
+  group: webstudio-public-release-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  real-public-browser:
-    name: Windows Edge public site and six-sector inquiry
+  read-only-v82-public-proof:
+    name: V82 source, publish package, and real HTTPS asset probe
     runs-on: windows-2025
-    timeout-minutes: 12
+    timeout-minutes: 14
     env:
       PYTHONUTF8: '1'
       PYTHONIOENCODING: utf-8
     steps:
-      - name: Read-only source checkout
+      - name: Check out canonical main source without token persistence
         uses: actions/checkout@v4
         with:
           persist-credentials: false
 
-      - name: Verify six-sector CDP and fail-closed protocol
+      - name: Run all current and historical source regression tests
         shell: pwsh
         run: |
-          python -m unittest discover -s webstudio/tools -p test_v65_edge_protocol.py -v
+          python -m unittest discover -s webstudio/tools -p 'test_*.py' -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Verify 36 samples / 12 sector requirements and JavaScript parse
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v652-sector-requirements.js
+          node --check webstudio/assets/v82-release-check.js
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v652_sector_requirements.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Verify V65.3 buyer price/scope/contract handoff (offline and syntax)
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v653-sales-bridge.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v653_sales_bridge.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Verify V66 truly distinct design systems and 36 sector entries
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v66-sector-artdirection.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/demo.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v66_design_sector.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V68 synchronize 48 real sector tools on three-design comparison
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v67-compare.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v68_catalog_contract.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Verify V69 three truly distinct actual hero grammars (source only)
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v69-artdirection.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/demo.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v69_design_system.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Verify V70 real buyer brief and preserved 12-sector V65.3 contract
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v67-compare.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v70-buyer-bridge.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v70_buyer_bridge.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V71 verify complete consultation brief is never lost to 700-char contact limit
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v653-sales-bridge.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v71_full_brief.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V72 verify complete and current contact packet without customer data transmission
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v72-complete-contact.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v72_complete_packet.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V73 verify imported quote cannot silently contradict current industry or design
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v72-complete-contact.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v73_scope_guard.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V74 verify the public release proof UI and no false-positive customer mail claim
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v74-public-proof.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v74_public_proof.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v75_public_owner_qa.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V76 prevent losing full inquiry through legacy copy TXT and print buttons
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v76-contact-unification.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v76_contact_unification.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V77 confirm 12 sectors, 96 clearly labelled feature entries and preserved 48 demos
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v77-feature-data.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v77-feature-showcase.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v77-industry-hub.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v77-compare-extend.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v77_sector_features.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: "V78 12 new fictional, interactive tools: source contract"
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v78-simulator-data.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v78-simulator.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v78_simulation_contract.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V79 confirm 12 second extra fictional prototypes and preserve 36 existing designs
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v79-simulator-data.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v79-simulator.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v79-lab.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v79_feature_contract.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V80 verify 12 third add-on fictional demos and existing 36 designs
-        shell: pwsh
-        run: |
-          node --check webstudio/assets/v80-simulator-data.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v80-simulator.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v80-lab.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v80_feature_contract.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: V81 verify real-production scope planner without backend claims
-        shell: pwsh
-        run: |
           node --check webstudio/assets/v81-production-scope.js
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v81-scope-matrix.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          node --check webstudio/assets/v81-compare-link.js
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -m unittest discover -s webstudio/tools -p test_v81_production_scope.py -v
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: Require exact published V66 design and V65.3 buyer assets before live checks
+      - name: Build Cloudflare site-only zip rooted at index.html
         shell: pwsh
         run: |
-          $origin = 'https://allfileone-webstudio.pages.dev'
-          $ready = $false
-          # Cloudflare Pages can lag GitHub main by a few minutes.
-          # No V65.3 PASS is allowed for a published V65.2 or stale asset.
-          for ($i=0; $i -lt 45; $i++) {
-            try {
-              $headers = @{ 'Cache-Control'='no-cache'; 'Pragma'='no-cache' }
-              $manifest = Invoke-RestMethod -Uri "$origin/assets/current-release.json" -TimeoutSec 10 -Headers $headers
-              $v65 = $manifest.version -eq 'V65' -and $manifest.release_id -eq 'WEBSTUDIO-V65-20261108'
-              $v653 = $manifest.v653_patch_date -eq '2026-11-09' -and $manifest.v653_buyers_demo_to_pricing_to_consult -eq $true
-              $v66 = $manifest.v66_design_version -eq '2026-11-09-V66' -and $manifest.v66_demo_pages -eq 36
-              $v68 = $manifest.v68_catalog_alignment_version -eq 'V68-20261109' -and $manifest.v68_exact_working_tools -eq 48
-              $v69 = $manifest.v69_artdirection_version -eq 'V69-20261109' -and $manifest.v69_designs_preserved -eq 36
-              $v70 = $manifest.v70_buyer_bridge_version -eq 'V70-20261109' -and $manifest.v70_buyer_industry_count -eq 12 -and $manifest.v70_requirement_count -eq 48
-              $v71 = $manifest.v71_contact_full_brief_version -eq 'V71-20261109' -and $manifest.v71_complete_export -eq $true -and $manifest.v71_automatic_submission -eq $false
-              $v72 = $manifest.v72_complete_packet_version -eq 'V72-20261109' -and $manifest.v72_live_form_changes_included -eq $true -and $manifest.v72_consistent_copy_save -eq $true -and $manifest.v72_no_auto_submission -eq $true
-              $v73 = $manifest.v73_scope_guard_version -eq 'V73-20261109' -and $manifest.v73_stale_quote_explicit_reference_only -eq $true -and $manifest.v73_original_brief_preserved_for_audit -eq $true -and $manifest.v73_auto_mail_submission -eq $false
-              $v74 = $manifest.v74_public_proof_version -eq 'V74-20261109' -and $manifest.v74_public_audit_no_mail_receipt_claim -eq $true
-              $v76 = $manifest.v76_contact_unification_version -eq 'V76-20261109' -and $manifest.v76_legacy_copy_save_print_uses_complete_packet -eq $true -and $manifest.v76_mail_auto_sent -eq $false
-              $v77 = $manifest.v77_sector_feature_version -eq 'V77-20261109' -and $manifest.v77_visible_features_per_sector -eq 8 -and $manifest.v77_live_simulated_tool_count -eq 60 -and $manifest.v77_planned_unbuilt_feature_count -eq 36
-              $v78 = $manifest.v78_simulation_version -eq 'V78-20261109' -and $manifest.v78_sector_count -eq 12 -and $manifest.v78_new_browser_simulations -eq 12 -and $manifest.v78_total_browser_simulations -eq 60 -and $manifest.v78_planned_unbuilt_feature_count -eq 36 -and $manifest.v78_production_backend_available -eq $false
-              $v79 = $manifest.v79_simulation_version -eq 'V79-20261109' -and $manifest.v79_sector_count -eq 12 -and $manifest.v79_new_browser_simulations -eq 12 -and $manifest.v79_total_browser_simulations -eq 72 -and $manifest.v79_planned_unbuilt_feature_count -eq 24 -and $manifest.v79_production_backend_available -eq $false
-              $v80 = $manifest.v80_simulation_version -eq 'V80-20261109' -and $manifest.v80_sector_count -eq 12 -and $manifest.v80_total_browser_simulations -eq 84 -and $manifest.v80_unbuilt_production_options -eq 12 -and $manifest.v80_actual_backend -eq $false
-              $v81 = $manifest.v81_scope_version -eq 'V81-20261109' -and $manifest.v81_industry_choices -eq 12 -and $manifest.v81_scope_items -eq 96 -and $manifest.v81_actual_booking_email_backend -eq $false
-              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72 -and $v73 -and $v74 -and $v76 -and $v77 -and $v78 -and $v79 -and $v80 -and $v81)) {
-                Write-Host 'Cloudflare release is still prior to exact V66 design features.'
-              } else {
-                $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
-                $sales = Invoke-WebRequest -Uri "$origin/assets/v653-sales-bridge.js" -TimeoutSec 10 -Headers $headers
-                $v71Styles = Invoke-WebRequest -Uri "$origin/assets/v653-sales-bridge.css" -TimeoutSec 10 -Headers $headers
-                $v66Script = Invoke-WebRequest -Uri "$origin/assets/v66-sector-artdirection.js" -TimeoutSec 10 -Headers $headers
-                $v66Styles = Invoke-WebRequest -Uri "$origin/assets/v66-distinct-designs.css" -TimeoutSec 10 -Headers $headers
-                $loader = Invoke-WebRequest -Uri "$origin/assets/demo.js" -TimeoutSec 10 -Headers $headers
-                $compare = Invoke-WebRequest -Uri "$origin/design-compare-live.html" -TimeoutSec 10 -Headers $headers
-                $v68Script = Invoke-WebRequest -Uri "$origin/assets/v67-compare.js" -TimeoutSec 10 -Headers $headers
-                $v69Script = Invoke-WebRequest -Uri "$origin/assets/v69-artdirection.js" -TimeoutSec 10 -Headers $headers
-                $v69Styles = Invoke-WebRequest -Uri "$origin/assets/v69-artdirection.css" -TimeoutSec 10 -Headers $headers
-                $v70Script = Invoke-WebRequest -Uri "$origin/assets/v70-buyer-bridge.js" -TimeoutSec 10 -Headers $headers
-                $v70Styles = Invoke-WebRequest -Uri "$origin/assets/v70-buyer-bridge.css" -TimeoutSec 10 -Headers $headers
-                $v72Script = Invoke-WebRequest -Uri "$origin/assets/v72-complete-contact.js" -TimeoutSec 10 -Headers $headers
-                $v72Styles = Invoke-WebRequest -Uri "$origin/assets/v72-complete-contact.css" -TimeoutSec 10 -Headers $headers
-                $v72Contact = Invoke-WebRequest -Uri "$origin/contact.html" -TimeoutSec 10 -Headers $headers
-                $v74Page = Invoke-WebRequest -Uri "$origin/site-proof-v74.html" -TimeoutSec 10 -Headers $headers
-                $v74Script = Invoke-WebRequest -Uri "$origin/assets/v74-public-proof.js" -TimeoutSec 10 -Headers $headers
-                $v74Release = Invoke-WebRequest -Uri "$origin/assets/release-v74.json" -TimeoutSec 10 -Headers $headers
-                $v76Script = Invoke-WebRequest -Uri "$origin/assets/v76-contact-unification.js" -TimeoutSec 10 -Headers $headers
-                $v76Styles = Invoke-WebRequest -Uri "$origin/assets/v76-contact-unification.css" -TimeoutSec 10 -Headers $headers
-                $v77Data = Invoke-WebRequest -Uri "$origin/assets/v77-feature-data.js" -TimeoutSec 10 -Headers $headers
-                $v77Showcase = Invoke-WebRequest -Uri "$origin/assets/v77-feature-showcase.js" -TimeoutSec 10 -Headers $headers
-                $v77Hub = Invoke-WebRequest -Uri "$origin/industry-features-v77.html" -TimeoutSec 10 -Headers $headers
-                $v77Compare = Invoke-WebRequest -Uri "$origin/assets/v77-compare-extend.js" -TimeoutSec 10 -Headers $headers
-                $v78Engine = Invoke-WebRequest -Uri "$origin/assets/v78-simulator.js" -TimeoutSec 10 -Headers $headers
-                $v78Data = Invoke-WebRequest -Uri "$origin/assets/v78-simulator-data.js" -TimeoutSec 10 -Headers $headers
-                $v78Lab = Invoke-WebRequest -Uri "$origin/feature-lab-v78.html" -TimeoutSec 10 -Headers $headers
-                $v78Release = Invoke-WebRequest -Uri "$origin/assets/release-v78.json" -TimeoutSec 10 -Headers $headers
-                $v79Engine = Invoke-WebRequest -Uri "$origin/assets/v79-simulator.js" -TimeoutSec 10 -Headers $headers
-                $v79Data = Invoke-WebRequest -Uri "$origin/assets/v79-simulator-data.js" -TimeoutSec 10 -Headers $headers
-                $v79Lab = Invoke-WebRequest -Uri "$origin/feature-lab-v79.html" -TimeoutSec 10 -Headers $headers
-                $v79Release = Invoke-WebRequest -Uri "$origin/assets/release-v79.json" -TimeoutSec 10 -Headers $headers
-                $v80Engine = Invoke-WebRequest -Uri "$origin/assets/v80-simulator.js" -TimeoutSec 10 -Headers $headers
-                $v80Data = Invoke-WebRequest -Uri "$origin/assets/v80-simulator-data.js" -TimeoutSec 10 -Headers $headers
-                $v80Lab = Invoke-WebRequest -Uri "$origin/feature-lab-v80.html" -TimeoutSec 10 -Headers $headers
-                $v80Release = Invoke-WebRequest -Uri "$origin/assets/release-v80.json" -TimeoutSec 10 -Headers $headers
-                $v81Page = Invoke-WebRequest -Uri "$origin/feature-scope-v81.html" -TimeoutSec 10 -Headers $headers
-                $v81JS = Invoke-WebRequest -Uri "$origin/assets/v81-production-scope.js" -TimeoutSec 10 -Headers $headers
-                $v81Matrix = Invoke-WebRequest -Uri "$origin/assets/v81-scope-matrix.js" -TimeoutSec 10 -Headers $headers
-                $v81CSS = Invoke-WebRequest -Uri "$origin/assets/v81-production-scope.css" -TimeoutSec 10 -Headers $headers
-                $v81Compare = Invoke-WebRequest -Uri "$origin/assets/v81-compare-link.js" -TimeoutSec 10 -Headers $headers
-                $v81Rel = Invoke-WebRequest -Uri "$origin/assets/release-v81.json" -TimeoutSec 10 -Headers $headers
-                if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
-                    $v66Script.StatusCode -eq 200 -and $v66Styles.StatusCode -eq 200 -and $loader.StatusCode -eq 200 -and
-                    $demo.Content.Contains('v653-to-plan') -and
-                    $sales.Content.Contains('window.AFO_V653_TERMS_COUNT=TERMS.length') -and
-                    $sales.Content.Contains("window.AFO_V71_FULL_BRIEF='v71.0'") -and
-                    $sales.Content.Contains('AllFileOne_V71_Full_Buyer_Brief.txt') -and
-                    $v71Styles.StatusCode -eq 200 -and $v71Styles.Content.Contains('.v71-mailto') -and
-                    $v66Script.Content.Contains('window.AFO_V66_SECTOR_COUNT=Object.keys(INDUSTRIES).length') -and
-                    $v66Script.Content.Contains("behavior:'instant'") -and
-                    $v66Script.Content.Contains("window.AFO_V66_HERO_ORDER_FIX='v66.2'") -and
-                    $v66Styles.Content.Contains('.theme-editorial .service-card') -and
-                    $v66Styles.Content.Contains('.theme-premium .v23-hero-shell') -and
-                    $v66Styles.Content.Contains('.theme-editorial .v23-hero-shell') -and
-                    $loader.Content.Contains('v66-sector-artdirection.js') -and
-                    $compare.StatusCode -eq 200 -and $v68Script.StatusCode -eq 200 -and
-                    $compare.Content.Contains('assets/v28-catalog.js') -and
-                    $v68Script.Content.Contains('actualFeatures(industry)') -and
-                    $v69Script.StatusCode -eq 200 -and $v69Styles.StatusCode -eq 200 -and
-                    $v69Script.Content.Contains("window.AFO_V69_DESIGN_EDITION='v69.0'") -and
-                    $v69Styles.Content.Contains('.theme-premium .v23-hero-visual') -and
-                    $v69Styles.Content.Contains('.theme-editorial .v23-hero-shell') -and
-                    $loader.Content.Contains('v69-artdirection.js') -and
-                    $v70Script.StatusCode -eq 200 -and $v70Styles.StatusCode -eq 200 -and
-                    $compare.Content.Contains('id="v70-to-plan"') -and
-                    $compare.Content.Contains('assets/v652-sector-requirements.js') -and
-                    $compare.Content.Contains('assets/v70-buyer-bridge.js') -and
-                    $v68Script.Content.Contains("roots.estimate.href='#v70-buyer'") -and
-                    $v70Script.Content.Contains("sessionStorage.setItem('afo.webstudio.v653.offer'") -and
-                    $v70Script.Content.Contains("location.assign(url.href)") -and
-                    $v70Styles.Content.Contains('.v70-requirements') -and
-                    $v72Script.StatusCode -eq 200 -and $v72Styles.StatusCode -eq 200 -and
-                    $v72Contact.StatusCode -eq 200 -and
-                    $v72Script.Content.Contains("window.AFO_V72_PACKET_VERSION='v72.0'") -and
-                    $v72Script.Content.Contains('AllFileOne_V72_Complete_Consultation.txt') -and
-                    $v72Contact.Content.Contains('assets/v72-complete-contact.js') -and
-                    $v72Styles.Content.Contains('.v72-packet-note') -and
-                    $v72Styles.Content.Contains('.v73-stale-import') -and
-                    $v72Script.Content.Contains("window.AFO_V73_SCOPE_GUARD='v73.0'") -and
-                    $v72Script.Content.Contains('이전 견적의 가격·선택 기능·계약 조건은 현재 요청에 적용되지 않으며') -and
-                    $v74Page.StatusCode -eq 200 -and $v74Script.StatusCode -eq 200 -and $v74Release.StatusCode -eq 200 -and
-                    $v74Page.Content.Contains('data-v74-proof="V74-20261109"') -and
-                    $v74Script.Content.Contains("window.AFO_V74_PUBLIC_PROOF='V74-20261109'") -and
-                    $v74Release.Content.Contains('"release": "V74-20261109"') -and
-                    $v76Script.StatusCode -eq 200 -and $v76Styles.StatusCode -eq 200 -and
-                    $v76Script.Content.Contains("window.AFO_V76_CONTACT_UNIFICATION='v76.0'") -and
-                    $v72Contact.Content.Contains("assets/v76-contact-unification.js") -and
-                    $v77Data.StatusCode -eq 200 -and $v77Showcase.StatusCode -eq 200 -and
-                    $v77Hub.StatusCode -eq 200 -and $v77Compare.StatusCode -eq 200 -and
-                    $v77Data.Content.Contains('window.AFO_V77_FEATURE_EXTENSION') -and
-                    $v77Hub.Content.Contains('assets/v77-industry-hub.js') -and
-                    $v77Compare.Content.Contains('data-v77-plan') -and
-                    $loader.Content.Contains('v77-feature-showcase.js') -and
-                    $compare.Content.Contains('assets/v77-compare-extend.js') -and
-                    $v78Engine.StatusCode -eq 200 -and $v78Data.StatusCode -eq 200 -and
-                    $v78Lab.StatusCode -eq 200 -and $v78Release.StatusCode -eq 200 -and
-                    $v78Engine.Content.Contains("version:'V78-20261109'") -and
-                    $v78Data.Content.Contains('window.AFO_V78_FIXTURES') -and
-                    $v78Lab.Content.Contains('id="v78-standalone"') -and
-                    $v78Release.Content.Contains('V78-20261109') -and
-                    $loader.Content.Contains('v78-simulator.js') -and
-                    $v77Hub.Content.Contains('assets/v78-simulator.js') -and
-                    $v79Engine.StatusCode -eq 200 -and $v79Data.StatusCode -eq 200 -and
-                    $v79Lab.StatusCode -eq 200 -and $v79Release.StatusCode -eq 200 -and
-                    $v79Engine.Content.Contains("version:'V79-20261109'") -and
-                    $v79Data.Content.Contains('window.AFO_V79_FIXTURES') -and
-                    $v79Lab.Content.Contains('id="v79-standalone"') -and
-                    $v79Release.Content.Contains('WEBSTUDIO-V79-20261109') -and
-                    $loader.Content.Contains('v79-simulator.js') -and
-                    $v77Hub.Content.Contains('assets/v79-simulator.js') -and
-                    $v80Engine.StatusCode -eq 200 -and $v80Data.StatusCode -eq 200 -and
-                    $v80Lab.StatusCode -eq 200 -and $v80Release.StatusCode -eq 200 -and
-                    $v80Engine.Content.Contains("version:'V80-20261109'") -and
-                    $v80Data.Content.Contains('window.AFO_V80_FIXTURES') -and
-                    $v80Lab.Content.Contains('id="v80-standalone"') -and
-                    $v80Release.Content.Contains('WEBSTUDIO-V80-20261109') -and
-                    $loader.Content.Contains('v80-simulator.js') -and
-                    $v77Hub.Content.Contains('assets/v80-simulator.js') -and
-                    $v81Page.StatusCode -eq 200 -and $v81JS.StatusCode -eq 200 -and
-                    $v81Matrix.StatusCode -eq 200 -and $v81CSS.StatusCode -eq 200 -and
-                    $v81Compare.StatusCode -eq 200 -and $v81Rel.StatusCode -eq 200 -and
-                    $v81Page.Content.Contains('data-v81-scope="V81-20261109"') -and
-                    $v81Page.Content.Contains('assets/v81-production-scope.js') -and
-                    $v81JS.Content.Contains("window.AFO_V81_SCOPE_READY='V81-20261109'") -and
-                    $v81Matrix.Content.Contains('window.AFO_V81_SCOPE_MATRIX') -and
-                    $v81Rel.Content.Contains('V81-20261109') -and
-                    $loader.Content.Contains('feature-scope-v81.html') -and
-                    $v77Hub.Content.Contains('feature-scope-v81.html')) {
-                  Write-Host 'EXACT_V74_PUBLIC_PROOF_ASSETS_VERIFIED'
-                  Write-Host 'EXACT_V77_8_FEATURES_PER_INDUSTRY_VERIFIED'
-                  Write-Host 'EXACT_V78_12_NEW_BROWSER_SIMULATIONS_VERIFIED'
-                  Write-Host 'EXACT_V79_12_SECOND_ADDON_SIMULATIONS_VERIFIED'
-                  Write-Host 'EXACT_V80_12_THIRD_ADDON_SIMULATIONS_VERIFIED'
-                  Write-Host 'EXACT_V81_PRODUCTION_SCOPE_PLANNER_ASSETS_VERIFIED'
-                  $ready = $true
-                  break
-                }
-                Write-Host 'Manifest is current, but the public buyer JS is not verified yet.'
-              }
-            } catch {
-              Write-Host 'Public Cloudflare assets not available yet; no pass claimed.'
-            }
-            Start-Sleep -Seconds 8
-          }
-          if (-not $ready) { throw 'HOLD: Exact V81 public assets not proven; refusing stale-site success claims.' }
-
-      - name: Read-only real Edge browser smoke (PC and mobile, six industries)
-        shell: pwsh
-        run: |
-          $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
-          New-Item -ItemType Directory -Path $out -Force | Out-Null
-          python webstudio/tools/v65_edge_live_qa.py --output "$out"
+          $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          New-Item -ItemType Directory -Path $dir -Force | Out-Null
+          python webstudio/tools/v82_publish_bundle.py --root webstudio --output "$dir/AllFileOne_WebStudio_V82_PublishOnly.zip" --report "$dir/V82_SITE_PACKAGE_MANIFEST.json"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: Real Windows Edge 36-design and 12-industry buyer flow acceptance
+      - name: Check exact V82 public Cloudflare files read-only (HOLD on unavailable/stale)
         shell: pwsh
         run: |
-          $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
-          New-Item -ItemType Directory -Path $out -Force | Out-Null
-          python webstudio/tools/v652_live_demo_qa.py --output "$out"
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          python webstudio/tools/v82_live_public_probe.py --output "$dir" --max-attempts 6 --retry-seconds 10
+          if ($LASTEXITCODE -ne 0) { throw 'HOLD: Exact V82 public assets not proven; no email receipt claims.' }
 
-      - name: Real Edge 12 industries buyer demonstration to price to precontract consultation
-        shell: pwsh
-        run: |
-          $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
-          New-Item -ItemType Directory -Path $out -Force | Out-Null
-          python webstudio/tools/v653_live_sales_qa.py --output "$out"
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Real Windows Edge V66 distinct design and 12 sector first-click QA
-        shell: pwsh
-        run: |
-          $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
-          New-Item -ItemType Directory -Path $out -Force | Out-Null
-          python webstudio/tools/v66_live_design_qa.py --output "$out"
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Package full deployable site source plus QA evidence even on HOLD
-        if: always()
-        shell: pwsh
-        run: |
-          $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
-          New-Item -ItemType Directory -Path $out -Force | Out-Null
-          python webstudio/tools/v65_bundle_release.py --source webstudio --evidence-dir "$out" --out-dir "$out"
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-
-      - name: Attach public-page evidence even on HOLD
+      - name: Upload source and public site evidence even when Cloudflare is HOLD
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: AllFileOne_WebStudio_V65_Public_Browser_Evidence
-          path: ${{ runner.temp }}/AFO_V65_PUBLIC_BROWSER_QA/
+          name: AFO_WebStudio_V82_Public_Release_Evidence
+          path: ${{ runner.temp }}/AFO_WebStudio_V82_Evidence/
           if-no-files-found: warn
           retention-days: 1
