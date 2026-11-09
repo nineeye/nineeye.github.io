@@ -98,6 +98,14 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v71_full_brief.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: V72 verify complete and current contact packet without customer data transmission
+        shell: pwsh
+        run: |
+          node --check webstudio/assets/v72-complete-contact.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s webstudio/tools -p test_v72_complete_packet.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Require exact published V66 design and V65.3 buyer assets before live checks
         shell: pwsh
         run: |
@@ -116,7 +124,8 @@ jobs:
               $v69 = $manifest.v69_artdirection_version -eq 'V69-20261109' -and $manifest.v69_designs_preserved -eq 36
               $v70 = $manifest.v70_buyer_bridge_version -eq 'V70-20261109' -and $manifest.v70_buyer_industry_count -eq 12 -and $manifest.v70_requirement_count -eq 48
               $v71 = $manifest.v71_contact_full_brief_version -eq 'V71-20261109' -and $manifest.v71_complete_export -eq $true -and $manifest.v71_automatic_submission -eq $false
-              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71)) {
+              $v72 = $manifest.v72_complete_packet_version -eq 'V72-20261109' -and $manifest.v72_live_form_changes_included -eq $true -and $manifest.v72_consistent_copy_save -eq $true -and $manifest.v72_no_auto_submission -eq $true
+              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72)) {
                 Write-Host 'Cloudflare release is still prior to exact V66 design features.'
               } else {
                 $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
@@ -131,6 +140,9 @@ jobs:
                 $v69Styles = Invoke-WebRequest -Uri "$origin/assets/v69-artdirection.css" -TimeoutSec 10 -Headers $headers
                 $v70Script = Invoke-WebRequest -Uri "$origin/assets/v70-buyer-bridge.js" -TimeoutSec 10 -Headers $headers
                 $v70Styles = Invoke-WebRequest -Uri "$origin/assets/v70-buyer-bridge.css" -TimeoutSec 10 -Headers $headers
+                $v72Script = Invoke-WebRequest -Uri "$origin/assets/v72-complete-contact.js" -TimeoutSec 10 -Headers $headers
+                $v72Styles = Invoke-WebRequest -Uri "$origin/assets/v72-complete-contact.css" -TimeoutSec 10 -Headers $headers
+                $v72Contact = Invoke-WebRequest -Uri "$origin/contact.html" -TimeoutSec 10 -Headers $headers
                 if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
                     $v66Script.StatusCode -eq 200 -and $v66Styles.StatusCode -eq 200 -and $loader.StatusCode -eq 200 -and
                     $demo.Content.Contains('v653-to-plan') -and
@@ -160,8 +172,14 @@ jobs:
                     $v68Script.Content.Contains("roots.estimate.href='#v70-buyer'") -and
                     $v70Script.Content.Contains("sessionStorage.setItem('afo.webstudio.v653.offer'") -and
                     $v70Script.Content.Contains("location.assign(url.href)") -and
-                    $v70Styles.Content.Contains('.v70-requirements')) {
-                  Write-Host 'EXACT_V71_PUBLIC_MANIFEST_AND_FULL_BRIEF_ASSETS_VERIFIED'
+                    $v70Styles.Content.Contains('.v70-requirements') -and
+                    $v72Script.StatusCode -eq 200 -and $v72Styles.StatusCode -eq 200 -and
+                    $v72Contact.StatusCode -eq 200 -and
+                    $v72Script.Content.Contains("window.AFO_V72_PACKET_VERSION='v72.0'") -and
+                    $v72Script.Content.Contains('AllFileOne_V72_Complete_Consultation.txt') -and
+                    $v72Contact.Content.Contains('assets/v72-complete-contact.js') -and
+                    $v72Styles.Content.Contains('.v72-packet-note')) {
+                  Write-Host 'EXACT_V72_PUBLIC_MANIFEST_AND_COMPLETE_PACKET_VERIFIED'
                   $ready = $true
                   break
                 }
@@ -172,7 +190,7 @@ jobs:
             }
             Start-Sleep -Seconds 8
           }
-          if (-not $ready) { throw 'HOLD: Exact V71 public full-brief assets not proven; refusing stale-site UI success claims.' }
+          if (-not $ready) { throw 'HOLD: Exact V72 public contact packet assets not proven; refusing stale-site UI success claims.' }
 
       - name: Read-only real Edge browser smoke (PC and mobile, six industries)
         shell: pwsh
