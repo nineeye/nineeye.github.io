@@ -302,5 +302,13 @@
   "v76_legacy_copy_save_print_uses_complete_packet": true,
   "v76_mail_auto_sent": false,
   "v76_live_cloudflare_verified": false,
-  "v76_customer_email_receipt_verified": false
+  "v76_customer_email_receipt_verified": false,
+  "v77_sector_feature_version": "V77-20261109",
+  "v77_researched_sectors": 12,
+  "v77_visible_features_per_sector": 8,
+  "v77_live_simulated_tool_count": 48,
+  "v77_planned_unbuilt_feature_count": 48,
+  "v77_public_cloudflare_verified": false,
+  "v77_real_customer_email_verified": false,
+  "v77_status_note": "V77 lists 4 browser-only functional demos plus 4 clearly unbuilt quote options per sector; no new real booking, pay or membership backend."
 }
