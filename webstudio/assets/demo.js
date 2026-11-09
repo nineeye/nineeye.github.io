@@ -188,3 +188,15 @@
  const js=document.createElement('script');js.src=new URL('v69-artdirection.js',base).href;
  js.async=true;js.dataset.v69Script='true';document.head.append(js);
 })();
+
+/* V81 scope continuation for all 36 demo layouts: no auto submission. */
+(()=>{'use strict';if(document.getElementById('v81-demo-scope-link'))return;
+const parts=location.pathname.split('/').filter(Boolean),pos=parts.indexOf('demo');
+const sector=pos>=0?parts[pos+1]:document.body.dataset.industry,style=pos>=0?parts[pos+2]:'modern';
+const allowed=['manufacturing','corporate','clinic','academy','interior','commerce','professional','association','franchise','stay','realestate','event'];
+if(!allowed.includes(sector)||!['modern','premium','editorial'].includes(style))return;
+const link=document.createElement('a');link.id='v81-demo-scope-link';link.textContent='이 업종의 실제 운영 기능 8개 선택 ↗';const url=new URL('../../../feature-scope-v81.html',document.baseURI);url.searchParams.set('industry',sector);url.searchParams.set('style',style);link.href=url.href;
+link.style.cssText='display:inline-flex;align-items:center;justify-content:center;min-height:44px;background:#205747;color:#fff;text-decoration:none;padding:12px 18px;border-radius:3px;font:800 13px system-ui,sans-serif;margin:12px';
+const target=document.getElementById('v77-showcase')||document.getElementById('v28-tools')||document.querySelector('main');
+if(target){const wrap=document.createElement('div');wrap.style.cssText='text-align:center;padding:8px 16px 20px';wrap.append(link);target.insertAdjacentElement('afterend',wrap)}
+})();

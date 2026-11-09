@@ -1,0 +1,15 @@
+{
+  "release": "V81-20261109",
+  "base_version": "V80",
+  "purpose": "actual production feature-scope planning, not another fictional simulator",
+  "sectors": 12,
+  "features_per_sector": 8,
+  "available_fictional_browser_simulations": 84,
+  "not_yet_built_live_production_features": 96,
+  "note": "All 96 customer-facing production feature choices are separate scope of work, regardless of existing fictional browser demo status",
+  "offline_export": true,
+  "automatic_customer_email": false,
+  "backend_or_paid_api": false,
+  "real_cloudflare_public_deployment_verified": false,
+  "actual_email_receipt_verified": false
+}

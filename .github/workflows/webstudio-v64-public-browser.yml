@@ -180,6 +180,18 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v80_feature_contract.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: V81 verify real-production scope planner without backend claims
+        shell: pwsh
+        run: |
+          node --check webstudio/assets/v81-production-scope.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v81-scope-matrix.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v81-compare-link.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s webstudio/tools -p test_v81_production_scope.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Require exact published V66 design and V65.3 buyer assets before live checks
         shell: pwsh
         run: |
@@ -206,7 +218,8 @@ jobs:
               $v78 = $manifest.v78_simulation_version -eq 'V78-20261109' -and $manifest.v78_sector_count -eq 12 -and $manifest.v78_new_browser_simulations -eq 12 -and $manifest.v78_total_browser_simulations -eq 60 -and $manifest.v78_planned_unbuilt_feature_count -eq 36 -and $manifest.v78_production_backend_available -eq $false
               $v79 = $manifest.v79_simulation_version -eq 'V79-20261109' -and $manifest.v79_sector_count -eq 12 -and $manifest.v79_new_browser_simulations -eq 12 -and $manifest.v79_total_browser_simulations -eq 72 -and $manifest.v79_planned_unbuilt_feature_count -eq 24 -and $manifest.v79_production_backend_available -eq $false
               $v80 = $manifest.v80_simulation_version -eq 'V80-20261109' -and $manifest.v80_sector_count -eq 12 -and $manifest.v80_total_browser_simulations -eq 84 -and $manifest.v80_unbuilt_production_options -eq 12 -and $manifest.v80_actual_backend -eq $false
-              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72 -and $v73 -and $v74 -and $v76 -and $v77 -and $v78 -and $v79 -and $v80)) {
+              $v81 = $manifest.v81_scope_version -eq 'V81-20261109' -and $manifest.v81_industry_choices -eq 12 -and $manifest.v81_scope_items -eq 96 -and $manifest.v81_actual_booking_email_backend -eq $false
+              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72 -and $v73 -and $v74 -and $v76 -and $v77 -and $v78 -and $v79 -and $v80 -and $v81)) {
                 Write-Host 'Cloudflare release is still prior to exact V66 design features.'
               } else {
                 $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
@@ -245,6 +258,12 @@ jobs:
                 $v80Data = Invoke-WebRequest -Uri "$origin/assets/v80-simulator-data.js" -TimeoutSec 10 -Headers $headers
                 $v80Lab = Invoke-WebRequest -Uri "$origin/feature-lab-v80.html" -TimeoutSec 10 -Headers $headers
                 $v80Release = Invoke-WebRequest -Uri "$origin/assets/release-v80.json" -TimeoutSec 10 -Headers $headers
+                $v81Page = Invoke-WebRequest -Uri "$origin/feature-scope-v81.html" -TimeoutSec 10 -Headers $headers
+                $v81JS = Invoke-WebRequest -Uri "$origin/assets/v81-production-scope.js" -TimeoutSec 10 -Headers $headers
+                $v81Matrix = Invoke-WebRequest -Uri "$origin/assets/v81-scope-matrix.js" -TimeoutSec 10 -Headers $headers
+                $v81CSS = Invoke-WebRequest -Uri "$origin/assets/v81-production-scope.css" -TimeoutSec 10 -Headers $headers
+                $v81Compare = Invoke-WebRequest -Uri "$origin/assets/v81-compare-link.js" -TimeoutSec 10 -Headers $headers
+                $v81Rel = Invoke-WebRequest -Uri "$origin/assets/release-v81.json" -TimeoutSec 10 -Headers $headers
                 if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
                     $v66Script.StatusCode -eq 200 -and $v66Styles.StatusCode -eq 200 -and $loader.StatusCode -eq 200 -and
                     $demo.Content.Contains('v653-to-plan') -and
@@ -321,12 +340,23 @@ jobs:
                     $v80Lab.Content.Contains('id="v80-standalone"') -and
                     $v80Release.Content.Contains('WEBSTUDIO-V80-20261109') -and
                     $loader.Content.Contains('v80-simulator.js') -and
-                    $v77Hub.Content.Contains('assets/v80-simulator.js')) {
+                    $v77Hub.Content.Contains('assets/v80-simulator.js') -and
+                    $v81Page.StatusCode -eq 200 -and $v81JS.StatusCode -eq 200 -and
+                    $v81Matrix.StatusCode -eq 200 -and $v81CSS.StatusCode -eq 200 -and
+                    $v81Compare.StatusCode -eq 200 -and $v81Rel.StatusCode -eq 200 -and
+                    $v81Page.Content.Contains('data-v81-scope="V81-20261109"') -and
+                    $v81Page.Content.Contains('assets/v81-production-scope.js') -and
+                    $v81JS.Content.Contains("window.AFO_V81_SCOPE_READY='V81-20261109'") -and
+                    $v81Matrix.Content.Contains('window.AFO_V81_SCOPE_MATRIX') -and
+                    $v81Rel.Content.Contains('V81-20261109') -and
+                    $loader.Content.Contains('feature-scope-v81.html') -and
+                    $v77Hub.Content.Contains('feature-scope-v81.html')) {
                   Write-Host 'EXACT_V74_PUBLIC_PROOF_ASSETS_VERIFIED'
                   Write-Host 'EXACT_V77_8_FEATURES_PER_INDUSTRY_VERIFIED'
                   Write-Host 'EXACT_V78_12_NEW_BROWSER_SIMULATIONS_VERIFIED'
                   Write-Host 'EXACT_V79_12_SECOND_ADDON_SIMULATIONS_VERIFIED'
                   Write-Host 'EXACT_V80_12_THIRD_ADDON_SIMULATIONS_VERIFIED'
+                  Write-Host 'EXACT_V81_PRODUCTION_SCOPE_PLANNER_ASSETS_VERIFIED'
                   $ready = $true
                   break
                 }
@@ -337,7 +367,7 @@ jobs:
             }
             Start-Sleep -Seconds 8
           }
-          if (-not $ready) { throw 'HOLD: Exact V78 public assets not proven; refusing stale-site success claims.' }
+          if (-not $ready) { throw 'HOLD: Exact V81 public assets not proven; refusing stale-site success claims.' }
 
       - name: Read-only real Edge browser smoke (PC and mobile, six industries)
         shell: pwsh

@@ -337,5 +337,10 @@
   "v80_actual_backend": false,
   "v80_cloudflare_public_verified": false,
   "v80_customer_email_receipt_verified": false,
-  "v80_scope": "12 industries x 7 fictional client-side demos + 1 unbuilt production option"
+  "v80_scope": "12 industries x 7 fictional client-side demos + 1 unbuilt production option",
+  "v81_scope_version": "V81-20261109",
+  "v81_industry_choices": 12,
+  "v81_scope_items": 96,
+  "v81_actual_booking_email_backend": false,
+  "v81_public_cloudflare_verified": false
 }
