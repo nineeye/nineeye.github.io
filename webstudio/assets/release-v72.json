@@ -1,0 +1,16 @@
+{
+  "release": "WEBSTUDIO-V72-20261109",
+  "base": "V71",
+  "change": "Complete customer brief remains current after edits; legacy and imported copy/TXT buttons use same exact packet",
+  "industry_demos": 36,
+  "sector_tools": 48,
+  "qa": {
+    "source_regression": "187/187 PASS",
+    "offline_dom": "724/724 PASS",
+    "actual_binary_txt_two_buttons": "PASS; identical UTF-8 BOM, updated user selections",
+    "real_public_site": "HOLD; external tool cannot reach Cloudflare Pages",
+    "actual_customer_mail": "HOLD; no real end-to-end email receipt verified"
+  },
+  "no_paid_api": true,
+  "no_auto_mail": true
+}

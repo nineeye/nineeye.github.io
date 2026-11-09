@@ -277,5 +277,11 @@
   "v71_mailto_summary_only": true,
   "v71_automatic_submission": false,
   "v71_live_email_verified": false,
-  "v71_public_deploy_verified": false
+  "v71_public_deploy_verified": false,
+  "v72_complete_packet_version": "V72-20261109",
+  "v72_live_form_changes_included": true,
+  "v72_consistent_copy_save": true,
+  "v72_no_auto_submission": true,
+  "v72_actual_email_receipt_verified": false,
+  "v72_public_cloudflare_verified": false
 }

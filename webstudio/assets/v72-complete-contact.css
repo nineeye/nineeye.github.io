@@ -1,0 +1,6 @@
+/* V72 full packet on the inherited precontract contact journey. */
+.v72-packet-count{font-size:12px!important;font-weight:850;color:#245d3d!important;margin:12px 0 0!important}
+.v72-packet-note{padding:13px 15px;border:1px solid #9abfa5;background:#f7fff7;color:#1a5234!important;font-size:13px!important;line-height:1.7}
+.v653-import[data-v72-ready] #v653-full-brief{max-height:440px}
+@media(max-width:560px){.v72-packet-note{padding:12px}.v653-import[data-v72-ready] #v653-full-brief{max-height:350px}}
+@media print{.v653-import[data-v72-ready] #v653-full-brief{max-height:none;overflow:visible}.v72-packet-note{display:none}}
