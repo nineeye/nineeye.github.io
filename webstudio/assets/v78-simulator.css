@@ -1,0 +1,20 @@
+/* V78: readable controls for twelve fictional interactive functional samples. */
+.v78-widget{--ink:#163a38;--line:#bad4ce;background:#f6faf7;border:1px solid var(--line);color:var(--ink);border-radius:16px;padding:clamp(18px,3vw,34px);width:100%;min-width:0;box-sizing:border-box}
+.v78-widget *{box-sizing:border-box}.v78-eyebrow{display:block;font-size:11px;font-weight:850;letter-spacing:.09em;color:#1c7662}.v78-widget h3{font-size:clamp(21px,2.6vw,30px);line-height:1.35;margin:10px 0;color:var(--ink);word-break:keep-all}.v78-disclosure,.v78-footnote{font-size:13px;line-height:1.7;color:#49665d;word-break:keep-all}
+.v78-controls{display:flex;gap:14px;flex-wrap:wrap;align-items:end;margin:21px 0 16px}.v78-field{display:flex;flex-direction:column;gap:7px;flex:1 1 180px;min-width:0;font-size:12px;font-weight:800;color:#2f564f}
+.v78-field :is(input,select){min-height:45px;width:100%;border:1px solid #9fbcb1;background:white;color:#102d28;border-radius:8px;font:inherit;font-size:14px;padding:10px 11px}
+.v78-field :is(input,select):focus-visible,.v78-zone:focus-visible{outline:3px solid #245cbb;outline-offset:2px}
+.v78-results{background:white;border:1px solid #d5e4de;border-radius:12px;padding:16px;min-height:88px;font-size:14px;line-height:1.7;color:#164136;overflow-wrap:anywhere}
+.v78-results>strong{display:block;font-size:clamp(18px,2vw,24px);line-height:1.4;color:#115141}.v78-results>p{margin:7px 0}.v78-results>small,.v78-list-item small{color:#49655c;display:block}.v78-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.v78-list-item{border:1px solid #ceded9;border-radius:9px;padding:12px;background:#fbfdfa;min-width:0}.v78-list-item strong{display:block;margin:4px 0;line-height:1.45}.v78-list-item p{font-size:12px;line-height:1.65;margin:6px 0;color:#49655c;word-break:keep-all}.v78-empty{font-size:13px}.v78-mini-map{width:100%;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;padding:12px;border-radius:10px;background:repeating-linear-gradient(45deg,#e6efed,#e6efed 10px,#dae8e4 10px,#dae8e4 20px)}
+.v78-mini-map small{grid-column:1/-1;font-size:11px;font-weight:700;color:#386357}.v78-zone{border:1px solid #76a596;background:#fff;border-radius:12px;min-height:55px;color:#144c3f;font-size:12px;font-weight:800;cursor:pointer;padding:7px}.v78-zone:hover{background:#eaf5ef}
+.v78-footnote{font-size:11px;border-top:1px solid #d7e5df;margin:17px 0 0;padding-top:12px}
+.v78-inline{grid-column:1/-1;padding:14px;border-radius:15px;background:#eaf1ed}.v78-inline-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}.v78-inline-head strong{font-size:15px;color:#194c41}.v78-inline-head button{border:1px solid #a5c2b6;border-radius:7px;background:white;color:#174638;padding:8px 12px;cursor:pointer}
+.v77-card-v78{border-top:4px solid #286eaf;background:#f5faff}.v77-card-v78 .v77-number{color:#255e91}.v77-card-v78 .v77-card-action{background:#164f82}.v77-card-v78 .v77-card-action:hover{background:#0c365c}
+.feature-card.v78-demo{border-top:4px solid #286eaf;background:#f5faff}.feature-card.v78-demo .action{background:#205e97;color:white;border-color:#205e97}
+.v77-compare-v78{border:2px solid #3872a8;border-radius:9px;background:#f2f8ff;padding:18px;margin-top:10px}.v77-compare-v78 strong{display:block;color:#1b4779}.v77-compare-v78 p{font-size:12px;line-height:1.65;color:#405b75}.v77-compare-v78 a{color:#0b4b89;font-size:13px;font-weight:800}
+@media(max-width:650px){.v78-list{grid-template-columns:1fr}.v78-controls{display:block}.v78-field{margin:0 0 12px}.v78-mini-map{margin-bottom:10px}.v78-widget{padding:17px}}
+
+/* Accessible close affordance even when an existing mobile sticky header overlays the panel top. */
+.v78-inline{scroll-margin-top:140px}.v78-bottom-close{display:block;margin:12px 0 0 auto;border:1px solid #92b4a6;border-radius:7px;background:#fff;color:#154f41;font:inherit;font-size:12px;font-weight:800;padding:10px 16px;min-height:44px;cursor:pointer}
+.v78-bottom-close:focus-visible{outline:3px solid #245cbb;outline-offset:2px}
