@@ -70,12 +70,12 @@ class BuyerSalesBridge(unittest.TestCase):
         self.assertIn("label.htmlFor",SOURCE) if "label.htmlFor" in SOURCE else self.assertIn("left.htmlFor",SOURCE)
     def test_cloudflare_exact_release_asset_guard(self):
         workflow=(ROOT.parent/".github/workflows/webstudio-v64-public-browser.yml").read_text(encoding="utf-8")
-        self.assertIn("v653_patch_date",workflow)
-        self.assertIn("v653_buyers_demo_to_pricing_to_consult",workflow)
-        self.assertTrue(any(marker in workflow for marker in ("EXACT_V65_3_PUBLIC_MANIFEST_AND_BOTH_JAVASCRIPTS_VERIFIED","EXACT_V66_PUBLIC_MANIFEST_THREE_JS_AND_CSS_VERIFIED","EXACT_V69_PUBLIC_MANIFEST_AND_DESIGN_ASSETS_VERIFIED","EXACT_V70_PUBLIC_MANIFEST_AND_BUYER_ASSETS_VERIFIED","EXACT_V71_PUBLIC_MANIFEST_AND_FULL_BRIEF_ASSETS_VERIFIED","EXACT_V73_PUBLIC_MANIFEST_AND_SCOPE_GUARD_VERIFIED","EXACT_V74_PUBLIC_PROOF_ASSETS_VERIFIED")))
-        self.assertIn("v652-sector-requirements.js",workflow)
-        self.assertIn("v653-sales-bridge.js",workflow)
-        self.assertIn("if (-not $ready) { throw",workflow)
+        self.assertIn("test_*.py",workflow)
+        self.assertIn("v82_live_public_probe.py",workflow)
+        self.assertIn("v82_publish_bundle.py",workflow)
+        self.assertIn("HOLD: Exact V82 public assets not proven",workflow)
+        self.assertIn("if: always()",workflow)
+
         edge=(ROOT/"tools/v653_live_sales_qa.py").read_text(encoding="utf-8")
         self.assertIn("comparison CTA absent from PUBLIC site",edge)
     def test_existing_sales_and_direct_contact_remain(self):
