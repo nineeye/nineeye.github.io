@@ -55,7 +55,7 @@ class V66StylesAndSectors(unittest.TestCase):
  def test_mobile_tablet_nav_and_mobile_grid(self):
   self.assertIn("@media(max-width:1180px)",CSS)
   self.assertIn(".site-head nav.open{display:grid!important}",CSS)
-  self.assertIn(".mobile-menu{display:block!important}",CSS)
+  self.assertIn(".mobile-menu{display:block!important;",CSS)
   self.assertIn("@media(max-width:700px)",CSS)
   self.assertIn("@media(max-width:430px)",CSS)
   self.assertIn("prefers-reduced-motion",CSS)
