@@ -1,0 +1,28 @@
+{
+  "release": "WEBSTUDIO-V70-20261109",
+  "goal": "Design comparison to transparent buyer brief to example pricing and contract-preflight consultation",
+  "based_on_main_commit": "3c7b436bfb43f8aac292c2f10af31c01c4134649",
+  "changes": {
+    "industry_count": 12,
+    "visual_styles_per_industry": 3,
+    "existing_demo_pages_preserved": 36,
+    "existing_real_frontend_demo_tools_preserved": 48,
+    "four_requirements_per_industry": true,
+    "authoritative_requirements_source": "assets/v652-sector-requirements.js",
+    "buyer_bridge": "assets/v70-buyer-bridge.js",
+    "handoff": "existing V65.3 same-tab, 15-minute, one-use sessionStorage contract",
+    "fallback": "TXT export and manual price selection when temporary storage is unavailable",
+    "automatic_email": false,
+    "backend_order_or_payment": false,
+    "external_paid_api": false,
+    "customer_pii_collected_by_comparison": false
+  },
+  "verification": {
+    "source_regression": "151/151 PASS (local source, includes V61-V70)",
+    "offline_chromium_dom": "246/246 PASS at 1440/768/390px with navigation mocked",
+    "real_cloudflare_navigation": "HOLD_NOT_VERIFIED",
+    "real_customer_email_receipt": "HOLD_NOT_VERIFIED",
+    "contract_is_legally_binding": false
+  },
+  "limitations": "This is an offline tested first-party buyer briefing UI. DOM test stubs location/sessionStorage and does not prove real public browser navigation. Example prices do not automatically include external system integration."
+}
