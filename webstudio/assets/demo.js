@@ -95,8 +95,15 @@
               data79.addEventListener('load',()=>{
                 const sim79=document.createElement('script');sim79.src=new URL('v79-simulator.js',base).href;sim79.async=true;
                 sim79.addEventListener('load',()=>{
-                  const js77=document.createElement('script');js77.src=new URL('v77-feature-showcase.js',base).href;
-                  js77.async=true;js77.dataset.v77Script='true';document.head.append(js77);
+                  const css80=document.createElement('link');css80.rel='stylesheet';css80.href=new URL('v80-simulator.css',base).href;document.head.append(css80);
+                  const data80=document.createElement('script');data80.src=new URL('v80-simulator-data.js',base).href;data80.async=true;
+                  data80.addEventListener('load',()=>{
+                    const sim80=document.createElement('script');sim80.src=new URL('v80-simulator.js',base).href;sim80.async=true;
+                    sim80.addEventListener('load',()=>{
+                      const js77=document.createElement('script');js77.src=new URL('v77-feature-showcase.js',base).href;
+                      js77.async=true;js77.dataset.v77Script='true';document.head.append(js77);
+                    },{once:true});document.head.append(sim80);
+                  },{once:true});document.head.append(data80);
                 },{once:true});document.head.append(sim79);
               },{once:true});document.head.append(data79);
             },{once:true});document.head.append(engine78);
