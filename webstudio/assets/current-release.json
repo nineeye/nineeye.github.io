@@ -290,5 +290,12 @@
   "v73_original_brief_preserved_for_audit": true,
   "v73_auto_mail_submission": false,
   "v73_public_cloudflare_verified": false,
-  "v73_customer_email_receipt_verified": false
+  "v73_customer_email_receipt_verified": false,
+  "v74_public_proof_version": "V74-20261109",
+  "v74_public_audit_no_mail_receipt_claim": true,
+  "v74_public_verify_url": "/site-proof-v74.html",
+  "v74_public_required_demo_count": 36,
+  "v74_public_required_demo_tools": 48,
+  "v74_verified_cloudflare_public": false,
+  "v74_verified_real_customer_mail": false
 }
