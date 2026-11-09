@@ -271,5 +271,11 @@
   "v70_offline_dom_checks": "246/246 PASS (mocked navigation)",
   "v70_real_cloudflare_verified": false,
   "v70_real_customer_email_verified": false,
-  "v70_paid_api_used": false
+  "v70_paid_api_used": false,
+  "v71_contact_full_brief_version": "V71-20261109",
+  "v71_complete_export": true,
+  "v71_mailto_summary_only": true,
+  "v71_automatic_submission": false,
+  "v71_live_email_verified": false,
+  "v71_public_deploy_verified": false
 }

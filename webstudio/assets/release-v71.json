@@ -1,0 +1,21 @@
+{
+  "release": "WEBSTUDIO-V71-20261109",
+  "base_commit": "0d3f318930ac0677040b95848156d8a5ca5b9161",
+  "change": "Preserve V70/V653 long buyer requirements across contact textarea 700-character limit",
+  "actions": [
+    "Complete copy",
+    "Complete UTF-8 BOM TXT export",
+    "Summary-only mailto with explicit manual send and manual attachment"
+  ],
+  "verification": {
+    "source_and_dom": "pending",
+    "real_public_site": "HOLD: Cloudflare domain inaccessible from tool environment",
+    "real_email_receipt": "HOLD: requires owner sending and recipient confirmation"
+  },
+  "guardrails": [
+    "no automatic emailing",
+    "no paid API",
+    "no customer PII in URLs",
+    "do not claim live public acceptance"
+  ]
+}
