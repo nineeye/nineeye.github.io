@@ -7,6 +7,8 @@ from pathlib import Path
 from urllib.parse import urlsplit
 from urllib.request import Request,urlopen
 PRODUCTION_ORIGIN='https://allfileone-webstudio.pages.dev/'
+PAGES_ORIGIN='https://nineeye.github.io/webstudio/'
+ALLOWED_ORIGINS=(PRODUCTION_ORIGIN,PAGES_ORIGIN)
 
 def normalized(path):
     if path.endswith('/index.html'):path=path[:-len('/index.html')]+'/'
@@ -44,6 +46,7 @@ CHECKS=(
         for k in SECTORS for style in STYLES)
 
 def check(getter=None,origin=PRODUCTION_ORIGIN):
+    if origin not in ALLOWED_ORIGINS:raise ValueError('웹스튜디오 자체 운영 주소만 검사합니다.')
     if getter is None:getter=lambda path:actual_get(origin,path)
     records=[]
     for name,path,markers in CHECKS:
@@ -74,7 +77,8 @@ def save(report,dest):
 def main(argv=None):
     p=argparse.ArgumentParser(description='V85 44-file HTTPS read-only check')
     p.add_argument('--output',type=Path,required=True)
-    x=p.parse_args(argv);r=check();j,t=save(r,x.output)
+    p.add_argument('--origin',choices=ALLOWED_ORIGINS,default=PRODUCTION_ORIGIN)
+    x=p.parse_args(argv);r=check(origin=x.origin);j,t=save(r,x.output)
     print(r['status'],r['pass'],'/',r['total'],'result:',t)
     return 0 if r['status']=='PASS_V85_PUBLIC_FILES_ONLY' else 3
 
