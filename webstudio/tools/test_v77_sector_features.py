@@ -15,8 +15,8 @@ class TestSectorFeatures(unittest.TestCase):
     self.assertEqual(len({f['title'] for f in C[k]['features']+v['extra']}),8)
     self.assertTrue(v['referenceUrl'].startswith('https://'))
     self.assertTrue(all(x['title'] and x['desc'] and x['status'] in ('planned','simulated') for x in v['extra']))
-    self.assertEqual(sum(x['status']=='simulated' for x in v['extra']),2)
-    self.assertEqual(sum(x['status']=='planned' for x in v['extra']),2)
+    self.assertEqual(sum(x['status']=='simulated' for x in v['extra']),3)
+    self.assertEqual(sum(x['status']=='planned' for x in v['extra']),1)
  def test_preserve_36_working_demos(self):
   for k in E:
    for style in ['modern','premium','editorial']:
@@ -41,6 +41,6 @@ class TestSectorFeatures(unittest.TestCase):
     p=subprocess.run(['node','--check',str(ROOT/'assets'/name)],capture_output=True,text=True)
     self.assertEqual(p.returncode,0,p.stderr)
  def test_zero_price_claims(self):
-  self.assertIn('별도 구현하는 기능 2개', (ROOT/'industry-features-v77.html').read_text('utf-8'))
+  self.assertIn('별도 구현하는 기능 1개', (ROOT/'industry-features-v77.html').read_text('utf-8'))
   self.assertIn('추가 제작 옵션 (미구현)',(ROOT/'RESEARCH_V77_KO.md').read_text('utf-8')) if False else None
 if __name__=='__main__':unittest.main()
