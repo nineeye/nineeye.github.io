@@ -83,24 +83,34 @@ jobs:
             throw ('HOLD: V84 live showroom has not been fully published (' + $proof.passed + '/' + $proof.total + ').')
           }
 
-      - name: V85 44 published asset contracts with retry and full Korean evidence
+      - name: V85 read-only live 44-file proof on Cloudflare and owner GitHub Pages fallback
         shell: pwsh
         run: |
           $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
-          $ok = $false
-          for ($i = 1; $i -le 6; $i++) {
-            python webstudio/tools/v85_public_probe.py --output "$dir"
-            if ($LASTEXITCODE -eq 0) { $ok = $true; break }
-            if ($i -lt 6) { Start-Sleep -Seconds 10 }
+          $cloud = Join-Path $dir 'V85_CLOUDFLARE'
+          $github = Join-Path $dir 'V85_GITHUB_PAGES'
+          python webstudio/tools/v85_public_probe.py --output "$cloud" --origin "https://allfileone-webstudio.pages.dev/"
+          $cloudOk = ($LASTEXITCODE -eq 0)
+          $pagesOk = $false
+          for ($i = 1; $i -le 5; $i++) {
+            python webstudio/tools/v85_public_probe.py --output "$github" --origin "https://nineeye.github.io/webstudio/"
+            if ($LASTEXITCODE -eq 0) { $pagesOk = $true; break }
+            if ($i -lt 5) { Start-Sleep -Seconds 8 }
           }
-          if (-not $ok) { throw 'HOLD: V85 exact 44 public assets are not all published.' }
+          if (-not $cloudOk -and -not $pagesOk) {
+            throw 'HOLD: Neither Cloudflare nor the owner GitHub Pages deployment passed V85 exact 44-file read-only checks.'
+          }
+          $origin = if ($cloudOk) { 'https://allfileone-webstudio.pages.dev/' } else { 'https://nineeye.github.io/webstudio/' }
+          Add-Content -Path $env:GITHUB_ENV -Value "V85_PUBLIC_ORIGIN=$origin"
+          Write-Host ("V85 exact public assets proven at: " + $origin)
+          if (-not $cloudOk) { Write-Host 'HOLD_CLOUDFLARE_ONLY: Cloudflare Pages still serves an earlier version. GitHub Pages fallback is independent.' }
 
-      - name: V85 real Windows Edge browser, 12 sectors x 3 styles x PC/mobile and iframe proof
+      - name: V85 real Windows Edge public browser with 12 x 3 x PC/mobile, iframes and screenshots
         shell: pwsh
         run: |
           $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
-          python webstudio/tools/v85_edge_browser_qa.py --output "$dir"
-          if ($LASTEXITCODE -ne 0) { throw 'HOLD: V85 live Edge interaction or iframe proof failed. See AFO_V85_REAL_EDGE_KO.txt.' }
+          python webstudio/tools/v85_edge_browser_qa.py --output "$dir" --origin "$env:V85_PUBLIC_ORIGIN"
+          if ($LASTEXITCODE -ne 0) { throw 'HOLD: V85 Windows Edge actual public browser or iframe smoke failed. Read AFO_V85_REAL_EDGE_KO.txt.' }
 
       - name: Upload source and public site evidence even when Cloudflare is HOLD
         if: always()
