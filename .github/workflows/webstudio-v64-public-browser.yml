@@ -114,6 +114,14 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v73_scope_guard.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: V74 verify the public release proof UI and no false-positive customer mail claim
+        shell: pwsh
+        run: |
+          node --check webstudio/assets/v74-public-proof.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s webstudio/tools -p test_v74_public_proof.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Require exact published V66 design and V65.3 buyer assets before live checks
         shell: pwsh
         run: |
@@ -134,7 +142,8 @@ jobs:
               $v71 = $manifest.v71_contact_full_brief_version -eq 'V71-20261109' -and $manifest.v71_complete_export -eq $true -and $manifest.v71_automatic_submission -eq $false
               $v72 = $manifest.v72_complete_packet_version -eq 'V72-20261109' -and $manifest.v72_live_form_changes_included -eq $true -and $manifest.v72_consistent_copy_save -eq $true -and $manifest.v72_no_auto_submission -eq $true
               $v73 = $manifest.v73_scope_guard_version -eq 'V73-20261109' -and $manifest.v73_stale_quote_explicit_reference_only -eq $true -and $manifest.v73_original_brief_preserved_for_audit -eq $true -and $manifest.v73_auto_mail_submission -eq $false
-              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72 -and $v73)) {
+              $v74 = $manifest.v74_public_proof_version -eq 'V74-20261109' -and $manifest.v74_public_audit_no_mail_receipt_claim -eq $true
+              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72 -and $v73 -and $v74)) {
                 Write-Host 'Cloudflare release is still prior to exact V66 design features.'
               } else {
                 $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
@@ -152,6 +161,9 @@ jobs:
                 $v72Script = Invoke-WebRequest -Uri "$origin/assets/v72-complete-contact.js" -TimeoutSec 10 -Headers $headers
                 $v72Styles = Invoke-WebRequest -Uri "$origin/assets/v72-complete-contact.css" -TimeoutSec 10 -Headers $headers
                 $v72Contact = Invoke-WebRequest -Uri "$origin/contact.html" -TimeoutSec 10 -Headers $headers
+                $v74Page = Invoke-WebRequest -Uri "$origin/site-proof-v74.html" -TimeoutSec 10 -Headers $headers
+                $v74Script = Invoke-WebRequest -Uri "$origin/assets/v74-public-proof.js" -TimeoutSec 10 -Headers $headers
+                $v74Release = Invoke-WebRequest -Uri "$origin/assets/release-v74.json" -TimeoutSec 10 -Headers $headers
                 if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
                     $v66Script.StatusCode -eq 200 -and $v66Styles.StatusCode -eq 200 -and $loader.StatusCode -eq 200 -and
                     $demo.Content.Contains('v653-to-plan') -and
@@ -190,8 +202,12 @@ jobs:
                     $v72Styles.Content.Contains('.v72-packet-note') -and
                     $v72Styles.Content.Contains('.v73-stale-import') -and
                     $v72Script.Content.Contains("window.AFO_V73_SCOPE_GUARD='v73.0'") -and
-                    $v72Script.Content.Contains('이전 견적의 가격·선택 기능·계약 조건은 현재 요청에 적용되지 않으며')) {
-                  Write-Host 'EXACT_V73_PUBLIC_MANIFEST_AND_SCOPE_GUARD_VERIFIED'
+                    $v72Script.Content.Contains('이전 견적의 가격·선택 기능·계약 조건은 현재 요청에 적용되지 않으며') -and
+                    $v74Page.StatusCode -eq 200 -and $v74Script.StatusCode -eq 200 -and $v74Release.StatusCode -eq 200 -and
+                    $v74Page.Content.Contains('data-v74-proof="V74-20261109"') -and
+                    $v74Script.Content.Contains("window.AFO_V74_PUBLIC_PROOF='V74-20261109'") -and
+                    $v74Release.Content.Contains('"release": "V74-20261109"')) {
+                  Write-Host 'EXACT_V74_PUBLIC_PROOF_ASSETS_VERIFIED'
                   $ready = $true
                   break
                 }
@@ -202,7 +218,7 @@ jobs:
             }
             Start-Sleep -Seconds 8
           }
-          if (-not $ready) { throw 'HOLD: Exact V73 public contact scope-guard assets not proven; refusing stale-site UI success claims.' }
+          if (-not $ready) { throw 'HOLD: Exact V74 public proof assets not proven; refusing stale-site success claims.' }
 
       - name: Read-only real Edge browser smoke (PC and mobile, six industries)
         shell: pwsh
