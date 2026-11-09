@@ -43,7 +43,8 @@ function renderLive(){
  roots.open.href=demoUrl(style);
  // Do not reload if only change is a selected button for the same URL.
  if(roots.interactive.src!==demoUrl(style))roots.interactive.src=demoUrl(style);
- roots.estimate.href='./index.html?industry='+encodeURIComponent(industry)+'&theme='+encodeURIComponent(style)+'#estimate';
+ roots.estimate.href='#v70-buyer';
+ window.dispatchEvent(new CustomEvent('afo:v70-selection',{detail:{industry,style}}));
  syncURL();
 }
 function renderIndustry(){
