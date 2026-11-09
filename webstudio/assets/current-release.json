@@ -328,5 +328,14 @@
   "v79_planned_unbuilt_feature_count": 24,
   "v79_public_cloudflare_verified": false,
   "v79_real_customer_mail_verified": false,
-  "v79_production_backend_available": false
+  "v79_production_backend_available": false,
+  "v80_simulation_version": "V80-20261109",
+  "v80_sector_count": 12,
+  "v80_total_visible_feature_cards": 96,
+  "v80_total_browser_simulations": 84,
+  "v80_unbuilt_production_options": 12,
+  "v80_actual_backend": false,
+  "v80_cloudflare_public_verified": false,
+  "v80_customer_email_receipt_verified": false,
+  "v80_scope": "12 industries x 7 fictional client-side demos + 1 unbuilt production option"
 }
