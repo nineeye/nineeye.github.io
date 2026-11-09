@@ -72,16 +72,23 @@ def audit(cdp):
              return {selected:document.getElementById('v28-tools')?.dataset.v28Active||'',
              scrolled:Math.abs(document.getElementById('v28-tools')?.getBoundingClientRect().top||5000)<150,
              title:document.querySelector('#v28-panel h3')?.textContent||''}})()""")
+      # The tool tab changes synchronously, but viewport layout may settle
+      # on the next frame even when the browser is asked for instant scrolling.
+      time.sleep(.12)
+      scroll_state=js("""(()=>({top:document.getElementById('v28-tools')?.getBoundingClientRect().top,
+          active:document.getElementById('v28-tools')?.dataset.v28Active||''}))()""") or {}
+      top=scroll_state.get('top')
       mark('real linked V28 sector function 2 '+key,
-           bool(result and result.get('selected')=='1' and result.get('scrolled')),
-           str(result))
+           bool(result and result.get('selected')=='1' and scroll_state.get('active')=='1'
+                and isinstance(top,(int,float)) and abs(top)<160),
+           str({'clicked':result,'settled':scroll_state}))
     except Exception as e:
      mark('V66 public page '+key,False,str(e))
   if width==390:
    # All 36 pages were checked for no mobile overflow.
    pass
  for sector,d in stylesBySector.items():
-  mark('3 different textual brand hero stories '+sector,len(d)==3 and len(set(d.values()))==3,','.join(d.keys()))
+  mark('3 different textual brand hero stories '+sector,len(d)==3 and len(set(d.values()))==3,json.dumps(d,ensure_ascii=False))
  # Screenshot-specific top-header overlap regression at the reported midwidth.
  for style in STYLES:
   try:
