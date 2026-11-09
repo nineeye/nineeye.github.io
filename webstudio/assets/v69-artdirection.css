@@ -1,0 +1,100 @@
+/* ALLFILEONE WEBSTUDIO / V69
+ * Three recognizably different actual V23 rendered design grammars across 12 industries.
+ * No image service, fonts, tracking or runtime dependency. Original fictional scenes retained.
+ */
+body[data-v13-industry]{--v69-ink:#102936;--v69-soft:#e9f2f6}
+body[data-v13-industry] .v69-hero-signature{box-sizing:border-box;position:absolute;z-index:3;pointer-events:none;display:flex;flex-direction:column;gap:4px;line-height:1.35}
+body[data-v13-industry] .v69-signature-id{font:800 10px/1.4 system-ui,sans-serif;letter-spacing:.2em}
+body[data-v13-industry] .v69-signature-name{font:600 20px/1.1 Georgia,serif;letter-spacing:-.02em}
+body[data-v13-industry] .v69-signature-sector{font:700 9px/1.4 system-ui,sans-serif;letter-spacing:.12em}
+body[data-v13-industry] .v69-design-identity{font-size:11px;line-height:1.6;letter-spacing:.01em;margin:18px 0 0;max-width:560px}
+body[data-v13-industry] .v23-hero .v23-hero-shell{position:relative}
+body[data-v13-industry] .v23-hero-cta:focus-visible,
+body[data-v13-industry] .v37-style-links a:focus-visible{outline:3px solid #f1a75a;outline-offset:4px}
+
+/* A — MODERN / Light modular product UI: asymmetric data dashboard. */
+body[data-v13-industry].theme-modern .v23-hero{background:#eef6f9!important;color:#0e313e}
+body[data-v13-industry].theme-modern .v23-hero-shell{display:grid!important;grid-template-columns:minmax(0,44%) minmax(0,56%)!important;min-height:680px!important;max-width:1540px}
+body[data-v13-industry].theme-modern .v23-hero-copy{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;padding:94px clamp(28px,5vw,94px)!important;background:linear-gradient(130deg,#ffffff 0%,#f5fbfd 72%)!important}
+body[data-v13-industry].theme-modern .v23-overline{font-weight:800!important;letter-spacing:.16em;color:#1a6d82}
+body[data-v13-industry].theme-modern .v23-hero h1{font-family:system-ui,'Malgun Gothic',sans-serif!important;font-size:clamp(37px,4.4vw,70px)!important;line-height:1.16!important;letter-spacing:-.07em!important;color:#0f303e!important}
+body[data-v13-industry].theme-modern .v23-hero-copy>p{font-size:15px;max-width:510px;line-height:1.9;color:#526e79!important}
+body[data-v13-industry].theme-modern .v23-hero-cta{border-radius:12px!important;background:#116d7b!important;color:#fff!important;box-shadow:0 14px 28px #174c571b}
+body[data-v13-industry].theme-modern .v23-hero-visual{width:auto!important;height:auto!important;min-height:680px!important;margin:0!important;border:none!important;box-shadow:none!important;background:#153b49!important}
+body[data-v13-industry].theme-modern .v23-hero-visual:after{content:'';pointer-events:none;position:absolute;inset:17px;border:1px solid #e4f4f239;border-radius:10px}
+body[data-v13-industry].theme-modern .v69-hero-signature{right:38px;bottom:38px;align-items:flex-end;padding:14px 18px;border:1px solid #ffffff70;background:#eaf4f8ef;color:#114152;box-shadow:0 12px 26px #051a1c33}
+body[data-v13-industry].theme-modern .v69-design-identity{color:#307081}
+body[data-v13-industry].theme-modern .v23-bottom-rail{background:#dcecf1!important;color:#1d5263!important;border-top:1px solid #b6d1da}
+body[data-v13-industry].theme-modern .statement{background:#f4fafb}
+body[data-v13-industry].theme-modern .statement .trio>div{border-radius:12px;background:#e5f1f4;padding:12px}
+
+/* B — PREMIUM / Immersive single-stage cinematic hero with a restrained gold keyline.
+   Crucially, not another left text / right scene split. */
+body[data-v13-industry].theme-premium .v23-hero{background:#071920!important;color:#fff5e8!important}
+/* Fix the preexisting light-on-light consultation CTA in the premium header. */
+body[data-v13-industry].theme-premium .site-head .head-cta{background:#efe2c8!important;color:#152930!important;border-color:#efe2c8!important;font-weight:850}
+body[data-v13-industry].theme-premium .site-head .head-cta:hover{background:#fff3d9!important;color:#152930!important}
+body[data-v13-industry].theme-premium .v23-hero-shell{display:grid!important;grid-template-columns:minmax(0,1fr)!important;grid-template-rows:minmax(735px,auto)!important;min-height:735px!important;max-width:none!important;isolation:isolate;overflow:hidden}
+body[data-v13-industry].theme-premium .v23-hero-shell:after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,#071920ed 0%,#071920c8 45%,#0719207d 100%),linear-gradient(0deg,#07192080,transparent 45%);z-index:1;pointer-events:none}
+body[data-v13-industry].theme-premium .v23-hero-visual{grid-area:1/1!important;position:absolute!important;inset:0!important;width:100%!important;height:100%!important;min-height:735px!important;margin:0!important;order:0!important;border:0!important;box-shadow:none!important;filter:saturate(.65) contrast(1.12);opacity:.72;transform:scale(1.025)}
+body[data-v13-industry].theme-premium .v23-hero-copy{grid-area:1/1!important;position:relative!important;z-index:2!important;order:0!important;display:flex!important;flex-direction:column;align-items:flex-start!important;justify-content:center;text-align:left!important;width:min(1110px,100%);min-height:735px!important;margin:0 auto!important;padding:150px clamp(24px,7vw,120px) 125px!important;background:transparent!important;box-sizing:border-box}
+body[data-v13-industry].theme-premium .v23-overline{color:#e8c68d!important;font-size:11px;letter-spacing:.26em}
+body[data-v13-industry].theme-premium .v23-hero h1{color:#fff9ee!important;max-width:1030px!important;font:500 clamp(58px,7.5vw,112px)/1.15 Georgia,'Noto Serif KR',serif!important;letter-spacing:-.062em!important;text-align:left!important;margin:30px 0 26px!important;text-shadow:0 3px 35px #0008}
+body[data-v13-industry].theme-premium .v23-hero-copy>p{max-width:600px!important;color:#e0dcd2!important;font-size:16px;line-height:1.95;text-align:left!important;margin:0!important}
+body[data-v13-industry].theme-premium .v23-hero-cta{align-self:flex-start!important;background:#e6c892!important;color:#192c2a!important;border:1px solid #e6c892!important;border-radius:0!important;letter-spacing:.04em;min-height:56px;margin-top:30px}
+body[data-v13-industry].theme-premium .v23-hero-note{color:#b8c4bb!important;opacity:.9}
+body[data-v13-industry].theme-premium .v69-hero-signature{top:44px;right:clamp(30px,5vw,80px);padding-left:15px;border-left:1px solid #e4c18e;color:#ebd6b1;align-items:flex-start}
+body[data-v13-industry].theme-premium .v69-signature-name{font-size:18px}
+body[data-v13-industry].theme-premium .v69-design-identity{color:#e2c992}
+body[data-v13-industry].theme-premium .v23-bottom-rail{background:#071920!important;color:#ceb990!important;border-top:1px solid #a58c6547}
+body[data-v13-industry].theme-premium .v66-sector-first{border-block:1px solid #a28a6255}
+
+/* C — EDITORIAL / asymmetrical printed journal cover, warm paper and article column. */
+body[data-v13-industry].theme-editorial .v23-hero{background:#f0e3d1!important;color:#30251e!important}
+body[data-v13-industry].theme-editorial .v23-hero-shell{display:grid!important;grid-template-columns:minmax(0,60%) minmax(0,40%)!important;min-height:760px!important;max-width:1510px!important;align-items:stretch}
+body[data-v13-industry].theme-editorial .v23-hero-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;text-align:left;position:relative;z-index:1;order:0!important;padding:130px 38px 82px clamp(35px,7vw,120px)!important;background:repeating-linear-gradient(0deg,transparent,transparent 33px,#b8a18813 34px),#f7eee0!important;overflow:hidden}
+body[data-v13-industry].theme-editorial .v23-hero-copy:after{content:'EDITION 03';position:absolute;bottom:22px;left:clamp(35px,7vw,120px);font:700 10px system-ui,sans-serif;letter-spacing:.25em;color:#966750}
+body[data-v13-industry].theme-editorial .v23-overline{letter-spacing:.24em;color:#795038;font:700 11px Georgia,serif}
+body[data-v13-industry].theme-editorial .v23-hero h1{font:500 clamp(53px,6.4vw,106px)/1.09 Georgia,'Noto Serif KR',serif!important;letter-spacing:-.075em!important;color:#382820!important;max-width:920px}
+body[data-v13-industry].theme-editorial .v23-hero-copy>p{max-width:620px;color:#705648!important;font-size:16px;line-height:2}
+body[data-v13-industry].theme-editorial .v23-hero-cta{background:transparent!important;border-radius:0!important;border:0!important;border-bottom:2px solid #a85d3b!important;color:#7f452b!important;padding:16px 0!important;font-weight:800}
+body[data-v13-industry].theme-editorial .v23-hero-visual{width:auto!important;min-height:640px!important;height:auto!important;order:1!important;margin:70px 45px 70px 0!important;box-shadow:19px 21px 0 #986b4b38!important;outline:1px solid #b4957d;outline-offset:0}
+body[data-v13-industry].theme-editorial .v69-hero-signature{top:29px;left:clamp(35px,7vw,120px);color:#8b543a;border-bottom:1px solid #c9a58e;padding-bottom:10px;display:grid;grid-template-columns:auto auto;gap:4px 15px;align-items:end}
+body[data-v13-industry].theme-editorial .v69-signature-name{font-size:22px;grid-column:1/-1;font-style:italic}
+body[data-v13-industry].theme-editorial .v69-signature-sector{align-self:end}
+body[data-v13-industry].theme-editorial .v69-design-identity{color:#906c58}
+body[data-v13-industry].theme-editorial .v23-bottom-rail{background:#ddcdb8!important;color:#573b2d!important;border-top:1px solid #b79a80}
+body[data-v13-industry].theme-editorial .services .service-card{border-top:2px solid #9a6448}
+body[data-v13-industry].theme-editorial .statement .eyebrow{font-family:Georgia,serif;font-style:italic}
+
+/* Viewports / accessibility. Never clip content to force visual differences. */
+@media (max-width:1050px){
+ body[data-v13-industry].theme-modern .v23-hero-shell{grid-template-columns:minmax(0,1fr)!important;min-height:0!important}
+ body[data-v13-industry].theme-modern .v23-hero-copy{padding:90px 7vw 60px!important}
+ body[data-v13-industry].theme-modern .v23-hero-visual{height:385px!important;min-height:385px!important}
+ body[data-v13-industry].theme-premium .v23-hero-shell{grid-template-rows:minmax(650px,auto)!important;min-height:650px!important}
+ body[data-v13-industry].theme-premium .v23-hero-copy{min-height:650px!important;padding:140px 7vw 80px!important}
+ body[data-v13-industry].theme-premium .v23-hero-visual{min-height:650px!important}
+ body[data-v13-industry].theme-editorial .v23-hero-shell{grid-template-columns:minmax(0,1fr)!important;min-height:0!important}
+ body[data-v13-industry].theme-editorial .v23-hero-copy{padding:130px 7vw 55px!important}
+ body[data-v13-industry].theme-editorial .v23-hero-visual{margin:20px 7vw 75px!important;height:330px!important;min-height:330px!important}
+ body[data-v13-industry].theme-editorial .v69-hero-signature{left:7vw}
+}
+@media (max-width:620px){
+ body[data-v13-industry].theme-modern .v23-hero-copy{padding:65px 23px 43px!important}
+ body[data-v13-industry].theme-modern .v23-hero h1{font-size:clamp(34px,8.5vw,48px)!important}
+ body[data-v13-industry].theme-modern .v23-hero-visual{height:290px!important;min-height:290px!important}
+ body[data-v13-industry].theme-modern .v69-hero-signature{right:18px;bottom:18px;padding:10px 12px;max-width:190px}
+ body[data-v13-industry].theme-premium .v23-hero-shell{grid-template-rows:minmax(630px,auto)!important;min-height:630px!important}
+ body[data-v13-industry].theme-premium .v23-hero-copy{min-height:630px!important;padding:132px 23px 65px!important}
+ body[data-v13-industry].theme-premium .v23-hero h1{font-size:clamp(41px,9.4vw,65px)!important}
+ body[data-v13-industry].theme-premium .v23-hero-copy>p{font-size:14px}
+ body[data-v13-industry].theme-premium .v23-hero-visual{min-height:630px!important}
+ body[data-v13-industry].theme-premium .v69-hero-signature{top:24px;right:20px}
+ body[data-v13-industry].theme-editorial .v23-hero-copy{padding:125px 23px 54px!important}
+ body[data-v13-industry].theme-editorial .v23-hero h1{font-size:clamp(44px,10vw,62px)!important}
+ body[data-v13-industry].theme-editorial .v23-hero-visual{margin:15px 22px 65px!important;height:270px!important;min-height:270px!important;box-shadow:11px 12px 0 #986b4b38!important}
+ body[data-v13-industry].theme-editorial .v69-hero-signature{left:23px}
+ body[data-v13-industry] .v69-signature-name{font-size:16px!important}
+}
+@media(prefers-reduced-motion:reduce){body[data-v13-industry] .v23-hero-cta{transition:none!important}}

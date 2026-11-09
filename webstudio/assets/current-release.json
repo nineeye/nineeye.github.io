@@ -251,5 +251,16 @@
   "v68_catalog_source_of_truth": "assets/v28-catalog.js",
   "v68_compare_route": "/design-compare-live.html",
   "v68_real_public_browser_verified": false,
-  "v68_actual_customer_email_verified": false
+  "v68_actual_customer_email_verified": false,
+  "v69_artdirection_version": "V69-20261109",
+  "v69_artdirection_styles": [
+    "modern-system",
+    "premium-cinematic",
+    "editorial-journal"
+  ],
+  "v69_designs_preserved": 36,
+  "v69_sector_functions_preserved": 48,
+  "v69_local_inline_visual_checks": "327/327 PASS",
+  "v69_public_cloudflare_verified": false,
+  "v69_real_customer_email_verified": false
 }
