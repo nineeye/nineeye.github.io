@@ -262,5 +262,14 @@
   "v69_sector_functions_preserved": 48,
   "v69_local_inline_visual_checks": "327/327 PASS",
   "v69_public_cloudflare_verified": false,
-  "v69_real_customer_email_verified": false
+  "v69_real_customer_email_verified": false,
+  "v70_buyer_bridge_version": "V70-20261109",
+  "v70_buyer_industry_count": 12,
+  "v70_requirement_count": 48,
+  "v70_crosspage_contract": "V65.3-one-time-15min",
+  "v70_buyer_pricing_page": "/plan-guide.html",
+  "v70_offline_dom_checks": "246/246 PASS (mocked navigation)",
+  "v70_real_cloudflare_verified": false,
+  "v70_real_customer_email_verified": false,
+  "v70_paid_api_used": false
 }
