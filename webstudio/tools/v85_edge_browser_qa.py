@@ -36,7 +36,7 @@ def run(cdp,out,screenshots=True):
             matching=[res for res in responses if same_public_route(res.get('url',''),BASE+PAGE)]
             status=matching[-1].get('status') if matching else None
             record('실제 공개 HTML HTTP 200 '+str(width),status==200,f'{status}')
-            record('V85 페이지 경로/본문 '+str(width),same_public_route(state['url'],BASE+PAGE) and '웹사이트' in (state['heading'] or ''),str(state))
+            record('V85 페이지 경로/본문 '+str(width),same_public_route(state['url'].split('?',1)[0],BASE+PAGE) and '웹사이트' in (state['heading'] or ''),str(state))
             record('PC/모바일 가로 넘침 없음 '+str(width),state['bodyWidth']<=width+3,str(state['bodyWidth']))
             for k in SECTORS:
                 for st in STYLES:
