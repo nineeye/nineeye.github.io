@@ -44,6 +44,14 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v652_sector_requirements.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: Verify V65.3 buyer price/scope/contract handoff (offline and syntax)
+        shell: pwsh
+        run: |
+          node --check webstudio/assets/v653-sales-bridge.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s webstudio/tools -p test_v653_sales_bridge.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Allow V65 release to propagate without assuming success
         shell: pwsh
         run: |
@@ -77,6 +85,14 @@ jobs:
           $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
           New-Item -ItemType Directory -Path $out -Force | Out-Null
           python webstudio/tools/v652_live_demo_qa.py --output "$out"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Real Edge 12 industries buyer demonstration to price to precontract consultation
+        shell: pwsh
+        run: |
+          $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
+          New-Item -ItemType Directory -Path $out -Force | Out-Null
+          python webstudio/tools/v653_live_sales_qa.py --output "$out"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Package full deployable site source plus QA evidence even on HOLD
