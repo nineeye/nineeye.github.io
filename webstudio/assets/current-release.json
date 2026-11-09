@@ -297,5 +297,10 @@
   "v74_public_required_demo_count": 36,
   "v74_public_required_demo_tools": 48,
   "v74_verified_cloudflare_public": false,
-  "v74_verified_real_customer_mail": false
+  "v74_verified_real_customer_mail": false,
+  "v76_contact_unification_version": "V76-20261109",
+  "v76_legacy_copy_save_print_uses_complete_packet": true,
+  "v76_mail_auto_sent": false,
+  "v76_live_cloudflare_verified": false,
+  "v76_customer_email_receipt_verified": false
 }
