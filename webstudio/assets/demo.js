@@ -85,8 +85,15 @@
         css77.href=new URL('v77-feature-showcase.css',base).href;document.head.append(css77);
         const cat77=document.createElement('script');cat77.src=new URL('v77-feature-data.js',base).href;cat77.async=true;
         cat77.addEventListener('load',()=>{
-          const js77=document.createElement('script');js77.src=new URL('v77-feature-showcase.js',base).href;
-          js77.async=true;js77.dataset.v77Script='true';document.head.append(js77);
+          const css78=document.createElement('link');css78.rel='stylesheet';css78.href=new URL('v78-simulator.css',base).href;document.head.append(css78);
+          const data78=document.createElement('script');data78.src=new URL('v78-simulator-data.js',base).href;data78.async=true;data78.dataset.v78Data='true';
+          data78.addEventListener('load',()=>{
+            const engine78=document.createElement('script');engine78.src=new URL('v78-simulator.js',base).href;engine78.async=true;engine78.dataset.v78Engine='true';
+            engine78.addEventListener('load',()=>{
+              const js77=document.createElement('script');js77.src=new URL('v77-feature-showcase.js',base).href;
+              js77.async=true;js77.dataset.v77Script='true';document.head.append(js77);
+            },{once:true});document.head.append(engine78);
+          },{once:true});document.head.append(data78);
         },{once:true});document.head.append(cat77);
       },{once:true});
       document.head.append(ui28);

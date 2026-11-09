@@ -306,9 +306,19 @@
   "v77_sector_feature_version": "V77-20261109",
   "v77_researched_sectors": 12,
   "v77_visible_features_per_sector": 8,
-  "v77_live_simulated_tool_count": 48,
-  "v77_planned_unbuilt_feature_count": 48,
+  "v77_live_simulated_tool_count": 60,
+  "v77_planned_unbuilt_feature_count": 36,
   "v77_public_cloudflare_verified": false,
   "v77_real_customer_email_verified": false,
-  "v77_status_note": "V77 lists 4 browser-only functional demos plus 4 clearly unbuilt quote options per sector; no new real booking, pay or membership backend."
+  "v77_status_note": "V78 upgraded V77 presentation to 5 browser-only fictional simulations + 3 unbuilt production integrations per sector.",
+  "v78_simulation_version": "V78-20261109",
+  "v78_sector_count": 12,
+  "v78_new_browser_simulations": 12,
+  "v78_total_browser_simulations": 60,
+  "v78_planned_unbuilt_feature_count": 36,
+  "v78_visible_features_per_sector": 8,
+  "v78_public_cloudflare_verified": false,
+  "v78_production_backend_available": false,
+  "v78_customer_email_receipt_verified": false,
+  "v78_status_note": "All V78 demos operate on fictional local fixture data only; no real inventory, medical operations, event, booking, payments, membership or GIS data."
 }
