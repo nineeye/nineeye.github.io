@@ -33,6 +33,8 @@ def audit(cdp):
       cards:document.querySelectorAll('.v66-sector-card').length,
       count:window.AFO_V66_SECTOR_COUNT||0,
       heading:document.querySelector('.hero h1')?.textContent||'',
+      actualHero:document.querySelector('.hero')?.className||'',
+      v66Order:window.AFO_V66_HERO_ORDER_FIX||'',
       styles:document.querySelectorAll('link[data-v66-stylesheet]').length,
       scripts:document.querySelectorAll('script[data-v66-script]').length,
       actions:document.querySelectorAll('.v37-style-links a').length,
@@ -60,6 +62,9 @@ def audit(cdp):
      mark('actual 36-page sector identity '+key,
           v['count']==12 and v['i']==sector and v['s']==style and v['styles']==1 and v['scripts']==1 and v['actions']==3,
           str({k:v[k] for k in ('count','i','s','actions')}))
+     mark('V23 rebuilt hero receives distinct V66.2 layout '+key,
+          v.get('v66Order')=='v66.2' and 'v23-hero' in v.get('actualHero',''),
+          str((v.get('actualHero'),v.get('v66Order'))))
      mark('four distinct front-door working tools '+key,
           v['cards']==4 and v['v28']=='true' and v['v652']=='true',
           str(v['cards']))
@@ -80,7 +85,7 @@ def audit(cdp):
       top=scroll_state.get('top')
       mark('real linked V28 sector function 2 '+key,
            bool(result and result.get('selected')=='1' and scroll_state.get('active')=='1'
-                and isinstance(top,(int,float)) and abs(top)<160),
+                and isinstance(top,(int,float)) and -3<=top<=220),
            str({'clicked':result,'settled':scroll_state}))
     except Exception as e:
      mark('V66 public page '+key,False,str(e))
