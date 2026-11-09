@@ -30,7 +30,15 @@ EXACT_ASSETS=[
 ]
 
 def norm_route(path):
-    if path.endswith('.html'): path=path[:-5]
+    """Treat only Cloudflare's same-directory /index.html -> / rewrite as canonical.
+
+    Other file/path redirects still HOLD. actual_get separately rejects cross-origin
+    changes, and read_record must validate exact body markers after any rewrite.
+    """
+    if path.endswith('/index.html'):
+        path=path[:-len('/index.html')]+'/'
+    elif path.endswith('.html'):
+        path=path[:-5]
     path=path.rstrip('/')
     return '/' if path in ('', '/index') else path
 
