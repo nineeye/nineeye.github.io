@@ -146,7 +146,7 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v77_sector_features.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: V78 12 new fictional, interactive tools: source contract
+      - name: "V78 12 new fictional, interactive tools: source contract"
         shell: pwsh
         run: |
           node --check webstudio/assets/v78-simulator-data.js
@@ -154,6 +154,18 @@ jobs:
           node --check webstudio/assets/v78-simulator.js
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python -m unittest discover -s webstudio/tools -p test_v78_simulation_contract.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: V79 confirm 12 second extra fictional prototypes and preserve 36 existing designs
+        shell: pwsh
+        run: |
+          node --check webstudio/assets/v79-simulator-data.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v79-simulator.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v79-lab.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s webstudio/tools -p test_v79_feature_contract.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Require exact published V66 design and V65.3 buyer assets before live checks
@@ -180,7 +192,8 @@ jobs:
               $v76 = $manifest.v76_contact_unification_version -eq 'V76-20261109' -and $manifest.v76_legacy_copy_save_print_uses_complete_packet -eq $true -and $manifest.v76_mail_auto_sent -eq $false
               $v77 = $manifest.v77_sector_feature_version -eq 'V77-20261109' -and $manifest.v77_visible_features_per_sector -eq 8 -and $manifest.v77_live_simulated_tool_count -eq 60 -and $manifest.v77_planned_unbuilt_feature_count -eq 36
               $v78 = $manifest.v78_simulation_version -eq 'V78-20261109' -and $manifest.v78_sector_count -eq 12 -and $manifest.v78_new_browser_simulations -eq 12 -and $manifest.v78_total_browser_simulations -eq 60 -and $manifest.v78_planned_unbuilt_feature_count -eq 36 -and $manifest.v78_production_backend_available -eq $false
-              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72 -and $v73 -and $v74 -and $v76 -and $v77 -and $v78)) {
+              $v79 = $manifest.v79_simulation_version -eq 'V79-20261109' -and $manifest.v79_sector_count -eq 12 -and $manifest.v79_new_browser_simulations -eq 12 -and $manifest.v79_total_browser_simulations -eq 72 -and $manifest.v79_planned_unbuilt_feature_count -eq 24 -and $manifest.v79_production_backend_available -eq $false
+              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72 -and $v73 -and $v74 -and $v76 -and $v77 -and $v78 -and $v79)) {
                 Write-Host 'Cloudflare release is still prior to exact V66 design features.'
               } else {
                 $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
@@ -211,6 +224,10 @@ jobs:
                 $v78Data = Invoke-WebRequest -Uri "$origin/assets/v78-simulator-data.js" -TimeoutSec 10 -Headers $headers
                 $v78Lab = Invoke-WebRequest -Uri "$origin/feature-lab-v78.html" -TimeoutSec 10 -Headers $headers
                 $v78Release = Invoke-WebRequest -Uri "$origin/assets/release-v78.json" -TimeoutSec 10 -Headers $headers
+                $v79Engine = Invoke-WebRequest -Uri "$origin/assets/v79-simulator.js" -TimeoutSec 10 -Headers $headers
+                $v79Data = Invoke-WebRequest -Uri "$origin/assets/v79-simulator-data.js" -TimeoutSec 10 -Headers $headers
+                $v79Lab = Invoke-WebRequest -Uri "$origin/feature-lab-v79.html" -TimeoutSec 10 -Headers $headers
+                $v79Release = Invoke-WebRequest -Uri "$origin/assets/release-v79.json" -TimeoutSec 10 -Headers $headers
                 if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
                     $v66Script.StatusCode -eq 200 -and $v66Styles.StatusCode -eq 200 -and $loader.StatusCode -eq 200 -and
                     $demo.Content.Contains('v653-to-plan') -and
@@ -271,10 +288,19 @@ jobs:
                     $v78Lab.Content.Contains('id="v78-standalone"') -and
                     $v78Release.Content.Contains('V78-20261109') -and
                     $loader.Content.Contains('v78-simulator.js') -and
-                    $v77Hub.Content.Contains('assets/v78-simulator.js')) {
+                    $v77Hub.Content.Contains('assets/v78-simulator.js') -and
+                    $v79Engine.StatusCode -eq 200 -and $v79Data.StatusCode -eq 200 -and
+                    $v79Lab.StatusCode -eq 200 -and $v79Release.StatusCode -eq 200 -and
+                    $v79Engine.Content.Contains("version:'V79-20261109'") -and
+                    $v79Data.Content.Contains('window.AFO_V79_FIXTURES') -and
+                    $v79Lab.Content.Contains('id="v79-standalone"') -and
+                    $v79Release.Content.Contains('WEBSTUDIO-V79-20261109') -and
+                    $loader.Content.Contains('v79-simulator.js') -and
+                    $v77Hub.Content.Contains('assets/v79-simulator.js')) {
                   Write-Host 'EXACT_V74_PUBLIC_PROOF_ASSETS_VERIFIED'
                   Write-Host 'EXACT_V77_8_FEATURES_PER_INDUSTRY_VERIFIED'
                   Write-Host 'EXACT_V78_12_NEW_BROWSER_SIMULATIONS_VERIFIED'
+                  Write-Host 'EXACT_V79_12_SECOND_ADDON_SIMULATIONS_VERIFIED'
                   $ready = $true
                   break
                 }
