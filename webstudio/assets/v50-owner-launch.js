@@ -9,7 +9,7 @@
   const origin = new URL('./', document.baseURI);
   const industries = ['manufacturing','academy','interior'];
   const RULES = [
-    ['release','릴리스 식별','assets/current-release.json',t=>{const j=JSON.parse(t);return j.product==='AllFileOne WebStudio'&&j.version==='V65'&&j.release_id==='WEBSTUDIO-V65-20261108'&&j.v65_contact_six_handoff_fix===true&&j.v64_browser_public_target===true&&j.v63_browser_public_target===true&&j.v62_webmail_copy_actions===3&&j.inquiry_flagship_sectors===6&&j.scope_planner_industries===6&&j.launch_kit_industries===6&&j.sales_industry_pages===6&&j.quick_inquiry_industries===6&&j.quick_to_detailed_industries===6;}],
+    ['release','릴리스 식별','assets/current-release.json',t=>{const j=JSON.parse(t);return j.product==='AllFileOne WebStudio'&&j.version==='V82'&&j.release_id==='WEBSTUDIO-V82-20261109'&&j.v65_contact_six_handoff_fix===true&&j.v64_browser_public_target===true&&j.v63_browser_public_target===true&&j.v62_webmail_copy_actions===3&&j.inquiry_flagship_sectors===6&&j.scope_planner_industries===6&&j.launch_kit_industries===6&&j.sales_industry_pages===6&&j.quick_inquiry_industries===6&&j.quick_to_detailed_industries===6;}],
     ['home','메인 6업종 이동','index.html',t=>[...industries,'restaurant','beauty','logistics'].every(x=>t.includes('for-'+x+'.html'))],
     ...industries.map(x=>[x,x==='manufacturing'?'제조·도매 판매':x==='academy'?'학원·교육 판매':'인테리어·시공 판매','for-'+x+'.html',t=>t.includes('launch-kit.html')&&t.includes('quick-inquiry.html')&&t.includes('rel="canonical"')]),
     ['quick','1분 문의 화면','quick-inquiry.html',t=>t.includes('id="v49-form"')&&t.includes('v49-quick-inquiry.js')&&t.includes('v49-mailto')],
@@ -79,7 +79,7 @@
     ['edge-tool','Windows Edge 실제 화면 QA 도구','tools/v63_edge_live_qa.py',t=>t.includes("Network.responseReceived")&&t.includes("PASS_PUBLIC_BROWSER_SMOKE_ONLY")&&t.includes("HOLD_BROWSER_OR_NETWORK")&&t.includes("V63_LIVE_BROWSER_EVIDENCE_LATEST.zip")],
     ['edge-run','Windows 사용자 실행 진입점','RUN_V63_EDGE_LIVE_QA.cmd',t=>t.includes('py -3.14')&&t.includes('V63_LIVE_BROWSER_RESULT_KO.txt')&&t.includes('notepad.exe')],
     ['edge-tests','격리 CDP/오류 반례 테스트','tools/test_v63_edge_protocol.py',t=>t.includes('unittest.TestCase')&&t.includes('test_report_hold_on_failure')&&t.includes('test_chromium_screen_capture')],
-    ['edge-version','V64 공개 홈페이지 식별','index.html',t=>t.includes('WEBSTUDIO-V65-20261108')&&t.includes('홈페이지 HTML 버전 V65')]
+    ['edge-version','V64 공개 홈페이지 식별','index.html',t=>t.includes('WEBSTUDIO-V65-20261108')&&t.includes('홈페이지 HTML 버전 V82')]
   );
   // V64: publicly hosted no-charge Windows CI artifacts are distinct from owner local tests.
   RULES.push(
