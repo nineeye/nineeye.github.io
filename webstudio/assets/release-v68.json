@@ -1,0 +1,23 @@
+{
+  "release": "WEBSTUDIO-V68-20261109",
+  "base": "V67.1 / 5b8ffcf896e541ae3bd35bb17d7bbe8ef0230b7e",
+  "change": "V67 three-design comparison now uses exact V28 catalog titles, kinds and descriptions",
+  "scope": {
+    "industries": 12,
+    "styles": 3,
+    "preexisting_demo_pages": 36,
+    "actual_function_labels": 48,
+    "unique_feature_kinds_at_least": 8
+  },
+  "qa": {
+    "source_unittest": "4/4 local (extended) PASS",
+    "dom_only": "96/96 PASS",
+    "live_public": "HOLD: sandbox cannot navigate to Cloudflare",
+    "real_email": "NOT_VERIFIED"
+  },
+  "costs": {
+    "paid_apis": 0,
+    "new_backend": false
+  },
+  "compliance": "All demo data fictional; not production reservation/payment/medical advice"
+}
