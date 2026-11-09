@@ -1,0 +1,21 @@
+{
+  "release": "V75-OWNER-PUBLIC-QA-20261109",
+  "type": "LOCAL_WINDOWS_PUBLIC_ACCEPTANCE_TOOL_ONLY",
+  "public_site_base": "V74-20261109",
+  "owner_download": "RUN_V75_PUBLIC_QA_WINDOWS.cmd",
+  "components": [
+    "52 exact public HTTPS content checks",
+    "Windows Edge/CDP 4 existing browser suites",
+    "Windows Downloads SHA-256/ZIP/Korean log"
+  ],
+  "qa": {
+    "source_unittest": "207/207 PASS",
+    "v74_offline_browser": "52/52 desktop and 52/52 mobile PASS",
+    "real_cloudflare": "HOLD: execution environment DNS blocked",
+    "real_customer_email_receipt": "NOT_VERIFIED",
+    "windows_customer_machine": "NOT_YET_TESTED"
+  },
+  "network": "same-origin public GET only; no POST, no API, no customer personal data",
+  "cost": "zero extra paid API; no new GitHub Actions workflow",
+  "notes": "A V75 source merge is not public V75 site deployment confirmation. PASS excludes actual customer mail delivery."
+}
