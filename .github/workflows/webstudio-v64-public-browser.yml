@@ -70,6 +70,16 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v68_catalog_contract.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: Verify V69 three truly distinct actual hero grammars (source only)
+        shell: pwsh
+        run: |
+          node --check webstudio/assets/v69-artdirection.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/demo.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s webstudio/tools -p test_v69_design_system.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Require exact published V66 design and V65.3 buyer assets before live checks
         shell: pwsh
         run: |
@@ -85,7 +95,8 @@ jobs:
               $v653 = $manifest.v653_patch_date -eq '2026-11-09' -and $manifest.v653_buyers_demo_to_pricing_to_consult -eq $true
               $v66 = $manifest.v66_design_version -eq '2026-11-09-V66' -and $manifest.v66_demo_pages -eq 36
               $v68 = $manifest.v68_catalog_alignment_version -eq 'V68-20261109' -and $manifest.v68_exact_working_tools -eq 48
-              if (-not ($v65 -and $v653 -and $v66 -and $v68)) {
+              $v69 = $manifest.v69_artdirection_version -eq 'V69-20261109' -and $manifest.v69_designs_preserved -eq 36
+              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69)) {
                 Write-Host 'Cloudflare release is still prior to exact V66 design features.'
               } else {
                 $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
@@ -95,6 +106,8 @@ jobs:
                 $loader = Invoke-WebRequest -Uri "$origin/assets/demo.js" -TimeoutSec 10 -Headers $headers
                 $compare = Invoke-WebRequest -Uri "$origin/design-compare-live.html" -TimeoutSec 10 -Headers $headers
                 $v68Script = Invoke-WebRequest -Uri "$origin/assets/v67-compare.js" -TimeoutSec 10 -Headers $headers
+                $v69Script = Invoke-WebRequest -Uri "$origin/assets/v69-artdirection.js" -TimeoutSec 10 -Headers $headers
+                $v69Styles = Invoke-WebRequest -Uri "$origin/assets/v69-artdirection.css" -TimeoutSec 10 -Headers $headers
                 if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
                     $v66Script.StatusCode -eq 200 -and $v66Styles.StatusCode -eq 200 -and $loader.StatusCode -eq 200 -and
                     $demo.Content.Contains('v653-to-plan') -and
@@ -108,8 +121,13 @@ jobs:
                     $loader.Content.Contains('v66-sector-artdirection.js') -and
                     $compare.StatusCode -eq 200 -and $v68Script.StatusCode -eq 200 -and
                     $compare.Content.Contains('assets/v28-catalog.js') -and
-                    $v68Script.Content.Contains('actualFeatures(industry)')) {
-                  Write-Host 'EXACT_V66_PUBLIC_MANIFEST_THREE_JS_AND_CSS_VERIFIED'
+                    $v68Script.Content.Contains('actualFeatures(industry)') -and
+                    $v69Script.StatusCode -eq 200 -and $v69Styles.StatusCode -eq 200 -and
+                    $v69Script.Content.Contains("window.AFO_V69_DESIGN_EDITION='v69.0'") -and
+                    $v69Styles.Content.Contains('.theme-premium .v23-hero-visual') -and
+                    $v69Styles.Content.Contains('.theme-editorial .v23-hero-shell') -and
+                    $loader.Content.Contains('v69-artdirection.js')) {
+                  Write-Host 'EXACT_V69_PUBLIC_MANIFEST_AND_DESIGN_ASSETS_VERIFIED'
                   $ready = $true
                   break
                 }
@@ -120,7 +138,7 @@ jobs:
             }
             Start-Sleep -Seconds 8
           }
-          if (-not $ready) { throw 'HOLD: Exact V66 public visual and functional assets not proven; refusing stale-site UI success claims.' }
+          if (-not $ready) { throw 'HOLD: Exact V69 public visual and functional assets not proven; refusing stale-site UI success claims.' }
 
       - name: Read-only real Edge browser smoke (PC and mobile, six industries)
         shell: pwsh
