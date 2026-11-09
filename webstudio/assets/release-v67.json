@@ -1,0 +1,28 @@
+{
+  "release": "WEBSTUDIO-V67-20261109",
+  "base": "V66.2 / 2c89db45571b1cf5485ecab7c88c1f0635a12f37",
+  "functions": {
+    "industry_count": 12,
+    "designs_per_industry": 3,
+    "existing_demo_pages": 36,
+    "prior_demo_workflows": 48,
+    "first_party_three_design_compare": true,
+    "selection_scope_txt_download": true
+  },
+  "routes": [
+    "/design-compare-live.html",
+    "/demo/{industry}/{style}/index.html"
+  ],
+  "qa": {
+    "source_checks": "28/28 PASS (local source)",
+    "visual_browser": "HOLD: browser navigation administratively blocked",
+    "public_deploy": "NOT_VERIFIED",
+    "real_email": "NOT_VERIFIED"
+  },
+  "security": {
+    "frame": "self only",
+    "external_paid_api": false,
+    "real_customer_transactions": false
+  },
+  "note": "Local actual browser navigation blocked; never claim visual live public QA passed."
+}
