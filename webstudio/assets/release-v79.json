@@ -1,0 +1,16 @@
+{
+  "release": "WEBSTUDIO-V79-20261109",
+  "base_v78_commit": "82bd10e4c8df0a89590e4d1d948c227970f9c287",
+  "visible_industries": 12,
+  "styles": 3,
+  "original_v28_demos": 48,
+  "v78_addon_demos": 12,
+  "v79_addon_demos": 12,
+  "total_functional_fictional_browser_demos": 72,
+  "unbuilt_production_options": 24,
+  "paid_api_spend": 0,
+  "production_backend_available": false,
+  "real_world_reservation_payment_email": "NOT_IMPLEMENTED",
+  "cloudflare_public": "NOT_VERIFIED",
+  "qa_status": "231 source regression PASS; 1049 isolated Chromium DOM PASS; 82 HTML 1096 links PASS; actual Cloudflare HOLD"
+}
