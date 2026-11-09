@@ -1,0 +1,26 @@
+{
+  "release": "WEBSTUDIO-V69-20261109",
+  "base_main_sha": "287119db34e397e31487991597e5398667f0aab9",
+  "goal": "Three genuinely distinct art-directed designs for 12 industries; preserve live local functional demo tools and consultation flow",
+  "changes": {
+    "modern": "Asymmetric light enterprise data dashboard with clean split hero",
+    "premium": "Immersive full-bleed cinematic brand hero with gold call to action, fixed header contrast",
+    "editorial": "Warm magazine-paper layout with oversized type, asymmetrical page rhythm, typographic folio",
+    "shared_assets": [
+      "assets/v69-artdirection.css",
+      "assets/v69-artdirection.js"
+    ],
+    "existing_demo_html_count": 36,
+    "existing_demo_function_count": 48,
+    "extra_paid_api": false,
+    "customer_data_transmission": false
+  },
+  "qa": {
+    "source_tests": "5/5 PASS",
+    "inline_chromium_dom_visual": "327/327 PASS (12 sectors x 3 designs x 3 viewports + 3 special layout signatures)",
+    "public_cloudflare": "HOLD_UNVERIFIED (restricted environment)",
+    "real_email_receipt": "HOLD_UNVERIFIED",
+    "actual_network_iframe_render": "HOLD_UNVERIFIED"
+  },
+  "limitations": "Screenshots are from self-contained about:blank inline assets, not the published Cloudflare site."
+}
