@@ -42,3 +42,15 @@
 @media(max-width:560px){.v653-buyer{padding:48px 14px}.v653-shell{width:100%}.v653-compare{padding:19px 17px}.v653-checklist{padding:17px}.v653-results{padding:19px 16px}.v653-output{padding:15px;font-size:12px;max-height:300px}.v653-actions{flex-direction:column}.v653-actions button{width:100%}.v653-buyer h2{font-size:32px}.v653-buyer .v653-lead{font-size:13px}}
 @media(prefers-reduced-motion:reduce){.v653-buyer *{scroll-behavior:auto!important}}
 @media print{.v653-buyer{padding:10px;background:white;color:#111}.v653-results{background:white;color:#111;border:1px solid #aaa}.v653-output{max-height:none}.v653-actions{display:none}.v653-items{grid-template-columns:1fr 1fr}}
+
+/* V71: high-visibility, complete customer brief export, no hidden submission. */
+.v71-full-actions{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 8px}
+.v71-full-actions button{flex:1 1 190px;min-width:0}
+.v71-mailto{display:flex;align-items:center;justify-content:center;flex:1 1 210px;
+ min-height:50px;padding:14px 16px;background:#fff;color:#174630;
+ border:2px solid #245b3b;border-radius:3px;font:850 13px/1.4 system-ui,'Malgun Gothic',sans-serif;text-decoration:none}
+.v71-mailto:hover{background:#f4fff7}
+.v653-import .v653-warning{padding:12px 15px;border:1px solid #bf8745;
+ background:#fff7e8;color:#784716!important;font-size:13px;line-height:1.7}
+@media(max-width:560px){.v71-full-actions{flex-direction:column}.v71-full-actions button,.v71-mailto{flex:auto;width:100%}}
+@media print{.v71-full-actions{display:none}}
