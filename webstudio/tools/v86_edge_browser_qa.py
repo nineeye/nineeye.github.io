@@ -10,6 +10,8 @@ from v86_public_probe import SECTORS
 
 
 def test(cdp,out,origin,screenshot=True):
+ out=Path(out)
+ out.mkdir(parents=True,exist_ok=True)  # Screenshot capture occurs before report writing.
  checks=[];screens=[]
  def save(name,passed,details=''):
   checks.append({'name':name,'pass':bool(passed),'detail':str(details)[:240]})
