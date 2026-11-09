@@ -1,0 +1,40 @@
+/* WebStudio V70: real buyer handoff. All texts and choices are first-party and local. */
+.v70-buyer{margin:54px 0 0;padding:clamp(24px,3.7vw,56px);background:#edf3ef;border:1px solid #c1d6c9;border-top:6px solid #276d5b;color:#183d35}
+.v70-buyer *{box-sizing:border-box}
+.v70-step{display:inline-flex;gap:9px;align-items:center;font:850 11px/1.5 system-ui,sans-serif;letter-spacing:.14em;color:#306a5d}
+.v70-heading{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(220px,.6fr);gap:24px;align-items:start;margin-bottom:30px}
+.v70-buyer h2{font-size:clamp(28px,3vw,44px);line-height:1.16;letter-spacing:-.07em;margin:12px 0 18px;word-break:keep-all}
+.v70-buyer .v70-lead{font-size:14px;line-height:1.85;margin:0;color:#4b6961;max-width:700px;word-break:keep-all}
+.v70-selected{display:flex;flex-direction:column;align-items:start;gap:8px;border-left:1px solid #b9d1c5;padding-left:24px}
+.v70-selected span{font-size:11px;font-weight:850;letter-spacing:.12em;color:#53776a}
+.v70-selected strong{font-size:20px;letter-spacing:-.045em;line-height:1.45}
+.v70-selected small{color:#527469;font-size:12px}
+.v70-buyer fieldset{min-width:0;border:0;padding:0;margin:0}
+.v70-buyer legend{font-weight:850;font-size:19px;margin:0 0 16px;letter-spacing:-.04em}
+.v70-buyer legend small{font-weight:450;font-size:12px;color:#52766b;margin-left:8px}
+.v70-requirements{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.v70-option{display:flex;gap:13px;align-items:flex-start;background:#fff;border:1px solid #ceddd4;padding:20px;min-width:0;cursor:pointer}
+.v70-option:has(input:checked){border-color:#25765e;box-shadow:inset 0 0 0 1px #25765e;background:#f9fffb}
+.v70-option input{flex:none;accent-color:#1e775d;width:20px;height:20px;margin:3px 0 0}
+.v70-option .v70-option-copy{min-width:0;display:grid;gap:8px}
+.v70-option strong{font-size:15px;line-height:1.5;letter-spacing:-.04em;word-break:keep-all}
+.v70-option small{font-size:12px;line-height:1.7;color:#5c726a;word-break:keep-all}
+.v70-option em{font-size:10px;font-style:normal;font-weight:850;letter-spacing:.04em;color:#377b64}
+.v70-option.is-integration em{color:#855a34}
+.v70-meta{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:30px 0}
+.v70-field{display:grid;gap:9px;font-size:12px;font-weight:850;color:#315c4e}
+.v70-field select{width:100%;background:#fff;color:#173b31;border:1px solid #aec5b8;border-radius:2px;padding:16px;font-size:14px;font-weight:700}
+.v70-preview{background:#143b38;color:#fff;padding:23px 26px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center}
+.v70-preview h3{font-size:12px;letter-spacing:.1em;color:#bcded1;margin:0 0 10px}
+.v70-preview p{white-space:pre-line;font-size:14px;line-height:1.75;color:#e2f0e9;margin:0}
+.v70-preview .v70-count{font-size:30px;font-weight:850;white-space:nowrap}
+.v70-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:24px}
+.v70-actions button,.v70-actions a{display:inline-flex;justify-content:center;align-items:center;min-height:51px;padding:13px 18px;border:1px solid #275b4c;font-size:13px;font-weight:850;text-decoration:none;cursor:pointer}
+.v70-actions .v70-primary{background:#1d5d4b;color:#fff;flex:1 1 260px}
+.v70-actions .v70-secondary{background:transparent;color:#215d4b}
+.v70-actions button:disabled{opacity:.5;cursor:not-allowed}
+.v70-feedback{min-height:22px;font-size:13px;color:#376550;margin:12px 0 0;line-height:1.7;font-weight:700}
+.v70-disclosure{border-top:1px solid #bfd3c6;padding-top:15px;margin:20px 0 0;color:#5b736a;font-size:12px;line-height:1.8}
+.v70-buyer :is(button,a,select,input):focus-visible{outline:3px solid #ba6935;outline-offset:3px}
+@media(max-width:800px){.v70-heading{grid-template-columns:1fr}.v70-selected{border-left:0;border-top:1px solid #b9d1c5;padding:15px 0 0}.v70-requirements{grid-template-columns:1fr}.v70-preview{grid-template-columns:1fr}.v70-meta{grid-template-columns:1fr}}
+@media(max-width:490px){.v70-buyer{padding:21px 17px}.v70-option{padding:15px}.v70-actions button,.v70-actions a{width:100%}}
