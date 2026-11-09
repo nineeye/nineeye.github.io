@@ -30,8 +30,9 @@ EXACT_ASSETS=[
 ]
 
 def norm_route(path):
-    if path.endswith('.html'): return path[:-5]
-    return path.rstrip('/')
+    if path.endswith('.html'): path=path[:-5]
+    path=path.rstrip('/')
+    return '/' if path in ('', '/index') else path
 
 def target_url(origin,path):return origin+path
 
