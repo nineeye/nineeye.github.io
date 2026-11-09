@@ -76,6 +76,8 @@ def audit(cdp):
                     const preview=document.getElementById('v652-preview')?.textContent||'';
                     x.click();
                     return {present:true,source:preview}})()""") or {}
+                if not first.get('present'):
+                    raise RuntimeError('V65.3 sales comparison CTA absent from PUBLIC site; exact release may be stale')
                 # A normal click triggers same-tab navigation after sessionStorage handoff.
                 plan=wait(lambda x:path_ok(x.get('url',''),'plan-guide') and x.get('ready')=='complete' and x.get('flag')=='true')
                 record('예제 기능 → 제작 상품 비교 이동 '+label,
