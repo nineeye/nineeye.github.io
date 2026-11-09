@@ -142,3 +142,17 @@
  js.src=new URL('v66-sector-artdirection.js',base).href;
  js.async=true;js.dataset.v66Script='true';document.head.append(js);
 })();
+
+
+/* WebStudio V69: 3 art-directed layout grammars in actual dynamically rendered V23 heroes.
+   Additive: V23/V28/V66 remain unchanged. No user data / paid API / remote model. */
+(() => {
+ const me=document.currentScript||document.querySelector('script[src$="/assets/demo.js"]');
+ if(!me?.src||document.querySelector('script[data-v69-script]'))return;
+ const base=new URL('.',me.src);
+ const css=document.createElement('link');css.rel='stylesheet';
+ css.href=new URL('v69-artdirection.css',base).href;
+ css.dataset.v69Stylesheet='true';document.head.append(css);
+ const js=document.createElement('script');js.src=new URL('v69-artdirection.js',base).href;
+ js.async=true;js.dataset.v69Script='true';document.head.append(js);
+})();
