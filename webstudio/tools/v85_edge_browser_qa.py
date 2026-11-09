@@ -10,6 +10,7 @@ import argparse,base64,datetime,hashlib,json,sys,tempfile,subprocess,time,zipfil
 from pathlib import Path
 from v65_edge_live_qa import CDP,BrowserError,find_browser,launch_cdp,same_public_route
 BASE='https://allfileone-webstudio.pages.dev/'
+ALLOWED_ORIGINS=('https://allfileone-webstudio.pages.dev/','https://nineeye.github.io/webstudio/')
 PAGE='experience-v85.html'
 SECTORS=('manufacturing','corporate','clinic','academy','interior','commerce',
          'professional','association','franchise','stay','realestate','event')
@@ -109,7 +110,10 @@ def main(argv=None):
     parser.add_argument('--output',required=True,type=Path)
     parser.add_argument('--browser',default='')
     parser.add_argument('--no-screenshots',action='store_true')
+    parser.add_argument('--origin',choices=ALLOWED_ORIGINS,default=ALLOWED_ORIGINS[0])
     args=parser.parse_args(argv)
+    global BASE
+    BASE=args.origin
     rows=[];screens=[]
     try:
         browser=find_browser(args.browser)
