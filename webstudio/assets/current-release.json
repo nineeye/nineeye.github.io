@@ -320,5 +320,13 @@
   "v78_public_cloudflare_verified": false,
   "v78_production_backend_available": false,
   "v78_customer_email_receipt_verified": false,
-  "v78_status_note": "All V78 demos operate on fictional local fixture data only; no real inventory, medical operations, event, booking, payments, membership or GIS data."
+  "v78_status_note": "All V78 demos operate on fictional local fixture data only; no real inventory, medical operations, event, booking, payments, membership or GIS data.",
+  "v79_simulation_version": "V79-20261109",
+  "v79_sector_count": 12,
+  "v79_new_browser_simulations": 12,
+  "v79_total_browser_simulations": 72,
+  "v79_planned_unbuilt_feature_count": 24,
+  "v79_public_cloudflare_verified": false,
+  "v79_real_customer_mail_verified": false,
+  "v79_production_backend_available": false
 }
