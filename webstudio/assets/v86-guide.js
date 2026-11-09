@@ -18,6 +18,7 @@
   const args=new URLSearchParams({industry,style});
   byid('v86-view-site').href='../experience-v85.html?'+args;
   byid('v86-to-scope').href='../feature-scope-v81.html?'+args;
+  const v87=byid('v87-start');if(v87)v87.href='../start-project-v87.html?'+args;
   const checked=choices.filter(x=>x.checked).length;
   byid('v86-readiness-status').textContent='제작 준비 '+checked+'/'+choices.length+'개 확인 · 브라우저에서만 반영';
   if(['http:','https:'].includes(location.protocol)){const next=new URL(location.href);next.searchParams.set('style',style);history.replaceState(null,'',next.href);}
