@@ -1,0 +1,22 @@
+{
+  "release": "V74-20261109",
+  "product": "AllFileOne WebStudio",
+  "base_main_version": "V73",
+  "public_proof": true,
+  "default_site": "https://allfileone-webstudio.pages.dev",
+  "scope": {
+    "industry_count": 12,
+    "design_count": 36,
+    "demo_tools": 48,
+    "screens": "PC/mobile",
+    "focus": "public delivery evidence, not more features"
+  },
+  "qa": {
+    "local_live_http_browser": "PENDING",
+    "cloudflare_public": "HOLD — browser/tool network blocked",
+    "mail_receipt_verified": false
+  },
+  "mail_receipt_verified": false,
+  "zero_paid_api": true,
+  "note": "Same-origin HTTP file and marker checks cannot attest actual mail delivery or payments."
+}
