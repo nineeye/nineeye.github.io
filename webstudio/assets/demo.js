@@ -127,3 +127,18 @@
  script.src=new URL('v652-sector-requirements.js',base).href;
  script.async=true;script.dataset.v652Script='true';document.head.append(script);
 })();
+
+
+/* WebStudio V66: deliberate alternative design systems and immediate sector-specific
+   core-feature entry. Keep all existing V28/V65.2 workflows and consultation. */
+(() => {
+ const me=document.currentScript||document.querySelector('script[src$="/assets/demo.js"]');
+ if(!me?.src||document.querySelector('[data-v66-script]'))return;
+ const base=new URL('.',me.src);
+ const css=document.createElement('link');css.rel='stylesheet';
+ css.href=new URL('v66-distinct-designs.css',base).href;
+ css.dataset.v66Stylesheet='true';document.head.append(css);
+ const js=document.createElement('script');
+ js.src=new URL('v66-sector-artdirection.js',base).href;
+ js.async=true;js.dataset.v66Script='true';document.head.append(js);
+})();

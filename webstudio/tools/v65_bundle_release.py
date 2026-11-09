@@ -10,7 +10,7 @@ import stat
 import sys
 import zipfile
 
-BASENAME = "AllFileOne_WebStudio_V65_3_AllInOne_LATEST.zip"
+BASENAME = "AllFileOne_WebStudio_V66_AllInOne_LATEST.zip"
 BANNED = {".git", "__pycache__", ".env", ".env.local", "node_modules", ".venv", "venv"}
 BANNED_EXTENSIONS = {".pyc", ".pfx", ".p12", ".pem", ".key"}
 EVIDENCE_NAMES = (
@@ -23,6 +23,8 @@ EVIDENCE_NAMES = (
     "V652_Demo_Acceptance_KO.txt",
     "V653_Buyer_Real_Edge.json",
     "V653_Buyer_Real_Edge_KO.txt",
+    "V66_Real_Edge_Design.json",
+    "V66_Real_Edge_Design_KO.txt",
 )
 MAX_FILE = 25_000_000
 MAX_TOTAL = 500_000_000
@@ -35,7 +37,9 @@ def choose_files(source):
         raise RuntimeError("HOLD: webstudio/index.html not found")
     release = json.loads((source / "assets" / "current-release.json").read_text(encoding="utf-8"))
     if release.get("version") != "V65" or release.get("release_id") != "WEBSTUDIO-V65-20261108":
-        raise RuntimeError("HOLD: source is not the expected V65 release")
+        raise RuntimeError("HOLD: source is not compatible with V65 underlying release")
+    if release.get("v66_design_version") != "2026-11-09-V66" or release.get("v66_demo_pages") != 36:
+        raise RuntimeError("HOLD: V66 design marker and 36 demo claim must be present")
     selected = []
     total = 0
     for path in sorted(source.rglob("*")):
@@ -82,18 +86,18 @@ def main():
     manifest = {
         "product": "AllFileOne WebStudio",
         "site_release": "V65",
-        "package": "V65.3 36 demo and 12-sector buyer quote precontract handoff",
+        "package": "V66 distinct visual designs and immediate 12-industry four-tool navigation",
         "packaging_scope": "complete webstudio source + available actual public browser evidence",
         "customer_mail_receipt": "NOT_VERIFIED",
         "public_browser_status": "READ_INCLUDED_EVIDENCE_NOT_A_SALE_CLAIM",
         "files": {}
     }
     how_to = (
-        "ALLFILEONE WEB STUDIO V65.3 - COMPLETE SOURCE / PUBLIC-BROWSER QA\n"
+        "ALLFILEONE WEB STUDIO V66 - COMPLETE SOURCE / PUBLIC-BROWSER QA\n"
         "Deploy the 'webstudio' folder contents as Cloudflare Pages static files.\n"
         "The site demo data and client inquiries are NOT real orders.\n"
-        "Read EVIDENCE/V65_LIVE_BROWSER_RESULT_KO.txt, V652_Demo_Acceptance_KO.txt, and V653_Buyer_Real_Edge_KO.txt for real results.\n"
-        "The V65 site release remains; V65.3 joins demo needs, price examples and contract-preflight briefs.\n"
+        "Read EVIDENCE/V65_LIVE_BROWSER_RESULT_KO.txt, V652_Demo_Acceptance_KO.txt, V653_Buyer_Real_Edge_KO.txt, V66_Real_Edge_Design_KO.txt for results.\n"
+        "V66 differentiates all 3 full-page designs and highlights 4 real V28 tools in each of 12 sectors (36 demos). Existing V65.3 buyer flows remain.\n"
         "No paid API, Codex, or installer required. No form/email is auto-sent.\n"
     ).encode("utf-8")
     def add(z, name, data):
@@ -117,8 +121,8 @@ def main():
                 raise RuntimeError("HOLD: inner SHA mismatch: " + name)
     checksum = digest(archive.read_bytes())
     (out / (BASENAME + ".sha256")).write_text(checksum + "  " + BASENAME + "\n", encoding="utf-8")
-    (out / "V65_3_ALLINONE_RESULT_KO.txt").write_text(
-        "올파일원 웹스튜디오 V65.3 소스 통합 ZIP 검사: PASS\n"
+    (out / "V66_ALLINONE_RESULT_KO.txt").write_text(
+        "올파일원 웹스튜디오 V66 소스 통합 ZIP 검사: PASS\n"
         "원본 전체 소스 + 공개 브라우저 검사 증거 묶음\n"
         "원본 파일 수: " + str(len(files)) + "\n"
         "ZIP CRC: PASS / ZIP 내부 SHA256: PASS\n"
@@ -127,7 +131,7 @@ def main():
         "이메일 실제 수신/실제 고객 납품: 검증 안 됨.\n",
         encoding="utf-8"
     )
-    print("V65_3_BUNDLE_PASS", len(files), archive, checksum)
+    print("V66_BUNDLE_PASS", len(files), archive, checksum)
 
 if __name__ == "__main__":
     try:
