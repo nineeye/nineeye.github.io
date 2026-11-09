@@ -62,6 +62,14 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v66_design_sector.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: V68 synchronize 48 real sector tools on three-design comparison
+        shell: pwsh
+        run: |
+          node --check webstudio/assets/v67-compare.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s webstudio/tools -p test_v68_catalog_contract.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Require exact published V66 design and V65.3 buyer assets before live checks
         shell: pwsh
         run: |
@@ -76,7 +84,8 @@ jobs:
               $v65 = $manifest.version -eq 'V65' -and $manifest.release_id -eq 'WEBSTUDIO-V65-20261108'
               $v653 = $manifest.v653_patch_date -eq '2026-11-09' -and $manifest.v653_buyers_demo_to_pricing_to_consult -eq $true
               $v66 = $manifest.v66_design_version -eq '2026-11-09-V66' -and $manifest.v66_demo_pages -eq 36
-              if (-not ($v65 -and $v653 -and $v66)) {
+              $v68 = $manifest.v68_catalog_alignment_version -eq 'V68-20261109' -and $manifest.v68_exact_working_tools -eq 48
+              if (-not ($v65 -and $v653 -and $v66 -and $v68)) {
                 Write-Host 'Cloudflare release is still prior to exact V66 design features.'
               } else {
                 $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
@@ -84,6 +93,8 @@ jobs:
                 $v66Script = Invoke-WebRequest -Uri "$origin/assets/v66-sector-artdirection.js" -TimeoutSec 10 -Headers $headers
                 $v66Styles = Invoke-WebRequest -Uri "$origin/assets/v66-distinct-designs.css" -TimeoutSec 10 -Headers $headers
                 $loader = Invoke-WebRequest -Uri "$origin/assets/demo.js" -TimeoutSec 10 -Headers $headers
+                $compare = Invoke-WebRequest -Uri "$origin/design-compare-live.html" -TimeoutSec 10 -Headers $headers
+                $v68Script = Invoke-WebRequest -Uri "$origin/assets/v67-compare.js" -TimeoutSec 10 -Headers $headers
                 if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
                     $v66Script.StatusCode -eq 200 -and $v66Styles.StatusCode -eq 200 -and $loader.StatusCode -eq 200 -and
                     $demo.Content.Contains('v653-to-plan') -and
@@ -94,7 +105,10 @@ jobs:
                     $v66Styles.Content.Contains('.theme-editorial .service-card') -and
                     $v66Styles.Content.Contains('.theme-premium .v23-hero-shell') -and
                     $v66Styles.Content.Contains('.theme-editorial .v23-hero-shell') -and
-                    $loader.Content.Contains('v66-sector-artdirection.js')) {
+                    $loader.Content.Contains('v66-sector-artdirection.js') -and
+                    $compare.StatusCode -eq 200 -and $v68Script.StatusCode -eq 200 -and
+                    $compare.Content.Contains('assets/v28-catalog.js') -and
+                    $v68Script.Content.Contains('actualFeatures(industry)')) {
                   Write-Host 'EXACT_V66_PUBLIC_MANIFEST_THREE_JS_AND_CSS_VERIFIED'
                   $ready = $true
                   break

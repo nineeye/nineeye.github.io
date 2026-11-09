@@ -245,5 +245,11 @@
   "v66_mobile_header_collision_fix": true,
   "v66_no_new_production_backends": true,
   "v66_actual_customers_not_tested": true,
-  "v66_live_edge_qa": "tools/v66_live_design_qa.py"
+  "v66_live_edge_qa": "tools/v66_live_design_qa.py",
+  "v68_catalog_alignment_version": "V68-20261109",
+  "v68_exact_working_tools": 48,
+  "v68_catalog_source_of_truth": "assets/v28-catalog.js",
+  "v68_compare_route": "/design-compare-live.html",
+  "v68_real_public_browser_verified": false,
+  "v68_actual_customer_email_verified": false
 }
