@@ -11,6 +11,24 @@ function initialize(){
  const standard=document.getElementById('brief-output');
  if(!form||!imported||!pre||!actions||!standard||imported.dataset.v72Ready)return;
  const seed=pre.textContent;
+ // V73: distinguish the original quote from the visitor's *current* industry/style.
+ // Preserve the earlier brief for reference, but never present it as the active
+ // price/scope after the visitor changes either of those fundamental choices.
+ const originalIndustry=form.elements.namedItem('industry')?.value||'';
+ const originalStyle=form.elements.namedItem('theme')?.value||'';
+ const detailsInput=form.elements.namedItem('details');
+ const inheritedDetails=detailsInput?.value||'';
+ const isOriginalChoice=()=>form.elements.namedItem('industry')?.value===originalIndustry &&
+   form.elements.namedItem('theme')?.value===originalStyle;
+ function preventInheritedDetailsLeak(){
+  // The V65.3 importer also placed a truncated fragment of its old quotation
+  // inside the editable 700-character notes box. Remove only that exact,
+  // untouched imported fragment on a sector/style switch. Never wipe edits.
+  if(!isOriginalChoice() && inheritedDetails && detailsInput?.value===inheritedDetails){
+   detailsInput.value='';
+   detailsInput.dispatchEvent(new Event('input',{bubbles:true}));
+  }
+ }
  const feedback=imported.querySelector('.v653-feedback');
  const buttons=actions.querySelectorAll('button');
  const mail=actions.querySelector('#v71-mailto');
@@ -20,24 +38,39 @@ function initialize(){
  // V26's on-page preview is refreshed by its own input/change listener.
  // Capture it only after the form has had an opportunity to refresh.
  function packet(){
-  return ['[올파일원 웹스튜디오 / 최종 상담 준비서 — 전체본]',
-    '※ 이메일 발송·접수 전입니다. 방문자가 직접 내용을 확인하고 전송해야 합니다.',
-    '', '[A. 선택한 업종·디자인·상품·계약 전 확인]',seed,
-    '', '[B. 방문자가 마지막으로 수정한 기본 상담서]',standard.textContent,
-    '', '※ B의 추가 요청란은 최대 700자입니다. A의 전체 요구사항은 삭제되지 않습니다.',
-    '※ 가격·납기·도메인·호스팅·외부 서비스·운영 연동은 계약 전 별도 협의합니다.'].join('\n');
+  const matched=isOriginalChoice();
+  const result=['[올파일원 웹스튜디오 / 최종 상담 준비서 — 전체본]',
+    '※ 이메일 발송·접수 전입니다. 방문자가 직접 내용을 확인하고 전송해야 합니다.'];
+  if(matched){
+   result.push('', '[A. 현재 선택과 일치하는 상품·기존 계약 전 확인]',seed);
+  }else{
+   result.push('', '⚠ 현재 선택이 이전 견적의 업종 또는 디자인과 다릅니다.',
+     '이전 견적의 가격·선택 기능·계약 조건은 현재 요청에 적용되지 않으며 새로 상담해야 합니다.');
+  }
+  result.push('', '[B. 현재 고객이 선택하고 마지막으로 수정한 상담 내용]',standard.textContent);
+  if(!matched){
+   result.push('', '[참고 기록: 이전 업종·디자인의 견적 및 준비 사항 — 현재 요청에 적용되지 않음]',seed);
+  }
+  result.push('', '※ 상담서의 추가 요청란은 최대 700자입니다. 이전 견적의 원문은 참고 기록에 보존됩니다.',
+    '※ 실제 가격·납기·도메인·호스팅·외부 서비스·운영 연동은 계약 전 별도 협의합니다.');
+  return result.join('\n');
  }
  function refresh(){
   pre.textContent=packet();
   const count=document.getElementById('v72-packet-count');
   if(count)count.textContent='최종 상담 준비서 '+pre.textContent.length.toLocaleString('ko-KR')+'자 · 전체본';
+  note.classList.toggle('v73-stale-import',!isOriginalChoice());
+  note.textContent=isOriginalChoice()
+   ?'현재 업종·디자인과 기존 견적이 일치합니다. 전체 복사·TXT에는 마지막 수정 내용도 포함됩니다. 이메일 전송은 직접 하셔야 합니다.'
+   :'주의: 업종 또는 디자인이 변경됐습니다. 이전 예시 가격과 기능은 현재 요청에 적용되지 않습니다. 현재 요청은 [B]에, 이전 견적은 아래 참고 기록에 구분해 보존했습니다. 이메일은 직접 전송하세요.';
  }
  const count=document.createElement('p');count.id='v72-packet-count';count.className='v72-packet-count';
  const note=document.createElement('p');note.className='v72-packet-note';
- note.textContent='제작 범위와 지금 수정한 상담 내용을 함께 보존합니다. 이 화면의 복사·TXT 버튼은 모두 전체본을 사용합니다. 이메일은 요약문만 열리므로 TXT를 추가로 첨부하거나 붙여넣어 직접 발송하세요.';
+ note.textContent='제작 범위와 마지막 수정 내용을 전체본으로 보존합니다. 이메일은 요약문만 열리므로 TXT를 별도 첨부한 뒤 직접 전송하세요.';
+ note.setAttribute('role','status');note.setAttribute('aria-live','polite');
  pre.before(count);actions.before(note);
  form.addEventListener('input',()=>queueMicrotask(refresh));
- form.addEventListener('change',()=>queueMicrotask(refresh));
+ form.addEventListener('change',()=>{preventInheritedDetailsLeak();queueMicrotask(refresh);});
  form.addEventListener('reset',()=>requestAnimationFrame(refresh));
  async function copyFull(){
   try{
@@ -97,4 +130,5 @@ function initialize(){
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize,{once:true});
 else initialize();
 window.AFO_V72_PACKET_VERSION='v72.0';
+window.AFO_V73_SCOPE_GUARD='v73.0';
 })();

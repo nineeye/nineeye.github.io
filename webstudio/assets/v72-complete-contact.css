@@ -4,3 +4,13 @@
 .v653-import[data-v72-ready] #v653-full-brief{max-height:440px}
 @media(max-width:560px){.v72-packet-note{padding:12px}.v653-import[data-v72-ready] #v653-full-brief{max-height:350px}}
 @media print{.v653-import[data-v72-ready] #v653-full-brief{max-height:none;overflow:visible}.v72-packet-note{display:none}}
+
+/* V73: warn visibly when current industry/style differs from inherited estimate. */
+.v72-packet-note.v73-stale-import{border:2px solid #b56a27;background:#fff4e5;color:#713e12!important;font-weight:750}
+@media print{.v72-packet-note.v73-stale-import{display:block!important;border:2px solid #b56a27}}
+
+/* V73.1: imported-brief primary action must remain readable on hover/focus.
+   Older .v653-primary:hover changed background to pale mint while text stayed white. */
+.v653-import .v71-full-actions button.v653-primary{background:#175439;color:#ffffff;border:1px solid #175439}
+.v653-import .v71-full-actions button.v653-primary:hover,
+.v653-import .v71-full-actions button.v653-primary:focus-visible{background:#103b2b;color:#ffffff;border-color:#103b2b}

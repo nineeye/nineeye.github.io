@@ -1,0 +1,22 @@
+{
+  "release": "WEBSTUDIO-V73-20261109",
+  "base": "V72 / 0bb931a986e45a549cffafeff2a788ec33a414c4",
+  "scope": "Prevent old-quote and new-industry contradictions in customer consultation export, preserving historical reference distinctly.",
+  "features": {
+    "original_quote_explicitly_separated_if_sector_or_style_changed": true,
+    "old_unchanged_imported_details_cleared_only_after_scope_change": true,
+    "edited_user_notes_always_preserved": true,
+    "complete_clipboard_and_txt_export": true,
+    "no_automatic_email_or_backend": true
+  },
+  "qa": {
+    "source": "193/193 PASS: full Python source regressions",
+    "offline_browser": "944/944 PASS: 12 sectors × 3 styles × PC/mobile + exact TXT downloads + primary button hover contrast",
+    "actual_public_cloudflare": "HOLD: external network unavailable",
+    "actual_email_receipt": "NOT_VERIFIED",
+    "hover_contrast": "PASS: first imported-action button >= 4.5:1 in both viewport tests"
+  },
+  "cost": {
+    "new_paid_api": 0
+  }
+}
