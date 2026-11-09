@@ -1,3 +1,12 @@
+# 현재 정본 V82 (2026-11-09)
+
+**아래 V65부터의 내용은 이전 작업 이력입니다. 현재 배포 기준은 V82입니다.**
+현재 정확한 인계서: [`DEPLOY_V82_KO.md`](DEPLOY_V82_KO.md), 현재 공개 검증 페이지: `release-check-v82.html`.
+Cloudflare Pages Git 통합: 저장소 `nineeye/nineeye.github.io`, Production `main`, Build command `exit 0`, 출력 `webstudio`.
+실제 Cloudflare 사이트·실제 이메일 수신은 이 환경에서 **미검증**이며, V81까지의 84개 기능은 가상 브라우저 시연입니다.
+
+---
+
 # AllFileOne WebStudio — deployment and commercial readiness (V65)
 
 > **Source of truth:** `main/webstudio/` in `nineeye/nineeye.github.io`.
