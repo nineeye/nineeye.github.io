@@ -1,0 +1,40 @@
+{
+  "release": "V78-20261109",
+  "base_git_sha": "e6ea4ff8bfdf61b6aaf23f102c76e13570e2902e",
+  "scope": {
+    "industries": 12,
+    "design_pages_preserved": 36,
+    "visible_per_sector": 8,
+    "prior_interactive_fictional": 48,
+    "new_interactive_fictional": 12,
+    "total_interactive_fictional": 60,
+    "unbuilt_production_options": 36
+  },
+  "features": {
+    "manufacturing": "가상 재고·출하 예정일 조회",
+    "corporate": "산업별 고객사례 검색·정렬",
+    "clinic": "가상 휴진·시간변경 공지 검색",
+    "academy": "상세 커리큘럼 탐색",
+    "interior": "가상 공간별 견적 계산",
+    "commerce": "쿠폰·등급 할인 계산",
+    "professional": "가상 전문가 검색",
+    "association": "가상 세미나 일정 탐색",
+    "franchise": "가상 창업비용 계산",
+    "stay": "가상 객실 날짜·인원 조건 조회",
+    "realestate": "가상 권역 매물 검색·도식형 구역 선택",
+    "event": "가상 날짜·지역별 행사 검색"
+  },
+  "limitations": {
+    "public_cloudflare": "HOLD_NOT_VERIFIED",
+    "real_email": "NOT_VERIFIED",
+    "production_order_booking_payment": "NOT_IMPLEMENTED",
+    "private_data_collection": false,
+    "paid_api": false
+  },
+  "qa": {
+    "source_regression": "226/226 PASS",
+    "isolated_chromium": "796/796 PASS",
+    "static_link_audit": "81 HTML, 1074 links, 0 broken",
+    "real_public_browser": "NOT_VERIFIED"
+  }
+}
