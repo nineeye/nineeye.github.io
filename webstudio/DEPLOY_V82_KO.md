@@ -4,7 +4,7 @@
 - GitHub 정본: `nineeye/nineeye.github.io` 저장소의 `main` 브랜치 / `webstudio/` 폴더
 - **기존 Cloudflare Pages Git 연동 프로젝트의 권장 설정:** Production branch=`main`, Build command=`exit 0`, Build output directory=`webstudio`
 - 확인 위치: Cloudflare 대시보드 → Workers & Pages → 해당 Pages 프로젝트 → Settings → Builds/Deployments. 정확한 메뉴 이름은 시점에 따라 다를 수 있습니다.
-- 파일에 포함된 `WEBSTUDIO_SITE_ONLY_V82.zip`은 루트에 `index.html`이 있습니다. **GitHub 연동 프로젝트에 ZIP을 업로드해서 기존 배포를 덮어쓸 수 있다는 뜻이 아닙니다.** Direct Upload 방식을 쓰는 별도의 프로젝트에서 사용할 배포용 사본입니다.
+- 파일에 포함된 `AllFileOne_WebStudio_V82_PublishOnly.zip`은 루트에 `index.html`이 있습니다. **GitHub 연동 프로젝트에 ZIP을 업로드해서 기존 배포를 덮어쓸 수 있다는 뜻이 아닙니다.** Direct Upload 방식을 쓰는 별도의 프로젝트에서 사용할 배포용 사본입니다.
 - Cloudflare 공식 문서: https://developers.cloudflare.com/pages/framework-guides/deploy-anything/ , https://developers.cloudflare.com/pages/configuration/git-integration/.
 
 ## 2. 실제 성공 조건
