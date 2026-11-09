@@ -9,10 +9,10 @@
     "unbuilt_quote_options": 48
   },
   "qa": {
-    "prior_source_tests": "215 PASS",
-    "new_source_tests": "5 PASS",
-    "isolated_chromium_assertions": "698 PASS - subsequent extended comparison checks may increase count",
-    "real_public_cloudflare": "NOT_VERIFIED",
+    "prior_plus_new_source_regression": "220/220 PASS",
+    "isolated_chromium_dom": "746/746 PASS",
+    "static_html_links": "80 HTML files / 1056 local paths PASS",
+    "actual_public_cloudflare": "NOT_VERIFIED",
     "actual_customer_email": "NOT_VERIFIED"
   },
   "copyright": "Original code and functional ideas only, no competitor source or design copied",
@@ -21,5 +21,6 @@
     "Unbuilt options require scope, backend, payment/security/integration and quote agreement",
     "Industry reference sites not certified objective rank 1..12"
   ],
-  "paid_api": false
+  "paid_api": false,
+  "github_merge_commit": "58c87ef4d7b6c78c46c859052128d70aeead8b00"
 }
