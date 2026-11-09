@@ -283,5 +283,12 @@
   "v72_consistent_copy_save": true,
   "v72_no_auto_submission": true,
   "v72_actual_email_receipt_verified": false,
-  "v72_public_cloudflare_verified": false
+  "v72_public_cloudflare_verified": false,
+  "v73_scope_guard_version": "V73-20261109",
+  "v73_stale_quote_explicit_reference_only": true,
+  "v73_untouched_import_excerpt_removed_after_scope_switch": true,
+  "v73_original_brief_preserved_for_audit": true,
+  "v73_auto_mail_submission": false,
+  "v73_public_cloudflare_verified": false,
+  "v73_customer_email_receipt_verified": false
 }
