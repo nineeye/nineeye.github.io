@@ -62,7 +62,9 @@ class CompareChecks(unittest.TestCase):
   self.assertIn('grid-template-columns:minmax(0,51%)',v66)
   self.assertIn('flex-direction:column;min-height:0!important',v66)
   self.assertIn('grid-template-columns:minmax(0,60%)',v66)
-  self.assertIn('theme=modern',H)
+  # V70 moved the conversion path into a scoped buyer brief, not a hardcoded theme query.
+  self.assertIn('id="v70-buyer"',H)
+  self.assertIn("roots.estimate.href='#v70-buyer'",S)
  def test_csp_allows_same_origin_frames_but_not_untrusted_domains(self):
   headers=(ROOT/'_headers').read_text('utf-8')
   self.assertIn("X-Frame-Options: SAMEORIGIN",headers)
