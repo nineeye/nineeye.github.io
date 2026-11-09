@@ -356,5 +356,17 @@
   "v82_operational_features_live_verified": 0,
   "v82_all_96_production_sku_options_require_separate_scope": true,
   "v82_version_baseline_legacy": "V65",
-  "v82_no_new_paid_api": true
+  "v82_no_new_paid_api": true,
+  "v85_showroom_url": "/experience-v85.html",
+  "v85_additive_release": "V85-20261109",
+  "v85_same_origin_iframe_36_preserved": true,
+  "v85_device_simulation": "desktop_1366_mobile_390",
+  "v85_original_12_industries": 12,
+  "v85_original_36_demo_pages": 36,
+  "v85_original_84_fictional_browser_tools": 84,
+  "v85_extra_operational_features_implemented": false,
+  "v85_qa_policy": "SOURCE_BROWSER_QA_SEPARATE_FROM_PUBLIC_HTTP_AND_REAL_EMAIL",
+  "v85_real_customer_email_received": false,
+  "v85_paid_api_used": false,
+  "v85_release_baseline_warning": "Top-level version V82 is intentionally legacy baseline, V85 is an additive user-experience feature until full release metadata migration."
 }
