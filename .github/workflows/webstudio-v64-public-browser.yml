@@ -52,24 +52,39 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v653_sales_bridge.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: Allow V65 release to propagate without assuming success
+      - name: Require exact published V65.3 buyer assets before live checks
         shell: pwsh
         run: |
-          $target = 'https://allfileone-webstudio.pages.dev/assets/current-release.json'
+          $origin = 'https://allfileone-webstudio.pages.dev'
           $ready = $false
-          for ($i=0; $i -lt 18; $i++) {
+          # Cloudflare Pages can lag GitHub main by a few minutes.
+          # No V65.3 PASS is allowed for a published V65.2 or stale asset.
+          for ($i=0; $i -lt 45; $i++) {
             try {
-              $release = Invoke-RestMethod -Uri $target -TimeoutSec 8 -Headers @{ 'Cache-Control'='no-cache' }
-              if ($release.version -eq 'V65' -and $release.release_id -eq 'WEBSTUDIO-V65-20261108') {
-                Write-Host 'V65 manifest visible at public Cloudflare origin.'
-                $ready = $true
-                break
+              $headers = @{ 'Cache-Control'='no-cache'; 'Pragma'='no-cache' }
+              $manifest = Invoke-RestMethod -Uri "$origin/assets/current-release.json" -TimeoutSec 10 -Headers $headers
+              $v65 = $manifest.version -eq 'V65' -and $manifest.release_id -eq 'WEBSTUDIO-V65-20261108'
+              $v653 = $manifest.v653_patch_date -eq '2026-11-09' -and $manifest.v653_buyers_demo_to_pricing_to_consult -eq $true
+              if (-not ($v65 -and $v653)) {
+                Write-Host 'Cloudflare release is still prior to exact V65.3 buyer features.'
+              } else {
+                $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
+                $sales = Invoke-WebRequest -Uri "$origin/assets/v653-sales-bridge.js" -TimeoutSec 10 -Headers $headers
+                if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
+                    $demo.Content.Contains('v653-to-plan') -and
+                    $sales.Content.Contains('window.AFO_V653_TERMS_COUNT=TERMS.length')) {
+                  Write-Host 'EXACT_V65_3_PUBLIC_MANIFEST_AND_BOTH_JAVASCRIPTS_VERIFIED'
+                  $ready = $true
+                  break
+                }
+                Write-Host 'Manifest is current, but the public buyer JS is not verified yet.'
               }
-              Write-Host 'Manifest exists but is not yet the exact V65 release.'
-            } catch { Write-Host 'Public origin or network not yet reachable; no success claimed.' }
-            Start-Sleep -Seconds 10
+            } catch {
+              Write-Host 'Public Cloudflare assets not available yet; no pass claimed.'
+            }
+            Start-Sleep -Seconds 8
           }
-          if (-not $ready) { Write-Warning 'Release propagation not proven by preflight. Browser step will fail closed.' }
+          if (-not $ready) { throw 'HOLD: Exact V65.3 public buyer assets not proven; refusing stale-site UI success claims.' }
 
       - name: Read-only real Edge browser smoke (PC and mobile, six industries)
         shell: pwsh
