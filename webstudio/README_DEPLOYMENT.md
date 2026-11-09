@@ -113,6 +113,16 @@ For read-only evidence collection, run `RUN_V59_PUBLICATION_PROOF.cmd` (from the
 - Site release remains V65 for prior live smoke compatibility; .2 denotes a source and acceptance patch, not proof of new customer orders or contracts.
 
 
+## V65.3 — Demo to quote to pre-contract brief to owner-initiated consultation (2026-11-09)
+
+- Purpose: turn the existing 36 genuine HTML industry demos and their 48 practical test modules + 48 V65.2 sector requirements into a conversion-safe production scope discussion. Avoid cloning a generic online reservation widget into every industry.
+- New demo button takes **only allowlisted** sector, style, 1–4 chosen requirement indices, scope and timeframe through one-time 15-minute same-tab sessionStorage to plan-guide.html. It passes no customer identity or uploaded file in URL, and deletes the record immediately on import.
+- On plan-guide.html, the existing shared V33 illustrative rate card (29/59/99만원 starting bases plus explicitly priced optional add-ons) remains unchanged. Imported sector requirements are clearly marked **not included in the illustrative total** until negotiated. Customer choices and fake production guarantees must never be conflated.
+- The buyer can now review eight change-order/contract readiness topics: content copyright, page scope, design revisions, domain account ownership, source/license handoff, personal-data security, external operating costs, and acceptance/support. All default to consultation needed; nothing is preselected as contract-ready. Exports full draft to copy/TXT, without server storage.
+- A separate one-time session handoff carries only the chosen public plan/add-ons and those 8 allowlisted status codes to contact.html. Receiving page cross-checks origin identifiers, TTL, sector/theme, exact model calculation, and allowed status/feature IDs before displaying the complete imported text. Existing manual email draft remains unchanged; no email, order, appointment or payment is automatically submitted.
+- Added first-party original `assets/v653-sales-bridge.js` + responsive CSS, static regression tests, and real Windows Edge smoke across 12 sectors × 2 widths from demo→plan→contact, including one-time-replay rejection for the manufacturing demo. Separate releases for real customer orders, external APIs and sensitive data are NOT done or implied.
+- The default GitHub Windows QA workflow still runs the legacy V65 140 checks and V65.2 288 checks. It also runs V65.3 syntax+unit checks and real buyer-flow browser smoke. V65.3 all-in-one ZIP packages full source, three QA suite reports, CRC and SHA256 manifests even on HOLD. The site remains V65 to preserve the existing exact release guard.
+
 ## Operator links
 
 - Site: https://allfileone-webstudio.pages.dev/
