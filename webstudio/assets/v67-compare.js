@@ -89,9 +89,12 @@ document.getElementById('reload-live').addEventListener('click',()=>{roots.inter
 roots.button.addEventListener('click',()=>{
  const d=DATA[industry];
  const features=actualFeatures(industry);
+ const planned=window.AFO_V77_FEATURE_EXTENSION?.[industry]?.extra;
  const lines=['올파일원 웹스튜디오 업종별 비교 기획 요약','업종: '+d.name,'선택 디자인: '+LABEL[style],
   '업종의 핵심 과제: '+d.lead,'','핵심 업무 기능 (가상 데이터 시연):',
   ...(features ? features.map((f,i)=>String(i+1)+'. '+f.title+' ['+(KINDS[f.kind]||'업무 도구')+'] - '+f.desc) : ['실제 기능 카탈로그를 읽지 못해 확인된 도구를 기재할 수 없습니다.']),'',
+  '제작 검토 옵션 (미구현, 견적 별도 협의):',
+  ...(Array.isArray(planned)?planned.map((f,i)=>String(i+5)+'. '+f.title+' - '+f.desc):['추가 기능 목록을 불러올 수 없습니다.']),'',
   '디자인 3가지 비교:',
   '모던: 실용적인 분할 레이아웃, 빠른 탐색, 벤토형 정보 카드',
   '프리미엄: 짙은 브랜드 무대, 중앙 정렬, 금빛 포인트',
