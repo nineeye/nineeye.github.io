@@ -53,6 +53,15 @@ jobs:
           $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
           python webstudio/tools/v83_public_diagnostics.py --output "$dir"
           if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 3) { exit $LASTEXITCODE }
+          exit 0
+
+      - name: V84 showroom public proof (capture HOLD without skipping old baseline)
+        shell: pwsh
+        run: |
+          $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          python webstudio/tools/v84_public_showroom_probe.py --output "$dir"
+          if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 3) { exit $LASTEXITCODE }
+          exit 0
 
       - name: Check exact V82 public Cloudflare files read-only (HOLD on unavailable/stale)
         shell: pwsh
@@ -60,6 +69,17 @@ jobs:
           $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
           python webstudio/tools/v82_live_public_probe.py --output "$dir" --max-attempts 6 --retry-seconds 10
           if ($LASTEXITCODE -ne 0) { throw 'HOLD: Exact V82 public assets not proven; no email receipt claims.' }
+
+      - name: V84 live showroom must be published (no false success)
+        shell: pwsh
+        run: |
+          $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          $record = Join-Path $dir 'AFO_V84_PUBLIC_SHOWROOM.json'
+          if (!(Test-Path $record)) { throw 'HOLD: V84 live showroom evidence is missing.' }
+          $proof = Get-Content $record -Raw -Encoding UTF8 | ConvertFrom-Json
+          if ($proof.result -ne 'PASS_V84_PUBLIC_FILES_ONLY') {
+            throw ('HOLD: V84 live showroom has not been fully published (' + $proof.passed + '/' + $proof.total + ').')
+          }
 
       - name: Upload source and public site evidence even when Cloudflare is HOLD
         if: always()
