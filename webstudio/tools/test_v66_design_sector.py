@@ -70,6 +70,21 @@ class V66StylesAndSectors(unittest.TestCase):
   self.assertIn("data-v66-feature",JS) if "data-v66-feature" in JS else self.assertIn("dataset.v66Feature=String(i)",JS)
   self.assertIn("body.dataset.v66Ready='true'",JS)
   self.assertIn("실시간 데이터 연동은 제공하지 않습니다",JS)
+ def test_actual_v23_rebuild_and_rendered_hero_decorations(self):
+  # V23 replaces .hero innerHTML; all three variants need to style the final
+  # rendered .v23-hero and update copy AFTER the one-time DOM rebuild.
+  self.assertIn("bootAfterV23",JS)
+  self.assertIn("MutationObserver",JS)
+  self.assertIn("document.getElementById('v23-workflow')",JS)
+  self.assertIn("window.AFO_V66_HERO_ORDER_FIX='v66.2'",JS)
+  for style in STYLES:
+   with self.subTest(style=style):
+    self.assertIn(".theme-"+style+" .v23-hero-shell",CSS)
+    self.assertIn(".theme-"+style+" .v23-hero h1",CSS)
+    self.assertIn(".theme-"+style+" .v23-hero-visual",CSS)
+  self.assertIn("grid-template-columns:minmax(0,51%)",CSS)
+  self.assertIn("flex-direction:column;min-height:0!important",CSS)
+  self.assertIn("grid-template-columns:minmax(0,60%)",CSS)
  def test_no_remote_deps_or_customer_info(self):
   for forbidden in ("fetch(","XMLHttpRequest","sendBeacon","document.cookie","localStorage","innerHTML=","eval("):
    with self.subTest(forbidden=forbidden):
