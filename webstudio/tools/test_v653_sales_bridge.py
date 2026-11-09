@@ -68,6 +68,16 @@ class BuyerSalesBridge(unittest.TestCase):
             with self.subTest(token=token):self.assertIn(token,CSS)
         self.assertIn("aria-live','polite",SOURCE)
         self.assertIn("label.htmlFor",SOURCE) if "label.htmlFor" in SOURCE else self.assertIn("left.htmlFor",SOURCE)
+    def test_cloudflare_exact_release_asset_guard(self):
+        workflow=(ROOT.parent/".github/workflows/webstudio-v64-public-browser.yml").read_text(encoding="utf-8")
+        self.assertIn("v653_patch_date",workflow)
+        self.assertIn("v653_buyers_demo_to_pricing_to_consult",workflow)
+        self.assertIn("EXACT_V65_3_PUBLIC_MANIFEST_AND_BOTH_JAVASCRIPTS_VERIFIED",workflow)
+        self.assertIn("v652-sector-requirements.js",workflow)
+        self.assertIn("v653-sales-bridge.js",workflow)
+        self.assertIn("if (-not $ready) { throw",workflow)
+        edge=(ROOT/"tools/v653_live_sales_qa.py").read_text(encoding="utf-8")
+        self.assertIn("comparison CTA absent from PUBLIC site",edge)
     def test_existing_sales_and_direct_contact_remain(self):
         self.assertIn("v652-primary",SECTOR)
         self.assertIn("v51-quick-handoff.js",CONTACT)
