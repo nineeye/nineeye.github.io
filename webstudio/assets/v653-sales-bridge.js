@@ -214,6 +214,26 @@ function contact(){
    ...TERMS.map((term,i)=>'• '+term[1]+' — '+STATUSES[r.terms[i]]),
    '※ 실제 계약·결제·예약 접수가 아닙니다. 이메일은 직접 보내야 합니다.'];
  const full=lines.join('\n');
+ // V71: contact.details is limited to 700 characters, while the contract brief can
+ // be much longer. Keep the complete original locally in the explicit export panel.
+ function fullMailto(){
+   const company=has(CATALOG,r.industry)?CATALOG[r.industry].name:r.industry;
+   const subject='[올파일원 웹스튜디오] '+company+' 홈페이지 제작 문의';
+   const prefix=['안녕하세요. 홈페이지 제작 상담을 요청합니다.',
+     '업종: '+company,'디자인: '+THEMES[r.theme],
+     '제작 상품: '+MODEL.planLabels[r.plan]];
+   const reqTitles=r.req?r.req.ids.map(i=>CATALOG[r.industry].items[i][0]):[];
+   const suffix=['예시 가격은 확정 견적이 아니며 실제 운영 연동은 별도 협의합니다.',
+     '전체 제작 요구사항과 계약 전 확인 내용은 TXT 파일로 첨부하거나 별도 복사하여 전달하겠습니다.',
+     '※ 아직 메일은 전송되지 않았습니다. 이메일 앱에서 직접 보내기를 눌러야 합니다.'];
+   const make=items=>'mailto:nineeyes@naver.com?subject='+encodeURIComponent(subject)+
+       '&body='+encodeURIComponent([...prefix,...items,...suffix].join('\n'));
+   let items=reqTitles.length?['요청 기능: '+reqTitles.join(' · ')]:[];
+   let url=make(items);
+   if(url.length>1800){items=['요청 기능: '+reqTitles.length+'종 (상세 목록은 TXT로 전달)'];url=make(items);}
+   if(url.length>1800){items=[];url=make(items);}
+   return url;
+ }
  const max=details.maxLength>0?details.maxLength:700;
  const old=safe(details.value);
  const merged=(old?old+'\n\n':'')+full;
@@ -227,8 +247,25 @@ function contact(){
    try{if(!navigator.clipboard?.writeText)throw Error('blocked');await navigator.clipboard.writeText(full);status.textContent='내용을 복사했습니다. 이메일에서 직접 발송해 주세요.';}
    catch(_){status.textContent='복사가 차단됐습니다. 위 내용을 직접 선택하거나 TXT 저장을 이용해 주세요.';}
  },'v653-primary');
- panel.append(title,info,pre,copy,status);
- if(merged.length>max)panel.append(create('p','v653-warning','상담서 입력 글자 수로 인해 일부 요약되었습니다. 위의 전체 내용을 복사하여 메일에 붙여넣으세요.'));
+ const saveFull=control('전체 준비서 TXT 저장 ↓',()=>{
+   const blob=new Blob(['\ufeff',full],{type:'text/plain;charset=utf-8'});
+   const url=URL.createObjectURL(blob);
+   const a=create('a');a.href=url;a.download='AllFileOne_V71_Full_Buyer_Brief.txt';
+   document.body.append(a);a.click();a.remove();
+   setTimeout(()=>URL.revokeObjectURL(url),4000);
+   status.textContent='전체 TXT 저장을 요청했습니다. 이메일에 첨부하거나 복사하여 직접 보내 주세요. 자동 접수는 아닙니다.';
+ },'v653-primary');
+ const mail=create('a','v71-mailto','이메일 앱에서 요약문 열기 ↗');
+ mail.href=fullMailto();mail.id='v71-mailto';
+ mail.addEventListener('click',()=>{
+   status.textContent='이메일 앱에 요약문을 여는 요청을 했습니다. 전체 내용은 TXT를 별도로 첨부하거나 복사해야 하며, 직접 보내기를 눌러야 실제 접수됩니다.';
+ });
+ const actionsFull=create('div','v71-full-actions');actionsFull.id='v71-full-actions';
+ actionsFull.append(copy,saveFull,mail);
+ panel.append(title,info,pre,actionsFull,status);
+ panel.dataset.v71FullBrief='true';
+ if(merged.length>max)panel.append(create('p','v653-warning',
+  '주의: 아래 기본 상담서의 추가 요청 입력란은 700자로 제한되어 일부 잘립니다. 반드시 위 전체 준비서 복사 또는 TXT 저장 기능을 사용해 누락 없이 전달해 주세요. 이메일 앱 버튼은 요약만 넣으며 자동 전송·파일 첨부는 하지 않습니다.'));
  (document.querySelector('#brief .workspace')||form).before(panel);
  form.dispatchEvent(new Event('input',{bubbles:true}));
  document.body.dataset.v653Imported='true';
@@ -236,4 +273,5 @@ function contact(){
 function init(){plan();contact();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 window.AFO_V653_TERMS_COUNT=TERMS.length;
+window.AFO_V71_FULL_BRIEF='v71.0';
 })();
