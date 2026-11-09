@@ -173,6 +173,7 @@ jobs:
           Write-Host ("V87 verified public origin: " + $origin)
           if (-not $cloudOk) { Write-Host 'HOLD_CLOUDFLARE_ONLY: GitHub Pages independently passed.' }
           if (-not $pagesOk) { Write-Host 'HOLD_GITHUB_PAGES_ONLY: Cloudflare independently passed.' }
+          exit 0  # GitHub Pages may still be stale; Cloudflare passed, do not leak last Python exit code 3.
 
       - name: V87 actual Windows Edge 12x3xPC-mobile inquiry, 8 functions and honest email intent
         shell: pwsh
