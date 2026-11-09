@@ -40,6 +40,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --check webstudio/assets/v85-experience.js
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v86-guide.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Build Cloudflare site-only zip rooted at index.html
         shell: pwsh
@@ -111,6 +113,39 @@ jobs:
           $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
           python webstudio/tools/v85_edge_browser_qa.py --output "$dir" --origin "$env:V85_PUBLIC_ORIGIN"
           if ($LASTEXITCODE -ne 0) { throw 'HOLD: V85 Windows Edge actual public browser or iframe smoke failed. Read AFO_V85_REAL_EDGE_KO.txt.' }
+
+      - name: V86 twelve sector buyer guides exact 18-file live public proof
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          $cloud = Join-Path $root 'V86_CLOUDFLARE'
+          $pages = Join-Path $root 'V86_GITHUB_PAGES'
+          $cloudOk = $false
+          $pagesOk = $false
+          for ($attempt = 1; $attempt -le 6; $attempt++) {
+            python webstudio/tools/v86_public_probe.py --origin 'https://allfileone-webstudio.pages.dev/' --output "$cloud"
+            if ($LASTEXITCODE -eq 0) { $cloudOk = $true }
+            python webstudio/tools/v86_public_probe.py --origin 'https://nineeye.github.io/webstudio/' --output "$pages"
+            if ($LASTEXITCODE -eq 0) { $pagesOk = $true }
+            if ($cloudOk -or $pagesOk) { break }
+            if ($attempt -lt 6) { Start-Sleep -Seconds 10 }
+          }
+          if (-not $cloudOk -and -not $pagesOk) {
+            throw 'HOLD: Neither owned origin serves the exact V86 18-file buyer guides.'
+          }
+          $origin = if ($cloudOk) { 'https://allfileone-webstudio.pages.dev/' } else { 'https://nineeye.github.io/webstudio/' }
+          Add-Content -Path $env:GITHUB_ENV -Value "V86_PUBLIC_ORIGIN=$origin"
+          Write-Host ("V86 genuine public files proven at: " + $origin)
+          if (-not $cloudOk) { Write-Host 'HOLD_CLOUDFLARE_ONLY: independent GitHub Pages fallback was verified, not Cloudflare.' }
+          if (-not $pagesOk) { Write-Host 'HOLD_GITHUB_PAGES_ONLY: Cloudflare passed, GitHub Pages result is independent.' }
+
+      - name: V86 real Windows Edge 12 industries PC-mobile goals styles and checklist
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          $out = Join-Path $root 'V86_WINDOWS_EDGE'
+          python webstudio/tools/v86_edge_browser_qa.py --origin "$env:V86_PUBLIC_ORIGIN" --output "$out"
+          if ($LASTEXITCODE -ne 0) { throw 'HOLD: Real V86 public Edge browser sector goals/style/readiness failed; see V86_WINDOWS_EDGE/AFO_V86_REAL_EDGE_KO.txt.' }
 
       - name: Upload source and public site evidence even when Cloudflare is HOLD
         if: always()
