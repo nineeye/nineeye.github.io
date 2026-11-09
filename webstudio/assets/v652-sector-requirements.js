@@ -100,7 +100,16 @@ function demo() {
     const qs=new URLSearchParams({source:'demo-v652',industry:id,theme:style});
     window.location.assign('../../../contact.html?'+qs.toString());
   },'v652-primary');
-  actions.append(copy,save,go);
+  const compare=textButton('내 업종 기능으로 제작 상품·예시 비용 비교 ↗',()=>{
+    if(!checked.size){status.textContent='제작에 필요한 기능을 1개 이상 선택해 주세요.';return;}
+    const payload={v:653,ts:Date.now(),industry:id,style,ids:selected(),scale:Number(size.value),when:when.value};
+    try{sessionStorage.setItem('afo.webstudio.v653.offer',JSON.stringify(payload));}
+    catch(_){status.textContent='브라우저 임시 저장이 차단됐습니다. 위 요구사항을 TXT로 저장한 뒤 상품 비교 화면을 열어 주세요.';return;}
+    const q=new URLSearchParams({source:'demo-v653',industry:id,theme:style});
+    location.assign('../../../plan-guide.html?'+q.toString()+'#v653-buyer');
+  },'v652-secondary v653-compare');
+  compare.id='v653-to-plan';
+  actions.append(copy,save,compare,go);
   const explanation=document.createElement('p');explanation.className='v652-legal';
   explanation.textContent='※ 현재 시연의 계산·검색·시간표는 가상 자료로만 작동합니다. 예약·회원·결제·관리자·실시간 재고 등은 고객별 운영 시스템 구축·연동이 필요하며 이 화면만으로 주문·상담은 접수되지 않습니다.';
   bottom.append(form,preview,actions,status,explanation);
@@ -152,5 +161,6 @@ function contact() {
 }
 function init(){demo();contact();}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+window.AFO_V652_REQUIREMENTS=DATA;
 window.ALLFILEONE_V652_CAPABILITY_COUNT=Object.keys(DATA).length*4;
 })();
