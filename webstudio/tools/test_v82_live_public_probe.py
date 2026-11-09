@@ -43,4 +43,39 @@ class V82LiveProbeTests(unittest.TestCase):
   s=PATH.read_text('utf-8')
   for forbidden in ('Request(data=', "method='POST'",'smtplib.SMTP','send_email(','openai.com/api'):
    self.assertNotIn(forbidden,s)
+
+ def test_nested_cloudflare_pretty_url_is_exact_same_directory_only(self):
+  self.assertEqual(M.norm_route('/demo/manufacturing/modern/index.html'),
+                   M.norm_route('/demo/manufacturing/modern/'))
+  self.assertEqual(M.norm_route('/demo/manufacturing/modern/index.html'),
+                   M.norm_route('/demo/manufacturing/modern'))
+  self.assertNotEqual(M.norm_route('/demo/manufacturing/modern/index.html'),
+                      M.norm_route('/demo/manufacturing/premium/'))
+  self.assertNotEqual(M.norm_route('/demo/manufacturing/modern/index.html'),
+                      M.norm_route('/'))
+  self.assertNotEqual(M.norm_route('/demo/manufacturing/modern/index.html'),
+                      M.norm_route('/demo/manufacturing/modern/oops.html'))
+
+ def test_nested_redirect_keeps_body_and_origin_guards(self):
+  from unittest.mock import patch
+  origin=M.PRODUCTION_ORIGIN
+  requested='demo/manufacturing/modern/index.html'
+  class FakeResponse:
+   status=200
+   def __init__(self, actual):self.actual=actual
+   def __enter__(self):return self
+   def __exit__(self,typ,val,tb):return False
+   def geturl(self):return self.actual
+   def read(self,limit):return b'<html>REAL_DEMO_MARKER</html>'
+  def fetch(final):
+   with patch.object(M,'urlopen',return_value=FakeResponse(final)):
+    return M.actual_get(origin,requested)
+  self.assertIn('REAL_DEMO_MARKER',fetch(origin+'demo/manufacturing/modern/'))
+  with self.assertRaisesRegex(RuntimeError,'다른 경로'):
+   fetch(origin+'demo/manufacturing/premium/')
+  with self.assertRaisesRegex(RuntimeError,'다른 경로'):
+   fetch(origin)
+  with self.assertRaisesRegex(RuntimeError,'다른 출처'):
+   fetch('https://untrusted.example/demo/manufacturing/modern/')
+
 if __name__=='__main__':unittest.main(verbosity=2)
