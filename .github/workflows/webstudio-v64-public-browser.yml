@@ -52,7 +52,17 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v653_sales_bridge.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
-      - name: Require exact published V65.3 buyer assets before live checks
+      - name: Verify V66 truly distinct design systems and 36 sector entries
+        shell: pwsh
+        run: |
+          node --check webstudio/assets/v66-sector-artdirection.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/demo.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s webstudio/tools -p test_v66_design_sector.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Require exact published V66 design and V65.3 buyer assets before live checks
         shell: pwsh
         run: |
           $origin = 'https://allfileone-webstudio.pages.dev'
@@ -65,15 +75,23 @@ jobs:
               $manifest = Invoke-RestMethod -Uri "$origin/assets/current-release.json" -TimeoutSec 10 -Headers $headers
               $v65 = $manifest.version -eq 'V65' -and $manifest.release_id -eq 'WEBSTUDIO-V65-20261108'
               $v653 = $manifest.v653_patch_date -eq '2026-11-09' -and $manifest.v653_buyers_demo_to_pricing_to_consult -eq $true
-              if (-not ($v65 -and $v653)) {
-                Write-Host 'Cloudflare release is still prior to exact V65.3 buyer features.'
+              $v66 = $manifest.v66_design_version -eq '2026-11-09-V66' -and $manifest.v66_demo_pages -eq 36
+              if (-not ($v65 -and $v653 -and $v66)) {
+                Write-Host 'Cloudflare release is still prior to exact V66 design features.'
               } else {
                 $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
                 $sales = Invoke-WebRequest -Uri "$origin/assets/v653-sales-bridge.js" -TimeoutSec 10 -Headers $headers
+                $v66Script = Invoke-WebRequest -Uri "$origin/assets/v66-sector-artdirection.js" -TimeoutSec 10 -Headers $headers
+                $v66Styles = Invoke-WebRequest -Uri "$origin/assets/v66-distinct-designs.css" -TimeoutSec 10 -Headers $headers
+                $loader = Invoke-WebRequest -Uri "$origin/assets/demo.js" -TimeoutSec 10 -Headers $headers
                 if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
+                    $v66Script.StatusCode -eq 200 -and $v66Styles.StatusCode -eq 200 -and $loader.StatusCode -eq 200 -and
                     $demo.Content.Contains('v653-to-plan') -and
-                    $sales.Content.Contains('window.AFO_V653_TERMS_COUNT=TERMS.length')) {
-                  Write-Host 'EXACT_V65_3_PUBLIC_MANIFEST_AND_BOTH_JAVASCRIPTS_VERIFIED'
+                    $sales.Content.Contains('window.AFO_V653_TERMS_COUNT=TERMS.length') -and
+                    $v66Script.Content.Contains('window.AFO_V66_SECTOR_COUNT=Object.keys(INDUSTRIES).length') -and
+                    $v66Styles.Content.Contains('.theme-editorial .service-card') -and
+                    $loader.Content.Contains('v66-sector-artdirection.js')) {
+                  Write-Host 'EXACT_V66_PUBLIC_MANIFEST_THREE_JS_AND_CSS_VERIFIED'
                   $ready = $true
                   break
                 }
@@ -84,7 +102,7 @@ jobs:
             }
             Start-Sleep -Seconds 8
           }
-          if (-not $ready) { throw 'HOLD: Exact V65.3 public buyer assets not proven; refusing stale-site UI success claims.' }
+          if (-not $ready) { throw 'HOLD: Exact V66 public visual and functional assets not proven; refusing stale-site UI success claims.' }
 
       - name: Read-only real Edge browser smoke (PC and mobile, six industries)
         shell: pwsh
@@ -108,6 +126,14 @@ jobs:
           $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
           New-Item -ItemType Directory -Path $out -Force | Out-Null
           python webstudio/tools/v653_live_sales_qa.py --output "$out"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+      - name: Real Windows Edge V66 distinct design and 12 sector first-click QA
+        shell: pwsh
+        run: |
+          $out = Join-Path $env:RUNNER_TEMP 'AFO_V65_PUBLIC_BROWSER_QA'
+          New-Item -ItemType Directory -Path $out -Force | Out-Null
+          python webstudio/tools/v66_live_design_qa.py --output "$out"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Package full deployable site source plus QA evidence even on HOLD
