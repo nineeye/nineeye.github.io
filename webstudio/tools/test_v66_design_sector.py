@@ -64,6 +64,7 @@ class V66StylesAndSectors(unittest.TestCase):
  def test_real_working_v28_tabs_not_fake_function_links(self):
   self.assertIn("document.getElementById('v28-tab-'+i)",JS)
   self.assertIn("tab.click()",JS)
+  self.assertIn("behavior:'instant'",JS)
   self.assertIn("location.assign(target.href)",JS)
   self.assertIn("target.searchParams.set('feature',String(i))",JS)
   self.assertIn("data-v66-feature",JS) if "data-v66-feature" in JS else self.assertIn("dataset.v66Feature=String(i)",JS)
