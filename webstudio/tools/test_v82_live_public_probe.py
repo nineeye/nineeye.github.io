@@ -28,6 +28,9 @@ class V82LiveProbeTests(unittest.TestCase):
   self.assertEqual(len(records),47)
   self.assertEqual(sum(x['status']=='HOLD' for x in records),1)
   self.assertEqual(M.summarize(records,M.PRODUCTION_ORIGIN,1)['result'],'HOLD_PUBLIC_DEPLOY')
+ def test_cloudflare_index_html_to_root_canonicalization(self):
+  self.assertEqual(M.norm_route('/index.html'),M.norm_route('/'))
+  self.assertEqual(M.norm_route('/contact.html'),M.norm_route('/contact'))
  def test_actual_report_and_zip_never_claim_customer_receipt(self):
   rows=M.once(lambda path:(ROOT/path).read_text('utf-8'))
   result=M.summarize(rows,M.PRODUCTION_ORIGIN,1)
