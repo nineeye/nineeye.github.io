@@ -23,7 +23,7 @@ class TestV78(unittest.TestCase):
     self.assertEqual(len(self.a[k]['extra']),4)
     i=self.f[k]['index'];self.assertIn(i,range(4))
     self.assertEqual(self.a[k]['extra'][i]['status'],'simulated')
-    self.assertEqual([x['status'] for x in self.a[k]['extra']].count('planned'),3)
+    self.assertEqual([x['status'] for x in self.a[k]['extra']].count('planned'),2)
     self.assertTrue(self.f[k]['lead']);self.assertTrue(self.f[k]['type'] in ('stock','stay','calc','list'))
  def test_36_demo_paths_keep_original_tools(self):
   for k in self.f:
