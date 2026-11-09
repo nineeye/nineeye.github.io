@@ -74,7 +74,7 @@ function init(){
      const tab=document.getElementById('v28-tab-'+i);
      if(tab){
        tab.click();
-       document.getElementById('v28-tools')?.scrollIntoView({block:'start',behavior:'auto'});
+       document.getElementById('v28-tools')?.scrollIntoView({block:'start',behavior:'instant'});
      }else{
        // Full route fallback uses V28's existing strict allowlisted feature query.
        const target=new URL(location.href);

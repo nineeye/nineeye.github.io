@@ -89,6 +89,7 @@ jobs:
                     $demo.Content.Contains('v653-to-plan') -and
                     $sales.Content.Contains('window.AFO_V653_TERMS_COUNT=TERMS.length') -and
                     $v66Script.Content.Contains('window.AFO_V66_SECTOR_COUNT=Object.keys(INDUSTRIES).length') -and
+                    $v66Script.Content.Contains("behavior:'instant'") -and
                     $v66Styles.Content.Contains('.theme-editorial .service-card') -and
                     $loader.Content.Contains('v66-sector-artdirection.js')) {
                   Write-Host 'EXACT_V66_PUBLIC_MANIFEST_THREE_JS_AND_CSS_VERIFIED'
