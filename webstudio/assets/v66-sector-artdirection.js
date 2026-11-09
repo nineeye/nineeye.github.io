@@ -98,6 +98,20 @@ function init(){
  // All 36 HTML pages share these same code enhancements without editing templates.
  body.dataset.v66Ready='true';
 }
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+// V23 dynamically rebuilds the hero after its async script loads. Running
+// V66 before that rebuild silently loses distinctive headlines on some sectors.
+// Observe only the one-time V23 workflow insertion and then apply V66, no polling.
+function bootAfterV23(){
+ const main=document.querySelector('main');
+ const v23Script=document.querySelector('script[data-v23-module]');
+ if(!main||!v23Script||document.getElementById('v23-workflow')){init();return;}
+ const observer=new MutationObserver(()=>{
+   if(!document.getElementById('v23-workflow'))return;
+   observer.disconnect();init();
+ });
+ observer.observe(main,{childList:true});
+}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bootAfterV23,{once:true});else bootAfterV23();
+window.AFO_V66_HERO_ORDER_FIX='v66.2';
 window.AFO_V66_SECTOR_COUNT=Object.keys(INDUSTRIES).length;
 })();
