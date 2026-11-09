@@ -1,0 +1,12 @@
+/* Print the full V72/V73 consultation packet, not the truncated V26 preview. */
+@media print{
+ body[data-v76-unified="true"] .brief-section .workspace,
+ body[data-v76-unified="true"] .preview,
+ body[data-v76-unified="true"] #v47-mail-packet,
+ body[data-v76-unified="true"] #v40-mail-fallback{display:none!important}
+ body[data-v76-unified="true"] .brief-section .frame,
+ body[data-v76-unified="true"] #v653-import{display:block!important;width:100%!important;max-width:none!important;background:white!important;color:#152b28!important;border:0!important;padding:0!important;margin:0!important;box-shadow:none!important}
+ body[data-v76-unified="true"] #v653-full-brief{display:block!important;max-height:none!important;overflow:visible!important;white-space:pre-wrap!important;overflow-wrap:anywhere!important;word-break:break-word!important;font:10.5pt/1.6 'Malgun Gothic',system-ui,sans-serif!important;color:#152b28!important;background:white!important;border:0!important;box-shadow:none!important;padding:0!important}
+ body[data-v76-unified="true"] #v653-import .v71-full-actions,
+ body[data-v76-unified="true"] #v653-import .v653-feedback{display:none!important}
+}
