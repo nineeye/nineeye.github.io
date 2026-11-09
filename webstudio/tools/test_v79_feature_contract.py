@@ -20,8 +20,8 @@ class V79Contract(unittest.TestCase):
                 self.assertEqual(len(base),4);self.assertEqual(len(extra),4)
                 self.assertNotEqual(a,b)
                 self.assertIn(a,range(4));self.assertIn(b,range(4))
-                self.assertEqual([f['status'] for f in extra].count('simulated'),2)
-                self.assertEqual([f['status'] for f in extra].count('planned'),2)
+                self.assertEqual([f['status'] for f in extra].count('simulated'),3)
+                self.assertEqual([f['status'] for f in extra].count('planned'),1)
                 self.assertEqual(extra[a]['status'],'simulated');self.assertEqual(extra[b]['status'],'simulated')
                 self.assertEqual(len({f['title'] for f in base+extra}),8)
     def test_demos_preserved_and_v79_module_loaded_in_all_three_surfaces(self):
