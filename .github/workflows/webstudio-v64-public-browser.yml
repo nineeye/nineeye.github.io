@@ -47,6 +47,13 @@ jobs:
           python webstudio/tools/v82_publish_bundle.py --root webstudio --output "$dir/AllFileOne_WebStudio_V82_PublishOnly.zip" --report "$dir/V82_SITE_PACKAGE_MANIFEST.json"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: V83 read-only public origin diagnosis (keeps HOLD evidence)
+        shell: pwsh
+        run: |
+          $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          python webstudio/tools/v83_public_diagnostics.py --output "$dir"
+          if ($LASTEXITCODE -ne 0 -and $LASTEXITCODE -ne 3) { exit $LASTEXITCODE }
+
       - name: Check exact V82 public Cloudflare files read-only (HOLD on unavailable/stale)
         shell: pwsh
         run: |
