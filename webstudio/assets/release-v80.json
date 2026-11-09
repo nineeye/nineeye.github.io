@@ -1,0 +1,17 @@
+{
+  "release": "WEBSTUDIO-V80-20261109",
+  "base_v79_commit": "41de63883bea529df3ac8549c67381ee27552682",
+  "industries": 12,
+  "styles": 3,
+  "original_v28_browser_tools": 48,
+  "v78_addons": 12,
+  "v79_addons": 12,
+  "v80_addons": 12,
+  "functional_fictional_browser_demos": 84,
+  "unbuilt_production_options": 12,
+  "paid_api_spend": 0,
+  "actual_production_backends": false,
+  "cloudflare_deployment": "NOT_VERIFIED",
+  "real_customer_inquiry_receipt": "NOT_VERIFIED",
+  "usage_note": "All 84 simulations operate on fictional client-side data. No actual orders, bookings, stock, medical records, CRM or payments."
+}
