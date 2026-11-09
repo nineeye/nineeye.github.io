@@ -1,0 +1,18 @@
+{
+  "release": "WEBSTUDIO-V76-20261109",
+  "base": "V75 GitHub f7defae299def84d92a4b3ef3ef34364f931231a",
+  "scope": "Synchronize V42/V47/V34 secondary copy, TXT, preview, print with V72/V73 authoritative consultation packet",
+  "legacy_controls": [
+    "v42-copy-complete",
+    "v47-copy-all",
+    "v47-download-all",
+    "v47-show-all",
+    "brief-print"
+  ],
+  "public_browser": "HOLD: DNS blocked in model environment",
+  "actual_customer_email_receipt": "NOT_VERIFIED",
+  "paid_api_calls": 0,
+  "auto_email_submission": false,
+  "existing_demos": 36,
+  "existing_demo_workflows": 48
+}
