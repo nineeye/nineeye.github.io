@@ -232,5 +232,18 @@
   "v653_data_transfer": "same_tab_one_time_allowlist_15m_no_PII",
   "v653_real_live_qa": "tools/v653_live_sales_qa.py",
   "v653_actual_customer_contract": "NOT_TESTED",
-  "v653_actual_mail_receipt": "NOT_TESTED"
+  "v653_actual_mail_receipt": "NOT_TESTED",
+  "v66_design_version": "2026-11-09-V66",
+  "v66_three_distinct_pagewide_styles": [
+    "modern-product-bento",
+    "premium-deep-luxe",
+    "editorial-magazine"
+  ],
+  "v66_sector_first_entrypoints": 12,
+  "v66_feature_shortcuts_per_sector": 4,
+  "v66_demo_pages": 36,
+  "v66_mobile_header_collision_fix": true,
+  "v66_no_new_production_backends": true,
+  "v66_actual_customers_not_tested": true,
+  "v66_live_edge_qa": "tools/v66_live_design_qa.py"
 }
