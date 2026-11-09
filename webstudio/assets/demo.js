@@ -78,7 +78,18 @@
         ui28.src = new URL('v28-tools.js', base).href;
         ui28.async = true;
         ui28.dataset.v28Module = 'true';
-        document.head.append(ui28);
+        // V77 expands industry functions only AFTER V28 demo tools finish loading.
+      ui28.addEventListener('load',()=>{
+        if(document.querySelector('script[data-v77-script]'))return;
+        const css77=document.createElement('link');css77.rel='stylesheet';
+        css77.href=new URL('v77-feature-showcase.css',base).href;document.head.append(css77);
+        const cat77=document.createElement('script');cat77.src=new URL('v77-feature-data.js',base).href;cat77.async=true;
+        cat77.addEventListener('load',()=>{
+          const js77=document.createElement('script');js77.src=new URL('v77-feature-showcase.js',base).href;
+          js77.async=true;js77.dataset.v77Script='true';document.head.append(js77);
+        },{once:true});document.head.append(cat77);
+      },{once:true});
+      document.head.append(ui28);
       }, {once:true});
       document.head.append(catalog28);
     }, {once:true});

@@ -9,10 +9,13 @@
 <title>같은 업종, 다른 디자인 3가지 실제 비교 | 올파일원 웹스튜디오</title>
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
 <link rel="stylesheet" href="assets/v67-compare.css">
+<link rel="stylesheet" href="assets/v77-compare-extend.css">
 <link rel="stylesheet" href="assets/v70-buyer-bridge.css">
 <script src="assets/v28-catalog.js" defer></script>
 <script src="assets/v67-industry-data.js" defer></script>
+<script src="assets/v77-feature-data.js" defer></script>
 <script src="assets/v67-compare.js" defer></script>
+<script src="assets/v77-compare-extend.js" defer></script>
 <script src="assets/v652-sector-requirements.js" defer></script>
 <script src="assets/v70-buyer-bridge.js" defer></script>
 </head>
@@ -24,7 +27,7 @@
  <div class="eyebrow"><span class="signal"></span> LIVE DESIGN COMPARISON <span class="edition">2026 EDITION · 12 INDUSTRIES / 36 LIVE SITES</span></div>
  <h1 id="page-title">같은 업종.<br><em>완전히 다른</em> 세 가지 화면.</h1>
  <p>색상만 바꾼 그림이 아닙니다. 모던은 정보 중심 분할 레이아웃, 프리미엄은 브랜드 중심 무대, 에디토리얼은 읽는 흐름을 가진 매거진 구성입니다. 아래는 <strong>기존에 구현된 실제 HTML 페이지</strong>를 동시에 불러옵니다.</p>
- <div class="intro-tags"><span>실제 데모 3개 나란히 표시</span><span>업종별 실제 도구 4개의 정확한 이름·설명 확인</span><span>추가 결제·회원가입 없음</span></div>
+ <div class="intro-tags"><span>실제 데모 3개 나란히 표시</span><span>업종별 8개 기능 보기: 직접 시연 4개 + 제작 옵션 4개</span><span>추가 결제·회원가입 없음</span></div>
 </div></section>
 <section class="workspace" id="controls" aria-labelledby="workspace-title"><div class="workspace-inner">
  <div class="workspace-heading"><div><span class="eyebrow dark-eye">SELECT YOUR BUSINESS / 01</span><h2 id="workspace-title">우리 업종을 선택하세요.</h2><p>선택하면 모던·프리미엄·에디토리얼 실제 페이지 3개가 동시에 바뀝니다.</p></div><label class="selector">비교할 업종<select id="industry-select" aria-describedby="sector-description"><option value="manufacturing">제조 · 도매</option><option value="corporate">기업 · 회사</option><option value="clinic">병원 · 의원</option><option value="academy">학원 · 교육</option><option value="interior">인테리어 · 시공</option><option value="commerce">쇼핑몰 · 브랜드</option><option value="professional">법률 · 세무 · 회계</option><option value="association">협회 · 단체</option><option value="franchise">프랜차이즈</option><option value="stay">숙박 · 펜션</option><option value="realestate">부동산 · 분양</option><option value="event">행사 · 캠페인</option></select></label></div>
@@ -36,7 +39,7 @@
  <article class="design-card" data-style="editorial"><div class="card-meta"><span class="card-index">03 / EDITORIAL</span><span class="character">STORY FIRST</span></div><h3>에디토리얼</h3><p class="card-caption">이야기 중심. 큰 제목과 잡지형 비대칭 흐름.</p><div class="preview-frame" data-preview="editorial"><div class="desktop-iframe"><iframe title="에디토리얼 실제 웹사이트 미리보기" loading="lazy" tabindex="-1" aria-hidden="true"></iframe></div></div><div class="card-actions"><button type="button" data-open="editorial" aria-pressed="false">큰 화면에서 체험</button><a data-direct="editorial" href="./demo/manufacturing/editorial/index.html" target="_blank" rel="noopener">새 창에서 열기 ↗</a></div></article>
  </div>
  <div class="working" id="working" aria-labelledby="working-title"><div class="working-header"><div><span class="eyebrow dark-eye">CLICK THE REAL DEMO / 03</span><h2 id="working-title">실제 화면 직접 체험</h2><p id="active-description" role="status" aria-live="polite">제조 · 도매 · 모던 선택 중</p></div><div class="working-actions"><a id="open-full" href="./demo/manufacturing/modern/index.html" target="_blank" rel="noopener">전체 화면에서 열기 ↗</a><button id="reload-live" type="button">새로고침</button></div></div><div class="live-screen"><iframe id="interactive-demo" title="선택한 디자인의 실제 기능을 직접 조작하는 화면" loading="lazy"></iframe></div><p class="working-note">※ 가상 데이터로 작동하는 실제 HTML/CSS/JavaScript 데모입니다. 검색·필터·비교·계산 등 화면 내 기능을 직접 체험할 수 있지만 실제 예약·결제·진료·고객 문의 접수는 처리하지 않습니다.</p></div>
- <div class="workflow" id="workflow" aria-labelledby="workflow-title"><div class="workflow-heading"><div><span class="eyebrow dark-eye">BUSINESS FUNCTIONS / 04</span><h2 id="workflow-title">이 업종에서 꼭 필요한 4가지</h2><p>12개 업종의 실제 시연 도구 이름·종류·설명을 바로 아래에서 확인하고, 원하는 도구로 이동할 수 있습니다.</p></div><button id="download-scope" type="button">이 업종 기획 내용 TXT 저장 <span aria-hidden="true">↓</span></button></div><div id="feature-links" class="feature-grid" aria-label="선택한 업종별 실제 기능"></div></div>
+ <div class="workflow" id="workflow" aria-labelledby="workflow-title"><div class="workflow-heading"><div><span class="eyebrow dark-eye">BUSINESS FUNCTIONS / 04</span><h2 id="workflow-title">이 업종에서 필요한 8가지 기능</h2><p>업종별 직접 시연 4개와 조사한 제작 옵션 4개를 구분해 표시합니다. 제작 옵션은 아직 구현되지 않았습니다. <strong>실제 예약·결제·회원 운영 연동은 별도 협의</strong>가 필요합니다.</p></div><button id="download-scope" type="button">이 업종 기획 내용 TXT 저장 <span aria-hidden="true">↓</span></button></div><p id="v77-workflow-notice">초록 4개: 실제 가상 시연 · 베이지색 4개: 제작 검토 (미구현)</p><div id="feature-links" class="feature-grid" aria-label="선택한 업종별 8개 기능"></div></div>
  <section class="v70-buyer" id="v70-buyer" aria-labelledby="v70-title"><div class="v70-heading"><div><span class="v70-step">BUYER BRIEF / 05 · SELECT WHAT MATTERS</span><h2 id="v70-title">원하는 기능을 고르고<br>제작 범위를 이어가세요.</h2><p class="v70-lead">위 디자인에서 마음에 드는 구성을 고른 뒤, 아래에서 업종별 실제로 필요한 기능을 선택합니다. <strong>이 정보는 브라우저에서만 처리</strong>되며, 다음 제작 상품 비교 화면에 일회성으로 전달합니다.</p></div><div class="v70-selected"><span>선택 중인 홈페이지</span><strong id="v70-current-selection">제조·도매 · 모던</strong><small>12업종 × 3디자인 · 가상 시연과 실제 납품은 별개</small></div></div>
  <fieldset aria-describedby="v70-requirements-help"><legend>01 / 필요한 업무 기능 <small>1개 이상 선택, 최대 4개</small></legend><p id="v70-requirements-help" class="v70-lead" style="margin:-4px 0 16px">실제 운영 연동이 필요한 항목은 견적에 자동 포함되지 않습니다.</p><div id="v70-requirements" class="v70-requirements"></div></fieldset>
  <div class="v70-meta"><label class="v70-field" for="v70-scale">02 / 자료·운영 규모<select id="v70-scale"></select></label><label class="v70-field" for="v70-when">03 / 희망 제작 시기<select id="v70-when"><option value="unknown">미정 · 협의</option><option value="soon">1개월 내 협의</option><option value="quarter">1~3개월 검토</option></select></label></div>

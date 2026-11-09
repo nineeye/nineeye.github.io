@@ -132,6 +132,20 @@ jobs:
           python -m unittest discover -s webstudio/tools -p test_v76_contact_unification.py -v
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
+      - name: V77 confirm 12 sectors, 96 clearly labelled feature entries and preserved 48 demos
+        shell: pwsh
+        run: |
+          node --check webstudio/assets/v77-feature-data.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v77-feature-showcase.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v77-industry-hub.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v77-compare-extend.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python -m unittest discover -s webstudio/tools -p test_v77_sector_features.py -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
       - name: Require exact published V66 design and V65.3 buyer assets before live checks
         shell: pwsh
         run: |
@@ -154,7 +168,8 @@ jobs:
               $v73 = $manifest.v73_scope_guard_version -eq 'V73-20261109' -and $manifest.v73_stale_quote_explicit_reference_only -eq $true -and $manifest.v73_original_brief_preserved_for_audit -eq $true -and $manifest.v73_auto_mail_submission -eq $false
               $v74 = $manifest.v74_public_proof_version -eq 'V74-20261109' -and $manifest.v74_public_audit_no_mail_receipt_claim -eq $true
               $v76 = $manifest.v76_contact_unification_version -eq 'V76-20261109' -and $manifest.v76_legacy_copy_save_print_uses_complete_packet -eq $true -and $manifest.v76_mail_auto_sent -eq $false
-              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72 -and $v73 -and $v74 -and $v76)) {
+              $v77 = $manifest.v77_sector_feature_version -eq 'V77-20261109' -and $manifest.v77_visible_features_per_sector -eq 8 -and $manifest.v77_live_simulated_tool_count -eq 48 -and $manifest.v77_planned_unbuilt_feature_count -eq 48
+              if (-not ($v65 -and $v653 -and $v66 -and $v68 -and $v69 -and $v70 -and $v71 -and $v72 -and $v73 -and $v74 -and $v76 -and $v77)) {
                 Write-Host 'Cloudflare release is still prior to exact V66 design features.'
               } else {
                 $demo = Invoke-WebRequest -Uri "$origin/assets/v652-sector-requirements.js" -TimeoutSec 10 -Headers $headers
@@ -177,6 +192,10 @@ jobs:
                 $v74Release = Invoke-WebRequest -Uri "$origin/assets/release-v74.json" -TimeoutSec 10 -Headers $headers
                 $v76Script = Invoke-WebRequest -Uri "$origin/assets/v76-contact-unification.js" -TimeoutSec 10 -Headers $headers
                 $v76Styles = Invoke-WebRequest -Uri "$origin/assets/v76-contact-unification.css" -TimeoutSec 10 -Headers $headers
+                $v77Data = Invoke-WebRequest -Uri "$origin/assets/v77-feature-data.js" -TimeoutSec 10 -Headers $headers
+                $v77Showcase = Invoke-WebRequest -Uri "$origin/assets/v77-feature-showcase.js" -TimeoutSec 10 -Headers $headers
+                $v77Hub = Invoke-WebRequest -Uri "$origin/industry-features-v77.html" -TimeoutSec 10 -Headers $headers
+                $v77Compare = Invoke-WebRequest -Uri "$origin/assets/v77-compare-extend.js" -TimeoutSec 10 -Headers $headers
                 if ($demo.StatusCode -eq 200 -and $sales.StatusCode -eq 200 -and
                     $v66Script.StatusCode -eq 200 -and $v66Styles.StatusCode -eq 200 -and $loader.StatusCode -eq 200 -and
                     $demo.Content.Contains('v653-to-plan') -and
@@ -222,8 +241,16 @@ jobs:
                     $v74Release.Content.Contains('"release": "V74-20261109"') -and
                     $v76Script.StatusCode -eq 200 -and $v76Styles.StatusCode -eq 200 -and
                     $v76Script.Content.Contains("window.AFO_V76_CONTACT_UNIFICATION='v76.0'") -and
-                    $v72Contact.Content.Contains("assets/v76-contact-unification.js")) {
+                    $v72Contact.Content.Contains("assets/v76-contact-unification.js") -and
+                    $v77Data.StatusCode -eq 200 -and $v77Showcase.StatusCode -eq 200 -and
+                    $v77Hub.StatusCode -eq 200 -and $v77Compare.StatusCode -eq 200 -and
+                    $v77Data.Content.Contains('window.AFO_V77_FEATURE_EXTENSION') -and
+                    $v77Hub.Content.Contains('assets/v77-industry-hub.js') -and
+                    $v77Compare.Content.Contains('data-v77-plan') -and
+                    $loader.Content.Contains('v77-feature-showcase.js') -and
+                    $compare.Content.Contains('assets/v77-compare-extend.js')) {
                   Write-Host 'EXACT_V74_PUBLIC_PROOF_ASSETS_VERIFIED'
+                  Write-Host 'EXACT_V77_8_FEATURES_PER_INDUSTRY_VERIFIED'
                   $ready = $true
                   break
                 }
