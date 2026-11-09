@@ -44,6 +44,10 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --check webstudio/assets/v87-inquiry.js
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v88-mail-fallback.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v88-launch-check.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
       - name: Build Cloudflare site-only zip rooted at index.html
         shell: pwsh
@@ -182,6 +186,38 @@ jobs:
           $out = Join-Path $root 'V87_WINDOWS_EDGE'
           python webstudio/tools/v87_edge_browser_qa.py --origin "$env:V87_PUBLIC_ORIGIN" --output "$out"
           if ($LASTEXITCODE -ne 0) { throw 'HOLD: V87 real public Edge inquiry flow did not pass; read AFO_V87_WINDOWS_EDGE_KO.txt.' }
+
+      - name: V88 exact 9-file public proof — Cloudflare and independent GitHub Pages
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          $cloud = Join-Path $root 'V88_CLOUDFLARE'
+          $pages = Join-Path $root 'V88_GITHUB_PAGES'
+          $cloudOk = $false
+          $pagesOk = $false
+          for ($attempt=1; $attempt -le 6; $attempt++) {
+            python webstudio/tools/v88_public_probe.py --origin 'https://allfileone-webstudio.pages.dev/' --output "$cloud"
+            if ($LASTEXITCODE -eq 0) { $cloudOk = $true }
+            python webstudio/tools/v88_public_probe.py --origin 'https://nineeye.github.io/webstudio/' --output "$pages"
+            if ($LASTEXITCODE -eq 0) { $pagesOk = $true }
+            if ($cloudOk -or $pagesOk) { break }
+            if ($attempt -lt 6) { Start-Sleep -Seconds 10 }
+          }
+          if (-not $cloudOk -and -not $pagesOk) { throw 'HOLD: V88 exact nine public assets have not been published at either owned origin.' }
+          $origin = if ($cloudOk) { 'https://allfileone-webstudio.pages.dev/' } else { 'https://nineeye.github.io/webstudio/' }
+          Add-Content -Path $env:GITHUB_ENV -Value "V88_PUBLIC_ORIGIN=$origin"
+          Write-Host ("V88 verified public origin: " + $origin)
+          if (-not $cloudOk) { Write-Host 'HOLD_CLOUDFLARE_ONLY: Independent GitHub Pages V88 passed.' }
+          if (-not $pagesOk) { Write-Host 'HOLD_GITHUB_PAGES_ONLY: Independent Cloudflare V88 passed.' }
+          exit 0
+
+      - name: V88 actual Windows Edge manual mail fallback + operator 30-point evidence
+        shell: pwsh
+        run: |
+          $root = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          $out = Join-Path $root 'V88_WINDOWS_EDGE'
+          python webstudio/tools/v88_edge_public_qa.py --origin "$env:V88_PUBLIC_ORIGIN" --output "$out"
+          if ($LASTEXITCODE -ne 0) { throw 'HOLD: V88 actual public Edge manual mail fallback or owner checklist failed. See V88_WINDOWS_EDGE/AFO_V88_WINDOWS_EDGE_KO.txt.' }
 
       - name: Upload source and public site evidence even when Cloudflare is HOLD
         if: always()
