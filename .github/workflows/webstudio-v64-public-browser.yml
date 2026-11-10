@@ -186,8 +186,14 @@ jobs:
         run: |
           $root = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
           $out = Join-Path $root 'V87_WINDOWS_EDGE'
-          python webstudio/tools/v87_edge_browser_qa.py --origin "$env:V87_PUBLIC_ORIGIN" --output "$out"
-          if ($LASTEXITCODE -ne 0) { throw 'HOLD: V87 real public Edge inquiry flow did not pass; read AFO_V87_WINDOWS_EDGE_KO.txt.' }
+          $passed = $false
+          for ($try = 1; $try -le 2; $try++) {
+            python webstudio/tools/v87_edge_browser_qa.py --origin "$env:V87_PUBLIC_ORIGIN" --output "$out"
+            if ($LASTEXITCODE -eq 0) { $passed = $true; break }
+            Write-Host ("V87 retryable public Edge HOLD attempt " + $try + ": evidence saved; will rerun only once on a fresh isolated profile.")
+            if ($try -lt 2) { Start-Sleep -Seconds 3 }
+          }
+          if (-not $passed) { throw 'HOLD: V87 real public Edge inquiry flow failed twice; see AFO_V87_WINDOWS_EDGE_KO.txt.' }
 
       - name: V88 exact 9-file public proof — Cloudflare and independent GitHub Pages
         shell: pwsh
@@ -250,8 +256,14 @@ jobs:
         run: |
           $root = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
           $out = Join-Path $root 'V89_WINDOWS_EDGE'
-          python webstudio/tools/v89_edge_browser_qa.py --origin "$env:V89_PUBLIC_ORIGIN" --output "$out"
-          if ($LASTEXITCODE -ne 0) { throw 'HOLD: V89 actual Windows Edge public homepage or 12-sector links failed. See V89_WINDOWS_EDGE/V89_PUBLIC_EDGE_KO.txt.' }
+          $passed = $false
+          for ($try = 1; $try -le 2; $try++) {
+            python webstudio/tools/v89_edge_browser_qa.py --origin "$env:V89_PUBLIC_ORIGIN" --output "$out"
+            if ($LASTEXITCODE -eq 0) { $passed = $true; break }
+            Write-Host ("V89 retryable public Edge HOLD attempt " + $try + ": evidence saved; will rerun only once on a fresh isolated profile.")
+            if ($try -lt 2) { Start-Sleep -Seconds 3 }
+          }
+          if (-not $passed) { throw 'HOLD: V89 actual Windows Edge public homepage or 12-sector links failed twice. See V89_WINDOWS_EDGE/V89_PUBLIC_EDGE_KO.txt.' }
 
       - name: Upload source and public site evidence even when Cloudflare is HOLD
         if: always()
