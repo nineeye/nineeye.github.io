@@ -48,6 +48,8 @@ jobs:
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --check webstudio/assets/v89-home.js
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          node --check webstudio/assets/v90-process.js
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           node --check webstudio/assets/v88-launch-check.js
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
 
@@ -264,6 +266,43 @@ jobs:
             if ($try -lt 2) { Start-Sleep -Seconds 3 }
           }
           if (-not $passed) { throw 'HOLD: V89 actual Windows Edge public homepage or 12-sector links failed twice. See V89_WINDOWS_EDGE/V89_PUBLIC_EDGE_KO.txt.' }
+
+      - name: V90 true owner HTTPS 6-file proof on Cloudflare and GitHub Pages
+        shell: pwsh
+        run: |
+          $base = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          $cloud = Join-Path $base 'V90_CLOUDFLARE'
+          $pages = Join-Path $base 'V90_GITHUB_PAGES'
+          $cloudOk = $false
+          $pagesOk = $false
+          for ($i = 1; $i -le 5; $i++) {
+            python webstudio/tools/v90_public_probe.py --origin "https://allfileone-webstudio.pages.dev/" --output "$cloud"
+            if ($LASTEXITCODE -eq 0) { $cloudOk = $true }
+            python webstudio/tools/v90_public_probe.py --origin "https://nineeye.github.io/webstudio/" --output "$pages"
+            if ($LASTEXITCODE -eq 0) { $pagesOk = $true }
+            if ($cloudOk -and $pagesOk) { break }
+            if ($i -lt 5) { Start-Sleep -Seconds 9 }
+          }
+          if (-not $cloudOk -and -not $pagesOk) {
+            throw 'HOLD: V90 exact six public files failed at both owner public HTTPS origins.'
+          }
+          if (-not $cloudOk) { Write-Host 'HOLD_CLOUDFLARE_V90_ONLY: GitHub Pages verified, Cloudflare still stale.' }
+          if (-not $pagesOk) { Write-Host 'HOLD_GITHUB_PAGES_V90_ONLY: Cloudflare verified, GitHub Pages still stale.' }
+          $origin = if ($cloudOk) { 'https://allfileone-webstudio.pages.dev/' } else { 'https://nineeye.github.io/webstudio/' }
+          Add-Content -Path $env:GITHUB_ENV -Value "V90_PUBLIC_ORIGIN=$origin"
+          Write-Host ('V90 actual public release verified at: ' + $origin)
+          exit 0
+
+      - name: V90 real Windows Edge buyer contract-readiness interaction screenshots
+        shell: pwsh
+        run: |
+          $dir = Join-Path $env:RUNNER_TEMP 'AFO_WebStudio_V82_Evidence'
+          $out = Join-Path $dir 'V90_WINDOWS_EDGE'
+          python webstudio/tools/v90_edge_browser_qa.py --origin "$env:V90_PUBLIC_ORIGIN" --output "$out"
+          if ($LASTEXITCODE -ne 0) {
+            throw 'HOLD: V90 real Windows Edge buyer scope steps, 12-sector controls, or mobile checks failed.'
+          }
+          exit 0
 
       - name: Upload source and public site evidence even when Cloudflare is HOLD
         if: always()
