@@ -11,8 +11,17 @@ class V82ReleaseChecks(unittest.TestCase):
   self.assertEqual(d['v80_total_browser_simulations'],84);self.assertEqual(d['v81_scope_version'],'V81-20261109')
   self.assertFalse(d['v82_public_cloudflare_verified']);self.assertFalse(d['v82_actual_customer_email_verified'])
  def test_homepage_current_visible_badge(self):
-  s=(ROOT/'index.html').read_text('utf-8');self.assertIn('홈페이지 HTML 버전 V82',s)
-  self.assertIn('WEBSTUDIO-V82-20261109',s);self.assertIn('site-current-version',s)
+  s=(ROOT/'index.html').read_text('utf-8')
+  # V82 release manifest is still intentionally preserved; the customer homepage
+  # advances independently. Never force it to claim a stale V82 visible version.
+  version=re.search(r'<meta name="site-current-version" content="([^"]+)"',s)
+  self.assertIsNotNone(version,'Latest customer homepage needs an explicit version marker')
+  self.assertIn(version.group(1),('WEBSTUDIO-V82-20261109','WEBSTUDIO-V89-20261110'))
+  if version.group(1)=='WEBSTUDIO-V82-20261109':
+   self.assertIn('홈페이지 HTML 버전 V82',s)
+  else:
+   self.assertIn('data-v89="WEBSTUDIO-V89-20261110"',s)
+   self.assertNotIn('홈페이지 HTML 버전 V82',s)
   self.assertNotIn('assets/v82-release-check.css',s,'Audit styles must not change customer homepage layout')
  def test_operator_checks_use_current_manifest_but_preserve_legacy_checks(self):
   for n in ('v48-sales-audit.js','v50-owner-launch.js'):
