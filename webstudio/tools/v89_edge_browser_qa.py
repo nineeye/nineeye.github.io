@@ -46,7 +46,11 @@ def run(cdp,origin,out,screens=True):
    ck(f'{width}/homepage-h1',('홈페이지' in doc['heading'] and len(doc['heading'])>12),doc['heading'])
    ck(f'{width}/4-menu-6-sections',doc['nav']==4 and doc['sections']==6,f"{doc['nav']}/{doc['sections']}")
    ck(f'{width}/no-overflow',doc['body']<=doc['view']+3,f"{doc['body']}/{doc['view']}")
-   ck(f'{width}/3-images-real-body',len(doc['imgs'])==3 and all(x['ok'] for x in doc['imgs']),doc['imgs'])
+   # Lazy-loaded image files are intentionally not requested until near the viewport.
+   # Bring each actual public screenshot into view, then await its decode with a bound.
+   # A 200 HTML fallback, absent image, broken decode or blocked network still holds.
+   images=cdp.evaluate('''(async()=>{const nodes=[...document.querySelectorAll(".sample-image img")];const wait=ms=>new Promise(resolve=>setTimeout(resolve,ms));for(const img of nodes){img.scrollIntoView({block:"center",behavior:"instant"});try{await Promise.race([img.decode().catch(()=>null),wait(2800)]);}catch(e){}}return nodes.map(x=>({ok:x.complete&&x.naturalWidth>0,w:x.naturalWidth}));})()''')
+   ck(f'{width}/3-images-real-body',len(images)==3 and all(x['ok'] for x in images),images)
    for sector in SECTORS:
     code=f'''(()=>{{const e=document.getElementById('v89-sector');e.value={json.dumps(sector)};e.dispatchEvent(new Event('change',{{bubbles:true}}));return {{v:e.value,head:document.getElementById('v89-sector-head').textContent,demo:document.getElementById('v89-sector-demo').getAttribute('href'),guide:document.getElementById('v89-sector-guide').getAttribute('href'),w:document.documentElement.scrollWidth}};}})()'''
     v=cdp.evaluate(code)
@@ -54,7 +58,7 @@ def run(cdp,origin,out,screens=True):
     ck(f'{width}/{sector}/links',v['demo']==f'./experience-v85.html?industry={sector}' and v['guide']==f'./industry-guide/{sector}.html',str(v))
     ck(f'{width}/{sector}/no-overflow',v['w']<=width+3,str(v['w']))
    if screens:
-    cdp.evaluate('document.getElementById("v89-sector").value="manufacturing"')
+    cdp.evaluate('document.getElementById("v89-sector").value="manufacturing";window.scrollTo({top:0,behavior:"instant"})')
     data=cdp.call('Page.captureScreenshot',{'format':'png','captureBeyondViewport':False},seconds=16).get('data','')
     if data:
      name='V89_LIVE_PC_1280.png' if width==1280 else 'V89_LIVE_MOBILE_390.png'
