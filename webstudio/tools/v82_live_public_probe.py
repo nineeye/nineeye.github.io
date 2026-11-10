@@ -17,7 +17,7 @@ SECTORS=('manufacturing','corporate','clinic','academy','interior','commerce',
 STYLES=('modern','premium','editorial')
 EXPECTED_ID='WEBSTUDIO-V82-20261109'
 EXACT_ASSETS=[
- ('홈페이지','index.html',('site-current-version','홈페이지 HTML 버전 V82')),
+ ('홈페이지(현행 버전 공개 진입)','index.html',('site-current-version','./experience-v85.html')),
  ('V82 공개 검사 화면','release-check-v82.html',('v82-release-check.js','V82 실제 공개 배포 확인')),
  ('V82 공개 검사 동작','assets/v82-release-check.js',("window.AFO_V82_PROBE='V82-20261109'",)),
  ('V81 제작 범위','feature-scope-v81.html',('data-v81-scope="V81-20261109"',)),
