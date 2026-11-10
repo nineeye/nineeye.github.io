@@ -1,0 +1,15 @@
+/* V90 first-party no-storage, no POST, no paid API; client-side checklist only. */
+(()=>{'use strict';
+ const id=x=>document.getElementById(x),sector=id('v90-sector'),inputs=[...document.querySelectorAll('[data-v90-key]')];
+ const labels={manufacturing:'제조·도매',corporate:'기업·회사',clinic:'병원·의원',academy:'학원·교육',interior:'인테리어·시공',commerce:'쇼핑몰·브랜드',professional:'법률·세무·회계',association:'협회·단체',franchise:'프랜차이즈',stay:'숙박·펜션',realestate:'부동산·분양',event:'행사·캠페인'};
+ if(!sector||inputs.length!==10||!Object.keys(labels).every(k=>sector.querySelector('option[value="'+k+'"]')))return;
+ const from=new URLSearchParams(location.search).get('industry');if(Object.prototype.hasOwnProperty.call(labels,from))sector.value=from;
+ const report=()=>{const done=inputs.filter(x=>x.checked),rest=inputs.filter(x=>!x.checked),lines=['올파일원 웹스튜디오 V90 — 홈페이지 제작 전 확인표','','업종: '+labels[sector.value],'확인: '+done.length+'/10','', '[확인한 질문]',...done.map((x,i)=>(i+1)+'. '+x.parentElement.querySelector('span').textContent),'','[아직 확인이 필요한 질문]',...rest.map((x,i)=>(i+1)+'. '+x.parentElement.querySelector('span').textContent),'', '[안내]','체크한 내용은 고객 본인의 준비상태 표시일 뿐 실제 계약·납품·검증 사실을 보증하지 않습니다.','29/59/99만원은 기획 참고 시작가이며 확정 견적이 아닙니다.','부가세·도메인·호스팅·수정·납품·운영 보안·권리는 개별 서면 합의가 필요합니다.','이 파일은 고객의 브라우저에서 생성됩니다. 이메일이나 서버로 자동 전송되지 않습니다.',''];return lines.join('\n')};
+ const update=()=>{const n=inputs.filter(x=>x.checked).length;id('v90-count').textContent=String(n);id('v90-summary').textContent=n===10?'모든 질문을 표시했습니다. 실제 합의·증빙은 서면으로 확인하세요.':`아직 확인되지 않은 항목이 ${10-n}개 있습니다.`;id('v90-progress').setAttribute('aria-valuenow',String(n));id('v90-progress-fill').style.width=(n*10)+'%';id('v90-request').href='./start-project-v87.html?industry='+encodeURIComponent(sector.value);};
+ const feedback=t=>{id('v90-feedback').textContent=t;};
+ inputs.forEach(x=>x.addEventListener('change',update));sector.addEventListener('change',update);
+ id('v90-reset').addEventListener('click',()=>{inputs.forEach(x=>x.checked=false);update();feedback('체크 항목이 초기화됐습니다. 서버에 저장된 내용은 없습니다.');});
+ id('v90-download').addEventListener('click',()=>{const blob=new Blob(['\ufeff'+report().replace(/\n/g,'\r\n')],{type:'text/plain;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='AllFileOne_V90_'+sector.value+'_precontract_checklist.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),5000);feedback('확인표 TXT 저장을 요청했습니다. 실제 상담은 따로 문의해야 합니다.');});
+ id('v90-copy').addEventListener('click',async()=>{try{if(!navigator.clipboard?.writeText)throw Error('unsupported');await navigator.clipboard.writeText(report());feedback('내용을 복사했습니다. 이메일은 전송되지 않았습니다.');}catch(_){const old=id('v90-copy-area');if(old)old.remove();const area=document.createElement('textarea');area.id='v90-copy-area';area.readOnly=true;area.rows=7;area.style.width='100%';area.value=report();id('v90-feedback').after(area);area.focus();area.select();feedback('복사 권한이 제한됐습니다. 아래 내용을 직접 선택·복사하세요.');}});
+ update();window.AFO_V90_PROCESS_READY=true;
+})();
